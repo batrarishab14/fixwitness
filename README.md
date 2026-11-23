@@ -1,5 +1,7 @@
 # fixwitness
 
+<!-- mcp-name: io.github.batrarishab14/fixwitness -->
+
 **Evidence that an automated fix did what it claims, and nothing else.**
 
 AI agents now patch vulnerabilities and repair broken pipelines on their own. Each of those changes needs a witness before it ships. fixwitness answers two questions about every fix:
@@ -13,7 +15,50 @@ You get a **verdict** (PASS / FAIL), a **confidence score** (0–100) and a **pr
 
 ```bash
 fixwitness check etl/clean_amounts.py            # in a git repo: HEAD vs. your working copy
+fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv
 ```
+
+## SQL queries and dbt models
+
+AI agents now repair data pipelines: Snowflake's agent goes from a failed pipeline to a pull request in about 16 minutes, and Databricks Genie ZeroOps tests its fixes on a copy of today's data before a person approves them. Neither describes checking the fix on data that isn't there yet ([research notes](docs/RESEARCH.md)).
+
+fixwitness runs the original and the changed query on the same generated tables and compares the results. The tables are built from your sample tables, varied one at a time:
+- an empty table;
+- a NULL in each column, and a whole column of NULLs;
+- a repeated row and a repeated key;
+- values in another case or with padding;
+- boundary and unusual numbers, dates and text;
+- extra columns, including any that are new in the incident data.
+
+```
+$ fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv
+## fixwitness: FAIL
+| Data unchanged | FAIL: 280 of 282 comparable valid inputs give the same output |
+- `empty` input '' in `orders.amount`: changed
+  - row 1, orders: '2' -> '1'
+- `null-column` input '<all NULL>' in `orders.amount`: changed
+  - row 1, orders: '2' -> '0'
+```
+
+That model's refactor swapped `count(*)` for `count(o.amount)`. On today's data the result is identical, so a data diff passes it. A single order with no amount shows the difference.
+
+**On the SQL benchmark** ([`benchmark/sql/`](benchmark/sql/), 17 changes to 6 queries, each wrong change modelling a well-known SQL pitfall):
+
+| Check | Wrong changes caught | Correct changes wrongly rejected |
+|---|---|---|
+| The query runs | 0/11 | 0/6 |
+| Same result on the sample tables (a data diff on today's data) | 0/11 | 0/6 |
+| **fixwitness** | **10/11** | **0/6** |
+| **fixwitness + expected result for the incident** | **11/11** | **0/6** |
+
+These are development results on SQLite: the SQL input classes were refined on this benchmark ([development log](study/DEVLOG_v0.6.md)). The held-out evaluation in [`study/PROTOCOL_v0.6.md`](study/PROTOCOL_v0.6.md) measures them on new tasks.
+
+**How it runs SQL:**
+- **Engine:** DuckDB when it is installed (`pip install duckdb`), otherwise SQLite from Python's standard library. Both versions always run on the same engine, which is recorded in the proof.
+- **Types:** column types come from your sample tables. An empty cell is NULL. A value the column's type can't hold, such as `1,250` in a numeric column, is skipped, just as a warehouse would reject it.
+- **Row order and numbers:** rows are compared as a set unless you pass `--sql-ordered`. Numbers are compared with a relative tolerance of 1e-9, because an equivalent query may add them up in a different order.
+- **dbt models:** `{{ ref('x') }}` and `{{ source('s', 'x') }}` become table `x`, and `{{ config(...) }}` is removed. A model that uses macros or other Jinja is refused with a message; check its compiled SQL from `dbt compile` instead.
+- **Incidents:** `--incident-table customers=customers_bad.csv` gives a table's contents when the original broke, and `--incident-expected` gives the correct result.
 
 ## What it catches
 
@@ -112,7 +157,7 @@ pip install "git+https://github.com/batrarishab14/fixwitness@v0.5.0"
 fixwitness demo
 ```
 
-Python 3.11+, no dependencies. git is needed for the one-line mode.
+Python 3.11+, no dependencies. git is needed for the one-line mode. For SQL, DuckDB is used if installed (`pip install duckdb`), otherwise SQLite.
 
 ## Usage
 
@@ -124,6 +169,8 @@ Python 3.11+, no dependencies. git is needed for the one-line mode.
 | The fix is in an imported module or several files | `fixwitness check --command "python3 etl/run.py {input} {output}" --sample data/sample.csv` |
 | No git: two files | `fixwitness check --before old.py --after new.py --sample sample.csv` |
 | A rewrite in another language | `fixwitness check --before legacy.sh --after new.py --no-attacks` (each side's run command is detected) |
+| A SQL query or dbt model (git) | `fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv` |
+| Two SQL files | `fixwitness check --before old.sql --after new.sql --table orders=orders.csv` |
 | See what would run | add `--dry-run` |
 | Save the detected settings | `fixwitness init etl/clean.py`, then just `fixwitness check` |
 
@@ -152,6 +199,10 @@ Python 3.11+, no dependencies. git is needed for the one-line mode.
 | `--unordered` | Ignore row order |
 | `--no-network` | Run without network access (Linux user namespaces) |
 | `--min-confidence 90` | Fail below this score |
+| `--table NAME=FILE.csv` | SQL/dbt: a table the query reads and its sample data (repeat for each table) |
+| `--incident-table NAME=FILE.csv` | SQL/dbt: a table's contents when the original broke |
+| `--engine duckdb` | SQL/dbt: the engine (default: DuckDB if installed, else SQLite) |
+| `--sql-ordered` | SQL/dbt: compare result rows in order |
 
 Columns that change between two runs of the original on the same input, such as IDs or timestamps, are detected and ignored automatically, and listed in the report.
 
@@ -281,12 +332,15 @@ Replay refuses to run if any input changed. Otherwise it re-runs everything and 
 - **Not a formal proof.** It is differential testing: evidence on the input categories it generates.
 - **Not a scanner and not an agent.** It checks fixes made by Claude Code, Copilot, Snyk, a self-healing system or a person.
 - **Not a sandbox.** Scripts run as your user. Use `--no-network`, a container or CI for untrusted code.
-- **Inputs are CSV** in this version. Any program in any language works, as long as it reads a file or stdin.
+- **Inputs are CSV** for scripts. Any program in any language works, as long as it reads a file or stdin.
+- **SQL runs on DuckDB or SQLite,** not on your warehouse. Functions that only your warehouse has will fail to run. Results are evidence for the logic, not for warehouse-specific behaviour.
+- **dbt support covers single models** with `ref()`, `source()` and `config()`. For macros and other Jinja, check the compiled SQL.
 - **Four attack families** only. SQL injection, deserialization and SSRF are not tested yet.
 
 ## Roadmap
 
-- dbt and SQL models on DuckDB.
+- dbt projects through dbt itself (macros, seeds, incremental models).
+- Warehouse dialects (Snowflake, BigQuery) through SQL translation.
 - JSON Lines and Parquet inputs.
 - SQL-injection payloads.
 - Reading the finding from SARIF.
