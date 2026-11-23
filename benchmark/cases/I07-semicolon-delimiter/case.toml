@@ -1,0 +1,9 @@
+title = "a new source system exports with semicolons"
+kind = "incident"
+finding = "KeyError: 'amount' (whole line read as one field)"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["customer", "amount"]
+incident = "incident.csv"
+expected = "expected.csv"
+task = "The job original.py started failing on incident.csv (a new source exports with ';' as the delimiter). Repair it so it processes this input correctly, without changing the output for any input it already handled."

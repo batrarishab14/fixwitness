@@ -1,0 +1,93 @@
+case,kind,fix,source,label,pattern,job runs,sample test,fixwitness,fixwitness+exp,score,score+exp,baseline_reason,fixwitness_reason,fixwitness+exp_reason
+I01-thousands-separator,incident,default_zero.py,benchmark,wrong,silent wrong value: unparseable amounts become 0,True,True,True,False,93,0,,,"the fix processes incident.csv but its output differs from the expected output (row 2, amount_cents: '125000' -> '0')"
+I01-thousands-separator,incident,reference.py,benchmark,correct,accept thousands separators only; everything else parsed as before,True,True,True,True,93,93,,,
+I01-thousands-separator,incident,skip_bad_rows.py,benchmark,wrong,silent data loss: rows that fail to parse are skipped,True,True,False,False,0,0,,"the fix processes incident.csv but it wrote 2 rows for 3 input rows, while the original always writes one row per input row (rows were dropped or added)","the fix processes incident.csv but it wrote 2 rows for 3 input rows, while the original always writes one row per input row (rows were dropped or added)"
+I01-thousands-separator,incident,strip_non_digits.py,benchmark,wrong,over-broad normalisation: keeping only digits and dots drops minus signs,True,True,False,False,0,0,,the fix changes output on 7 valid inputs,"the fix processes incident.csv but its output differs from the expected output (row 3, amount_cents: '-4275' -> '4275'); the fix changes output on 7 valid inputs"
+I01-thousands-separator,incident,fix.py,agent:chatgpt-r1,correct,,True,True,True,True,93,93,,,
+I01-thousands-separator,incident,fix.py,agent:claude-r1,correct,,True,True,True,True,93,93,,,
+I01-thousands-separator,incident,fix.py,agent:copilot-r1,correct,,True,True,True,True,93,93,,,
+I01-thousands-separator,incident,fix.py,agent:gemini-r1,correct,,True,True,True,True,93,93,,,
+I02-accounting-negatives,incident,reference.py,benchmark,correct,(x) means -x; everything else parsed as before,True,True,True,True,93,93,,,
+I02-accounting-negatives,incident,regex_clean.py,benchmark,wrong,over-broad normalisation: regex clean-up changes 1e3 and drops the refund sign,True,True,False,False,0,0,,the fix changes output on 4 valid inputs,"the fix processes incident.csv but its output differs from the expected output (row 2, amount_cents: '-12500' -> '12500'); the fix changes output on 4 valid inputs"
+I02-accounting-negatives,incident,strip_parens.py,benchmark,wrong,"sign lost: parentheses removed, refund becomes a charge",True,True,True,False,93,0,,,"the fix processes incident.csv but its output differs from the expected output (row 2, amount_cents: '-12500' -> '12500')"
+I02-accounting-negatives,incident,fix.py,agent:chatgpt-r1,correct,,True,True,True,True,93,93,,,
+I02-accounting-negatives,incident,fix.py,agent:claude-r1,correct,,True,True,True,True,93,93,,,
+I02-accounting-negatives,incident,fix.py,agent:copilot-r1,correct,,True,True,True,True,93,93,,,
+I02-accounting-negatives,incident,fix.py,agent:gemini-r1,correct,,True,True,True,True,93,93,,,
+I03-date-format-drift,incident,fromisoformat.py,benchmark,wrong,stricter parser: fromisoformat rejects unpadded dates the job accepted,True,True,False,False,0,0,,the fix changes output on 3 valid inputs,the fix changes output on 3 valid inputs
+I03-date-format-drift,incident,reference.py,benchmark,correct,accept both formats strictly,True,True,True,True,79,79,,,
+I03-date-format-drift,incident,skip_bad_rows.py,benchmark,wrong,silent data loss: rows with other date formats are skipped,True,True,False,False,0,0,,"the fix processes incident.csv but it wrote 2 rows for 3 input rows, while the original always writes one row per input row (rows were dropped or added)","the fix processes incident.csv but it wrote 2 rows for 3 input rows, while the original always writes one row per input row (rows were dropped or added)"
+I03-date-format-drift,incident,string_slice.py,benchmark,wrong,parsing replaced by string slicing: unpadded dates give wrong months,True,True,False,False,0,0,,the fix changes output on 2 valid inputs,the fix changes output on 2 valid inputs
+I03-date-format-drift,incident,fix.py,agent:chatgpt-r1,correct,,True,True,True,True,79,79,,,
+I03-date-format-drift,incident,fix.py,agent:claude-r1,correct,,True,True,True,True,79,79,,,
+I03-date-format-drift,incident,fix.py,agent:copilot-r1,correct,,True,True,True,True,79,79,,,
+I03-date-format-drift,incident,fix.py,agent:gemini-r1,correct,,True,True,True,True,79,79,,,
+I04-null-markers,incident,default_zero.py,benchmark,wrong,silent wrong value: N/A becomes quantity 0 (total 0.00),True,True,True,False,84,0,,,"the fix processes incident.csv but its output differs from the expected output (row 2, total: '' -> '0.00')"
+I04-null-markers,incident,isdigit.py,benchmark,wrong,over-broad check: isdigit() also turns returns (-1) and padded values into 0,True,True,False,False,0,0,,the fix changes output on 7 valid inputs,"the fix processes incident.csv but its output differs from the expected output (row 2, total: '' -> '0.00'; row 3, total: '-99.00' -> '0.00'); the fix changes output on 7 valid inputs"
+I04-null-markers,incident,reference.py,benchmark,correct,N/A means unknown: leave total empty; everything else as before,True,True,True,True,84,84,,,
+I04-null-markers,incident,skip_bad_rows.py,benchmark,wrong,silent data loss: rows with N/A are skipped,True,True,False,False,0,0,,"the fix processes incident.csv but it wrote 2 rows for 3 input rows, while the original always writes one row per input row (rows were dropped or added)","the fix processes incident.csv but it wrote 2 rows for 3 input rows, while the original always writes one row per input row (rows were dropped or added)"
+I04-null-markers,incident,fix.py,agent:chatgpt-r1,correct,,True,True,True,True,84,84,,,
+I04-null-markers,incident,fix.py,agent:claude-r1,correct,,True,True,True,True,84,84,,,
+I04-null-markers,incident,fix.py,agent:copilot-r1,correct,,True,True,True,True,84,84,,,
+I04-null-markers,incident,fix.py,agent:gemini-r1,correct,,True,True,True,True,84,84,,,
+I05-renamed-column,incident,default_zero.py,benchmark,wrong,silent wrong value: a missing column becomes 0,True,True,True,False,93,0,,,"the fix processes incident.csv but its output differs from the expected output (row 1, amount_cents: '12500' -> '0'; row 2, amount_cents: '98050' -> '0')"
+I05-renamed-column,incident,positional.py,benchmark,wrong,"fragile: reads the third column by position, which is now 'currency'",False,False,False,False,0,0,still fails on the incident input,the fix still fails on the incident input incident.csv,the fix still fails on the incident input incident.csv
+I05-renamed-column,incident,reference.py,benchmark,correct,"read 'amount' or, when absent, 'amount_usd'",True,True,True,True,93,93,,,
+I05-renamed-column,incident,fix.py,agent:chatgpt-r1,wrong,,True,True,True,True,93,93,,,
+I05-renamed-column,incident,fix.py,agent:claude-r1,wrong,,True,True,True,True,93,93,,,
+I05-renamed-column,incident,fix.py,agent:copilot-r1,correct,,True,True,True,True,93,93,,,
+I05-renamed-column,incident,fix.py,agent:gemini-r1,wrong,,True,True,True,True,93,93,,,
+I06-utf8-bom,incident,ascii_ignore.py,benchmark,wrong,data loss: decoding as ASCII with errors ignored deletes accented letters,True,True,False,False,0,0,,the fix changes output on 8 valid inputs,"the fix processes incident.csv but its output differs from the expected output (row 1, customer: 'Café Noir' -> 'Caf Noir'); the fix changes output on 8 valid inputs"
+I06-utf8-bom,incident,reference.py,benchmark,correct,"read with utf-8-sig, which drops a leading BOM",True,True,True,True,96,96,,,
+I06-utf8-bom,incident,strip_keys.py,benchmark,wrong,ineffective: str.strip() does not remove a BOM,False,False,False,False,0,0,still fails on the incident input,the fix still fails on the incident input incident.csv,the fix still fails on the incident input incident.csv
+I06-utf8-bom,incident,fix.py,agent:chatgpt-r1,correct,,True,True,True,True,96,96,,,
+I06-utf8-bom,incident,fix.py,agent:claude-r1,correct,,True,True,True,True,96,96,,,
+I06-utf8-bom,incident,fix.py,agent:copilot-r1,correct,,True,True,True,True,96,96,,,
+I06-utf8-bom,incident,fix.py,agent:gemini-r1,correct,,True,True,True,True,96,96,,,
+I07-semicolon-delimiter,incident,always_semicolon.py,benchmark,wrong,regression: hard-coding ';' breaks every existing comma file,False,False,False,False,0,0,fails on the sample,the fix changes output on 82 valid inputs,the fix changes output on 82 valid inputs
+I07-semicolon-delimiter,incident,reference.py,benchmark,correct,"read the file exactly as before; only if that fails, read it again with ';'",True,True,True,True,96,96,,,
+I07-semicolon-delimiter,incident,replace_text.py,benchmark,wrong,data corruption: replacing ';' everywhere also splits values that contain ';',True,True,False,False,0,0,,the fix changes output on 1 valid inputs,the fix changes output on 1 valid inputs
+I07-semicolon-delimiter,incident,fix.py,agent:chatgpt-r1,wrong,,True,True,True,True,96,96,,,
+I07-semicolon-delimiter,incident,fix.py,agent:claude-r1,wrong,,True,True,True,True,96,96,,,
+I07-semicolon-delimiter,incident,fix.py,agent:copilot-r1,wrong,,True,True,True,True,96,96,,,
+I07-semicolon-delimiter,incident,fix.py,agent:gemini-r1,wrong,,True,True,True,True,96,96,,,
+I08-decimal-comma,incident,reference.py,benchmark,correct,a single comma followed by 1-2 digits is a decimal comma,True,True,True,True,93,93,,,
+I08-decimal-comma,incident,remove_commas.py,benchmark,wrong,"wrong interpretation: treating the comma as a thousands separator makes 125,50 into 12550",True,True,True,False,93,0,,,"the fix processes incident.csv but its output differs from the expected output (row 1, amount_cents: '12550' -> '1255000')"
+I08-decimal-comma,incident,fix.py,agent:chatgpt-r1,correct,,True,True,True,True,93,93,,,
+I08-decimal-comma,incident,fix.py,agent:claude-r1,correct,,True,True,True,True,93,93,,,
+I08-decimal-comma,incident,fix.py,agent:copilot-r1,correct,,True,True,True,True,93,93,,,
+I08-decimal-comma,incident,fix.py,agent:gemini-r1,correct,,True,True,True,True,93,93,,,
+I09-percent-rates,incident,reference.py,benchmark,correct,'12%' means 0.12; everything else as before,True,True,True,True,93,93,,,
+I09-percent-rates,incident,regex_clean.py,benchmark,wrong,over-broad normalisation: regex clean-up drops minus signs and exponents,True,True,False,False,0,0,,the fix changes output on 9 valid inputs,the fix changes output on 9 valid inputs
+I09-percent-rates,incident,strip_percent.py,benchmark,wrong,unit error: stripping % without dividing by 100 makes the fee 100x,True,True,True,False,93,0,,,"the fix processes incident.csv but its output differs from the expected output (row 1, fee: '12.00' -> '1200.00')"
+I09-percent-rates,incident,fix.py,agent:chatgpt-r1,correct,,True,True,True,True,93,93,,,
+I09-percent-rates,incident,fix.py,agent:claude-r1,correct,,True,True,True,True,93,93,,,
+I09-percent-rates,incident,fix.py,agent:copilot-r1,correct,,True,True,True,True,93,93,,,
+I09-percent-rates,incident,fix.py,agent:gemini-r1,correct,,True,True,True,True,93,93,,,
+R01-rounding,refactor,builtin_round.py,benchmark,wrong,"rounding change: float round() is not half-up (2.675 -> 2.67, 0.125 -> 0.12)",True,True,False,False,0,0,,the fix changes output on 3 valid inputs,the fix changes output on 3 valid inputs
+R01-rounding,refactor,reference.py,benchmark,correct,"same Decimal half-up rounding, moved into a helper",True,True,True,True,92,92,,,
+R02-sort-order,refactor,reference.py,benchmark,correct,"same key, named function",True,True,True,True,93,93,,,
+R02-sort-order,refactor,string_sort.py,benchmark,wrong,ordering change: amounts compared as text ('9.5' > '10.0'),True,False,False,False,0,0,output on the sample differs,the fix changes output on 7 valid inputs,the fix changes output on 7 valid inputs
+R03-dedupe,refactor,dict_comprehension.py,benchmark,wrong,"semantics change: a dict comprehension keeps the last duplicate, not the first",True,True,False,False,0,0,,the fix changes output on 1 valid inputs,the fix changes output on 1 valid inputs
+R03-dedupe,refactor,reference.py,benchmark,correct,"keep the first row per id, via dict.setdefault",True,True,True,True,93,93,,,
+R04-number-format,refactor,reference.py,benchmark,correct,format() with the same spec,True,True,True,True,93,93,,,
+R04-number-format,refactor,str_round.py,benchmark,wrong,formatting change: str(round()) drops trailing zeros (7.50 -> 7.5),True,False,False,False,0,0,output on the sample differs,the fix changes output on 40 valid inputs,the fix changes output on 40 valid inputs
+R05-case-folding,refactor,casefold.py,benchmark,wrong,"key change: casefold() turns 'Straße' into 'strasse', breaking joins on existing keys",True,True,False,False,0,0,,the fix changes output on 1 valid inputs,the fix changes output on 1 valid inputs
+R05-case-folding,refactor,reference.py,benchmark,correct,"same lower(), moved into a helper",True,True,True,True,93,93,,,
+R06-integer-division,refactor,floor_division.py,benchmark,wrong,"rounding change: // floors, so negative totals (refunds) round the other way",True,True,False,False,0,0,,the fix changes output on 2 valid inputs,the fix changes output on 2 valid inputs
+R06-integer-division,refactor,reference.py,benchmark,correct,math.trunc keeps truncation towards zero,True,True,True,True,84,84,,,
+S01-eval-amount,security,float.py,benchmark,wrong,type change: whole numbers become floats (1200 -> 1200.0),True,True,False,False,0,0,,the fix changes output on 15 valid inputs,the fix changes output on 15 valid inputs
+S01-eval-amount,security,reference.py,benchmark,correct,parse numeric literals without executing code; integers stay integers,True,True,True,True,93,93,,,
+S01-eval-amount,security,strict_allowlist.py,benchmark,wrong,allowlist too strict: valid formats such as 1e3 or +7 are rejected,True,True,False,False,0,0,,the fix changes output on 11 valid inputs,the fix changes output on 11 valid inputs
+S01-eval-amount,security,use_decimal.py,benchmark,wrong,formatting change: Decimal keeps trailing zeros (12.5 -> 12.50),True,False,False,False,0,0,output on the sample differs,the fix changes output on 40 valid inputs,the fix changes output on 40 valid inputs
+S02-shell-eval,security,quote_inside_eval.sh,benchmark,wrong,incomplete fix: quoting inside eval still runs $(...),True,True,False,False,0,0,,the fix is still exploitable by 2 of 13 payloads (command-injection); the fix changes output on 6 valid inputs,the fix is still exploitable by 2 of 13 payloads (command-injection); the fix changes output on 6 valid inputs
+S02-shell-eval,security,reference.sh,benchmark,correct,no eval; keep the trim-and-collapse behaviour eval gave for free,True,True,True,True,91,91,,,
+S02-shell-eval,security,remove_eval.sh,benchmark,wrong,behaviour loss: removing eval also removes whitespace trimming,True,True,False,False,0,0,,the fix changes output on 6 valid inputs,the fix changes output on 6 valid inputs
+S03-shell-true,security,reference.py,benchmark,correct,no shell; reproduce echo's whitespace collapsing and tr's ASCII-only upper-casing,True,True,True,True,91,91,,,
+S03-shell-true,security,shlex_quote.py,benchmark,wrong,behaviour change: quoting the value stops echo from collapsing whitespace,True,True,False,False,0,0,,the fix changes output on 6 valid inputs,the fix changes output on 6 valid inputs
+S03-shell-true,security,str_upper.py,benchmark,wrong,semantic drift: Unicode-aware upper() and no whitespace collapsing,True,True,False,False,0,0,,the fix changes output on 11 valid inputs,the fix changes output on 11 valid inputs
+S04-template-eval,security,html_escape.py,benchmark,wrong,over-correction: HTML-escaping changes quotes and ampersands in plain text,True,True,False,False,0,0,,the fix changes output on 2 valid inputs,the fix changes output on 2 valid inputs
+S04-template-eval,security,reference.py,benchmark,correct,stop evaluating templates; data is treated as text,True,True,True,True,93,93,,,
+S05-path-traversal,security,basename.py,benchmark,correct,alternative fix: keep only the last path component,True,True,True,True,93,93,,,
+S05-path-traversal,security,reference.py,benchmark,correct,reject names containing a path separator,True,True,True,True,93,93,,,
+S05-path-traversal,security,sanitize_all.py,benchmark,wrong,over-correction: replacing every non-alphanumeric character renames valid customers,True,True,False,False,0,0,,the fix changes output on 33 valid inputs,the fix changes output on 33 valid inputs

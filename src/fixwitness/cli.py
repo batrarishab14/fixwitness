@@ -1,0 +1,270 @@
+"""Command-line interface: fixwitness check | init | replay | demo | categories | mcp."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+from fixwitness import __version__
+from fixwitness.cases import CATEGORY_DESCRIPTIONS, DEFAULT_KIND, SampleError
+from fixwitness.config import ConfigError, load_config
+from fixwitness.core import dry_run, replay, run_check
+from fixwitness.report import markdown, plan_text, write_outputs
+from fixwitness.runner import RunConfigError
+
+EXAMPLES = Path(__file__).parent / "examples"
+
+
+def _csv_list(value: str | None) -> list[str] | None:
+    if value is None:
+        return None
+    return [v.strip() for v in value.split(",") if v.strip()]
+
+
+def _overrides(args: argparse.Namespace) -> dict:
+    return {
+        "path": args.path, "base": args.base, "command": args.command, "incident": args.incident,
+        "incident_expected": args.incident_expected,
+        "attacks": False if args.no_attacks else None,
+        "before": args.before, "after": args.after, "sample": args.sample, "run": args.run,
+        "run_after": args.run_after,
+        "columns": _csv_list(args.columns), "review": _csv_list(args.review), "output": args.output,
+        "ignore_columns": _csv_list(args.ignore_columns), "ignore_patterns": args.ignore_pattern or None,
+        "tolerance": args.tolerance, "unordered": True if args.unordered else None,
+        "auto_ignore_unstable": False if args.no_auto_ignore else None,
+        "max_cases": args.max_cases, "seed": args.seed, "timeout": args.timeout, "workers": args.workers,
+        "pass_env": args.pass_env or None, "allow_any_command": True if args.allow_any_command else None,
+        "no_network": True if args.no_network else None,
+    }
+
+
+def _config(args: argparse.Namespace):
+    config_path = Path(args.config) if args.config else None
+    explicit = args.path or args.before or args.command
+    if config_path is None and not explicit and Path("fixwitness.toml").is_file():
+        config_path = Path("fixwitness.toml")
+    return load_config(config_path, _overrides(args))
+
+
+def cmd_check(args: argparse.Namespace) -> int:
+    cfg = _config(args)
+    if args.dry_run:
+        summary = dry_run(cfg)
+        print(json.dumps(summary, indent=2) if args.json else plan_text(summary))
+        return 0
+    proof = run_check(cfg)
+    proof_path = write_outputs(proof, Path(args.out_dir))
+    print(json.dumps(proof, indent=2, ensure_ascii=False) if args.json else markdown(proof, str(proof_path)))
+    if proof["verdict"] != "PASS":
+        return 1
+    if proof["confidence"]["score"] < args.min_confidence:
+        print(f"Confidence {proof['confidence']['score']} is below --min-confidence {args.min_confidence}.")
+        return 1
+    return 0
+
+
+def _toml_value(v) -> str:
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if isinstance(v, (int, float)):
+        return str(v)
+    if isinstance(v, list):
+        return "[" + ", ".join(_toml_value(x) for x in v) + "]"
+    return json.dumps(str(v))
+
+
+def cmd_init(args: argparse.Namespace) -> int:
+    target = Path(args.write)
+    if target.exists() and not args.force:
+        print(f"fixwitness: {target} already exists (use --force to overwrite)", file=sys.stderr)
+        return 2
+    cfg = load_config(None, _overrides(args))
+    summary = dry_run(cfg)
+    here = Path.cwd()
+
+    def rel(p: str | None) -> str | None:
+        if not p:
+            return None
+        q = Path(p).resolve()
+        try:
+            return q.relative_to(here.resolve()).as_posix()
+        except ValueError:
+            return str(q)
+
+    fix = {}
+    if cfg.mode() == "files":
+        fix["before"], fix["after"] = rel(str(cfg.resolve(cfg.before))), rel(str(cfg.resolve(cfg.after)))
+    else:
+        if cfg.path:
+            fix["path"] = rel(str(cfg.resolve(cfg.path)))
+        fix["base"] = cfg.base
+        if cfg.command:
+            fix["command"] = cfg.command
+    fix["sample"] = rel(summary["sample"])
+    if cfg.incident:
+        fix["incident"] = rel(str(cfg.resolve(cfg.incident)))
+    if cfg.incident_expected:
+        fix["incident_expected"] = rel(str(cfg.resolve(cfg.incident_expected)))
+    if not cfg.command:
+        fix["run"] = summary["run"]
+    cases = {"attacks": cfg.attacks, "columns": cfg.columns or [], "review": cfg.review,
+             "max_cases": cfg.max_cases, "seed": cfg.seed}
+    compare = {"output": summary["output"], "ignore_columns": cfg.ignore_columns,
+               "ignore_patterns": cfg.ignore_patterns, "tolerance": cfg.tolerance, "unordered": cfg.unordered,
+               "timeout_seconds": cfg.timeout}
+    out = ["# Written by `fixwitness init`. Run `fixwitness check` in this folder.", ""]
+    for name, section in (("fix", fix), ("cases", cases), ("compare", compare)):
+        out.append(f"[{name}]")
+        out += [f"{k} = {_toml_value(v)}" for k, v in section.items() if v is not None]
+        out.append("")
+    target.write_text("\n".join(out), encoding="utf-8")
+    print(plan_text(summary))
+    print(f"Wrote {target}. Run `fixwitness check` to compare.")
+    return 0
+
+
+def cmd_replay(args: argparse.Namespace) -> int:
+    proof = json.loads(Path(args.proof).read_text(encoding="utf-8"))
+    result = replay(proof, allow_any_command=True if args.allow_any_command else None)
+    if result["reproduced"]:
+        print(f"REPRODUCED: proof {result['original_proof_id'][:16]} gives the same evidence "
+              f"(verdict {result['verdict']}).")
+        return 0
+    print("NOT REPRODUCED:")
+    for p in result["problems"]:
+        print(f"- {p}")
+    return 1
+
+
+def _git(cwd: Path, *a: str) -> None:
+    subprocess.run(["git", "-c", "user.name=fixwitness", "-c", "user.email=fixwitness@example.invalid", *a],
+                   cwd=cwd, check=True, capture_output=True)
+
+
+def cmd_demo(args: argparse.Namespace) -> int:
+    with tempfile.TemporaryDirectory(prefix="fixwitness-demo-") as tmp:
+        work = Path(tmp) / "examples"
+        shutil.copytree(EXAMPLES, work)
+        runs = [
+            ("python_eval", "clean_amounts_fix_naive.py", "Python ETL: eval() replaced with float()  (the obvious AI fix)"),
+            ("python_eval", "clean_amounts_fix_safe.py", "Python ETL: eval() replaced with a literal parser"),
+            ("shell_eval", "normalize_regions_fix_naive.sh", "Shell: 'eval echo $region' removed  (the obvious AI fix)"),
+            ("shell_eval", "normalize_regions_fix_safe.sh", "Shell: eval removed, whitespace handling kept"),
+            ("pipeline_repair", "load_payments_repair_naive.py",
+             "Self-healing repair: strip every non-digit so '1,250.00' parses  (the obvious agent repair)"),
+            ("pipeline_repair", "load_payments_repair_safe.py",
+             "Self-healing repair: accept thousands separators, change nothing else"),
+        ]
+        for folder, after, title in runs:
+            cfg = load_config(work / folder / "fixwitness.toml", {"after": str(work / folder / after)})
+            print("=" * 78 + f"\n{title}\n" + "=" * 78)
+            print(markdown(run_check(cfg)))
+        print("Note: every naive fix gives identical output on the sample file itself, and the naive")
+        print("repair makes the failing pipeline green. Only the generated inputs show what they break.\n")
+
+        if shutil.which("git"):
+            repo = Path(tmp) / "repo"
+            (repo / "etl").mkdir(parents=True)
+            shutil.copy(work / "python_eval" / "clean_amounts.py", repo / "etl" / "clean_amounts.py")
+            shutil.copy(work / "python_eval" / "sample.csv", repo / "etl" / "sample.csv")
+            _git(repo, "init", "-q")
+            _git(repo, "add", ".")
+            _git(repo, "commit", "-q", "-m", "original")
+            shutil.copy(work / "python_eval" / "clean_amounts_fix_safe.py", repo / "etl" / "clean_amounts.py")
+            print("=" * 78 + "\nOne-line usage in a git repo:  fixwitness check etl/clean_amounts.py\n" + "=" * 78)
+            old = os.getcwd()
+            os.chdir(repo)
+            try:
+                print(markdown(run_check(load_config(None, {"path": "etl/clean_amounts.py"}))))
+            finally:
+                os.chdir(old)
+        return 0
+
+
+def cmd_categories(args: argparse.Namespace) -> int:
+    for name, desc in CATEGORY_DESCRIPTIONS.items():
+        print(f"{name:15} {DEFAULT_KIND[name]:7} {desc}")
+    return 0
+
+
+def cmd_mcp(args: argparse.Namespace) -> int:
+    from fixwitness.mcp_server import serve
+    return serve()
+
+
+def _selection_args(p: argparse.ArgumentParser) -> None:
+    p.add_argument("path", nargs="?", help="the file you changed (compared with git --base, default HEAD)")
+    p.add_argument("--sample", help="sample input CSV with a header row (found automatically if there is one)")
+    p.add_argument("--base", help="git revision holding the original (default HEAD)")
+    p.add_argument("--command", help="entry command for fixes spread over several files, run in the repo root, "
+                                     "e.g. 'python3 etl/run.py {input} {output}'")
+    p.add_argument("--before", help="original file (no git needed)")
+    p.add_argument("--after", help="fixed file (no git needed)")
+    p.add_argument("--run", help="how to run one script, e.g. 'python3 {script} {input} {output}' (auto-detected)")
+    p.add_argument("--incident", help="for self-healing repairs: the input that broke the original; "
+                                      "the fix must process it")
+    p.add_argument("--incident-expected", help="optional: the correct output for the incident input")
+    p.add_argument("--no-attacks", action="store_true", help="skip attack payloads (repairs and refactors)")
+    p.add_argument("--run-after", help="run command for the fix when it differs (e.g. a rewrite in another language)")
+    p.add_argument("--columns", help="comma-separated columns to probe (default: all)")
+    p.add_argument("--review", help="comma-separated categories where differences are expected")
+    p.add_argument("--output", choices=["csv", "text"], help="how to compare outputs (default: detected)")
+    p.add_argument("--ignore-columns", help="comma-separated output columns to leave out of the comparison")
+    p.add_argument("--ignore-pattern", action="append", help="regex masked out of every compared value (repeatable)")
+    p.add_argument("--tolerance", type=float, help="relative tolerance for numeric values, e.g. 1e-9")
+    p.add_argument("--unordered", action="store_true", help="ignore row order")
+    p.add_argument("--no-auto-ignore", action="store_true", help="don't ignore columns that are not deterministic")
+    p.add_argument("--max-cases", type=int)
+    p.add_argument("--seed", type=int)
+    p.add_argument("--timeout", type=float, help="seconds per run (default 10)")
+    p.add_argument("--workers", type=int, help="parallel cases (default: up to 8)")
+    p.add_argument("--pass-env", action="append", help="environment variable to pass through (repeatable)")
+    p.add_argument("--allow-any-command", action="store_true", help="allow programs outside the allow-list")
+    p.add_argument("--no-network", action="store_true", help="run scripts without network access (Linux)")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="fixwitness",
+                                     description="Evidence that an automated fix (security patch or self-healing repair) fixed the problem without changing your data.")
+    parser.add_argument("--version", action="version", version=f"fixwitness {__version__}")
+    sub = parser.add_subparsers(dest="command_name", required=True)
+
+    check = sub.add_parser("check", help="compare the original with the fix")
+    _selection_args(check)
+    check.add_argument("--config", help="TOML config (default: ./fixwitness.toml when no file is given)")
+    check.add_argument("--out-dir", default=".fixwitness", help="where to write proof.json and report.md")
+    check.add_argument("--min-confidence", type=int, default=0, help="fail if confidence is below this")
+    check.add_argument("--json", action="store_true", help="print JSON instead of the summary")
+    check.add_argument("--dry-run", action="store_true", help="show what would be compared, without comparing")
+    check.set_defaults(func=cmd_check)
+
+    init = sub.add_parser("init", help="detect settings and save them to fixwitness.toml")
+    _selection_args(init)
+    init.add_argument("--write", default="fixwitness.toml", help="file to write")
+    init.add_argument("--force", action="store_true", help="overwrite an existing file")
+    init.set_defaults(func=cmd_init)
+
+    rp = sub.add_parser("replay", help="re-run a saved proof and check it reproduces")
+    rp.add_argument("proof", help="path to proof.json")
+    rp.add_argument("--allow-any-command", action="store_true")
+    rp.set_defaults(func=cmd_replay)
+
+    sub.add_parser("demo", help="run the built-in examples").set_defaults(func=cmd_demo)
+    sub.add_parser("categories", help="list the input categories fixwitness generates").set_defaults(func=cmd_categories)
+    sub.add_parser("mcp", help="start the MCP server on stdio").set_defaults(func=cmd_mcp)
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    try:
+        return args.func(args)
+    except (ConfigError, RunConfigError, SampleError) as exc:
+        print(f"fixwitness: {exc}", file=sys.stderr)
+        return 2

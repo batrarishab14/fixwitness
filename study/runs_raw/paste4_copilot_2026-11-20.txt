@@ -1,0 +1,206 @@
+I01-thousands-separator
+
+Python
+import csv
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+reader = csv.DictReader(f)
+writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["amount_cents"])
+writer.writeheader()
+ 
+for row in reader:
+amount = float(row["amount"].replace(",", ""))
+row["amount_cents"] = round(amount * 100)
+writer.writerow(row)
+ 
+
+I02-accounting-negatives
+
+Python
+import csv
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+reader = csv.DictReader(f)
+writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["amount_cents"])
+writer.writeheader()
+ 
+for row in reader:
+raw_amount = row["amount"]
+if raw_amount.startswith("(") and raw_amount.endswith(")"):
+amount = -float(raw_amount[1:-1])
+else:
+amount = float(raw_amount)
+ 
+row["amount_cents"] = round(amount * 100)
+writer.writerow(row)
+
+I03-date-format-drift
+
+Python
+import csv
+from datetime import datetime
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+reader = csv.DictReader(f)
+writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["month"])
+writer.writeheader()
+ 
+for row in reader:
+raw_day = row["day"]
+ 
+for fmt in ("%Y-%m-%d", "%Y/%m/%d"):
+try:
+day = datetime.strptime(raw_day, fmt)
+break
+except ValueError:
+pass
+else:
+raise ValueError(f"time data {raw_day!r} does not match expected formats")
+ 
+row["month"] = day.strftime("%Y-%m")
+writer.writerow(row)
+
+I04-null-markers
+
+Python
+import csv
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+reader = csv.DictReader(f)
+writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["total"])
+writer.writeheader()
+ 
+for row in reader:
+if row["qty"] == "N/A":
+row["total"] = ""
+else:
+qty = int(row["qty"])
+row["total"] = f"{qty * float(row['price']):.2f}"
+ 
+writer.writerow(row)
+
+I05-renamed-column
+
+Python
+import csv
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+reader = csv.DictReader(f)
+writer = csv.writer(g)
+ 
+writer.writerow(["payment_id", "customer", "amount_cents"])
+ 
+for row in reader:
+raw_amount = row["amount"] if "amount" in row else row["amount_usd"]
+amount = float(raw_amount)
+ 
+writer.writerow([
+row["payment_id"],
+row["customer"],
+round(amount * 100),
+])
+
+I06-utf8-bom
+
+Python
+import csv
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8-sig") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+reader = csv.DictReader(f)
+writer = csv.writer(g)
+ 
+writer.writerow(["payment_id", "customer", "amount_cents"])
+ 
+for row in reader:
+amount = float(row["amount"])
+writer.writerow([row["payment_id"], row["customer"], round(amount * 100)])
+
+I07-semicolon-delimiter
+
+Python
+import csv
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+header = f.readline()
+delimiter = ";" if ";" in header and "," not in header else ","
+f.seek(0)
+ 
+reader = csv.DictReader(f, delimiter=delimiter)
+writer = csv.writer(g)
+ 
+writer.writerow(["payment_id", "customer", "amount_cents"])
+ 
+for row in reader:
+amount = float(row["amount"])
+writer.writerow([row["payment_id"], row["customer"], round(amount * 100)])
+
+I08-decimal-comma
+
+Python
+import csv
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+reader = csv.DictReader(f)
+writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["amount_cents"])
+writer.writeheader()
+ 
+for row in reader:
+amount = float(row["amount"].replace(",", "."))
+row["amount_cents"] = round(amount * 100)
+writer.writerow(row)
+
+I09-percent-rates
+
+Python
+import csv
+import sys
+ 
+src, dst = sys.argv[1], sys.argv[2]
+ 
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+reader = csv.DictReader(f)
+writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["fee"])
+writer.writeheader()
+ 
+for row in reader:
+raw_rate = row["rate"]
+ 
+if raw_rate.endswith("%"):
+rate = float(raw_rate[:-1]) / 100
+else:
+rate = float(raw_rate)
+ 
+row["fee"] = f"{float(row['amount']) * rate:.2f}"
+writer.writerow(row)
+FilesFiles
+Message Copilot
+
+
+
+
+Message Copilot
+Sending is currently unavailable

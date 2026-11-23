@@ -1,0 +1,9 @@
+title = "upstream switches date format"
+kind = "incident"
+finding = "ValueError on '2026/11/12'"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["day"]
+incident = "incident.csv"
+expected = "expected.csv"
+task = "The job original.py started failing on incident.csv (dates now arrive as \"2026/11/12\"). Repair it so it processes this input correctly, without changing the output for any input it already handled."

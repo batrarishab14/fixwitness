@@ -1,0 +1,21 @@
+# label: correct
+# pattern: reject names containing a path separator
+import csv
+import os
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+os.makedirs("statements", exist_ok=True)
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["statement"])
+    writer.writeheader()
+    for row in reader:
+        if "/" in row["customer"] or "\x00" in row["customer"]:
+            raise ValueError(f"unsafe customer name {row['customer']!r}")
+        path = os.path.join("statements", row["customer"] + ".txt")
+        with open(path, "a", encoding="utf-8") as fh:
+            fh.write(row["amount"] + "\n")
+        row["statement"] = path
+        writer.writerow(row)

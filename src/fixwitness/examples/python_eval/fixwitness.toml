@@ -1,0 +1,15 @@
+# fixwitness check --config fixwitness.toml
+[fix]
+before = "clean_amounts.py"            # original, flagged for eval() on untrusted input
+after  = "clean_amounts_fix_safe.py"   # proposed fix
+sample = "sample.csv"
+run    = "python3 {script} {input} {output}"
+
+[cases]
+columns = ["amount"]   # probe the column the finding is about
+max_cases = 300
+seed = 1337
+
+[compare]
+output = "csv"
+timeout_seconds = 10

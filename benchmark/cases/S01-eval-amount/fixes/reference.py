@@ -1,0 +1,24 @@
+# label: correct
+# pattern: parse numeric literals without executing code; integers stay integers
+def parse(s):
+    s = s.strip()
+    try:
+        return int(s, 0)
+    except ValueError:
+        return float(s)
+
+
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["amount_cents"])
+    writer.writeheader()
+    for row in reader:
+        amount = parse(row["amount"])
+        row["amount"] = amount
+        row["amount_cents"] = round(amount * 100)
+        writer.writerow(row)

@@ -1,0 +1,7 @@
+title = "home-made {{ }} templates evaluated with eval()"
+kind = "security"
+finding = "CWE-1336 template injection: {{ }} expressions in data are evaluated"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["label"]
+task = "A scanner flagged original.py: '{{ }}' expressions inside the 'label' field are evaluated with eval() (template injection). Fix it without changing the output for any valid input."

@@ -1,0 +1,8 @@
+title = "eval echo in a shell normaliser"
+kind = "security"
+finding = "CWE-78 command injection: eval on an untrusted CSV field"
+script = "original.sh"
+run = "bash {script} {input} {output}"
+columns = ["region"]
+review = ["shell-metachar", "quotes", "csv-structure"]
+task = "A scanner flagged original.sh: 'eval echo $region' allows command injection (CWE-78). Fix it without changing the output for any valid input."

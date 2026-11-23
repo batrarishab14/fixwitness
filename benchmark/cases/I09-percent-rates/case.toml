@@ -1,0 +1,9 @@
+title = "rates arrive as percentages"
+kind = "incident"
+finding = "ValueError on '12%'"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["rate"]
+incident = "incident.csv"
+expected = "expected.csv"
+task = "The job original.py started failing on incident.csv (rates now arrive as \"12%\" instead of \"0.12\"). Repair it so it processes this input correctly, without changing the output for any input it already handled."

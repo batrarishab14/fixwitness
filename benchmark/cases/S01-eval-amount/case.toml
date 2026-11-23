@@ -1,0 +1,7 @@
+title = "eval() on a CSV amount"
+kind = "security"
+finding = "CWE-95 code injection: eval() on an untrusted CSV field"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["amount"]
+task = "A scanner flagged original.py: eval() on the 'amount' field is a code-injection vulnerability (CWE-95). Fix it without changing the output for any valid input."

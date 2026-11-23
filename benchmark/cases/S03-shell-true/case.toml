@@ -1,0 +1,8 @@
+title = "subprocess(shell=True) used to upper-case a field"
+kind = "security"
+finding = "CWE-78 command injection: untrusted field interpolated into a shell command"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["region"]
+review = ["shell-metachar", "quotes"]
+task = "A scanner flagged original.py: the 'region' value is interpolated into a shell=True command (CWE-78). Fix it without changing the output for any valid input."

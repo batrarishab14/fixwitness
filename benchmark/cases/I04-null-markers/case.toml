@@ -1,0 +1,9 @@
+title = "missing quantities arrive as N/A"
+kind = "incident"
+finding = "ValueError on 'N/A'"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["qty"]
+incident = "incident.csv"
+expected = "expected.csv"
+task = "The job original.py started failing on incident.csv (missing quantities now arrive as \"N/A\"; the total must be left empty for them). Repair it so it processes this input correctly, without changing the output for any input it already handled."

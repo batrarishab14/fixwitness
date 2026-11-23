@@ -1,0 +1,9 @@
+title = "upstream renames a column and adds another"
+kind = "incident"
+finding = "KeyError: 'amount'"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["amount"]
+incident = "incident.csv"
+expected = "expected.csv"
+task = "The job original.py started failing on incident.csv (the extract now has a 'currency' column and 'amount' was renamed to 'amount_usd'). Repair it so it processes this input correctly, without changing the output for any input it already handled."

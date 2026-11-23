@@ -1,0 +1,19 @@
+# fixwitness check --config fixwitness.toml
+# A self-healing agent repaired a failing pipeline. Did the repair fix the incident without
+# changing anything else?
+[fix]
+before   = "load_payments.py"               # the job as it was when it failed
+after    = "load_payments_repair_safe.py"   # the agent's repair
+sample   = "sample.csv"                     # normal data from before the incident
+incident = "incident.csv"                   # the extract that broke the job
+run      = "python3 {script} {input} {output}"
+
+[cases]
+attacks = false        # a repair, not a security fix
+columns = ["amount"]   # the column the incident is about
+max_cases = 300
+seed = 1337
+
+[compare]
+output = "csv"
+timeout_seconds = 10

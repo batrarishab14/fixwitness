@@ -1,0 +1,9 @@
+title = "extract starts arriving with a UTF-8 byte-order mark"
+kind = "incident"
+finding = "KeyError: 'payment_id' (header is '\\ufeffpayment_id')"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["customer", "amount"]
+incident = "incident.csv"
+expected = "expected.csv"
+task = "The job original.py started failing on incident.csv (the file now starts with a UTF-8 byte-order mark). Repair it so it processes this input correctly, without changing the output for any input it already handled."

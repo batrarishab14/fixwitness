@@ -1,0 +1,21 @@
+# fixwitness check --config fixwitness.toml
+[fix]
+before = "normalize_regions.sh"            # original, flagged for eval on untrusted input
+after  = "normalize_regions_fix_safe.sh"   # proposed fix
+sample = "sample.csv"
+run    = "bash {script} {input} {output}"
+
+[cases]
+columns = ["region"]
+max_cases = 300
+seed = 1337
+# Differences expected in these categories, so they are reported for review instead of failing:
+# - shell-metachar: the original expanded * ~ $HOME and dropped "#..." because of eval; that
+#   expansion was the vulnerability, so the fix is meant to stop it.
+# - quotes, csv-structure: this script splits on commas and never parsed CSV quoting, and eval
+#   stripped or choked on quote characters. Both versions mangle these rows, differently.
+review = ["shell-metachar", "quotes", "csv-structure"]
+
+[compare]
+output = "csv"
+timeout_seconds = 10

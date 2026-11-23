@@ -1,0 +1,84 @@
+I01-thousands-separator    chatgpt-r1   incident OK    changed 0 of 96 handled inputs
+I01-thousands-separator    claude-r1    incident OK    changed 0 of 96 handled inputs
+I01-thousands-separator    copilot-r1   incident OK    changed 0 of 96 handled inputs
+I01-thousands-separator    gemini-r1    incident OK    changed 0 of 96 handled inputs
+I02-accounting-negatives   chatgpt-r1   incident OK    changed 0 of 76 handled inputs
+I02-accounting-negatives   claude-r1    incident OK    changed 0 of 76 handled inputs
+I02-accounting-negatives   copilot-r1   incident OK    changed 0 of 76 handled inputs
+I02-accounting-negatives   gemini-r1    incident OK    changed 0 of 76 handled inputs
+I03-date-format-drift      chatgpt-r1   incident OK    changed 0 of 6 handled inputs
+I03-date-format-drift      claude-r1    incident OK    changed 0 of 6 handled inputs
+I03-date-format-drift      copilot-r1   incident OK    changed 0 of 6 handled inputs
+I03-date-format-drift      gemini-r1    incident OK    changed 0 of 6 handled inputs
+I04-null-markers           chatgpt-r1   incident OK    changed 0 of 48 handled inputs
+I04-null-markers           claude-r1    incident OK    changed 0 of 48 handled inputs
+I04-null-markers           copilot-r1   incident OK    changed 0 of 48 handled inputs
+I04-null-markers           gemini-r1    incident OK    changed 0 of 48 handled inputs
+I05-renamed-column         chatgpt-r1   incident OK    changed 2 of 6 handled inputs
+    input   b'payment_id,customer,amount,amount_usd\nP-1,Acme,12.50,13.75\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'payment_id,customer,amount_cents\r\nP-1,Acme,1375\r\n'
+    input   b'payment_id,customer,amount_usd,amount\nP-1,Acme,13.75,12.50\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'payment_id,customer,amount_cents\r\nP-1,Acme,1375\r\n'
+I05-renamed-column         claude-r1    incident OK    changed 2 of 6 handled inputs
+    input   b'payment_id,customer,amount,amount_usd\nP-1,Acme,12.50,13.75\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'payment_id,customer,amount_cents\r\nP-1,Acme,1375\r\n'
+    input   b'payment_id,customer,amount_usd,amount\nP-1,Acme,13.75,12.50\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'payment_id,customer,amount_cents\r\nP-1,Acme,1375\r\n'
+I05-renamed-column         copilot-r1   incident OK    changed 0 of 6 handled inputs
+I05-renamed-column         gemini-r1    incident OK    changed 2 of 6 handled inputs
+    input   b'payment_id,customer,amount,amount_usd\nP-1,Acme,12.50,13.75\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'payment_id,customer,amount_cents\r\nP-1,Acme,1375\r\n'
+    input   b'payment_id,customer,amount_usd,amount\nP-1,Acme,13.75,12.50\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'payment_id,customer,amount_cents\r\nP-1,Acme,1375\r\n'
+I06-utf8-bom               chatgpt-r1   incident OK    changed 0 of 5 handled inputs
+I06-utf8-bom               claude-r1    incident OK    changed 0 of 5 handled inputs
+I06-utf8-bom               copilot-r1   incident OK    changed 0 of 5 handled inputs
+I06-utf8-bom               gemini-r1    incident OK    changed 0 of 5 handled inputs
+I07-semicolon-delimiter    chatgpt-r1   incident OK    changed 29 of 131 handled inputs
+    input   b'payment_id,customer,amount\nP-1,Acme; "Ltd"; UK,12.50\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,"Acme; ""Ltd""; UK",1250\r\n'
+    fix      b'<fails>'
+    input   b'payment_id,customer,amount\nP-1,Acme; "Ltd"; UK,12.50\nP-1,Acme; "Ltd"; UK,12.50\nP-1,Acme; "Ltd"; UK,12.50\nP-1,Acme; "Ltd"; UK,12.50\nP-1,Acme; "Ltd"; UK,12.50\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,"Acme; ""Ltd""; UK",1250\r\nP-1,"Acme; ""Ltd""; UK",1250\r\nP-1,"Acme; ""Ltd""; UK",1250\r\nP-1,"Acme; ""Ltd""; UK",1250\r\nP-1,"Acme; ""Ltd""; UK",1250\r\n'
+    fix      b'<fails>'
+    input   b"payment_id,customer,amount\nP-1,x;'y';z,12.50\n"
+    original b"payment_id,customer,amount_cents\r\nP-1,x;'y';z,1250\r\n"
+    fix      b'<fails>'
+I07-semicolon-delimiter    claude-r1    incident OK    changed 19 of 131 handled inputs
+    input   b'payment_id,customer,amount,;;;;\nP-1,Acme,12.50,x\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'<fails>'
+    input   b'payment_id,customer,amount,;;;;\nP-1,Acme,12.50,x\nP-1,Acme,12.50,x\nP-1,Acme,12.50,x\nP-1,Acme,12.50,x\nP-1,Acme,12.50,x\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\nP-1,Acme,1250\r\nP-1,Acme,1250\r\nP-1,Acme,1250\r\nP-1,Acme,1250\r\n'
+    fix      b'<fails>'
+    input   b'payment_id,customer,amount,;;;;\nP-1,Acme;Ltd,12.50,x\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme;Ltd,1250\r\n'
+    fix      b'<fails>'
+I07-semicolon-delimiter    copilot-r1   incident OK    changed 1 of 131 handled inputs
+    input   b'"a;\nb",payment_id,customer,amount\nz,P-1,Acme,12.50\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'<fails>'
+I07-semicolon-delimiter    gemini-r1    incident OK    changed 19 of 131 handled inputs
+    input   b'payment_id,customer,amount,;;;;\nP-1,Acme,12.50,x\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\n'
+    fix      b'<fails>'
+    input   b'payment_id,customer,amount,;;;;\nP-1,Acme,12.50,x\nP-1,Acme,12.50,x\nP-1,Acme,12.50,x\nP-1,Acme,12.50,x\nP-1,Acme,12.50,x\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme,1250\r\nP-1,Acme,1250\r\nP-1,Acme,1250\r\nP-1,Acme,1250\r\nP-1,Acme,1250\r\n'
+    fix      b'<fails>'
+    input   b'payment_id,customer,amount,;;;;\nP-1,Acme;Ltd,12.50,x\n'
+    original b'payment_id,customer,amount_cents\r\nP-1,Acme;Ltd,1250\r\n'
+    fix      b'<fails>'
+I08-decimal-comma          chatgpt-r1   incident OK    changed 0 of 76 handled inputs
+I08-decimal-comma          claude-r1    incident OK    changed 0 of 76 handled inputs
+I08-decimal-comma          copilot-r1   incident OK    changed 0 of 76 handled inputs
+I08-decimal-comma          gemini-r1    incident OK    changed 0 of 76 handled inputs
+I09-percent-rates          chatgpt-r1   incident OK    changed 0 of 85 handled inputs
+I09-percent-rates          claude-r1    incident OK    changed 0 of 85 handled inputs
+I09-percent-rates          copilot-r1   incident OK    changed 0 of 85 handled inputs
+I09-percent-rates          gemini-r1    incident OK    changed 0 of 85 handled inputs

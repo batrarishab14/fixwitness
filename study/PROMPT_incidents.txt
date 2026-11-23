@@ -1,0 +1,233 @@
+Below are nine separate repair tasks. Handle each one on its own. For each task, write a line with only its task ID (for example I01-thousands-separator), then the complete fixed file in one code block.
+
+---
+
+# I01-thousands-separator: amounts arrive with thousands separators
+
+The job original.py started failing on incident.csv (amounts now look like "1,250.00"). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["amount_cents"])
+    writer.writeheader()
+    for row in reader:
+        amount = float(row["amount"])
+        row["amount_cents"] = round(amount * 100)
+        writer.writerow(row)
+```
+
+---
+
+# I02-accounting-negatives: refunds arrive in accounting format
+
+The job original.py started failing on incident.csv (refunds now arrive as "(125.00)" instead of "-125.00"). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["amount_cents"])
+    writer.writeheader()
+    for row in reader:
+        amount = float(row["amount"])
+        row["amount_cents"] = round(amount * 100)
+        writer.writerow(row)
+```
+
+---
+
+# I03-date-format-drift: upstream switches date format
+
+The job original.py started failing on incident.csv (dates now arrive as "2026/11/12"). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+from datetime import datetime
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["month"])
+    writer.writeheader()
+    for row in reader:
+        day = datetime.strptime(row["day"], "%Y-%m-%d")
+        row["month"] = day.strftime("%Y-%m")
+        writer.writerow(row)
+```
+
+---
+
+# I04-null-markers: missing quantities arrive as N/A
+
+The job original.py started failing on incident.csv (missing quantities now arrive as "N/A"; the total must be left empty for them). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["total"])
+    writer.writeheader()
+    for row in reader:
+        qty = int(row["qty"])
+        row["total"] = f"{qty * float(row['price']):.2f}"
+        writer.writerow(row)
+```
+
+---
+
+# I05-renamed-column: upstream renames a column and adds another
+
+The job original.py started failing on incident.csv (the extract now has a 'currency' column and 'amount' was renamed to 'amount_usd'). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.writer(g)
+    writer.writerow(["payment_id", "customer", "amount_cents"])
+    for row in reader:
+        amount = float(row["amount"])
+        writer.writerow([row["payment_id"], row["customer"], round(amount * 100)])
+```
+
+---
+
+# I06-utf8-bom: extract starts arriving with a UTF-8 byte-order mark
+
+The job original.py started failing on incident.csv (the file now starts with a UTF-8 byte-order mark). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.writer(g)
+    writer.writerow(["payment_id", "customer", "amount_cents"])
+    for row in reader:
+        amount = float(row["amount"])
+        writer.writerow([row["payment_id"], row["customer"], round(amount * 100)])
+```
+
+---
+
+# I07-semicolon-delimiter: a new source system exports with semicolons
+
+The job original.py started failing on incident.csv (a new source exports with ';' as the delimiter). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.writer(g)
+    writer.writerow(["payment_id", "customer", "amount_cents"])
+    for row in reader:
+        amount = float(row["amount"])
+        writer.writerow([row["payment_id"], row["customer"], round(amount * 100)])
+```
+
+---
+
+# I08-decimal-comma: a European source sends decimal commas
+
+The job original.py started failing on incident.csv (amounts from a European source arrive as "125,50"). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["amount_cents"])
+    writer.writeheader()
+    for row in reader:
+        amount = float(row["amount"])
+        row["amount_cents"] = round(amount * 100)
+        writer.writerow(row)
+```
+
+---
+
+# I09-percent-rates: rates arrive as percentages
+
+The job original.py started failing on incident.csv (rates now arrive as "12%" instead of "0.12"). Repair it so it processes this input correctly, without changing the output for any input it already handled.
+
+Files: `original.py` (below) and `sample.csv` (normal data), `incident.csv` (the input that broke the job).
+The job is run as: `python3 {script} {input} {output}`
+
+
+```python
+import csv
+import sys
+
+src, dst = sys.argv[1], sys.argv[2]
+
+with open(src, newline="", encoding="utf-8") as f, open(dst, "w", newline="", encoding="utf-8") as g:
+    reader = csv.DictReader(f)
+    writer = csv.DictWriter(g, fieldnames=reader.fieldnames + ["fee"])
+    writer.writeheader()
+    for row in reader:
+        rate = float(row["rate"])
+        row["fee"] = f"{float(row['amount']) * rate:.2f}"
+        writer.writerow(row)
+```

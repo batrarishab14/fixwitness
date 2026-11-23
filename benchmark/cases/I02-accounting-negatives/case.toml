@@ -1,0 +1,9 @@
+title = "refunds arrive in accounting format"
+kind = "incident"
+finding = "ValueError on '(125.00)'"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["amount"]
+incident = "incident.csv"
+expected = "expected.csv"
+task = "The job original.py started failing on incident.csv (refunds now arrive as \"(125.00)\" instead of \"-125.00\"). Repair it so it processes this input correctly, without changing the output for any input it already handled."

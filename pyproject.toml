@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fixwitness"
+version = "0.4.0"
+description = "Evidence that an AI fix or self-healing repair fixed the problem without changing your data."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Rishab Batra"}]
+keywords = ["self-healing", "data-pipelines", "autofix", "security", "differential-testing", "mcp", "etl", "ai-agents"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/batrarishab14/fixwitness"
+Issues = "https://github.com/batrarishab14/fixwitness/issues"
+
+[project.scripts]
+fixwitness = "fixwitness.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+fixwitness = ["examples/*/*"]

@@ -1,0 +1,9 @@
+title = "amounts arrive with thousands separators"
+kind = "incident"
+finding = "ValueError on '1,250.00'"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["amount"]
+incident = "incident.csv"
+expected = "expected.csv"
+task = "The job original.py started failing on incident.csv (amounts now look like \"1,250.00\"). Repair it so it processes this input correctly, without changing the output for any input it already handled."

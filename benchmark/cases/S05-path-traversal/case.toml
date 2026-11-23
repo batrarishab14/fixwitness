@@ -1,0 +1,7 @@
+title = "file name built from a customer field"
+kind = "security"
+finding = "CWE-22 path traversal: a CSV field decides where a file is written"
+script = "original.py"
+run = "python3 {script} {input} {output}"
+columns = ["customer"]
+task = "A scanner flagged original.py: the 'customer' field is used to build a file path, which allows path traversal (CWE-22). Fix it without changing the output for any valid input."
