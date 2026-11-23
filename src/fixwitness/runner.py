@@ -56,6 +56,7 @@ class Invocation:
     input_suffix: str = ".csv"
     output_suffix: str = ".csv"
     require_script: bool = True
+    env: dict = field(default_factory=dict)       # extra environment (e.g. PYTHONPATH for the SQL runner)
 
 
 @dataclass
@@ -171,6 +172,7 @@ def run_side(inv: Invocation, side: Side, case_dir: Path, content: bytes,
         "PYTHONHASHSEED": "0",
         "TZ": "UTC",
     }
+    env.update(inv.env)
     for name in inv.pass_env:
         if name in os.environ:
             env[name] = os.environ[name]

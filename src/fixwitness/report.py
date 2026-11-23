@@ -37,8 +37,13 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
     lines = [f"## fixwitness: PASS, confidence {conf['score']}/100 ({conf['level']})" if v == "PASS"
              else f"## fixwitness: {v}", ""]
     run_after = proof["config"].get("run_after")
-    lines.append(f"{_what(proof)}, sample `{proof['inputs']['sample']['name']}`, run `{proof['config']['run']}`"
-                 + (f" (fix: `{run_after}`)" if run_after else ""))
+    inp = proof["inputs"]
+    if "tables" in inp:
+        tables = ", ".join(f"`{n}` ({t['name']})" for n, t in inp["tables"].items())
+        lines.append(f"{_what(proof)}, SQL on {inp.get('engine', 'sqlite')}, tables {tables}")
+    else:
+        lines.append(f"{_what(proof)}, sample `{inp['sample']['name']}`, run `{proof['config']['run']}`"
+                     + (f" (fix: `{run_after}`)" if run_after else ""))
     lines += ["", "| Check | Result |", "|---|---|"]
     inc = proof.get("incident")
     if inc:
@@ -104,7 +109,11 @@ def plan_text(summary: dict) -> str:
         lines.append(f"  incident  {summary['incident']} (the original should fail on it; the fix must handle it)")
     if summary.get("attacks") is False:
         lines.append("  attacks   off (repair mode)")
-    types = ", ".join(f"{k} ({v})" for k, v in summary["column_types"].items())
+    ct = summary["column_types"]
+    if ct and all(isinstance(v, dict) for v in ct.values()):  # SQL: one entry per table
+        types = "; ".join(f"{t}: " + ", ".join(f"{k} ({v})" for k, v in cols.items()) for t, cols in ct.items())
+    else:
+        types = ", ".join(f"{k} ({v})" for k, v in ct.items())
     lines.append(f"  columns   {summary['columns'] if summary['columns'] != 'all' else 'all'}  [{types}]")
     if summary["auto_ignored_columns"]:
         lines.append(f"  ignored   {', '.join(summary['auto_ignored_columns'])} (not deterministic in the original)")

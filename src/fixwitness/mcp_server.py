@@ -47,7 +47,9 @@ TOOLS = [
             "work on the fix AND every valid input gives the same output as before. Returns a 0-100 confidence "
             "score and the path of a JSON proof record. Simplest call: {\"path\": \"etl/clean.py\"} - the "
             "original comes from git HEAD, the run command and sample file are detected. Code is executed on "
-            "this machine."
+            "this machine. SQL queries and dbt models (.sql) are checked too: give the tables the query reads, "
+            "e.g. {\"path\": \"models/revenue.sql\", \"tables\": {\"orders\": \"data/orders.csv\"}}; "
+            "both versions run on the same generated tables (DuckDB if installed, else SQLite)."
         ),
         "inputSchema": {
             "type": "object",
@@ -64,6 +66,14 @@ TOOLS = [
                                   "original. PASS requires the fix to process it."},
                 "incident_expected_path": {"type": "string", "description": "Optional: the correct output for "
                                            "the incident input, if known."},
+                "tables": {"type": "object", "additionalProperties": {"type": "string"},
+                           "description": "SQL/dbt: table name -> sample CSV for every table the query reads."},
+                "incident_tables": {"type": "object", "additionalProperties": {"type": "string"},
+                                    "description": "SQL/dbt: table name -> CSV with that table's contents when the "
+                                    "original broke."},
+                "engine": {"type": "string", "enum": ["auto", "duckdb", "sqlite"],
+                           "description": "SQL/dbt engine (default: DuckDB if installed, else SQLite)."},
+                "sql_ordered": {"type": "boolean", "description": "SQL/dbt: compare result rows in order."},
                 "attacks": {"type": "boolean", "description": "Run attack payloads (default true). Set false for "
                             "pipeline repairs and refactors that are not security fixes."},
                 "run_command": {"type": "string", "description": "How to run one script, e.g. "
@@ -116,6 +126,8 @@ def _prove_fix(args: dict) -> dict:
         "before": args.get("before_path"), "after": args.get("after_path"),
         "sample": args.get("sample_path"), "run": args.get("run_command"),
         "incident": args.get("incident_path"), "attacks": args.get("attacks"),
+        "tables": args.get("tables"), "incident_tables": args.get("incident_tables"),
+        "engine": args.get("engine"), "sql_ordered": args.get("sql_ordered"),
         "incident_expected": args.get("incident_expected_path"),
         "columns": args.get("columns"), "review": args.get("review_categories"),
         "ignore_columns": args.get("ignore_columns"), "ignore_patterns": args.get("ignore_patterns"),

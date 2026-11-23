@@ -591,6 +591,125 @@ class GitModeTests(TempDirTest):
             self.check(path="etl/clean.py")
 
 
+ORDERS = "order_id,customer_id,amount,status\n1,10,12.50,paid\n2,10,300.75,paid\n3,11,99.99,refunded\n4,12,5.25,paid\n"
+CUSTOMERS = "customer_id,name,region\n10,Acme Ltd,east\n11,Globex,west\n12,Initech,east\n"
+REVENUE = """
+    select c.region, sum(o.amount) as revenue, count(*) as orders
+    from orders o
+    join customers c on c.customer_id = o.customer_id
+    where o.status = 'paid'
+    group by c.region
+"""
+
+
+class SqlUnitTests(unittest.TestCase):
+    def test_run_query_types_nulls_and_order(self):
+        from fixwitness.sql import make_bundle, run_query, table_types
+        t = {"orders": ORDERS.replace("5.25", "").encode()}
+        types = {"orders": table_types(ORDERS.encode())}
+        self.assertEqual(types["orders"], {"order_id": "integer", "customer_id": "integer", "amount": "number",
+                                           "status": "text"})
+        out = run_query("select order_id, amount from orders order by order_id desc", make_bundle(t, types),
+                        engine="sqlite", ordered=True).decode()
+        self.assertEqual(out.splitlines(), ["order_id,amount", "4,", "3,99.99", "2,300.75", "1,12.5"])
+        unordered = run_query("select order_id from orders order by order_id desc", make_bundle(t, types),
+                              engine="sqlite").decode()
+        self.assertEqual(unordered.splitlines()[1:], ["1", "2", "3", "4"])  # compared as a set: sorted
+
+    def test_values_that_do_not_fit_the_column_type_fail_the_load(self):
+        from fixwitness.sql import SqlError, make_bundle, run_query, table_types
+        types = {"orders": table_types(ORDERS.encode())}
+        bad = make_bundle({"orders": ORDERS.replace("12.50", '"1,250"').encode()}, types)
+        with self.assertRaises(SqlError):
+            run_query("select * from orders", bad, engine="sqlite")
+
+    def test_dbt_rendering(self):
+        from fixwitness.sql import SqlError, render_dbt
+        sql = "{{ config(materialized='table') }}\nselect * from {{ ref('stg_orders') }} o " \
+              "join {{ source('crm', 'customers') }} c using (customer_id) {# note #}"
+        self.assertEqual(render_dbt(sql).strip(), "select * from stg_orders o join customers c using (customer_id)")
+        self.assertEqual(render_dbt("select * from {{ ref('pkg', 'model_x') }}").strip(), "select * from model_x")
+        with self.assertRaises(SqlError):
+            render_dbt("select {{ dbt_utils.star(ref('x')) }} from t")
+        with self.assertRaises(SqlError):
+            render_dbt("{% if is_incremental() %} where 1=1 {% endif %}")
+
+    def test_cases_vary_one_table_at_a_time_and_skip_unloadable(self):
+        from fixwitness.sql import generate_sql_cases, read_bundle, table_types
+        tables = {"orders": ORDERS.encode(), "customers": CUSTOMERS.encode()}
+        types = {k: table_types(v) for k, v in tables.items()}
+        cases = generate_sql_cases(tables, types, rows=3, max_cases=300)
+        self.assertTrue(cases)
+        for c in cases:
+            got, _ = read_bundle(c.content)
+            changed = [t for t in tables if got[t].encode() != tables[t]]
+            self.assertLessEqual(len(changed), 1, c.value)
+        self.assertTrue(any(c.column == "customers.customer_id" and c.category == "duplicate" for c in cases))
+        self.assertFalse(any(c.category == "header-names" for c in cases))
+        only = generate_sql_cases(tables, types, columns=["orders.amount"])
+        self.assertEqual({c.column for c in only} - {"orders"}, {"orders.amount"})
+        with self.assertRaises(ValueError):
+            generate_sql_cases(tables, types, columns=["customer_id"])  # in both tables: ambiguous
+
+
+class SqlModeTests(TempDirTest):
+    def _check(self, after_sql: str, before_sql: str = REVENUE, **extra):
+        write(self.tmp / "orders.csv", ORDERS)
+        write(self.tmp / "customers.csv", CUSTOMERS)
+        write(self.tmp / "before.sql", before_sql)
+        write(self.tmp / "after.sql", after_sql)
+        settings = dict(before=str(self.tmp / "before.sql"), after=str(self.tmp / "after.sql"),
+                        tables={"orders": str(self.tmp / "orders.csv"), "customers": str(self.tmp / "customers.csv")},
+                        engine="sqlite")
+        settings.update(extra)
+        return self.check(**settings)
+
+    def test_equivalent_refactor_passes(self):
+        proof = self._check("""
+            with paid as (select customer_id, amount from orders where status = 'paid')
+            select c.region, sum(p.amount) as revenue, count(*) as orders
+            from paid p join customers c on c.customer_id = p.customer_id
+            group by c.region
+        """)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertFalse(proof["security"]["checked"])
+        self.assertEqual(proof["config"]["sql"]["engine"], "sqlite")
+
+    def test_count_column_instead_of_count_star_fails_on_nulls(self):
+        proof = self._check(REVENUE.replace("count(*)", "count(o.amount)"))
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("empty", {d["category"] for d in proof["differences"]})
+
+    def test_left_join_keeps_orders_without_a_customer(self):
+        proof = self._check(REVENUE.replace("join customers", "left join customers"))
+        self.assertEqual(proof["verdict"], "FAIL")
+
+    def test_dbt_model_with_refs(self):
+        model = REVENUE.replace("from orders o", "from {{ ref('orders') }} o") \
+                       .replace("join customers c", "join {{ ref('customers') }} c")
+        proof = self._check("{{ config(materialized='table') }}\n" + model)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+
+    def test_incident_table_and_replay(self):
+        write(self.tmp / "orders_new.csv", ORDERS.replace("amount", "amount_usd"))
+        proof = self._check(REVENUE.replace("o.amount", "o.amount_usd"),
+                            incident_tables={"orders": str(self.tmp / "orders_new.csv")})
+        self.assertEqual(proof["incident"]["status"], "resolved")
+        self.assertEqual(proof["verdict"], "FAIL")  # the fix no longer works on the old column name
+        from fixwitness.report import write_outputs
+        path = write_outputs(proof, self.tmp / "out")
+        result = replay(json.loads(path.read_text()))
+        self.assertTrue(result["reproduced"], result["problems"])
+
+    @unittest.skipUnless(__import__("importlib").util.find_spec("duckdb"), "DuckDB not installed")
+    def test_duckdb_engine(self):
+        ok = self._check(REVENUE.replace("count(*)", "count(1)"), engine="duckdb")
+        self.assertEqual(ok["config"]["sql"]["engine"], "duckdb")
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+        bad = self._check(REVENUE.replace("count(*)", "count(o.amount)"), engine="duckdb")
+        self.assertEqual(bad["verdict"], "FAIL")
+
+
 class CliAndMcpTests(TempDirTest):
     def run_cli(self, *args, cwd=None, stdin=None):
         env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import hashlib
 import json
 import os
@@ -14,9 +15,10 @@ from pathlib import Path
 
 from fixwitness import __version__
 from fixwitness.cases import CATEGORY_DESCRIPTIONS, Case, column_types, generate_cases
+from fixwitness.sql import generate_sql_cases
 from fixwitness.compare import CompareOptions, compare, parse_rows, unstable_columns
 from fixwitness.config import Config, ConfigError
-from fixwitness.plan import Plan, build_plan, sha256_file
+from fixwitness.plan import Plan, PlanError, build_plan, sha256_file
 from fixwitness.runner import RunResult, run_side
 from fixwitness.score import confidence
 
@@ -157,7 +159,7 @@ def _plan_summary(plan: Plan, cfg: Config, cases: list[Case], unstable: set[str]
         "output": plan.output,
         "sample": str(plan.sample_path),
         "columns": cfg.columns or "all",
-        "column_types": column_types(plan.sample),
+        "column_types": plan.sql["types"] if plan.sql is not None else column_types(plan.sample),
         "auto_ignored_columns": sorted(unstable),
         "ignored_columns": ignored,
         "cases": dict(Counter(c.category for c in cases)),
@@ -165,16 +167,29 @@ def _plan_summary(plan: Plan, cfg: Config, cases: list[Case], unstable: set[str]
     }
 
 
+SQL_TOLERANCE = 1e-9
+
+
+def _cases(plan: Plan, cfg: Config) -> list[Case]:
+    if plan.sql is not None:
+        try:
+            return generate_sql_cases(plan.sql["tables"], plan.sql["types"], cfg.columns, cfg.rows, cfg.max_cases,
+                                      cfg.seed, cfg.review, plan.sql["incident_tables"])
+        except ValueError as exc:
+            raise PlanError(str(exc)) from exc
+    return generate_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
+                          str(plan.canary_dir), cfg.attacks, plan.incident)
+
+
 def dry_run(cfg: Config) -> dict:
     """Resolve everything and run only the probes; no full comparison."""
     with build_plan(cfg) as plan:
         opts = CompareOptions(mode=plan.output, ignore_patterns=_compile_patterns(cfg.ignore_patterns))
         unstable, warnings, _ = _baseline(plan, opts, cfg.auto_ignore_unstable)
-        cases = generate_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
-                               str(plan.canary_dir), cfg.attacks, plan.incident)
+        cases = _cases(plan, cfg)
         summary = _plan_summary(plan, cfg, cases, unstable, cfg.ignore_columns)
         summary["incident"] = plan.incident_path.name if plan.incident_path else None
-        summary["attacks"] = cfg.attacks
+        summary["attacks"] = cfg.attacks and plan.sql is None
         summary["inputs"] = plan.inputs
         summary["warnings"] = warnings
         return summary
@@ -186,6 +201,10 @@ def run_check(cfg: Config) -> dict:
 
 
 def _run(plan: Plan, cfg: Config) -> dict:
+    if plan.sql is not None:
+        # A SQL query has no injectable input, so attacks don't apply. Sums may be added in another
+        # order by an equivalent query, so numbers are compared with a small relative tolerance.
+        cfg = dataclasses.replace(cfg, attacks=False, tolerance=cfg.tolerance or SQL_TOLERANCE)
     opts = CompareOptions(mode=plan.output, ignore_columns=set(cfg.ignore_columns),
                           ignore_patterns=_compile_patterns(cfg.ignore_patterns),
                           tolerance=cfg.tolerance, unordered=cfg.unordered)
@@ -194,8 +213,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
         opts.ignore_columns |= unstable
         warnings.append(f"ignored column(s) {', '.join(sorted(unstable))}: they change between two runs of the "
                         "original on the same input")
-    cases = generate_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
-                           str(plan.canary_dir), cfg.attacks, plan.incident)
+    cases = _cases(plan, cfg)
 
     def one(case: Case):
         case_dir = plan.work / "cases" / case.id
@@ -203,7 +221,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
         a = run_side(plan.fix_invocation, plan.after, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
         shutil.rmtree(case_dir, ignore_errors=True)
         rows = None
-        if case.kind == "valid" and b.ok and b.output is not None and plan.output == "csv":
+        if case.kind == "valid" and b.ok and b.output is not None and plan.output == "csv" and plan.sql is None:
             n_in, n_out = _data_rows(case.content), _data_rows(b.output)
             if n_in is not None and n_out is not None:
                 rows = (n_in, n_out)
@@ -272,6 +290,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "ignore_patterns": list(cfg.ignore_patterns),
             "tolerance": cfg.tolerance,
             "unordered": cfg.unordered,
+            "sql": {"engine": plan.sql["engine"], "dbt": cfg.dbt, "ordered": cfg.sql_ordered}
+                   if plan.sql is not None else None,
             "max_cases": cfg.max_cases,
             "rows": cfg.rows,
             "seed": cfg.seed,
@@ -325,6 +345,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
                 "auto_ignore_unstable": cfg.auto_ignore_unstable, "timeout": cfg.timeout,
                 "pass_env": cfg.pass_env, "allow_any_command": cfg.allow_any_command,
                 "no_network": cfg.no_network,
+                "engine": cfg.engine, "dbt": cfg.dbt, "sql_ordered": cfg.sql_ordered,
             },
         },
     }
@@ -338,16 +359,25 @@ def replay(proof: dict, allow_any_command: bool | None = None) -> dict:
         settings["allow_any_command"] = allow_any_command
     problems: list[str] = []
     inputs = proof["inputs"]
+    sql_tables = rp.get("tables")
+    if sql_tables is not None:
+        for group, label in (("tables", "table"), ("incident_tables", "incident table")):
+            for name, path in (rp.get(group) or {}).items():
+                p = Path(path)
+                if not p.is_file() or sha256_file(p) != inputs[group][name]["sha256"]:
+                    problems.append(f"{label} {name} is missing or has changed ({p.name})")
+        if settings.get("engine") == "auto" and inputs.get("engine"):
+            settings["engine"] = inputs["engine"]  # replay with the engine the proof used
     if rp.get("mode") == "files":
-        for label in ("before", "after", "sample"):
+        for label in ("before", "after") + (() if sql_tables is not None else ("sample",)):
             p = Path(rp.get(label, ""))
             if not p.is_file():
                 problems.append(f"{label} file not found at {p}")
             elif sha256_file(p) != inputs[label]["sha256"]:
                 problems.append(f"{label} file has changed since the proof was made ({p.name})")
         cfg_args = {"before": rp.get("before"), "after": rp.get("after"), "sample": rp.get("sample"),
-                    "run": rp.get("run"), "run_after": rp.get("run_after"), "incident": rp.get("incident"),
-                    "incident_expected": rp.get("incident_expected")}
+                    "run": None if sql_tables is not None else rp.get("run"), "run_after": rp.get("run_after"),
+                    "incident": rp.get("incident"), "incident_expected": rp.get("incident_expected")}
     elif rp.get("mode") == "git":
         repo = Path(rp.get("repo", ""))
         for item in inputs.get("changed", []):
@@ -355,11 +385,13 @@ def replay(proof: dict, allow_any_command: bool | None = None) -> dict:
             current = sha256_file(f) if f.is_file() else None
             if current != item["sha256"]:
                 problems.append(f"{item['path']} has changed since the proof was made")
-        s = Path(rp.get("sample", ""))
-        if not s.is_file() or sha256_file(s) != inputs["sample"]["sha256"]:
-            problems.append("the sample file is missing or has changed")
+        if sql_tables is None:
+            s = Path(rp.get("sample", ""))
+            if not s.is_file() or sha256_file(s) != inputs["sample"]["sha256"]:
+                problems.append("the sample file is missing or has changed")
         cfg_args = {"path": rp.get("path"), "base": rp.get("base_commit"), "command": rp.get("command"),
-                    "run": None if rp.get("command") else rp.get("run"), "sample": rp.get("sample"),
+                    "run": None if (rp.get("command") or sql_tables is not None) else rp.get("run"),
+                    "sample": rp.get("sample"),
                     "incident": rp.get("incident"), "incident_expected": rp.get("incident_expected")}
     else:
         return {"reproduced": False, "problems": ["the proof has no replay information"]}
@@ -367,6 +399,9 @@ def replay(proof: dict, allow_any_command: bool | None = None) -> dict:
         p = Path(rp["incident"])
         if not p.is_file() or sha256_file(p) != inputs["incident"]["sha256"]:
             problems.append("the incident file is missing or has changed")
+    if sql_tables is not None:
+        cfg_args["tables"] = sql_tables
+        cfg_args["incident_tables"] = rp.get("incident_tables")
     if problems:
         return {"reproduced": False, "problems": problems}
     cfg = Config(**{k: v for k, v in cfg_args.items() if v is not None},

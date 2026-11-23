@@ -27,8 +27,23 @@ def _csv_list(value: str | None) -> list[str] | None:
     return [v.strip() for v in value.split(",") if v.strip()]
 
 
+def _table_map(values: list[str] | None, flag: str) -> dict[str, str] | None:
+    if not values:
+        return None
+    out = {}
+    for item in values:
+        name, sep, path = item.partition("=")
+        if not sep or not name.strip() or not path.strip():
+            raise ConfigError(f"{flag} expects NAME=FILE.csv, got {item!r}")
+        out[name.strip()] = str((Path.cwd() / Path(path.strip()).expanduser()).resolve())
+    return out
+
+
 def _overrides(args: argparse.Namespace) -> dict:
     return {
+        "tables": _table_map(args.table, "--table"),
+        "incident_tables": _table_map(args.incident_table, "--incident-table"),
+        "engine": args.engine, "sql_ordered": True if args.sql_ordered else None,
         "path": args.path, "base": args.base, "command": args.command, "incident": args.incident,
         "incident_expected": args.incident_expected,
         "attacks": False if args.no_attacks else None,
@@ -76,6 +91,8 @@ def _toml_value(v) -> str:
         return str(v)
     if isinstance(v, list):
         return "[" + ", ".join(_toml_value(x) for x in v) + "]"
+    if isinstance(v, dict):
+        return "{ " + ", ".join(f"{k} = {_toml_value(x)}" for k, x in v.items()) + " }"
     return json.dumps(str(v))
 
 
@@ -106,20 +123,31 @@ def cmd_init(args: argparse.Namespace) -> int:
         fix["base"] = cfg.base
         if cfg.command:
             fix["command"] = cfg.command
-    fix["sample"] = rel(summary["sample"])
+    if cfg.tables:
+        fix["sample"] = None
+    else:
+        fix["sample"] = rel(summary["sample"])
     if cfg.incident:
         fix["incident"] = rel(str(cfg.resolve(cfg.incident)))
     if cfg.incident_expected:
         fix["incident_expected"] = rel(str(cfg.resolve(cfg.incident_expected)))
-    if not cfg.command:
+    if not cfg.command and not cfg.tables and summary["output"] and "fixwitness.sqlrun" not in summary["run"]:
         fix["run"] = summary["run"]
     cases = {"attacks": cfg.attacks, "columns": cfg.columns or [], "review": cfg.review,
              "max_cases": cfg.max_cases, "seed": cfg.seed}
     compare = {"output": summary["output"], "ignore_columns": cfg.ignore_columns,
                "ignore_patterns": cfg.ignore_patterns, "tolerance": cfg.tolerance, "unordered": cfg.unordered,
                "timeout_seconds": cfg.timeout}
+    sections = [("fix", fix), ("cases", cases), ("compare", compare)]
+    if "fixwitness.sqlrun" in summary["run"]:
+        sql = {"engine": cfg.engine, "sql_ordered": cfg.sql_ordered}
+        if cfg.tables:
+            sql["tables"] = {k: rel(v) for k, v in cfg.tables.items()}
+        if cfg.incident_tables:
+            sql["incident_tables"] = {k: rel(v) for k, v in cfg.incident_tables.items()}
+        sections.append(("sql", sql))
     out = ["# Written by `fixwitness init`. Run `fixwitness check` in this folder.", ""]
-    for name, section in (("fix", fix), ("cases", cases), ("compare", compare)):
+    for name, section in sections:
         out.append(f"[{name}]")
         out += [f"{k} = {_toml_value(v)}" for k, v in section.items() if v is not None]
         out.append("")
@@ -211,6 +239,13 @@ def _selection_args(p: argparse.ArgumentParser) -> None:
                                       "the fix must process it")
     p.add_argument("--incident-expected", help="optional: the correct output for the incident input")
     p.add_argument("--no-attacks", action="store_true", help="skip attack payloads (repairs and refactors)")
+    p.add_argument("--table", action="append", metavar="NAME=FILE",
+                   help="SQL/dbt: a table the query reads and its sample CSV (repeatable)")
+    p.add_argument("--incident-table", action="append", metavar="NAME=FILE",
+                   help="SQL/dbt: a table's contents when the original broke (repeatable)")
+    p.add_argument("--engine", choices=["auto", "duckdb", "sqlite"],
+                   help="SQL/dbt: query engine (default: DuckDB if installed, else SQLite)")
+    p.add_argument("--sql-ordered", action="store_true", help="SQL/dbt: compare result rows in order")
     p.add_argument("--run-after", help="run command for the fix when it differs (e.g. a rewrite in another language)")
     p.add_argument("--columns", help="comma-separated columns to probe (default: all)")
     p.add_argument("--review", help="comma-separated categories where differences are expected")

@@ -13,15 +13,20 @@ from __future__ import annotations
 import dataclasses
 import hashlib
 import os
+import re
+import shlex
 import shutil
 import subprocess
+import sys
 import tarfile
 import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from fixwitness.cases import SampleError, parse_sample
 from fixwitness.config import Config, ConfigError
 from fixwitness.runner import Invocation, RunConfigError, Side, no_network_available, run_side
+from fixwitness.sql import SqlError, choose_engine, make_bundle, table_types
 
 INTERPRETERS = {
     ".py": "python3", ".sh": "bash", ".bash": "bash", ".js": "node", ".mjs": "node", ".cjs": "node",
@@ -54,6 +59,7 @@ class Plan:
     incident: bytes | None = None
     incident_expected: bytes | None = None
     after_invocation: Invocation | None = None   # set when the fix is run differently from the original
+    sql: dict | None = None                       # SQL mode: tables, types, engine
     notes: list[str] = field(default_factory=list)
     inputs: dict = field(default_factory=dict)      # what the proof hashes
     replay: dict = field(default_factory=dict)      # what replay needs
@@ -210,6 +216,97 @@ def detect_run(work: Path, side: Side, prog: str, sample: bytes, base_inv: Invoc
                     + "\nPass the command with --run, e.g. --run 'python3 {script} {input} {output}'")
 
 
+# ---------------------------------------------------------------- SQL and dbt models
+
+_TABLE_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+
+
+def is_sql(cfg: Config, *scripts: Path | None) -> bool:
+    """SQL mode: the scripts are .sql files (or tables are given) and no run command overrides it."""
+    if cfg.run or cfg.command:
+        return False
+    return bool(cfg.tables) or any(p is not None and p.suffix.lower() == ".sql" for p in scripts)
+
+
+def _read_tables(cfg: Config, spec: dict[str, str], what: str) -> tuple[dict[str, Path], dict[str, bytes]]:
+    paths, data = {}, {}
+    for name, value in spec.items():
+        if not _TABLE_NAME.fullmatch(name):
+            raise PlanError(f"{what} name {name!r} must be a plain SQL identifier (letters, digits, _)")
+        p = cfg.resolve(value)
+        if not p.is_file():
+            raise PlanError(f"{what} {name}: file not found: {p}")
+        raw = p.read_bytes()
+        try:
+            parse_sample(raw)
+        except SampleError as exc:
+            raise PlanError(f"{what} {name} ({p.name}): {exc}") from exc
+        paths[name], data[name] = p.resolve(), raw
+    return paths, data
+
+
+def _build_sql(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: Side, side_a: Side,
+               inputs: dict, replay: dict, notes: list[str]) -> Plan:
+    if cfg.tables:
+        spec = dict(cfg.tables)
+    elif cfg.sample:
+        stem = cfg.resolve(cfg.sample).stem
+        spec = {stem: cfg.sample}
+        notes.append(f"table: {stem} (named after the sample file)")
+    else:
+        raise PlanError("a SQL check needs the tables the query reads: pass --table NAME=FILE.csv for each "
+                        "(or --sample FILE.csv for a single table named after the file)")
+    paths, tables = _read_tables(cfg, spec, "table")
+    types = {name: table_types(raw) for name, raw in tables.items()}
+    try:
+        engine = choose_engine(cfg.engine)
+    except SqlError as exc:
+        raise PlanError(str(exc)) from exc
+    notes.append(f"SQL engine: {engine}" + ("" if engine == "duckdb" else
+                                             " (install duckdb to check with DuckDB's SQL dialect)"))
+    template = (f"{shlex.quote(sys.executable)} -m fixwitness.sqlrun --engine {engine} --dbt {cfg.dbt}"
+                + (" --ordered" if cfg.sql_ordered else "") + " {script} {input} {output}")
+    inv = Invocation(template=template, timeout=cfg.timeout, allow_any=cfg.allow_any_command,
+                     pass_env=cfg.pass_env, no_network=cfg.no_network, input_suffix=".json",
+                     output_suffix=".csv", require_script=True,
+                     env={"PYTHONPATH": str(Path(__file__).resolve().parent.parent)})
+    first = next(iter(paths.values()))
+    plan = Plan(mode=mode, before=side_b, after=side_a, invocation=inv, sample_path=first,
+                sample=make_bundle(tables, types), output="csv", work=work, canary_dir=canary_dir, notes=notes,
+                inputs=inputs | {"tables": {n: {"name": p.name, "sha256": sha256_bytes(tables[n])}
+                                            for n, p in paths.items()}, "engine": engine},
+                replay=replay | {"tables": {n: str(p) for n, p in paths.items()}, "run": template})
+    plan.sql = {"tables": tables, "types": types, "engine": engine, "incident_tables": {}}
+
+    inc_spec = dict(cfg.incident_tables or {})
+    if not inc_spec and cfg.incident:
+        if len(tables) != 1:
+            raise PlanError("with several tables, give the incident as incident_tables "
+                            "(--incident-table NAME=FILE.csv)")
+        inc_spec = {next(iter(tables)): cfg.incident}
+    if inc_spec:
+        unknown = sorted(set(inc_spec) - set(tables))
+        if unknown:
+            raise PlanError(f"incident table(s) {', '.join(unknown)} are not among the tables ({', '.join(tables)})")
+        inc_paths, inc_data = _read_tables(cfg, inc_spec, "incident table")
+        plan.sql["incident_tables"] = inc_data
+        plan.incident = make_bundle({**tables, **inc_data}, types)
+        plan.incident_path = next(iter(inc_paths.values()))
+        plan.inputs["incident_tables"] = {n: {"name": p.name, "sha256": sha256_bytes(inc_data[n])}
+                                          for n, p in inc_paths.items()}
+        plan.replay["incident_tables"] = {n: str(p) for n, p in inc_paths.items()}
+    if cfg.incident_expected:
+        if not inc_spec:
+            raise PlanError("--incident-expected needs an incident (--incident-table NAME=FILE.csv)")
+        p = cfg.resolve(cfg.incident_expected)
+        if not p.is_file():
+            raise PlanError(f"expected-output file not found: {p}")
+        plan.incident_expected = p.read_bytes()
+        plan.inputs["incident_expected"] = {"name": p.name, "sha256": sha256_bytes(plan.incident_expected)}
+        plan.replay["incident_expected"] = str(p.resolve())
+    return plan
+
+
 # ---------------------------------------------------------------- build
 
 def build_plan(cfg: Config) -> Plan:
@@ -281,6 +378,12 @@ def _build_files(cfg: Config, work: Path, canary_dir: Path) -> Plan:
         if not p.is_file():
             raise PlanError(f"{label} file not found: {p}")
     notes: list[str] = []
+    if is_sql(cfg, before, after):
+        return _build_sql(
+            cfg, work, canary_dir, "files", Side("original", None, before.resolve()), Side("fix", None, after.resolve()),
+            {"mode": "files", "before": {"name": before.name, "sha256": sha256_file(before)},
+             "after": {"name": after.name, "sha256": sha256_file(after)}},
+            {"mode": "files", "before": str(before.resolve()), "after": str(after.resolve())}, notes)
     if cfg.sample:
         sample_path = cfg.resolve(cfg.sample)
     else:
@@ -347,6 +450,14 @@ def _build_git(cfg: Config, work: Path, canary_dir: Path) -> Plan:
     snapshot_worktree(root, t1)
     if rel is not None and not (t0 / rel).is_file():
         raise PlanError(f"{rel} does not exist in {cfg.base}; there is no original to compare against")
+    if rel is not None and is_sql(cfg, Path(rel)):
+        changed = [{"path": p, "status": st, "sha256": sha256_file(root / p) if (root / p).is_file() else None}
+                   for st, p in changes]
+        return _build_sql(
+            cfg, work, canary_dir, "git", Side("original", t0, Path(rel)), Side("fix", t1, Path(rel)),
+            {"mode": "git", "base_commit": commit, "target": rel, "changed": changed},
+            {"mode": "git", "repo": str(root), "base": cfg.base, "base_commit": commit,
+             "path": str(target_abs.resolve()), "command": None}, notes)
 
     if cfg.sample:
         sample_path = cfg.resolve(cfg.sample)

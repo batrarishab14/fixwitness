@@ -114,6 +114,8 @@ CATEGORY_DESCRIPTIONS = {
                     "a line break, spaces, Unicode, or nothing; placed first and last",
     "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and "
                      "unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "duplicate-row": "a whole row repeated",
     "attack": "command/code injection, path traversal and template injection payloads",
 }
 

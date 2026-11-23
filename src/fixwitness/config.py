@@ -25,6 +25,12 @@ class Config:
     # Self-healing / repair: an input that broke the original. The fix must handle it.
     incident: str | None = None
     incident_expected: str | None = None    # optional: the correct output for the incident input
+    # SQL and dbt models: table name -> sample CSV (and incident CSVs), engine, row order
+    tables: dict[str, str] | None = None
+    incident_tables: dict[str, str] | None = None
+    engine: str = "auto"                    # auto (DuckDB if installed, else SQLite), duckdb, sqlite
+    dbt: str = "auto"                       # render ref()/source()/config(): auto (when {{ appears), on, off
+    sql_ordered: bool = False               # compare result rows in order (default: as a set of rows)
     # Cases
     attacks: bool = True                    # run attack payloads (turn off for pure repairs/refactors)
     columns: list[str] | None = None
@@ -76,6 +82,17 @@ class Config:
             raise ConfigError("tolerance must be 0 or positive")
         if self.timeout <= 0:
             raise ConfigError("timeout must be positive")
+        if self.engine not in ("auto", "duckdb", "sqlite"):
+            raise ConfigError("engine must be auto, duckdb or sqlite")
+        if self.dbt not in ("auto", "on", "off"):
+            raise ConfigError("dbt must be auto, on or off")
+        for name in ("tables", "incident_tables"):
+            value = getattr(self, name)
+            if value is not None and (not isinstance(value, dict) or not all(
+                    isinstance(k, str) and isinstance(v, str) for k, v in value.items())):
+                raise ConfigError(f"{name} must map table names to CSV file paths")
+        if self.incident_tables and not self.tables and not self.sample:
+            raise ConfigError("incident_tables needs tables (the sample tables)")
 
 
 _KEYS = {f for f in Config.__dataclass_fields__ if f != "base_dir"}
@@ -95,7 +112,7 @@ def load_config(path: Path | None, overrides: dict) -> Config:
         except tomllib.TOMLDecodeError as exc:
             raise ConfigError(f"{path}: {exc}") from exc
         base_dir = path.resolve().parent
-        for section in ("fix", "cases", "compare", "runtime"):
+        for section in ("fix", "cases", "compare", "runtime", "sql"):
             data.update(raw.get(section, {}))
     for k, v in overrides.items():
         if v is None:

@@ -1,0 +1,7 @@
+title = "duplicate customer rows double the revenue"
+kind = "incident"
+task = "Since the CRM sync, customers can contain the same customer twice and revenue is doubled for them (see customers_incident.csv). Fix the query so duplicates do not double count, without changing the result for any data it already handled."
+tables = { orders = "orders.csv", customers = "customers.csv" }
+incident_tables = { customers = "customers_incident.csv" }
+expected = "expected.csv"
+review = ["duplicate", "duplicate-row"]
