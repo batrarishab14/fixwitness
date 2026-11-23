@@ -53,6 +53,14 @@ CSV_STRUCTURE = ["comma, inside"]
 QUOTES = ["O'Brien", 'say "hi"']
 SHELL_METACHAR = ["*", "?", "[ab]", "$HOME", "${PATH}", "~", "back\\slash", "#hash", "semi;colon"]
 
+# Characters other programs use as CSV delimiters. A fix that guesses the delimiter from the data
+# can be fooled by them when they appear in a header or a value of a comma file.
+ALT_DELIMITERS = [";", "\t", "|"]
+# Another delimiter character combined with quotes, or repeated.
+DELIMITER_MIX = [v for d in ALT_DELIMITERS for v in (f'a{d} "b"', f'"a"{d} b', f"a{d}b{d}c")]
+# Names for an added column that a program reading columns by name should ignore.
+HEADER_NAME_EXTRAS = ['say "hi"', "last, first", " padded ", "Ünïcødé", ""]
+
 # (family, template, oracle). {c} = absolute marker-file path; {up} = the same path reached with
 # "../" from any working directory. A file oracle fires only if the marker file appears in the
 # marker directory itself, so scripts that merely write files *named* after a value don't trigger it.
@@ -86,8 +94,18 @@ CATEGORY_DESCRIPTIONS = {
     "csv-structure": "a comma inside a quoted CSV field",
     "quotes": "single and double quotes inside values",
     "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "header-names": "an added column whose name holds other delimiter characters (; tab |), quotes, a comma, "
+                    "a line break, spaces, Unicode, or nothing; placed first and last",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and "
+                     "unquoted",
     "attack": "command/code injection, path traversal and template injection payloads",
 }
+
+# When the number of cases is capped: always keep these, then fill the budget with the
+# structural categories before sampling the rest at random.
+ALWAYS_KEEP = ("file-structure", "attack")
+KEEP_FIRST = ("schema", "header-names")
 
 DEFAULT_KIND = {name: "valid" for name in CATEGORY_DESCRIPTIONS}
 DEFAULT_KIND["attack"] = "attack"
@@ -116,6 +134,119 @@ def _write_csv(header: list[str], rows: list[list[str]], line_ending: str = "\n"
     writer.writerow(header)
     writer.writerows(rows)
     return buf.getvalue().encode("utf-8")
+
+
+def _write_unquoted(header: list[str], rows: list[list[str]]) -> bytes | None:
+    """Write without CSV quoting, as many exporters do. None if a cell needs quoting to stay one cell."""
+    lines = []
+    for r in [header] + rows:
+        if any("," in c or "\n" in c or "\r" in c or c.startswith('"') for c in r):
+            return None
+        lines.append(",".join(r))
+    return ("\n".join(lines) + "\n").encode("utf-8")
+
+
+def _parse_any(data: bytes | None) -> tuple[list[str], list[list[str]]] | None:
+    """Best-effort read of another CSV file (the incident input), with any common delimiter."""
+    if not data:
+        return None
+    try:
+        text = data.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return None
+    best = None
+    for d in [","] + ALT_DELIMITERS:
+        try:
+            rows = list(csv.reader(io.StringIO(text, newline=""), delimiter=d))
+        except csv.Error:
+            continue
+        if rows and len(rows[0]) > 1 and (best is None or len(rows[0]) > len(best[0])):
+            best = rows
+    if best is None or len(best) < 1:
+        return None
+    return best[0], best[1:]
+
+
+def _schema_cases(header: list[str], base: list[list[str]], incident: bytes | None) -> list[tuple]:
+    """Files with the same data but a different set or order of columns.
+
+    A program that reads columns by name ignores extra columns and column order. A fix that
+    prefers a new column when it is present, or that switches to reading by position, gives a
+    different result on such a file, even though the original handled it.
+    """
+    out: list[tuple] = []
+    n = len(base)
+
+    def add(label: str, new_header: list[str], new_rows: list[list[str]]) -> None:
+        out.append(("schema", None, label, _write_csv(new_header, new_rows), None))
+
+    add("<extra column at the end>", header + ["extra"], [r + ["1"] for r in base])
+    add("<extra column at the start>", ["extra"] + header, [["1"] + r for r in base])
+    if len(header) > 1:
+        order = list(reversed(range(len(header))))
+        add("<columns in reverse order>", [header[i] for i in order], [[r[i] for i in order] for r in base])
+    if len(header) > 2:
+        order = list(range(1, len(header))) + [0]
+        add("<first column moved to the end>", [header[i] for i in order], [[r[i] for i in order] for r in base])
+
+    parsed = _parse_any(incident)
+    if parsed:
+        inc_header, inc_rows = parsed
+        new_cols = [i for i, c in enumerate(inc_header) if c not in header]
+        if new_cols and inc_rows:
+            def values(i: int, k: int) -> str:
+                row = inc_rows[k % len(inc_rows)]
+                return row[i] if i < len(row) else ""
+            groups = ([new_cols] if len(new_cols) > 1 else []) + [[i] for i in new_cols]
+            for g in groups:
+                names = [inc_header[i] for i in g]
+                add("<incident column(s) " + ", ".join(names) + " added>",
+                    header + names, [r + [values(i, k) for i in g] for k, r in enumerate(base[:n])])
+    return out
+
+
+def _header_name_cases(header: list[str], base: list[list[str]]) -> list[tuple]:
+    """An added column whose name contains characters that confuse delimiter or header detection."""
+    out: list[tuple] = []
+    k = len(header) + 1          # more of each character than the commas in the new header line
+    names = []
+    for d in ALT_DELIMITERS:
+        names.append(("c" + d) * k + "c")   # e.g. c;c;c;c;c
+        names.append("c" + d + "\nc")       # a line break inside the header record
+    names += HEADER_NAME_EXTRAS
+    for name in names:
+        shown = name.replace("\n", "\\n").replace("\t", "\\t")
+        out.append(("header-names", None, f"<column '{shown}' added at the end>",
+                    _write_csv(header + [name], [r + ["x"] for r in base]), None))
+        out.append(("header-names", None, f"<column '{shown}' added at the start>",
+                    _write_csv([name] + header, [["x"] + r for r in base]), None))
+    return out
+
+
+def _delimiter_mix_cases(header: list[str], base: list[list[str]], target_row: int,
+                         text_columns: list[str]) -> list[tuple]:
+    """Values combining another delimiter character with quotes, quoted and unquoted.
+
+    Written into each probed text column, and into an added text column, so that jobs whose
+    probed columns are all numeric are covered too.
+    """
+    out: list[tuple] = []
+    for v in DELIMITER_MIX:
+        for col in text_columns:
+            idx = header.index(col)
+            rows = [list(r) for r in base]
+            rows[target_row][idx] = v
+            out.append(("delimiter-mix", col, v, _write_csv(header, rows), None))
+            raw = _write_unquoted(header, rows)
+            if raw is not None:
+                out.append(("delimiter-mix", col, v + " (unquoted)", raw, None))
+        rows = [r + ["note"] for r in base]
+        rows[target_row][-1] = v
+        out.append(("delimiter-mix", None, v + " (in an added 'note' column)", _write_csv(header + ["note"], rows), None))
+        raw = _write_unquoted(header + ["note"], rows)
+        if raw is not None:
+            out.append(("delimiter-mix", None, v + " (in an added 'note' column, unquoted)", raw, None))
+    return out
 
 
 def is_numeric(values: list[str]) -> bool:
@@ -176,8 +307,9 @@ def generate_cases(
     review: list[str] | None = None,
     canary_dir: str | None = None,
     attacks: bool = True,
+    incident: bytes | None = None,
 ) -> list[Case]:
-    """Build the deterministic list of cases for a sample CSV."""
+    """Build the deterministic list of cases for a sample CSV (and, for repairs, its incident file)."""
     header, data = parse_sample(sample)
     targets = columns or header
     missing = [c for c in targets if c not in header]
@@ -206,6 +338,10 @@ def generate_cases(
         ("file-structure", None, "<header only>", _write_csv(header, []), None),
         ("file-structure", None, "<CRLF line endings>", _write_csv(header, base, "\r\n"), None),
     ]
+    raw += _schema_cases(header, base, incident)
+    raw += _header_name_cases(header, base)
+    text_columns = [c for c in targets if _type([r[header.index(c)] for r in data]) == "text"]
+    raw += _delimiter_mix_cases(header, base, target_row, text_columns)
     for col in targets:
         values = [r[header.index(col)] for r in data]
         kind = _type(values)
@@ -228,12 +364,16 @@ def generate_cases(
             for spec in ATTACKS:
                 raw.append(("attack", col, None, b"", spec))
 
-    # Cap the number of cases deterministically, always keeping file-structure and attack cases.
+    # Cap the number of cases deterministically: file-structure and attack cases always stay,
+    # then the structural cases, then a seeded random sample of the rest.
     if len(raw) > max_cases:
-        keep = [i for i, r in enumerate(raw) if r[0] in ("file-structure", "attack")]
-        rest = [i for i, r in enumerate(raw) if r[0] not in ("file-structure", "attack")]
+        keep = [i for i, r in enumerate(raw) if r[0] in ALWAYS_KEEP]
+        first = [i for i, r in enumerate(raw) if r[0] in KEEP_FIRST]
+        rest = [i for i, r in enumerate(raw) if r[0] not in ALWAYS_KEEP + KEEP_FIRST]
         budget = max(0, max_cases - len(keep))
-        chosen = set(keep) | set(random.Random(seed).sample(rest, min(budget, len(rest))))
+        chosen = set(keep) | set(first[:budget])
+        budget = max(0, budget - len(first))
+        chosen |= set(random.Random(seed).sample(rest, min(budget, len(rest))))
         raw = [r for i, r in enumerate(raw) if i in chosen]
 
     cases: list[Case] = []

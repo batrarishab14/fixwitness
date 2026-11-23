@@ -171,7 +171,7 @@ def dry_run(cfg: Config) -> dict:
         opts = CompareOptions(mode=plan.output, ignore_patterns=_compile_patterns(cfg.ignore_patterns))
         unstable, warnings, _ = _baseline(plan, opts, cfg.auto_ignore_unstable)
         cases = generate_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
-                               str(plan.canary_dir), cfg.attacks)
+                               str(plan.canary_dir), cfg.attacks, plan.incident)
         summary = _plan_summary(plan, cfg, cases, unstable, cfg.ignore_columns)
         summary["incident"] = plan.incident_path.name if plan.incident_path else None
         summary["attacks"] = cfg.attacks
@@ -195,7 +195,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
         warnings.append(f"ignored column(s) {', '.join(sorted(unstable))}: they change between two runs of the "
                         "original on the same input")
     cases = generate_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
-                           str(plan.canary_dir), cfg.attacks)
+                           str(plan.canary_dir), cfg.attacks, plan.incident)
 
     def one(case: Case):
         case_dir = plan.work / "cases" / case.id

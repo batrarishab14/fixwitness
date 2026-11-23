@@ -104,6 +104,33 @@ class CaseGenerationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             generate_cases(self.S, columns=["missing"])
 
+    def test_structural_cases(self):
+        incident = b"id;name;amount_v2;amount\n9;z;1;2\n"
+        cases = generate_cases(self.S, incident=incident, attacks=False)
+        by_cat = {}
+        for c in cases:
+            by_cat.setdefault(c.category, []).append(c)
+        # schema: the incident's new column added to data the job already handles, and reordered columns
+        added = [c for c in by_cat["schema"] if "amount_v2" in c.value]
+        self.assertTrue(added)
+        self.assertTrue(added[0].content.startswith(b"id,name,amount,amount_v2\n"))
+        self.assertTrue(any("reverse" in c.value for c in by_cat["schema"]))
+        # header-names: for every other delimiter, a header line with more of it than commas
+        firsts = [c.content.decode().split("\n", 1)[0] for c in by_cat["header-names"]]
+        for d in (";", "\t", "|"):
+            self.assertTrue(any(f.count(d) > f.count(",") for f in firsts), d)
+            # and a header record whose first physical line has the delimiter but no comma
+            self.assertTrue(any(d in f and "," not in f for f in firsts), d)
+        # delimiter-mix: quoted and unquoted forms, in a text column and in an added column
+        values = {c.value for c in by_cat["delimiter-mix"]}
+        self.assertIn('a; "b"', values)
+        self.assertIn('a; "b" (unquoted)', values)
+        self.assertTrue(any("added 'note' column" in v for v in values))
+
+    def test_structural_cases_without_incident(self):
+        cats = {c.category for c in generate_cases(self.S, columns=["amount"], attacks=False)}
+        self.assertTrue({"schema", "header-names", "delimiter-mix"} <= cats)
+
 
 class CompareTests(unittest.TestCase):
     def test_identical_and_same_data(self):
@@ -304,6 +331,68 @@ class RepairModeTests(ExampleBase):
     def test_attacks_off_generates_no_payloads(self):
         cases = generate_cases(SAMPLE.encode(), attacks=False)
         self.assertFalse([c for c in cases if c.kind == "attack"])
+
+
+class StructuralRepairTests(TempDirTest):
+    """Repairs that pass on the sample and the incident but change files the job already handled."""
+
+    JOB = """
+        import csv, sys
+
+        def open_rows(f):
+            {open_rows}
+
+        def column(r):
+            {column}
+
+        with open(sys.argv[1], newline="") as f, open(sys.argv[2], "w", newline="") as g:
+            w = csv.writer(g)
+            w.writerow(["id", "cents"])
+            for r in open_rows(f):
+                w.writerow([r["id"], round(float(r[column(r)]) * 100)])
+    """
+    BY_NAME = "return csv.DictReader(f)"
+    PRICE = 'return "price"'
+
+    def _job(self, after_open=BY_NAME, after_column=PRICE, incident=""):
+        write(self.tmp / "s.csv", "id,item,price\n1,pen,1.50\n2,ink,2.25\n3,pad,3.00\n")
+        write(self.tmp / "inc.csv", incident)
+        job = textwrap.dedent(self.JOB)
+        write(self.tmp / "b.py", job.replace("{open_rows}", self.BY_NAME).replace("{column}", self.PRICE))
+        write(self.tmp / "a.py", job.replace("{open_rows}", after_open).replace("{column}", after_column))
+        return self.check(before=str(self.tmp / "b.py"), after=str(self.tmp / "a.py"),
+                          sample=str(self.tmp / "s.csv"), incident=str(self.tmp / "inc.csv"),
+                          attacks=False, output="csv")
+
+    def test_fix_that_prefers_the_new_column_fails(self):
+        incident = "id,item,price_eur\n7,cap,4.00\n"
+        proof = self._job(after_column='return "price_eur" if "price_eur" in r else "price"', incident=incident)
+        self.assertEqual(proof["incident"]["status"], "resolved")
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("schema", {d["category"] for d in proof["differences"]})
+        good = self._job(after_column='return "price" if "price" in r else "price_eur"', incident=incident)
+        self.assertEqual(good["verdict"], "PASS", good["reasons"])
+
+    def test_fix_that_guesses_the_delimiter_from_the_first_line_fails(self):
+        incident = "id;item;price\n7;cap;4.00\n"
+        guess = ('h = f.readline(); f.seek(0); '
+                 'return csv.DictReader(f, delimiter=";" if h.count(";") > h.count(",") else ",")')
+        proof = self._job(after_open=guess, incident=incident)
+        self.assertEqual(proof["incident"]["status"], "resolved")
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("header-names", {d["category"] for d in proof["differences"]})
+        retry = ('text = f.read(); rows = list(csv.DictReader(text.splitlines())); '
+                 'return rows if rows and "price" in rows[0] else list(csv.DictReader(text.splitlines(), delimiter=";"))')
+        good = self._job(after_open=retry, incident=incident)
+        self.assertEqual(good["verdict"], "PASS", good["reasons"])
+
+    def test_fix_that_sniffs_the_delimiter_fails(self):
+        incident = "id;item;price\n7;cap;4.00\n"
+        sniff = ('d = csv.Sniffer().sniff(f.read(4096), delimiters=",;").delimiter; f.seek(0); '
+                 'return csv.DictReader(f, delimiter=d)')
+        proof = self._job(after_open=sniff, incident=incident)
+        self.assertEqual(proof["incident"]["status"], "resolved")
+        self.assertEqual(proof["verdict"], "FAIL")
 
 
 class RewriteTests(TempDirTest):
