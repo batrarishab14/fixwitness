@@ -58,6 +58,21 @@ SHELL_METACHAR = ["*", "?", "[ab]", "$HOME", "${PATH}", "~", "back\\slash", "#ha
 ALT_DELIMITERS = [";", "\t", "|"]
 # Another delimiter character combined with quotes, or repeated.
 DELIMITER_MIX = [v for d in ALT_DELIMITERS for v in (f'a{d} "b"', f'"a"{d} b', f"a{d}b{d}c")]
+# A delimiter-mix value is made of characters from these categories, so it follows their review
+# setting: if the user expects differences on shell metacharacters or quotes, it is reviewed too.
+SHELL_CHARS = set(";|&$*?[]~#\\`<>()")
+QUOTE_CHARS = set("\"'")
+
+
+def related_categories(value: str) -> set[str]:
+    found = set()
+    if any(ch in SHELL_CHARS for ch in value):
+        found.add("shell-metachar")
+    if any(ch in QUOTE_CHARS for ch in value):
+        found.add("quotes")
+    return found
+
+
 # Names for an added column that a program reading columns by name should ignore.
 HEADER_NAME_EXTRAS = ['say "hi"', "last, first", " padded ", "Ünïcødé", ""]
 
@@ -98,7 +113,7 @@ CATEGORY_DESCRIPTIONS = {
     "header-names": "an added column whose name holds other delimiter characters (; tab |), quotes, a comma, "
                     "a line break, spaces, Unicode, or nothing; placed first and last",
     "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and "
-                     "unquoted",
+                     "unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
     "attack": "command/code injection, path traversal and template injection payloads",
 }
 
@@ -223,6 +238,18 @@ def _header_name_cases(header: list[str], base: list[list[str]]) -> list[tuple]:
     return out
 
 
+UNQUOTED = " (unquoted)"
+IN_NOTE = " (in an added 'note' column)"
+IN_NOTE_UNQUOTED = " (in an added 'note' column, unquoted)"
+
+
+def _base_value(label: str) -> str:
+    for suffix in (IN_NOTE_UNQUOTED, IN_NOTE, UNQUOTED):
+        if label.endswith(suffix):
+            return label[: -len(suffix)]
+    return label
+
+
 def _delimiter_mix_cases(header: list[str], base: list[list[str]], target_row: int,
                          text_columns: list[str]) -> list[tuple]:
     """Values combining another delimiter character with quotes, quoted and unquoted.
@@ -239,13 +266,13 @@ def _delimiter_mix_cases(header: list[str], base: list[list[str]], target_row: i
             out.append(("delimiter-mix", col, v, _write_csv(header, rows), None))
             raw = _write_unquoted(header, rows)
             if raw is not None:
-                out.append(("delimiter-mix", col, v + " (unquoted)", raw, None))
+                out.append(("delimiter-mix", col, v + UNQUOTED, raw, None))
         rows = [r + ["note"] for r in base]
         rows[target_row][-1] = v
-        out.append(("delimiter-mix", None, v + " (in an added 'note' column)", _write_csv(header + ["note"], rows), None))
+        out.append(("delimiter-mix", None, v + IN_NOTE, _write_csv(header + ["note"], rows), None))
         raw = _write_unquoted(header + ["note"], rows)
         if raw is not None:
-            out.append(("delimiter-mix", None, v + " (in an added 'note' column, unquoted)", raw, None))
+            out.append(("delimiter-mix", None, v + IN_NOTE_UNQUOTED, raw, None))
     return out
 
 
@@ -386,6 +413,10 @@ def generate_cases(
             up = "../" * 12 + marker_path.lstrip("/")
             value = template.format(c=marker_path, up=up)
             content = with_value(col, value)
-        cases.append(Case(id=f"{i:03d}", category=category, kind=kinds[category], column=col,
+        kind = kinds[category]
+        if category == "delimiter-mix" and kind == "valid" and value is not None \
+                and any(kinds.get(c) == "review" for c in related_categories(_base_value(value))):
+            kind = "review"
+        cases.append(Case(id=f"{i:03d}", category=category, kind=kind, column=col,
                           value=value, content=content, family=family, oracle=oracle, canary=canary))
     return cases

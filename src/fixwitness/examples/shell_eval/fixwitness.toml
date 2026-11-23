@@ -14,9 +14,7 @@ seed = 1337
 #   expansion was the vulnerability, so the fix is meant to stop it.
 # - quotes, csv-structure: this script splits on commas and never parsed CSV quoting, and eval
 #   stripped or choked on quote characters. Both versions mangle these rows, differently.
-# - delimiter-mix: values combining ; or tab with quotes; eval treated ; as a command separator
-#   and stripped the quotes, which is the same behaviour as above.
-review = ["shell-metachar", "quotes", "csv-structure", "delimiter-mix"]
+review = ["shell-metachar", "quotes", "csv-structure"]
 
 [compare]
 output = "csv"

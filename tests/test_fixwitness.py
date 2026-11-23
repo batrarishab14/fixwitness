@@ -127,6 +127,15 @@ class CaseGenerationTests(unittest.TestCase):
         self.assertIn('a; "b" (unquoted)', values)
         self.assertTrue(any("added 'note' column" in v for v in values))
 
+    def test_delimiter_mix_follows_review_of_its_characters(self):
+        reviewed = generate_cases(self.S, columns=["name"], review=["shell-metachar", "quotes"], attacks=False)
+        kinds = {c.value: c.kind for c in reviewed if c.category == "delimiter-mix"}
+        self.assertEqual(kinds['a; "b"'], "review")           # ; and quotes
+        self.assertEqual(kinds["a|b|c (unquoted)"], "review")   # | is a shell metacharacter
+        self.assertEqual(kinds["a\tb\tc"], "valid")             # tabs only: neither category
+        plain = generate_cases(self.S, columns=["name"], attacks=False)
+        self.assertEqual({c.kind for c in plain if c.category == "delimiter-mix"}, {"valid"})
+
     def test_structural_cases_without_incident(self):
         cats = {c.category for c in generate_cases(self.S, columns=["amount"], attacks=False)}
         self.assertTrue({"schema", "header-names", "delimiter-mix"} <= cats)
