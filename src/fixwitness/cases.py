@@ -182,6 +182,14 @@ def _parse_any(data: bytes | None) -> tuple[list[str], list[list[str]]] | None:
     return best[0], best[1:]
 
 
+def _fresh(name: str, header: list[str]) -> str:
+    """The name, made unique against the existing header (a duplicate name would test something else)."""
+    new, k = name, 2
+    while new in header:
+        new, k = f"{name}_{k}", k + 1
+    return new
+
+
 def _schema_cases(header: list[str], base: list[list[str]], incident: bytes | None) -> list[tuple]:
     """Files with the same data but a different set or order of columns.
 
@@ -195,8 +203,9 @@ def _schema_cases(header: list[str], base: list[list[str]], incident: bytes | No
     def add(label: str, new_header: list[str], new_rows: list[list[str]]) -> None:
         out.append(("schema", None, label, _write_csv(new_header, new_rows), None))
 
-    add("<extra column at the end>", header + ["extra"], [r + ["1"] for r in base])
-    add("<extra column at the start>", ["extra"] + header, [["1"] + r for r in base])
+    extra = _fresh("extra", header)
+    add("<extra column at the end>", header + [extra], [r + ["1"] for r in base])
+    add("<extra column at the start>", [extra] + header, [["1"] + r for r in base])
     if len(header) > 1:
         order = list(reversed(range(len(header))))
         add("<columns in reverse order>", [header[i] for i in order], [[r[i] for i in order] for r in base])
@@ -229,7 +238,7 @@ def _header_name_cases(header: list[str], base: list[list[str]]) -> list[tuple]:
         names.append(("c" + d) * k + "c")   # e.g. c;c;c;c;c
         names.append("c" + d + "\nc")       # a line break inside the header record
     names += HEADER_NAME_EXTRAS
-    for name in names:
+    for name in (_fresh(n, header) for n in names):
         shown = name.replace("\n", "\\n").replace("\t", "\\t")
         out.append(("header-names", None, f"<column '{shown}' added at the end>",
                     _write_csv(header + [name], [r + ["x"] for r in base]), None))
@@ -267,10 +276,11 @@ def _delimiter_mix_cases(header: list[str], base: list[list[str]], target_row: i
             raw = _write_unquoted(header, rows)
             if raw is not None:
                 out.append(("delimiter-mix", col, v + UNQUOTED, raw, None))
+        note = _fresh("note", header)
         rows = [r + ["note"] for r in base]
         rows[target_row][-1] = v
-        out.append(("delimiter-mix", None, v + IN_NOTE, _write_csv(header + ["note"], rows), None))
-        raw = _write_unquoted(header + ["note"], rows)
+        out.append(("delimiter-mix", None, v + IN_NOTE, _write_csv(header + [note], rows), None))
+        raw = _write_unquoted(header + [note], rows)
         if raw is not None:
             out.append(("delimiter-mix", None, v + IN_NOTE_UNQUOTED, raw, None))
     return out

@@ -29,6 +29,11 @@ fixwitness 0.4.0 accepted all seven:
 - six need a different header, which it never varies;
 - the seventh (ChatGPT, I07) is triggered by a cell value that combines `;` and quotes, which its catalogue lacks.
 
+fixwitness 0.5.0 rejects all seven and none of the 29 correct fixes. It was built after seeing these results, so this is a development result:
+- the input classes it adds were fixed in advance in [`PROTOCOL_v0.5.md`](PROTOCOL_v0.5.md);
+- every development run, including a failed one, is in [`DEVLOG_v0.5.md`](DEVLOG_v0.5.md);
+- the held-out evaluation in the protocol (new tasks, fresh assistant runs, tool frozen first) is what measures it.
+
 The labels were proposed with an AI assistant (Claude, which is also one of the assistants studied). That is why every wrong label cites an input that reproduces the difference. An independent review found the ChatGPT and Copilot I07 inputs; those patterns were then added to `label_check.py`.
 
 ## Copying problems, and what was done
@@ -42,5 +47,5 @@ The labels were proposed with an AI assistant (Claude, which is also one of the 
 ```bash
 python3 study/import_runs.py study/runs.txt   # writes benchmark/agents/
 python3 study/label_check.py                   # about 2 seconds
-python3 benchmark/run_bench.py                 # about 3 minutes; agent fixes are listed in RESULTS.md
+python3 benchmark/run_bench.py                 # about 6 minutes; agent fixes are listed in RESULTS.md
 ```

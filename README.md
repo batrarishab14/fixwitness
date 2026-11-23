@@ -54,13 +54,15 @@ The wrong fixes are synthetic, not agent output, and the benchmark was written b
 
 The nine incident tasks were given to four chat assistants in one prompt each (`study/PROMPT_incidents.txt`), one run per assistant. Each fix was labelled by code review against the task's own rule: process the incident input correctly **without changing the output for any input the job already handled**. A "wrong" label cites a concrete input where the two programs differ.
 
-| Assistant (model) | Fixes | Wrong by review (on a plausible input) | Rejected by: job runs | fixwitness | fixwitness + expected |
+| Assistant (model) | Fixes | Wrong by review (on a plausible input) | Rejected by: job runs | fixwitness 0.4.0 | fixwitness 0.5.0 |
 |---|---|---|---|---|---|
-| ChatGPT (free plan, default model) | 9 | 2 (2) | 0 | 0 | 0 |
-| Claude (Haiku 5.5) | 9 | 2 (1) | 0 | 0 | 0 |
-| Gemini (model selector: "Hydrogen") | 9 | 2 (1) | 0 | 0 | 0 |
-| Microsoft Copilot (default model) | 9 | 1 (0) | 0 | 0 | 0 |
-| **All** | **36** | **7 (4)** | **0** | **0** | **0** |
+| ChatGPT (free plan, default model) | 9 | 2 (2) | 0 | 0 | 2 |
+| Claude (Haiku 5.5) | 9 | 2 (1) | 0 | 0 | 2 |
+| Gemini (model selector: "Hydrogen") | 9 | 2 (1) | 0 | 0 | 2 |
+| Microsoft Copilot (default model) | 9 | 1 (0) | 0 | 0 | 1 |
+| **All** | **36** | **7 (4)** | **0** | **0** | **7** |
+
+fixwitness 0.5.0 rejected none of the 29 correct fixes.
 
 Every fix repaired the incident. Seven change the output on a file the job already handled:
 - **I05, ChatGPT, Claude and Gemini:** these prefer `amount_usd` when a file has both `amount` and `amount_usd`.
@@ -68,7 +70,14 @@ Every fix repaired the incident. Seven change the output on a file the job alrea
   - ChatGPT's `csv.Sniffer` picks `;` when a text value mixes semicolons and quotes, as in `call back; "urgent"`.
   - The others decide from the first line, so they fail only on contrived headers.
 
-**fixwitness 0.4.0 missed all seven.** Six need a different header, which it never varies. The seventh is triggered by a cell value that its catalogue lacks. The tool was not changed after seeing these results.
+**fixwitness 0.4.0 missed all seven.** Six need a different header, which 0.4.0 never varies. The seventh is triggered by a cell value that its catalogue lacked.
+
+**fixwitness 0.5.0 catches all seven, but read this as development, not proof.** 0.5.0 was built after seeing these misses:
+- it adds extra and reordered columns, odd header names, and values that mix delimiters with quotes;
+- these are general input classes, written down in [a protocol](study/PROTOCOL_v0.5.md) before the code changed;
+- every development run, including one that wrongly rejected two correct fixes, is in [the development log](study/DEVLOG_v0.5.md).
+
+How well 0.5.0 does on fixes it has never seen will be measured on new tasks and fresh assistant runs, with the tool frozen first.
 
 How the answers were captured, the labels and the evidence: [`study/`](study/README.md).
 
@@ -99,7 +108,7 @@ More scenarios with ready-to-run commands are in [docs/USE_CASES.md](docs/USE_CA
 ## Install
 
 ```bash
-pip install "git+https://github.com/batrarishab14/fixwitness@v0.4.0"
+pip install "git+https://github.com/batrarishab14/fixwitness@v0.5.0"
 fixwitness demo
 ```
 
@@ -182,7 +191,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0              # the base commit must be available
-      - uses: batrarishab14/fixwitness@v0.4.0
+      - uses: batrarishab14/fixwitness@v0.5.0
         with:
           path: etl/clean.py          # compared with the pull request's base commit
           min-confidence: 90
@@ -202,7 +211,14 @@ incident.csv ─► incident check ───────────────
    - whitespace, empty cells, Unicode, case and punctuation;
    - quotes, CSV quoting and very long values;
    - shell metacharacters;
+   - values that mix another delimiter (`;`, tab, `|`) with quotes;
    - plus a header-only file and CRLF line endings.
+
+   It also changes the file's structure, keeping the data:
+   - **schema:** an extra column, including each column that is new in the incident file, and the columns in another order;
+   - **header names:** an added column whose name holds `;`, tab, `|`, quotes, a comma, a line break, spaces, Unicode, or nothing, placed first and last.
+
+   A program that reads columns by name gives the same output on all of these, so a fix that doesn't is flagged.
 2. **Incident (repairs).** The original must fail on the incident input, and the fix must process it.
 3. **Attacks (security fixes).**
 

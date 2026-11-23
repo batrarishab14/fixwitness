@@ -13,7 +13,7 @@ Each wrong fix models a documented failure pattern: over-broad normalisation, si
 
 ## Results
 
-Full table: [RESULTS.md](RESULTS.md). Raw data: `results.csv`. fixwitness 0.4.0.
+Full table: [RESULTS.md](RESULTS.md). Raw data: `results.csv`. fixwitness 0.5.0; 0.4.0 gave the same numbers here.
 
 | Check | Wrong fixes caught | Correct fixes wrongly rejected |
 |---|---|---|
@@ -26,8 +26,9 @@ Full table: [RESULTS.md](RESULTS.md). Raw data: `results.csv`. fixwitness 0.4.0.
 
 ## Threats to validity (read before citing)
 
-- **The wrong fixes are synthetic.** They model failure patterns. None was produced by an AI agent, so the detection rates are not rates for any agent. For real assistant fixes, see the study in [`../study/`](../study/README.md): of 36 fixes by four assistants, 7 were wrong and fixwitness 0.4.0 accepted all 36.
+- **The wrong fixes are synthetic.** They model failure patterns. None was produced by an AI agent, so the detection rates are not rates for any agent. For real assistant fixes, see the study in [`../study/`](../study/README.md): of 36 fixes by four assistants, 7 were wrong. fixwitness 0.4.0 accepted all 36. 0.5.0 rejects the 7 wrong ones and none of the 29 correct ones, but it was designed after seeing them.
 - **The tool's author also wrote the benchmark.** While designing the cases, the input catalogue was extended with dates, duplicate keys, rounding edges (`0.125`, `2.675`), `ß`/`İ` and `;`. A benchmark built independently could find more blind spots.
+- **0.5.0 was developed on this benchmark and the assistant study.** Its new input classes were written down in [`../study/PROTOCOL_v0.5.md`](../study/PROTOCOL_v0.5.md) before the code changed, and every development run is logged in [`../study/DEVLOG_v0.5.md`](../study/DEVLOG_v0.5.md). Results on these fixes are development results.
 - **Scale.** 20 cases and 56 fixes in small, single-file jobs, all CSV in and CSV out.
 - **Ground truth.** For incidents, the expected output is the reference repair's output, reviewed by hand.
 - **One reference was corrected after the assistant study.** The I07 reference decided the delimiter from the first physical line and failed on a contrived header; it now reads the file as before and retries with `;` only on failure. No benchmark result changed (the previous version is described in `study/run_notes.md`).
@@ -35,7 +36,7 @@ Full table: [RESULTS.md](RESULTS.md). Raw data: `results.csv`. fixwitness 0.4.0.
 ## Run it
 
 ```bash
-python3 benchmark/run_bench.py            # about 2 minutes; writes results.csv and RESULTS.md
+python3 benchmark/run_bench.py            # about 6 minutes; writes results.csv and RESULTS.md
 ```
 
 ## Measure real agents

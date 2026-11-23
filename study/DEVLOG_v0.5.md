@@ -27,4 +27,14 @@ This log records every development run on the development set (the 92 existing f
 
 The rule depends only on the value's characters and the user's review list. No case or fix is special-cased. The `shell_eval` example's configuration is back to its 0.4.0 contents.
 
-**Results:** see `benchmark/RESULTS.md` (written by build 2's run) and the summary added below when the run finishes.
+**Results** (`benchmark/RESULTS.md`, run time 330 s; 192 s for 0.4.0):
+
+| Criterion | Result |
+|---|---|
+| 1. All 7 wrong assistant fixes rejected | **Met:** 7/7. The margins are thin: each I05 fix is caught by 2 inputs, and each I07 fix by 1 to 3 |
+| 2. None of the 29 correct assistant fixes rejected | **Met:** 0/29 |
+| 3. None of the 21 correct benchmark fixes rejected | **Met:** 0/21 |
+| 4. At least 29/35 wrong benchmark fixes rejected | **Met:** 29/35, the same six missed as in 0.4.0 (all need the expected output) |
+| 5. Unit tests pass; examples keep their verdicts | **Met:** 46 tests pass (40 from 0.4.0, 6 new); the examples' configuration is unchanged |
+
+Build 2 becomes 0.5.0. The next step is the held-out evaluation in `PROTOCOL_v0.5.md`.
