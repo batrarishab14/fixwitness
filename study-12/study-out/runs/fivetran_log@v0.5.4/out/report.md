@@ -1,0 +1,7 @@
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | not checked | the sources read the seeds from schema fivetran_log, which no variable in integration_tests/dbt_project.yml sets, so they can't be pointed at a private schema in your warehouse |
+
+Not checked: `CHANGELOG.md` (documentation)

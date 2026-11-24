@@ -1,0 +1,3359 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "b0fde4cb0f2ab6b09dacc3ad8cc296a39d7bb5d6856d855896ae9d7492b0d44b",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "d09c84384a11b29ef487713fba0b17325d010485",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "a243122d4067572f45dfae3efc5811d2973253c5fbe85084a9efedb5fefc2208"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "7544e30bcfc72e2b43697f6ef06bbf9157e693167f141631e2845f76dcf313ea"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "77d676e14115a8f25b3d93b17044902410578717d6dca45ad9a5fff06b48c835"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "c27abdb813efff41f76700edcd35eac650ade8ac9ab25b192b5884bd77967452"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "ea4d0a737a3ed6e5f9f6a9d158382d6f38cbb5166a4c7d0238a4dc7736241f3f"
+      },
+      {
+        "path": "integration_tests/ci/sample.profiles.yml",
+        "status": "M",
+        "sha256": "8b22717d750e97ad43c0713fc5fe80fe46179420326f56cf1bdfa2bedce33907"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "0fc5d2752f1c877f98013385beb7c7369fe925a36b09dc217d65b815bf9e333b"
+      },
+      {
+        "path": "integration_tests/seeds/deposit_data.csv",
+        "status": "M",
+        "sha256": "e1760cc02ddb9a24070897c75be589a777585167b423c7704c7c60a76ba98a15"
+      },
+      {
+        "path": "integration_tests/seeds/deposit_line_data.csv",
+        "status": "M",
+        "sha256": "43cf2e49d2ccc28c38ba7db60582b36e46c0ec96827b475e145975fdf8bf9d4e"
+      },
+      {
+        "path": "integration_tests/tests/integrity/deposit_ledger_amounts_match.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "models/double_entry_transactions/int_quickbooks__deposit_double_entry.sql",
+        "status": "M",
+        "sha256": "1f23a04871009f59601b121c766c4fc4c2351d8649a77a2af29a8042130667f8"
+      },
+      {
+        "path": "models/transaction_lines/int_quickbooks__deposit_transactions.sql",
+        "status": "M",
+        "sha256": "e3a1d516f335e8a79438173933c6c25b18eb9b7f88e4bcce6138a28a4af00d18"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_quickbooks__deposit_double_entry",
+        "int_quickbooks__deposit_transactions"
+      ],
+      "compared": [
+        "quickbooks__balance_sheet",
+        "quickbooks__cash_flow_statement",
+        "quickbooks__expenses_sales_enhanced",
+        "quickbooks__general_ledger",
+        "quickbooks__general_ledger_by_period",
+        "quickbooks__profit_and_loss"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "bill_payment_data": {
+        "name": "bill_payment_data.csv",
+        "sha256": "654e27fe99f7891483ba67ae67202f00a166df46c6463965f831bd47d3bc53cf"
+      },
+      "credit_memo_line_data": {
+        "name": "credit_memo_line_data.csv",
+        "sha256": "01898bc6786c3c48ebf5aa4170ea54257dd66e6fc38931067c9012bc639f6994"
+      },
+      "account_data": {
+        "name": "account_data.csv",
+        "sha256": "cba3aa4427096b16f4e5ce7a43eeb6e312efb70bf6a257adfece8b6e3686085e"
+      },
+      "vendor_credit_data": {
+        "name": "vendor_credit_data.csv",
+        "sha256": "ccc4a1ca3967e3eb7f61d2831242f07b1e5a77006dd4312a17fd36e7ea008bea"
+      },
+      "sales_receipt_line_data": {
+        "name": "sales_receipt_line_data.csv",
+        "sha256": "e710dc7b9aba51824d9c660984fcd76975ec70f7afd28f4fe0e16bc251368c5d"
+      },
+      "deposit_data": {
+        "name": "deposit_data.csv",
+        "sha256": "e1760cc02ddb9a24070897c75be589a777585167b423c7704c7c60a76ba98a15"
+      },
+      "payment_data": {
+        "name": "payment_data.csv",
+        "sha256": "1d04470de19b7e48f687a9ee6300cfaefcb777e49316bbd55d52a12f34e4d357"
+      },
+      "customer_data": {
+        "name": "customer_data.csv",
+        "sha256": "2b72eabf58923823033e461d1960295c156b31bf5ace046fc388c336fd96a29d"
+      },
+      "payment_line_data": {
+        "name": "payment_line_data.csv",
+        "sha256": "6e54b93beaddd05e86b071eb43833845bfc76a841b2780e3e1059f6d661cd238"
+      },
+      "department_data": {
+        "name": "department_data.csv",
+        "sha256": "079a79543e6cfcdac83eeeeb9672451756cc6c48e7d4c572d9f761b9314b18d4"
+      },
+      "refund_receipt_data": {
+        "name": "refund_receipt_data.csv",
+        "sha256": "0bfb44ee366239221dfee9e985b0c66d5a7cbc6d0bb8c18cf02acba7616c135d"
+      },
+      "bill_data": {
+        "name": "bill_data.csv",
+        "sha256": "3241a63054f0ffb9737a402a18fbe8286e86114e18425db853ff0673fc410314"
+      },
+      "invoice_line_bundle_data": {
+        "name": "invoice_line_bundle_data.csv",
+        "sha256": "f1cdc81c2fb1ec4f76c5226e2f5e4ed6f17f7b446cb53cfa539d8caafb252a5c"
+      },
+      "invoice_line_data": {
+        "name": "invoice_line_data.csv",
+        "sha256": "a05f10afc36145c8449665e8f314939d4a039eb87969448d98685d5964decfb7"
+      },
+      "bundle_item_data": {
+        "name": "bundle_item_data.csv",
+        "sha256": "69218d4dc89cf8da55d1a5aab12bbe45129b48377fa7615f0030616d8c34fe9d"
+      },
+      "purchase_line_data": {
+        "name": "purchase_line_data.csv",
+        "sha256": "33355dd453e68ac5a5afa2f71e3c515dc414cdd55a489c65d2c2c4fa06fd18e7"
+      },
+      "deposit_line_data": {
+        "name": "deposit_line_data.csv",
+        "sha256": "43cf2e49d2ccc28c38ba7db60582b36e46c0ec96827b475e145975fdf8bf9d4e"
+      },
+      "invoice_data": {
+        "name": "invoice_data.csv",
+        "sha256": "cd8527ea11d19987f98860a31d2d99ac78cf045bf1af9c135c354310edd7c65b"
+      },
+      "bill_payment_line_data": {
+        "name": "bill_payment_line_data.csv",
+        "sha256": "ae8e7b58ddb78ecbcb7facd257a29f27db08cb69e4014ee40e3a07d02e7ea51a"
+      },
+      "refund_receipt_line_data": {
+        "name": "refund_receipt_line_data.csv",
+        "sha256": "8a67266f87e49dda0de57a6d66b4c1a053af545a6c8d394f8df6470b98cd31c7"
+      },
+      "journal_entry_line_data": {
+        "name": "journal_entry_line_data.csv",
+        "sha256": "a17bbafe90f2f00403538657b9f45c14d929ce2d9b5b29a55828855756024516"
+      },
+      "vendor_data": {
+        "name": "vendor_data.csv",
+        "sha256": "98ce313c6a3acf1262de91d25905b85fe760227a534703d9c6bc0e4149b055b5"
+      },
+      "bill_line_data": {
+        "name": "bill_line_data.csv",
+        "sha256": "ea538cd77d1034c9b0d941677d4f92040a5e73cf839135ac7173a0b30649dbd1"
+      },
+      "purchase_data": {
+        "name": "purchase_data.csv",
+        "sha256": "ac38b4fff602a8b6503082d010e026efc561fb55567fb52b4c3cd0a6fb295cfc"
+      },
+      "bundle_data": {
+        "name": "bundle_data.csv",
+        "sha256": "090d802f05c558f45f05a760b5fb1fa879dfeb26c737e6356dcf6bfcb9fbbefb"
+      },
+      "sales_receipt_data": {
+        "name": "sales_receipt_data.csv",
+        "sha256": "1eb213364426d9a6dd17a248773531cf73117558bf7c064ff0af685e98516422"
+      },
+      "journal_entry_data": {
+        "name": "journal_entry_data.csv",
+        "sha256": "6f717632a6fe0901786fbdfed63db69af1c928331ed9cb83f9fd389fe2b9ab83"
+      },
+      "credit_memo_data": {
+        "name": "credit_memo_data.csv",
+        "sha256": "e78544a27c48f4cad0b44f943800fa35faf9fd82d6c0a058535b980e59e1ca9e"
+      },
+      "item_data": {
+        "name": "item_data.csv",
+        "sha256": "50df6d91c903ce1724da35a5d4c5cf35c7b246507605b9386ce404a8f929d568"
+      },
+      "vendor_credit_line_data": {
+        "name": "vendor_credit_line_data.csv",
+        "sha256": "8c60276eb72f29fcd60b6aff2615648b71ce47e0b738331b54f86c988a979737"
+      },
+      "transfer_data": {
+        "name": "transfer_data.csv",
+        "sha256": "79139d758013f9fe26aec7a1283224df79f5bb780c3b896ed8ead578bc4f8ff5"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs quickbooks__balance_sheet,quickbooks__cash_flow_statement,quickbooks__expenses_sales_enhanced,quickbooks__general_ledger,quickbooks__general_ledger_by_period,quickbooks__profit_and_loss {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "quickbooks__balance_sheet",
+        "quickbooks__cash_flow_statement",
+        "quickbooks__expenses_sales_enhanced",
+        "quickbooks__general_ledger",
+        "quickbooks__general_ledger_by_period",
+        "quickbooks__profit_and_loss"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 272,
+      "evidence_strength": 0.989,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 272,
+    "changed": 0,
+    "not_comparable": 28,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "case",
+      "kind": "valid",
+      "column": "bill_payment_data.check_print_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "bill_payment_data.check_print_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "case",
+      "kind": "valid",
+      "column": "bill_payment_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "bill_payment_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "case",
+      "kind": "valid",
+      "column": "credit_memo_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "credit_memo_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "case",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_tax_code_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_tax_code_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "case",
+      "kind": "valid",
+      "column": "vendor_credit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "vendor_credit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_tax_code_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_tax_code_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "case",
+      "kind": "valid",
+      "column": "deposit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "deposit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "empty",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "long",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "case",
+      "kind": "valid",
+      "column": "payment_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "payment_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "case",
+      "kind": "valid",
+      "column": "customer_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "customer_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "case",
+      "kind": "valid",
+      "column": "customer_data.display_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "customer_data.display_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "case",
+      "kind": "valid",
+      "column": "customer_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "customer_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "case",
+      "kind": "valid",
+      "column": "customer_data.preferred_delivery_method",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "customer_data.preferred_delivery_method",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "case",
+      "kind": "valid",
+      "column": "customer_data.print_on_check_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "customer_data.print_on_check_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "empty",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "long",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "case",
+      "kind": "valid",
+      "column": "department_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "long",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "long",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "empty",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "long",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "empty",
+      "kind": "valid",
+      "column": "purchase_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "purchase_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "purchase_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "transfer_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "transfer_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "empty",
+      "kind": "valid",
+      "column": "transfer_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "transfer_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "transfer_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: d09c84384a11 (d09c84384a11); fix: your working tree (12 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 109 models; compiled SQL changed in int_quickbooks__deposit_double_entry, int_quickbooks__deposit_transactions; comparing quickbooks__balance_sheet, quickbooks__cash_flow_statement, quickbooks__expenses_sales_enhanced, quickbooks__general_ledger, quickbooks__general_ledger_by_period, quickbooks__profit_and_loss (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (31 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): bill_payment_data.vendor_id -> vendor_data.id, credit_memo_line_data.credit_memo_id -> credit_memo_data.id, vendor_credit_data.vendor_id -> vendor_data.id, payment_data.customer_id -> customer_data.id, payment_line_data.invoice_id -> invoice_data.id, bill_data.vendor_id -> vendor_data.id, invoice_line_bundle_data.account_id -> account_data.id, invoice_line_data.invoice_id -> invoice_data.id, invoice_line_data.bundle_id -> bundle_data.id, bundle_item_data.item_id -> item_data.id, invoice_data.customer_id -> customer_data.id, credit_memo_data.customer_id -> customer_data.id",
+    "the project's dbt tests are used as rules on the input tables (23: account_data.id not_null, account_data.classification accepted_values, address_data.id not_null, bill_line_data.bill_id not_null, bill_linked_txn_data.bill_id not_null, bill_payment_line_data.bill_payment_id not_null, bundle_item_data.bundle_id not_null, bundle_data.id not_null, credit_memo_line_data.credit_memo_id not_null, customer_data.id not_null, deposit_line_data.deposit_id not_null, estimate_line_data.estimate_id not_null, ...); no generated input breaks them"
+  ],
+  "warnings": [
+    "28 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:17:20Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_quickbooks",
+    "base": "d09c84384a11",
+    "base_commit": "d09c84384a11b29ef487713fba0b17325d010485",
+    "path": "/home/runner/work/_temp/clones/dbt_quickbooks/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs quickbooks__balance_sheet,quickbooks__cash_flow_statement,quickbooks__expenses_sales_enhanced,quickbooks__general_ledger,quickbooks__general_ledger_by_period,quickbooks__profit_and_loss {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

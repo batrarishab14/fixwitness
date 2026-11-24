@@ -1,0 +1,3874 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "872aa63d263f335fc446bfca5ae19b0df1eec346c5f3ab44aa2dc60db87127b3",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "25153c1e9ef14f0024a42ba638b3489abf24b77a",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "d7f85a58b1d2647d07e57b88bee3c51c28982766bc7f643979e6ebe1e45829f9"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "d054fff7e7d17f6d24dc68837f5d5106c311a6a919bb0caa51955dc538250aa1"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "a8966e21fbc6d4b3647d228f21529147637ecfe8331fa522cf3ac4e49a75ffcf"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "4d69652b80ea1c993ba3ad2eb00f1f29fb05a076ff6238e5431cd5e7de67ca21"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "4a7552de3a5b641a097654f30c94a6770948902f49c59cd32aa2fbe9bb116d6d"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "a43eda8a9ba1edc6f13a4d5bad4fc38d8fbedea55675d6a4ca896f8d99bdc7b5"
+      },
+      {
+        "path": "models/src_shopify.yml",
+        "status": "M",
+        "sha256": "5e1e2d3f8c71e0bc87262a6149e69f673f5da40762be90d907c6cc0f27f6bfa6"
+      },
+      {
+        "path": "models/stg_shopify.yml",
+        "status": "M",
+        "sha256": "c4397f0bef2be101994d895205ed281e04a6835b955478e0691be2de5ce1f950"
+      },
+      {
+        "path": "models/stg_shopify__abandoned_checkout_discount_code.sql",
+        "status": "M",
+        "sha256": "9ba00b3b2ff217703bcc958777a0861e8d0dc0f3e63dc75e261793f7762e51f3"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "stg_shopify__abandoned_checkout_discount_code"
+      ],
+      "compared": [
+        "stg_shopify__abandoned_checkout_discount_code"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "shopify_abandoned_checkout_discount_code_data": {
+        "name": "shopify_abandoned_checkout_discount_code_data.csv",
+        "sha256": "f60365d56b94e348893476184122a98c6a4b939de1c7de1f7f3684e2ba344e48"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_shopify__abandoned_checkout_discount_code {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "stg_shopify__abandoned_checkout_discount_code"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 237 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 290,
+    "identical": 0,
+    "changed": 237,
+    "not_comparable": 53,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.discount_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.discount_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.usage_count",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.usage_count",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.discount_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.usage_count",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 25153c1e9ef1 (25153c1e9ef1); fix: your working tree (9 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 66 models; compiled SQL changed in stg_shopify__abandoned_checkout_discount_code; comparing stg_shopify__abandoned_checkout_discount_code (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (1 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (27: shopify_collection_product_data.collection_id not_null, shopify_collection_product_data.product_id not_null, shopify_collection_data.id not_null, shopify_customer_tag_data.index not_null, shopify_customer_tag_data.customer_id not_null, shopify_discount_code_data.id not_null, shopify_fulfillment_data.id not_null, shopify_fulfillment_data.status accepted_values, shopify_inventory_item_data.id not_null, shopify_inventory_level_data.inventory_item_id not_null, shopify_inventory_level_data.location_id not_null, shopify_location_data.id not_null, ...); no generated input breaks them"
+  ],
+  "warnings": [
+    "53 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "<sample as given>",
+      "status": "changed",
+      "explanation": "If the file is sample as given, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "<header only>",
+      "status": "changed",
+      "explanation": "If the file is header only, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "<extra column at the end>",
+      "status": "changed",
+      "explanation": "If the input has another column layout (<extra column at the end>), in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "<extra column at the start>",
+      "status": "changed",
+      "explanation": "If the input has another column layout (<extra column at the start>), in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "<columns in reverse order>",
+      "status": "changed",
+      "explanation": "If the input has another column layout (<columns in reverse order>), in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "<first column moved to the end>",
+      "status": "changed",
+      "explanation": "If the input has another column layout (<first column moved to the end>), in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `code` is 'a; \"b\"', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `type` is 'a; \"b\"', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "a; \"b\" (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a; \"b\" (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `code` is '\"a\"; b', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `type` is '\"a\"; b', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "\"a\"; b (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is '\"a\"; b (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "a;b;c",
+      "status": "changed",
+      "explanation": "If `code` is 'a;b;c', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "a;b;c",
+      "status": "changed",
+      "explanation": "If `type` is 'a;b;c', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "a;b;c (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a;b;c (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "changed",
+      "explanation": "If `code` is 'a\t \"b\"', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "changed",
+      "explanation": "If `type` is 'a\t \"b\"', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "a\t \"b\" (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a\t \"b\" (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "changed",
+      "explanation": "If `code` is '\"a\"\t b', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "changed",
+      "explanation": "If `type` is '\"a\"\t b', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "025",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "\"a\"\t b (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is '\"a\"\t b (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "changed",
+      "explanation": "If `code` is 'a\tb\tc', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "changed",
+      "explanation": "If `type` is 'a\tb\tc', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "a\tb\tc (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a\tb\tc (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "changed",
+      "explanation": "If `code` is 'a| \"b\"', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "changed",
+      "explanation": "If `type` is 'a| \"b\"', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "a| \"b\" (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a| \"b\" (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "changed",
+      "explanation": "If `code` is '\"a\"| b', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "changed",
+      "explanation": "If `type` is '\"a\"| b', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "\"a\"| b (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is '\"a\"| b (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.code",
+      "family": null,
+      "value": "a|b|c",
+      "status": "changed",
+      "explanation": "If `code` is 'a|b|c', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.type",
+      "family": null,
+      "value": "a|b|c",
+      "status": "changed",
+      "explanation": "If `type` is 'a|b|c', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data",
+      "family": null,
+      "value": "a|b|c (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a|b|c (in an added 'note' column)', in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `checkout_id` is the number 0, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "-0",
+      "status": "changed",
+      "explanation": "If `checkout_id` is the number -0, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "044",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "+7",
+      "status": "changed",
+      "explanation": "If `checkout_id` is the number +7, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "-3",
+      "status": "changed",
+      "explanation": "If `checkout_id` is the number -3, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "046",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "10",
+      "status": "changed",
+      "explanation": "If `checkout_id` is the number 10, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "047",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "100",
+      "status": "changed",
+      "explanation": "If `checkout_id` is the number 100, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "048",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "1200",
+      "status": "changed",
+      "explanation": "If `checkout_id` is the number 1200, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "050",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "00",
+      "status": "changed",
+      "explanation": "If `checkout_id` is the number 00, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "051",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `checkout_id` has extra spaces (' 42 '), in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "052",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "\t7",
+      "status": "changed",
+      "explanation": "If `checkout_id` has extra spaces ('\t7'), in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "053",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "8 ",
+      "status": "changed",
+      "explanation": "If `checkout_id` has extra spaces ('8 '), in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "054",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `shopify_abandoned_checkout_discount_code_data` row has an empty `checkout_id`, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "055",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.checkout_id",
+      "family": null,
+      "value": "901163",
+      "status": "changed",
+      "explanation": "If `checkout_id` repeats the value of another row (901163), in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "057",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `index` is the number 0, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "058",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "value": "-0",
+      "status": "changed",
+      "explanation": "If `index` is the number -0, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "059",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "value": "+7",
+      "status": "changed",
+      "explanation": "If `index` is the number +7, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    },
+    {
+      "id": "060",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_abandoned_checkout_discount_code_data.index",
+      "family": null,
+      "value": "-3",
+      "status": "changed",
+      "explanation": "If `index` is the number -3, in `stg_shopify__abandoned_checkout_discount_code`, column `index` disappears.",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__abandoned_checkout_discount_code: header: [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation', 'index']] -> [['checkout_id', 'code', 'discount_id', 'amount', 'type', 'created_at', 'updated_at', '_fivetran_synced', 'source_relation']]"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:22:19Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_shopify_source",
+    "base": "25153c1e9ef1",
+    "base_commit": "25153c1e9ef14f0024a42ba638b3489abf24b77a",
+    "path": "/home/runner/work/_temp/clones/dbt_shopify_source/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_shopify__abandoned_checkout_discount_code {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

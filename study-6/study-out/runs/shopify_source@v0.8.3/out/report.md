@@ -1,0 +1,61 @@
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If the file is sample as given, in `stg_shopify__metafield`, `metafield_reference` for 4575 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 4 more cells). |
+
+Not checked: `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code); `integration_tests/.gitignore` (deleted: nothing to run)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `503893f3b460` (original) vs working tree (fix); changed: `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/index.html`, `docs/manifest.json` and 4 more. dbt project: changed `stg_shopify__metafield`; compared `stg_shopify__metafield`; SQL on warehouse; tables `shopify_metafield_data` (shopify_metafield_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 2 of 260 comparable valid inputs give the same output |
+| Not comparable | 40 valid inputs made the original fail too |
+
+**Why:** the fix changes output on 258 valid inputs.
+
+- Note: 40 valid inputs could not be compared because the original failed on them
+
+**What could go wrong:**
+
+- **Values change.** If the file is sample as given, in `stg_shopify__metafield`, `metafield_reference` for 4575 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 4 more cells).
+  - case 000: `file-structure` input '<sample as given>' in `shopify_metafield_data` (changed)
+  - stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+  - stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+- **Values change.** If the input has another column layout (<extra column at the end>), in `stg_shopify__metafield`, `metafield_reference` for 576111 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations'.
+  - case 001: `schema` input '<extra column at the end>' in `shopify_metafield_data` (changed); input shrunk to the rows that show it
+  - stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+  - stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+- **Values change.** If `key` is 'a; "b"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).
+  - case 004: `delimiter-mix` input 'a; "b"' in `shopify_metafield_data.key` (changed)
+  - stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+  - stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+- **Values change.** If `namespace` is 'a; "b"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).
+  - case 005: `delimiter-mix` input 'a; "b"' in `shopify_metafield_data.namespace` (changed)
+  - stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+  - stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+- **Values change.** If `owner_resource` is 'a; "b"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).
+  - case 006: `delimiter-mix` input 'a; "b"' in `shopify_metafield_data.owner_resource` (changed)
+  - stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+  - stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+- **Values change.** If `value` is 'a; "b"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).
+  - case 008: `delimiter-mix` input 'a; "b"' in `shopify_metafield_data.value` (changed)
+  - stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+  - stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+- **Values change.** If `value_type` is 'a; "b"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).
+  - case 009: `delimiter-mix` input 'a; "b"' in `shopify_metafield_data.value_type` (changed)
+  - stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+  - stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+- **Values change.** If `type` is 'a; "b"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).
+  - case 010: `delimiter-mix` input 'a; "b"' in `shopify_metafield_data.type` (changed)
+  - stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+  - stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'
+
+Proof ID `5455afa662c7ce6e` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/shopify_source@v0.8.3/out/integration_tests_dbt_project/proof.json`

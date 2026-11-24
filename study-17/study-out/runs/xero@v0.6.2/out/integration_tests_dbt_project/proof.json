@@ -1,0 +1,3264 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "45e688e1b3bf91ffd29fb5e87acff184205b97c4e32c939d1a8fed0e6df1ce33",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "b2a7e6085821e749b188109236b60fdbfce2b92c",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md",
+        "status": "M",
+        "sha256": "5b8e5b0fb61492f79d08cfe81ef286f363d2694fa70e4d55789c161252eec812"
+      },
+      {
+        "path": ".github/workflows/auto-release.yml",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "8681981fc78a71f8eae30b3f68f4eb1ba0036b7d77030aae9e45c3f9417b695b"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "a76165c5656a2ae7abb9c4e4fc9aa94b1f85f1d3f85bd04443845940a30ee8ff"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "c20b8d53301cb4c3232f509ae3aa07f97291a18806511f1ebf0c562bd66c5cb1"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "a3b6ea18310241242216d8fd2a96f225b3de42614d669054ad7d6a0c5262050c"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "dbb351d63eaf3145ec3da5c07611291135ebd1287a4731a992cd8898f5ce1dd9"
+      },
+      {
+        "path": "integration_tests/ci/sample.profiles.yml",
+        "status": "M",
+        "sha256": "ca66792b36b04f68186fc8a0aa595bf5cbe9297dcc9b31f38f33bbf426619f88"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "8c4c2bd3f30f2e39b2c05ef64032a01a6747eaea79315b3ae59a12c0bf0daf83"
+      },
+      {
+        "path": "integration_tests/seeds/xero_organization_data.csv",
+        "status": "M",
+        "sha256": "d52fc0cf381f14a2113c894d029f0c31fd5bb9b1fb8fd7a6c925b4e9ac249c70"
+      },
+      {
+        "path": "models/xero__balance_sheet_report.sql",
+        "status": "M",
+        "sha256": "208c5d40c1a6d97e286044695888c35f73e6664bb861c311a43b2cd2cc35b6cc"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "xero__balance_sheet_report"
+      ],
+      "compared": [
+        "xero__balance_sheet_report"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "xero_bank_transaction_data": {
+        "name": "xero_bank_transaction_data.csv",
+        "sha256": "41b9560fdba01d69fde990fbd0f403e96c55e02f8440764047a4bbcfd8e9b1d4"
+      },
+      "xero_credit_note_data": {
+        "name": "xero_credit_note_data.csv",
+        "sha256": "54b09f2bf8a988d0352b786f1da555a52df7baaa958ad2f1499a1feb69dd4c55"
+      },
+      "xero_journal_line_data": {
+        "name": "xero_journal_line_data.csv",
+        "sha256": "d231b276635aff69770d80ffc8154eb0aacc16d8ae95459d599fbd2f685db06a"
+      },
+      "xero_organization_data": {
+        "name": "xero_organization_data.csv",
+        "sha256": "d52fc0cf381f14a2113c894d029f0c31fd5bb9b1fb8fd7a6c925b4e9ac249c70"
+      },
+      "xero_account_data": {
+        "name": "xero_account_data.csv",
+        "sha256": "927157c4519ea76b0beb54808724342e8aa343a04ba51a63c968f1274576dc4e"
+      },
+      "xero_contact_data": {
+        "name": "xero_contact_data.csv",
+        "sha256": "080732aec7b57699ba9c5c0241cffc244397795b3fc8773e14794899619ee33d"
+      },
+      "xero_journal_data": {
+        "name": "xero_journal_data.csv",
+        "sha256": "ae541ccbe7490395db07f92d4126dcf73e6e7af80cc571a7976c6e38dd3efd77"
+      },
+      "xero_invoice_data": {
+        "name": "xero_invoice_data.csv",
+        "sha256": "2f59c453144d580f92f8d30997c2323d14261ef3d95ce5236e7d5d42aeaafeff"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs xero__balance_sheet_report {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_xero__account: not_null(account_id)",
+      "stg_xero__journal_line: not_null(journal_line_id)",
+      "stg_xero__organization: not_null(organisation_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "xero__balance_sheet_report"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 279,
+      "evidence_strength": 0.989,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 295,
+    "identical": 279,
+    "changed": 0,
+    "not_comparable": 16,
+    "review_inputs": 5,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_bank_transaction_data.bank_transaction_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "xero_credit_note_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "schema",
+      "kind": "valid",
+      "column": "xero_credit_note_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_credit_note_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "xero_credit_note_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_credit_note_data.credit_note_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_credit_note_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "xero_journal_line_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "schema",
+      "kind": "valid",
+      "column": "xero_journal_line_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_journal_line_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "empty",
+      "kind": "review",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_journal_line_data.gross_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.gross_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.gross_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.gross_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.gross_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_journal_line_data.gross_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_journal_line_data.net_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.net_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.net_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.net_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.net_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_journal_line_data.net_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "null-column",
+      "kind": "review",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.gross_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.net_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_journal_line_data.tax_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "xero_journal_line_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_line_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_line_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "xero_organization_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "schema",
+      "kind": "valid",
+      "column": "xero_organization_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_organization_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "empty",
+      "kind": "review",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "null-column",
+      "kind": "review",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_month",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_organization_data.financial_year_end_day",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "xero_organization_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_organization_data.organisation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "xero_account_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "schema",
+      "kind": "valid",
+      "column": "xero_account_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_account_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_account_data.class",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_account_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "xero_account_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "empty",
+      "kind": "review",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "long",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "xero_account_data.code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_account_data.code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_account_data.code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_account_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_account_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_account_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_account_data.class",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_account_data.class",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_account_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_account_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_contact_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_contact_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_contact_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_contact_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_data.journal_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_journal_data.created_date_utc",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_journal_data.created_date_utc",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "empty",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "xero_invoice_data.date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data.invoice_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data.invoice_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data.contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data.updated_date_utc",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data.updated_date_utc",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data.currency_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data.currency_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data.invoice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data.invoice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data.line_amount_types",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data.line_amount_types",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "case",
+      "kind": "valid",
+      "column": "xero_invoice_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "xero_invoice_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: b2a7e6085821 (b2a7e6085821); fix: your working tree (11 changed files)",
+    "dbt: `dbt run` on the seeds failed in integration_tests ([ERROR]: in model xero__balance_sheet_report (models/xero__balance_sheet_report.sql) / Database Error in model xero__balance_sheet_report (models/xero__balance_sheet_report.sql) / date/time field valu); models were still compiled, but macros that read a model's columns may not have seen them",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 22 models; compiled SQL changed in xero__balance_sheet_report; comparing xero__balance_sheet_report (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (8 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (6: xero_account_data.account_id not_null, xero_invoice_line_item_data.line_item_id not_null, xero_invoice_data.invoice_id not_null, xero_journal_line_data.journal_line_id not_null, xero_journal_data.journal_id not_null, xero_organization_data.organisation_id not_null); 5 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [
+    "16 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "date-format": "valid dates, leap days and unpadded months/days",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:16:40Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_xero",
+    "base": "b2a7e6085821",
+    "base_commit": "b2a7e6085821e749b188109236b60fdbfce2b92c",
+    "path": "/home/runner/work/_temp/clones/dbt_xero/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs xero__balance_sheet_report {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

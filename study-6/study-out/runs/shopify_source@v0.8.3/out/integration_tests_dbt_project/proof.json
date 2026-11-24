@@ -1,0 +1,4065 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "5455afa662c7ce6ebea8957eb6b8eb33ae188382320b3764ea728856ef454797",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "503893f3b460291661d65be3745d2e625f3bc2d7",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "ee07f98b072ba2775aa704c6949f8059d2395d398f986bc25d1ce91f6a5a0e26"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "3f24ed7285ce2070e5fbd3eb6f41637bbee4c5bb848d45db4cc210d90dd247b5"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "57f7a99daf268c9771ec4a55a3d1d68ed03efbf498b907bc157df6b7137fa7d0"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "712b366c1544e8db6832d1ff79bbaf48c2438eff336a778ab1c1297090c6707f"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "bd9be1a04e881085d1df9a34c8633e8e9674712e00e42bcff3bd6d20da3bf0ef"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "c523d62715cc471edda1a65fa72715a84f050e6c26b173c9efe21af09a33ddd3"
+      },
+      {
+        "path": "integration_tests/.gitignore",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "e6441acb0e011270874b549d0ab6ee1a375e92cc65f7d71c1141e299c6e00216"
+      },
+      {
+        "path": "models/stg_shopify__metafield.sql",
+        "status": "M",
+        "sha256": "ef0a0bb8992aed29d7dc46a575c50902aa3f4fe71b814b037582440951130b3c"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "stg_shopify__metafield"
+      ],
+      "compared": [
+        "stg_shopify__metafield"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "shopify_metafield_data": {
+        "name": "shopify_metafield_data.csv",
+        "sha256": "d36c8ae6b969db7f024106a61aaf889a2220f2f8cabdf4126485fb2d44627bc4"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_shopify__metafield {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "stg_shopify__metafield"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 258 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 2,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 2,
+    "changed": 258,
+    "not_comparable": 40,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_metafield_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.description",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.description",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "long",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.description",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "shopify_metafield_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "case",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 503893f3b460 (503893f3b460); fix: your working tree (9 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 66 models; compiled SQL changed in stg_shopify__metafield; comparing stg_shopify__metafield (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (1 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (28: shopify_abandoned_checkout_data.id not_null, shopify_collection_product_data.collection_id not_null, shopify_collection_product_data.product_id not_null, shopify_collection_data.id not_null, shopify_customer_tag_data.index not_null, shopify_customer_tag_data.customer_id not_null, shopify_discount_code_data.id not_null, shopify_fulfillment_data.id not_null, shopify_fulfillment_data.status accepted_values, shopify_inventory_item_data.id not_null, shopify_inventory_level_data.inventory_item_id not_null, shopify_inventory_level_data.location_id not_null, ...); no generated input breaks them"
+  ],
+  "warnings": [
+    "40 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "shopify_metafield_data",
+      "family": null,
+      "value": "<sample as given>",
+      "status": "changed",
+      "explanation": "If the file is sample as given, in `stg_shopify__metafield`, `metafield_reference` for 4575 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 4 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 4, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 5, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "shopify_metafield_data",
+      "family": null,
+      "value": "<extra column at the end>",
+      "status": "changed",
+      "explanation": "If the input has another column layout (<extra column at the end>), in `stg_shopify__metafield`, `metafield_reference` for 576111 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations'.",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `key` is 'a; \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `namespace` is 'a; \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'a; \"b\"_returnauthorizations' -> 'a; \"b\"_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `owner_resource` is 'a; \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `value` is 'a; \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.value_type",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `value_type` is 'a; \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `type` is 'a; \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data",
+      "family": null,
+      "value": "a; \"b\" (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a; \"b\" (in an added 'note' column)', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `key` is '\"a\"; b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `namespace` is '\"a\"; b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: '\"a\"; b_returnauthorizations' -> '\"a\"; b_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `owner_resource` is '\"a\"; b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.type",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `type` is '\"a\"; b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "a;b;c",
+      "status": "changed",
+      "explanation": "If `key` is 'a;b;c', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "a;b;c",
+      "status": "changed",
+      "explanation": "If `namespace` is 'a;b;c', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'a;b;c_returnauthorizations' -> 'a;b;c_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "a;b;c",
+      "status": "changed",
+      "explanation": "If `owner_resource` is 'a;b;c', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "changed",
+      "explanation": "If `key` is 'a\t \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "changed",
+      "explanation": "If `namespace` is 'a\t \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'a\\t \"b\"_returnauthorizations' -> 'a\\t \"b\"_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "changed",
+      "explanation": "If `owner_resource` is 'a\t \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "022",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "changed",
+      "explanation": "If `key` is '\"a\"\t b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "changed",
+      "explanation": "If `namespace` is '\"a\"\t b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: '\"a\"\\t b_returnauthorizations' -> '\"a\"\\t b_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "changed",
+      "explanation": "If `owner_resource` is '\"a\"\t b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "026",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "changed",
+      "explanation": "If `key` is 'a\tb\tc', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "changed",
+      "explanation": "If `namespace` is 'a\tb\tc', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'a\\tb\\tc_returnauthorizations' -> 'a\\tb\\tc_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "changed",
+      "explanation": "If `owner_resource` is 'a\tb\tc', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "changed",
+      "explanation": "If `key` is 'a| \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "030",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "changed",
+      "explanation": "If `namespace` is 'a| \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'a| \"b\"_returnauthorizations' -> 'a| \"b\"_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "changed",
+      "explanation": "If `owner_resource` is 'a| \"b\"', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "changed",
+      "explanation": "If `key` is '\"a\"| b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "changed",
+      "explanation": "If `namespace` is '\"a\"| b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: '\"a\"| b_returnauthorizations' -> '\"a\"| b_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "034",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "changed",
+      "explanation": "If `owner_resource` is '\"a\"| b', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "a|b|c",
+      "status": "changed",
+      "explanation": "If `key` is 'a|b|c', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.namespace",
+      "family": null,
+      "value": "a|b|c",
+      "status": "changed",
+      "explanation": "If `namespace` is 'a|b|c', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'a|b|c_returnauthorizations' -> 'a|b|c_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "shopify_metafield_data.owner_resource",
+      "family": null,
+      "value": "a|b|c",
+      "status": "changed",
+      "explanation": "If `owner_resource` is 'a|b|c', in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `id` is the number 0, in `stg_shopify__metafield`, `metafield_reference` for 0 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "value": "-0",
+      "status": "changed",
+      "explanation": "If `id` is the number -0, in `stg_shopify__metafield`, `metafield_reference` for 0 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `id` has extra spaces (' 42 '), in `stg_shopify__metafield`, `metafield_reference` for 42 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `shopify_metafield_data` row has an empty `id`, in `stg_shopify__metafield`, `metafield_reference` changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.id",
+      "family": null,
+      "value": "5445055",
+      "status": "changed",
+      "explanation": "If `id` repeats the value of another row (5445055), in `stg_shopify__metafield`, `metafield_reference` changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `shopify_metafield_data` row has an empty `_fivetran_synced`, in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "value": "2022-11-19 10:06:09.531000",
+      "status": "changed",
+      "explanation": "If `_fivetran_synced` repeats the value of another row ('2022-11-19 10:06:09.531000'), in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "057",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data._fivetran_synced",
+      "family": null,
+      "value": "2022-11-21 01:57:33.851000 | 2022-11-21 01:57:33.851000",
+      "status": "changed",
+      "explanation": "If two `shopify_metafield_data` rows of the same group have `_fivetran_synced` = '2022-11-21 01:57:33.851000' and '2022-11-21 01:57:33.851000', in `stg_shopify__metafield`, `metafield_reference` changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 3 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 4, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "059",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `shopify_metafield_data` row has an empty `created_at`, in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "067",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "value": "2019-10-28 20:06:39.000000",
+      "status": "changed",
+      "explanation": "If `created_at` repeats the value of another row ('2019-10-28 20:06:39.000000'), in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "070",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "shopify_metafield_data.created_at",
+      "family": null,
+      "value": "2020-06-17 11:35:28.000000 | 2020-06-17 11:35:28.000000",
+      "status": "changed",
+      "explanation": "If two `shopify_metafield_data` rows of the same group have `created_at` = '2020-06-17 11:35:28.000000' and '2020-06-17 11:35:28.000000', in `stg_shopify__metafield`, `metafield_reference` changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 3 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 4, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "071",
+      "category": "empty",
+      "kind": "valid",
+      "column": "shopify_metafield_data.description",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `shopify_metafield_data` row has an empty `description`, in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "072",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "shopify_metafield_data.description",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `description` repeats the value of another row (''), in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 2 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 3, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "073",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "  padded  ",
+      "status": "changed",
+      "explanation": "If `key` has extra spaces ('  padded  '), in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "074",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "multiple   spaces",
+      "status": "changed",
+      "explanation": "If `key` has extra spaces ('multiple   spaces'), in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    },
+    {
+      "id": "075",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "shopify_metafield_data.key",
+      "family": null,
+      "value": "tab\tinside",
+      "status": "changed",
+      "explanation": "If `key` has extra spaces ('tab\tinside'), in `stg_shopify__metafield`, `metafield_reference` for 5445055 changes from 'blade_runner_returnauthorizations' to 'blade_runner_returnAuthorizations' (and 1 more cell).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "stg_shopify__metafield: row 1, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'",
+        "stg_shopify__metafield: row 2, metafield_reference: 'blade_runner_returnauthorizations' -> 'blade_runner_returnAuthorizations'"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:13:06Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_shopify_source",
+    "base": "503893f3b460",
+    "base_commit": "503893f3b460291661d65be3745d2e625f3bc2d7",
+    "path": "/home/runner/work/_temp/clones/dbt_shopify_source/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_shopify__metafield {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

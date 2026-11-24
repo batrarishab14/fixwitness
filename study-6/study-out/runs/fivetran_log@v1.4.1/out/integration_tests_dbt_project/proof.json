@@ -1,0 +1,3991 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "3b912a26f50b0f5cd25fea7fbfbd572824e7880a20277990d6ed932bfc4e2f46",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "be9ee6b7fdb089793de9fc6405b9da748f77b3e6",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md",
+        "status": "M",
+        "sha256": "5b8e5b0fb61492f79d08cfe81ef286f363d2694fa70e4d55789c161252eec812"
+      },
+      {
+        "path": ".github/workflows/auto-release.yml",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": ".quickstart/quickstart.yml",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "8d2322255a951b37614c15cb32d84cddf98ffc765f962c57f4091aeb240f6eb3"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "5bc8ee5e9d59ebe3ac37c972390cd7f619e1fa4246a71100440215c0ffd6147f"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "cab086a840d1027a702217af5811ffa3e105088588704e05fc2b3b3dc0a9273f"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "cfa65f7879496340e1b5759129d264bdd7510300b8d0611c836833dd157a5dfa"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "2e7a587984465a718c5abed37f526a5fe97c64a2f1304c47dc26ccb779184b4f"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "40ed8af86a4129fbb2b013a7ca822bd49dced102131d2b0c130bee02076ede0c"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "aa686e87560dd00c1230c24e306b52e5b7a07e159409d4f45d7782ac04110740"
+      },
+      {
+        "path": "models/fivetran_platform__audit_user_activity.sql",
+        "status": "M",
+        "sha256": "bb023dcde9b2d6ba20219f1818540bf5539108c0a826c87f6b281b853a34b3cf"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "fivetran_platform__audit_user_activity"
+      ],
+      "compared": [
+        "fivetran_platform__audit_user_activity"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "user": {
+        "name": "user.csv",
+        "sha256": "3b49c1b8bc44312686f3fff1d762687c21c2bb66de521020f0994282cfcc2023"
+      },
+      "destination": {
+        "name": "destination.csv",
+        "sha256": "15f1a06c430d4bad1d0e7cfe516d3e019f901b9904c3668d52b6a396fbca7147"
+      },
+      "log": {
+        "name": "log.csv",
+        "sha256": "3637d563f8916ee1a902edb08e4cd17c35bb975b7b6ca34093b553853e58edcc"
+      },
+      "connector": {
+        "name": "connector.csv",
+        "sha256": "1eaeac6c7f2c7fe2ed5fe22e76b41dc680b4b29bf507b6f532853e8da116e981"
+      },
+      "destination_membership": {
+        "name": "destination_membership.csv",
+        "sha256": "b9ae55d55cf37e0ea9d777fe81de83cd71f75d35ac5fc2e3858fe0b5c821c3e8"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs fivetran_platform__audit_user_activity {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_fivetran_platform__destination: not_null(destination_id)",
+      "stg_fivetran_platform__destination: unique(destination_id)",
+      "stg_fivetran_platform__log: unique_combination_of_columns(log_id, created_at)",
+      "stg_fivetran_platform__user: not_null(user_id)",
+      "stg_fivetran_platform__user: unique(user_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "fivetran_platform__audit_user_activity"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 49 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 222,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 271,
+    "identical": 222,
+    "changed": 49,
+    "not_comparable": 0,
+    "review_inputs": 29,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "user",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "schema",
+      "kind": "valid",
+      "column": "user",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "user",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "empty",
+      "kind": "review",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "long",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "long",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.email_disabled",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.email_disabled",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.email_disabled",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "long",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "long",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.phone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.phone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.verified",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.verified",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.verified",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "null-column",
+      "kind": "review",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.email_disabled",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.phone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.verified",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "user",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "case",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "case",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "case",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user.family_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "case",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user.given_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "user.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "flip",
+      "kind": "valid",
+      "column": "user.email_disabled",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "flip",
+      "kind": "valid",
+      "column": "user.verified",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "destination",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "schema",
+      "kind": "valid",
+      "column": "destination",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "empty",
+      "kind": "review",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "long",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "long",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "long",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "long",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "null-column",
+      "kind": "review",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "destination",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "log",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "schema",
+      "kind": "valid",
+      "column": "log",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.time_stamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.time_stamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.time_stamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "after-failed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "log.transformation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.transformation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.transformation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.transformation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.transformation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.transformation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "log.time_stamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "log._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.transformation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination_membership.destination_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination_membership.destination_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination_membership.user_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination_membership.user_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination_membership.role",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: be9ee6b7fdb0 (be9ee6b7fdb0); fix: your working tree (11 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 18 models; compiled SQL changed in fivetran_platform__audit_user_activity; comparing fivetran_platform__audit_user_activity (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (5 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): destination_membership.destination_id -> destination.id, destination_membership.user_id -> user.id",
+    "the project's dbt tests are used as rules on the input tables (8: destination.id unique, destination.id not_null, log.id+time_stamp unique, account.id unique, account.id not_null, destination_membership.destination_id+user_id unique, user.id unique, user.id not_null); 29 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "151",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'a; \"b\"', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"a\" is invalid.\nCONTEXT:  JSON data, line 1: a..."
+      ]
+    },
+    {
+      "id": "155",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '\"a\"; b', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \";\" is invalid.\nCONTEXT:  JSON data, line 1: \"a\";..."
+      ]
+    },
+    {
+      "id": "156",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "a;b;c",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'a;b;c', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"a\" is invalid.\nCONTEXT:  JSON data, line 1: a..."
+      ]
+    },
+    {
+      "id": "157",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'a\t \"b\"', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"a\" is invalid.\nCONTEXT:  JSON data, line 1: a..."
+      ]
+    },
+    {
+      "id": "158",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '\"a\"\t b', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"b\" is invalid.\nCONTEXT:  JSON data, line 1: \"a\"\t b"
+      ]
+    },
+    {
+      "id": "159",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'a\tb\tc', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"a\" is invalid.\nCONTEXT:  JSON data, line 1: a..."
+      ]
+    },
+    {
+      "id": "160",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'a| \"b\"', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"a\" is invalid.\nCONTEXT:  JSON data, line 1: a..."
+      ]
+    },
+    {
+      "id": "161",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '\"a\"| b', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"|\" is invalid.\nCONTEXT:  JSON data, line 1: \"a\"|..."
+      ]
+    },
+    {
+      "id": "162",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "a|b|c",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'a|b|c', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"a\" is invalid.\nCONTEXT:  JSON data, line 1: a..."
+      ]
+    },
+    {
+      "id": "196",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "  padded  ",
+      "status": "after-failed",
+      "explanation": "If `message_data` has extra spaces ('  padded  '), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"padded\" is invalid.\nCONTEXT:  JSON data, line 1:   padded..."
+      ]
+    },
+    {
+      "id": "197",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "multiple   spaces",
+      "status": "after-failed",
+      "explanation": "If `message_data` has extra spaces ('multiple   spaces'), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"multiple\" is invalid.\nCONTEXT:  JSON data, line 1: multiple..."
+      ]
+    },
+    {
+      "id": "198",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "tab\tinside",
+      "status": "after-failed",
+      "explanation": "If `message_data` has extra spaces ('tab\tinside'), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"tab\" is invalid.\nCONTEXT:  JSON data, line 1: tab..."
+      ]
+    },
+    {
+      "id": "199",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "trailing ",
+      "status": "after-failed",
+      "explanation": "If `message_data` has extra spaces ('trailing '), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"trailing\" is invalid.\nCONTEXT:  JSON data, line 1: trailing..."
+      ]
+    },
+    {
+      "id": "200",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "  leading",
+      "status": "after-failed",
+      "explanation": "If `message_data` has extra spaces ('  leading'), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"leading\" is invalid.\nCONTEXT:  JSON data, line 1:   leading"
+      ]
+    },
+    {
+      "id": "201",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": " ",
+      "status": "after-failed",
+      "explanation": "If `message_data` has extra spaces (' '), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  The input string ended unexpectedly.\nCONTEXT:  JSON data, line 1:"
+      ]
+    },
+    {
+      "id": "203",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "Ünïcødé",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'Ünïcødé', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"Ünïcødé\" is invalid.\nCONTEXT:  JSON data, line 1: Ünïcødé"
+      ]
+    },
+    {
+      "id": "204",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "日本語",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '日本語', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"日本語\" is invalid.\nCONTEXT:  JSON data, line 1: 日本語"
+      ]
+    },
+    {
+      "id": "205",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "emoji 📈",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'emoji 📈', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"emoji\" is invalid.\nCONTEXT:  JSON data, line 1: emoji..."
+      ]
+    },
+    {
+      "id": "206",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "café",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'café', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"café\" is invalid.\nCONTEXT:  JSON data, line 1: café"
+      ]
+    },
+    {
+      "id": "207",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "naïve",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'naïve', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"naïve\" is invalid.\nCONTEXT:  JSON data, line 1: naïve"
+      ]
+    },
+    {
+      "id": "208",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "Ελλάδα",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'Ελλάδα', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"Ελλάδα\" is invalid.\nCONTEXT:  JSON data, line 1: Ελλάδα"
+      ]
+    },
+    {
+      "id": "209",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "Straße",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'Straße', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"Straße\" is invalid.\nCONTEXT:  JSON data, line 1: Straße"
+      ]
+    },
+    {
+      "id": "210",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "İstanbul",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'İstanbul', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"İstanbul\" is invalid.\nCONTEXT:  JSON data, line 1: İstanbul"
+      ]
+    },
+    {
+      "id": "211",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "UPPER",
+      "status": "after-failed",
+      "explanation": "If `message_data` is written in another case ('UPPER'), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"UPPER\" is invalid.\nCONTEXT:  JSON data, line 1: UPPER"
+      ]
+    },
+    {
+      "id": "212",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "lower",
+      "status": "after-failed",
+      "explanation": "If `message_data` is written in another case ('lower'), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"lower\" is invalid.\nCONTEXT:  JSON data, line 1: lower"
+      ]
+    },
+    {
+      "id": "213",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "MiXeD",
+      "status": "after-failed",
+      "explanation": "If `message_data` is written in another case ('MiXeD'), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"MiXeD\" is invalid.\nCONTEXT:  JSON data, line 1: MiXeD"
+      ]
+    },
+    {
+      "id": "214",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "Title Case",
+      "status": "after-failed",
+      "explanation": "If `message_data` is written in another case ('Title Case'), the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"Title\" is invalid.\nCONTEXT:  JSON data, line 1: Title..."
+      ]
+    },
+    {
+      "id": "215",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "north-east",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'north-east', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"north\" is invalid.\nCONTEXT:  JSON data, line 1: north..."
+      ]
+    },
+    {
+      "id": "216",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "a.b",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'a.b', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"a\" is invalid.\nCONTEXT:  JSON data, line 1: a..."
+      ]
+    },
+    {
+      "id": "217",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "x_y",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'x_y', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"x_y\" is invalid.\nCONTEXT:  JSON data, line 1: x_y"
+      ]
+    },
+    {
+      "id": "218",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "50%",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '50%', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"%\" is invalid.\nCONTEXT:  JSON data, line 1: 50%"
+      ]
+    },
+    {
+      "id": "219",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "A/B",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'A/B', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"A\" is invalid.\nCONTEXT:  JSON data, line 1: A..."
+      ]
+    },
+    {
+      "id": "220",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "colon:here",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'colon:here', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"colon\" is invalid.\nCONTEXT:  JSON data, line 1: colon..."
+      ]
+    },
+    {
+      "id": "221",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "plus+sign",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'plus+sign', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"plus\" is invalid.\nCONTEXT:  JSON data, line 1: plus..."
+      ]
+    },
+    {
+      "id": "222",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "at@sign",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'at@sign', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"at\" is invalid.\nCONTEXT:  JSON data, line 1: at..."
+      ]
+    },
+    {
+      "id": "223",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "equals=sign",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'equals=sign', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"equals\" is invalid.\nCONTEXT:  JSON data, line 1: equals..."
+      ]
+    },
+    {
+      "id": "224",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\" is invalid.\nCONTEXT:  JSON data, line 1: ...xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ]
+    },
+    {
+      "id": "225",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "comma, inside",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'comma, inside', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"comma\" is invalid.\nCONTEXT:  JSON data, line 1: comma..."
+      ]
+    },
+    {
+      "id": "226",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "O'Brien",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'O'Brien', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"O\" is invalid.\nCONTEXT:  JSON data, line 1: O..."
+      ]
+    },
+    {
+      "id": "227",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "say \"hi\"",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'say \"hi\"', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"say\" is invalid.\nCONTEXT:  JSON data, line 1: say..."
+      ]
+    },
+    {
+      "id": "229",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "*",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '*', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"*\" is invalid.\nCONTEXT:  JSON data, line 1: *"
+      ]
+    },
+    {
+      "id": "230",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "?",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '?', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"?\" is invalid.\nCONTEXT:  JSON data, line 1: ?"
+      ]
+    },
+    {
+      "id": "231",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "[ab]",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '[ab]', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"ab\" is invalid.\nCONTEXT:  JSON data, line 1: [ab..."
+      ]
+    },
+    {
+      "id": "232",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "$HOME",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '$HOME', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"$\" is invalid.\nCONTEXT:  JSON data, line 1: $..."
+      ]
+    },
+    {
+      "id": "233",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "${PATH}",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '${PATH}', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"$\" is invalid.\nCONTEXT:  JSON data, line 1: $..."
+      ]
+    },
+    {
+      "id": "234",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "~",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '~', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"~\" is invalid.\nCONTEXT:  JSON data, line 1: ~"
+      ]
+    },
+    {
+      "id": "235",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "back\\slash",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'back\\slash', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"back\" is invalid.\nCONTEXT:  JSON data, line 1: back..."
+      ]
+    },
+    {
+      "id": "236",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "#hash",
+      "status": "after-failed",
+      "explanation": "If `message_data` is '#hash', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"#\" is invalid.\nCONTEXT:  JSON data, line 1: #..."
+      ]
+    },
+    {
+      "id": "237",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "value": "semi;colon",
+      "status": "after-failed",
+      "explanation": "If `message_data` is 'semi;colon', the fix fails (fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json) while the original runs.",
+      "impact": "fails",
+      "shrunk": false,
+      "details": [
+        "the fix failed where the original worked: fixwitness.sqlrun: query failed: InvalidTextRepresentation: invalid input syntax for type json\nDETAIL:  Token \"semi\" is invalid.\nCONTEXT:  JSON data, line 1: semi..."
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:05:37Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_fivetran_log",
+    "base": "be9ee6b7fdb0",
+    "base_commit": "be9ee6b7fdb089793de9fc6405b9da748f77b3e6",
+    "path": "/home/runner/work/_temp/clones/dbt_fivetran_log/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs fivetran_platform__audit_user_activity {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

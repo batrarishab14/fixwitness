@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/__main__.py", line 3, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/cli.py", line 481, in main
+    return args.func(args)
+           ^^^^^^^^^^^^^^^
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/cli.py", line 154, in cmd_check
+    multi = _whole_change(cfg, args)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/cli.py", line 110, in _whole_change
+    result = run_items(cfg, items, out)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/changes.py", line 141, in run_items
+    proof = run_check(sub)
+            ^^^^^^^^^^^^^^
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/core.py", line 417, in run_check
+    return _run(plan, cfg)
+           ^^^^^^^^^^^^^^^
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/core.py", line 435, in _run
+    cases = _cases(plan, cfg)
+            ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/core.py", line 371, in _cases
+    cases = generate_sql_cases(tables, plan.sql["types"], cfg.columns, cfg.rows, cfg.max_cases,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/fixwitness/fixwitness/src/fixwitness/sql.py", line 764, in generate_sql_cases
+    for x in (f"{day} 00:00:00", f"{day} 23:59:59.999999", f"{day + _dt.timedelta(days=1)} 00:00:00",
+                                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+OverflowError: date value out of range

@@ -1,0 +1,3241 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "12202f09df79d918b0cdbc3aeb646577f5cbd196c8f1421f44555daa27456368",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "1faa6dfccc7ae626067f4f4dba021f2fe0eabbbe",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md",
+        "status": "M",
+        "sha256": "5b8e5b0fb61492f79d08cfe81ef286f363d2694fa70e4d55789c161252eec812"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "30bbab6071c6ffb77fbd73ccaef5254aed671b15e18e6f9f135c46bccc839d9e"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "93e67bf2a82da26b55125ddd6a3603bb2fd2b7abe59dc83cfb82aaa52a3f6f2c"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "fa61055d179f5fa3b8c9df67c061a1575fece6df9eeb597d42258e7eb90062ec"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "ab03fba0fde7d978ff4a948f8aeeb7ad9fe206c2c98155a1f36517bae6308e8a"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "b5fe7b20b817df0fa1a516eff3fe1747a217792d4c1c2bdfea7b13968c28bb5c"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "77361906d759df79dd1cc7a4c50138a566c7f6e351e86ace28c27c0d8f217b24"
+      },
+      {
+        "path": "integration_tests/.gitignore",
+        "status": "M",
+        "sha256": "b7f1b69d5a8cf3bd3312a2dd03fec314e866c1e116fbd2c1c4a5b690a605919a"
+      },
+      {
+        "path": "integration_tests/ci/sample.profiles.yml",
+        "status": "M",
+        "sha256": "49f0ae817036671b6d5fd4125edf66b398e85cdc8be4389cd7c943461b728266"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "5852533357b05a7612a004485ff4ba1da3908827127c5907f1ef7d6bcd865658"
+      },
+      {
+        "path": "integration_tests/requirements.txt",
+        "status": "M",
+        "sha256": "313a0f333c32a0b27ee189902e9df65ff3bea05cbaebdc6e9bdca46f8581bd2c"
+      },
+      {
+        "path": "integration_tests/seeds/event.csv",
+        "status": "M",
+        "sha256": "abe3feada84f63367042037882fca0a44989926ec2f837c4a8171e3f4817a0f9"
+      },
+      {
+        "path": "macros/remove_string_from_numeric.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "models/stg_klaviyo__event.sql",
+        "status": "M",
+        "sha256": "53ee8db2163058832ef66e038d8795de46a9ac5deb65e32ae404848231130600"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "stg_klaviyo__event"
+      ],
+      "compared": [
+        "stg_klaviyo__event"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "event": {
+        "name": "event.csv",
+        "sha256": "abe3feada84f63367042037882fca0a44989926ec2f837c4a8171e3f4817a0f9"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_klaviyo__event {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "stg_klaviyo__event"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 284,
+      "evidence_strength": 0.989,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 284,
+    "changed": 0,
+    "not_comparable": 16,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.FLOW_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.FLOW_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.FLOW_MESSAGE_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.FLOW_MESSAGE_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event._FIVETRAN_DELETED",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event._FIVETRAN_DELETED",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event._FIVETRAN_DELETED",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "long",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.PROPERTY_VALUE",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_SOURCE_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_SOURCE_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_EXTRA",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_EXTRA",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_SHIPPING_RATE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_SHIPPING_RATE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_TAGS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_TAGS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_ITEM_COUNT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_COLLECTIONS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event._FIVETRAN_SYNCED",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event._FIVETRAN_SYNCED",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event._FIVETRAN_SYNCED",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_CURRENCY_CODE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CURRENCY_CODE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_PRODUCT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_PRODUCT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_QUANTITY",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_QUANTITY",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_VARIANT_OPTION_TITLE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_SKU",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_SKU",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_VARIANT_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_VENDOR",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_TOTAL_DISCOUNTS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_DISCOUNT_CODES",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_DISCOUNT_CODES",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_FULFILLMENT_STATUS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_FULFILLMENT_STATUS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_TITLE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_TITLE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_INTERACTION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_INTERACTION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_URL",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_URL",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_SHIPMENT_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_SHIPMENT_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_COURIER_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_COURIER_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CURRENT_STATUS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_TRACKING_SHIP_DATE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_TRACKING_SHIP_DATE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_SHIPMENT_PACKAGE_COUNT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_BOUNCE_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_BOUNCE_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_CLIENT_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CLIENT_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CLIENT_OS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_CLIENT_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CLIENT_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CLIENT_OS_FAMILY",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_CLIENT_CANONICAL",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CLIENT_CANONICAL",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_PAGE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_PAGE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_IS_SESSION_ACTIVITY",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_IS_SESSION_ACTIVITY",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_OS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_OS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_SESSION_END",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_SESSION_END",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_BROWSER",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_BROWSER",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_LIST",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_LIST",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_COMPARE_AT_PRICE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_COMPARE_AT_PRICE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_PRICE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_PRICE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_IMAGE_URL",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_BRAND",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_BRAND",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_CATEGORIES",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CATEGORIES",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_VARIANT_OPTION_SIZE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_VARIANT_OPTION_SIZE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTE_WORKOUT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTE_AGE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTE_AGE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTE_FITNESS_GOAL",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTE_BREAKFAST",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTE_BREAKFAST",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_VARIANT_OPTION_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_VARIANT_OPTION_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_METHOD",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_METHOD",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_TO_NUMBER",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_TO_NUMBER",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_FROM_NUMBER",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_FORMAT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_FORMAT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_CARRIER_DELIVERY_STATUS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_CARRIER_DELIVERY_STATUS",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_FAILURE_TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_FAILURE_SOURCE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_FAILURE_SOURCE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_MESSAGE_BODY",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTE_KIT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.PROPERTY_ATTRIBUTE_KIT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.PERSON_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.CAMPAIGN_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.UUID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.DATETIME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.TIMESTAMP",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.METRIC_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.TYPE",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "case",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event._VARIATION",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.PROPERTY_EVENT_ID",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.PROPERTY_SUBJECT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.PROPERTY_CAMPAIGN_NAME",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_MESSAGE_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.PROPERTY_EMAIL_DOMAIN",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.PROPERTY_COHORT_VARIATION_SEND_COHORT",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 1faa6dfccc7a (1faa6dfccc7a); fix: your working tree (14 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 10 models; compiled SQL changed in stg_klaviyo__event; comparing stg_klaviyo__event (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (1 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written"
+  ],
+  "warnings": [
+    "16 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "long": "a very long value",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:20:55Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_klaviyo_source",
+    "base": "1faa6dfccc7a",
+    "base_commit": "1faa6dfccc7ae626067f4f4dba021f2fe0eabbbe",
+    "path": "/home/runner/work/_temp/clones/dbt_klaviyo_source/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_klaviyo__event {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

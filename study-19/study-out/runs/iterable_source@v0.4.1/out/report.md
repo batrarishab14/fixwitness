@@ -1,0 +1,7 @@
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | not checked | no dbt model's compiled SQL changed between the two versions |
+
+Not checked: `.buildkite/hooks/pre-command` (new file: there is no original to compare); `.buildkite/scripts/run_models.sh` (new file: there is no original to compare); `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code); `integration_tests/requirements.txt` (not code)

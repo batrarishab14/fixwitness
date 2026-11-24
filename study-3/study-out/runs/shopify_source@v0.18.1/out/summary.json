@@ -1,0 +1,36 @@
+{
+  "verdict": "INCONCLUSIVE",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "PASS",
+      "score": 99,
+      "reason": "-",
+      "proof_id": "1efd21fb8269fe02",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/shopify_source@v0.18.1/out/integration_tests_dbt_project/proof.json"
+    },
+    {
+      "target": ".buildkite/scripts/run_models.sh",
+      "kind": "script",
+      "verdict": "NOT CHECKED",
+      "reason": "no sample input (CSV, JSON Lines or Parquet) found near /home/runner/work/_temp/clones/dbt_shopify_source/.buildkite/scripts; pass one with --sample",
+      "proof": null,
+      "detail": null
+    }
+  ],
+  "not_checked": [
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md",
+      "why": "documentation"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "LICENSE",
+      "why": "not code"
+    }
+  ]
+}

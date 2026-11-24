@@ -1,0 +1,29 @@
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | no valid input could be compared (the original failed on all of them) |
+
+Not checked: `CHANGELOG.md` (documentation); `DECISIONLOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/manifest.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `a9300572dc5d` (original) vs working tree (fix); changed: `.quickstart/quickstart.yml`, `CHANGELOG.md`, `DECISIONLOG.md`, `README.md`, `dbt_project.yml` and 12 more. dbt project: changed `int_zendesk__reply_time_business_hours`, `int_zendesk__reply_time_combined`, `int_zendesk__sla_policy_applied`, `stg_zendesk__ticket_tmp`, `zendesk__sla_policies`; compared `zendesk__sla_policies`, `zendesk__ticket_backlog`, `zendesk__ticket_enriched`, `zendesk__ticket_field_history`, `zendesk__ticket_metrics`, `zendesk__ticket_summary`; SQL on warehouse; tables `time_zone_data` (time_zone_data.csv), `ticket_schedule_data` (ticket_schedule_data.csv), `organization_tag_data` (organization_tag_data.csv), `domain_name_data` (domain_name_data.csv), `ticket_comment_data` (ticket_comment_data.csv), `organization_data` (organization_data.csv), `user_tag_data` (user_tag_data.csv), `schedule_data` (schedule_data.csv), `ticket_custom_field_data` (ticket_custom_field_data.csv), `ticket_sla_policy_data` (ticket_sla_policy_data.csv), `sla_policy_metric_history_data` (sla_policy_metric_history_data.csv), `daylight_time_data` (daylight_time_data.csv), `ticket_data` (ticket_data.csv), `ticket_field_history_data` (ticket_field_history_data.csv), `ticket_tag_data` (ticket_tag_data.csv), `brand_data_postgres` (brand_data_postgres.csv), `group_data` (group_data.csv), `ticket_form_history_data` (ticket_form_history_data.csv), `schedule_holiday_data` (schedule_holiday_data.csv), `user_data` (user_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 0 comparable valid inputs give the same output |
+| Not comparable | 300 valid inputs made the original fail too |
+
+**Why:** no valid input could be compared (the original failed on all of them).
+
+- Note: the original failed on the sample itself: fixwitness.sqlrun: query failed: UndefinedColumn: column "custom_support_should_not_contact_customer" does not exist
+LINE 45:   "custom_support_should_not_contact_customer"
+           ^
+- Note: 300 valid inputs could not be compared because the original failed on them
+
+Proof ID `206654b94e17766b` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/zendesk@v1.9.0-a3/out/integration_tests_dbt_project/proof.json`

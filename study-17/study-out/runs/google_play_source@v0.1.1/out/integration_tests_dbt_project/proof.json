@@ -1,0 +1,3268 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "aaa1bd42d2651e3b7037ac92a2031deac97390e5fcfc274810d819b2a6c2c86b",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "c9078c8297d55eef4e204bcc3123ef99f16b9832",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "e0811b6ad1fee7ca40f389867af03c946ca41e16a7d01127511c495df6703bec"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "ad55b6bd40f1f168ecf7dc1c511264554bf6eee4a96b18d25645e3bbba324cc5"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "21f87f81cb8c5b1ad8ca575845d06b27c4fd5c4c73152e96d10fc0aa7d940a45"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "4987245961bbfac1930a030a8bed4aee8d1046370893f33e87ba0f76fb4ed664"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "daa3b8147ef91e33e2ec0ce440e166da858f91bc934e40669711debd234eaf59"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "19056679b49c2eae6a342929b432c5486822a02319ce00046ce63a0a1cd8ebfb"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "461e844269639e0c4c3d7c731e06a0c7cc95fb61d218df77c9990887c1f86209"
+      },
+      {
+        "path": "models/stg_google_play__stats_ratings_app_version.sql",
+        "status": "M",
+        "sha256": "99f63c51caac919587d780fc294ca8c1dc24b7e32e386d1ee15564a86029716d"
+      },
+      {
+        "path": "models/stg_google_play__stats_ratings_country.sql",
+        "status": "M",
+        "sha256": "1ea25151c4f2841a04f7c5044896d4d5eb7ce5623e4e86275e370f08b6e8efa6"
+      },
+      {
+        "path": "models/stg_google_play__stats_ratings_device.sql",
+        "status": "M",
+        "sha256": "d5ff68f2c662f77c9a9c2cfadb71044000ab303034087f44342b4e78c3eca4f3"
+      },
+      {
+        "path": "models/stg_google_play__stats_ratings_os_version.sql",
+        "status": "M",
+        "sha256": "0427511d6e1448231f443f6d9ddee286589d4fb9a89330f9c8c5f20c1896562c"
+      },
+      {
+        "path": "models/stg_google_play__stats_ratings_overview.sql",
+        "status": "M",
+        "sha256": "62e48ef84cb0a7726c99f42ff35b4a6979d48455ed4a2ce15c68bf931e76b1f9"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "stg_google_play__stats_ratings_app_version",
+        "stg_google_play__stats_ratings_country",
+        "stg_google_play__stats_ratings_device",
+        "stg_google_play__stats_ratings_os_version",
+        "stg_google_play__stats_ratings_overview"
+      ],
+      "compared": [
+        "stg_google_play__stats_ratings_app_version",
+        "stg_google_play__stats_ratings_country",
+        "stg_google_play__stats_ratings_device",
+        "stg_google_play__stats_ratings_os_version",
+        "stg_google_play__stats_ratings_overview"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "stats_ratings_device": {
+        "name": "stats_ratings_device.csv",
+        "sha256": "4f9d6d515e213ac974504f382eaa61acbe3660bdc48b1c98e4fc290e24fad6d9"
+      },
+      "stats_ratings_country": {
+        "name": "stats_ratings_country.csv",
+        "sha256": "95f4c2c4fc9aba713c5aa7992f69227f2d4ff36d2d236e5707004c5ca11647a0"
+      },
+      "stats_ratings_overview": {
+        "name": "stats_ratings_overview.csv",
+        "sha256": "cf4ae25ba58a04b02de4ee3bbe3463cd7fca709550dfd9879e2700877780b11d"
+      },
+      "stats_ratings_app_version": {
+        "name": "stats_ratings_app_version.csv",
+        "sha256": "3407be2d84855c04b80cb581e1df82e584afa8d1a7fe2733d3c67608f6dc5874"
+      },
+      "stats_ratings_os_version": {
+        "name": "stats_ratings_os_version.csv",
+        "sha256": "60a1c3c544b8ea07afa540168dd102e8d1d29dee37e3d62a0b8d57c25e1a7e77"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_google_play__stats_ratings_app_version,stg_google_play__stats_ratings_country,stg_google_play__stats_ratings_device,stg_google_play__stats_ratings_os_version,stg_google_play__stats_ratings_overview {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_google_play__stats_ratings_overview: unique_combination_of_columns(package_name, date_day)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "stg_google_play__stats_ratings_app_version",
+        "stg_google_play__stats_ratings_country",
+        "stg_google_play__stats_ratings_device",
+        "stg_google_play__stats_ratings_os_version",
+        "stg_google_play__stats_ratings_overview"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "INCONCLUSIVE",
+  "reasons": [
+    "no valid input could be compared (the original failed on all of them)"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 299,
+    "identical": 0,
+    "changed": 0,
+    "not_comparable": 299,
+    "review_inputs": 1,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "stats_ratings_device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "stats_ratings_device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "stats_ratings_device._line",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device._line",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device._line",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device._line",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device._line",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "stats_ratings_device.date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device.date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device.date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "stats_ratings_device.total_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.total_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device.total_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_device.total_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device.total_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device.total_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_device._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_country._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_country._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_country._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_country.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_country.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_country.country",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_country.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_country._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "pairs",
+      "kind": "review",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_overview._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_overview._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_overview._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_overview.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_overview.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_overview.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_overview._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.app_version_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.app_version_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.app_version_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.app_version_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.app_version_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.app_version_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_app_version._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_app_version._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_app_version._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_app_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_app_version._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "empty",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "long",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_os_version._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_os_version._file",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_os_version._modified",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.package_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.android_os_version",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "case",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_os_version.daily_average_rating",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "stats_ratings_os_version._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: c9078c8297d5 (c9078c8297d5); fix: your working tree (12 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 30 models; compiled SQL changed in stg_google_play__stats_ratings_app_version, stg_google_play__stats_ratings_country, stg_google_play__stats_ratings_device, stg_google_play__stats_ratings_os_version, stg_google_play__stats_ratings_overview; comparing stg_google_play__stats_ratings_app_version, stg_google_play__stats_ratings_country, stg_google_play__stats_ratings_device, stg_google_play__stats_ratings_os_version, stg_google_play__stats_ratings_overview (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (5 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (3: stats_installs_overview.package_name+date unique, stats_crashes_overview.package_name+date unique, stats_ratings_overview.package_name+date unique); 1 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [
+    "the original failed on the sample itself: fixwitness.sqlrun: table stats_ratings_overview has an empty or repeated column name",
+    "299 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "date-format": "valid dates, leap days and unpadded months/days",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:17:47Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_google_play_source",
+    "base": "c9078c8297d5",
+    "base_commit": "c9078c8297d55eef4e204bcc3123ef99f16b9832",
+    "path": "/home/runner/work/_temp/clones/dbt_google_play_source/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_google_play__stats_ratings_app_version,stg_google_play__stats_ratings_country,stg_google_play__stats_ratings_device,stg_google_play__stats_ratings_os_version,stg_google_play__stats_ratings_overview {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

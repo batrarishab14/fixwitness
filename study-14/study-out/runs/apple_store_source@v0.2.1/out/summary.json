@@ -1,0 +1,48 @@
+{
+  "verdict": "INCONCLUSIVE",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "PASS",
+      "score": 0,
+      "reason": "-",
+      "proof_id": "2df4d4590e3c16af",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/apple_store_source@v0.2.1/out/integration_tests_dbt_project/proof.json"
+    },
+    {
+      "target": ". (dbt project)",
+      "kind": "dbt",
+      "verdict": "NOT CHECKED",
+      "reason": "`dbt parse` failed in t0: [ERROR]: Encountered an error: / Runtime Error / dbt cannot run because no profile was specified for this dbt project. / To specify a profile for this project, add a line like the this to",
+      "proof": null,
+      "detail": "Running with dbt=1.12.7\n[ERROR]: Encountered an error:\nRuntime Error\n  dbt cannot run because no profile was specified for this dbt project.\n  To specify a profile for this project, add a line like the this to\n  your dbt_project.yml file:\n\n  profile: [profile name]\n\n  Here, [profile name] should be replaced with a profile name\n  defined in your profiles.yml file. You can find profiles.yml here:\n\n  /home/runner/.dbt/profiles.yml"
+    }
+  ],
+  "not_checked": [
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "README.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/index.html",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/run_results.json",
+      "why": "not code"
+    }
+  ]
+}

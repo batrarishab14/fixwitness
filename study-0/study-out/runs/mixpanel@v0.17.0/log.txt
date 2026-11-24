@@ -1,0 +1,55 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/mixpanel@v0.17.0/out/report.html
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If `_file` is 'a; "b"', in `mixpanel__event`, the output changes. |
+
+Not checked: `.gitignore` (not code); `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `d60e230df2af` (original) vs working tree (fix); changed: `.gitignore`, `CHANGELOG.md`, `README.md`, `dbt_project.yml`, `docs/catalog.json` and 15 more. dbt project: changed `mixpanel__daily_events`, `mixpanel__event`, `mixpanel__monthly_events`, `mixpanel__sessions`, `stg_mixpanel__event_tmp`, `stg_mixpanel__user_first_event`; compared `mixpanel__daily_events`, `mixpanel__event`, `mixpanel__monthly_events`, `mixpanel__sessions`; SQL on warehouse; tables `event` (event.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 297 comparable valid inputs give the same output |
+| Not comparable | 3 valid inputs made the original fail too |
+
+**Why:** the fix changes output on 297 valid inputs.
+
+- Note: 3 valid inputs could not be compared because the original failed on them
+
+**What could go wrong:**
+
+- **Values change.** If `_file` is 'a; "b"', in `mixpanel__event`, the output changes.
+  - case 000: `delimiter-mix` input 'a; "b"' in `event._file` (changed)
+  - mixpanel__event: header: [['unique_event_id', 'date_day', 'event_type', 'occurred_at', '_fivetran_synced', '_fivetran_id', 'app_session_length', 'app_build_number', 'app_version', 'has_bluetooth_en...
+- **Values change.** If `_fivetran_id` is 'a; "b"', in `mixpanel__event`, the output changes.
+  - case 001: `delimiter-mix` input 'a; "b"' in `event._fivetran_id` (changed)
+  - mixpanel__event: header: [['unique_event_id', 'date_day', 'event_type', 'occurred_at', '_fivetran_synced', '_fivetran_id', 'app_session_length', 'app_build_number', 'app_version', 'has_bluetooth_en...
+- **Values change.** If `name` is 'a; "b"', in `mixpanel__event`, the output changes.
+  - case 002: `delimiter-mix` input 'a; "b"' in `event.name` (changed)
+  - mixpanel__event: header: [['unique_event_id', 'date_day', 'event_type', 'occurred_at', '_fivetran_synced', '_fivetran_id', 'app_session_length', 'app_build_number', 'app_version', 'has_bluetooth_en...
+- **Values change.** If `distinct_id` is 'a; "b"', in `mixpanel__event`, the output changes.
+  - case 003: `delimiter-mix` input 'a; "b"' in `event.distinct_id` (changed)
+  - mixpanel__event: header: [['unique_event_id', 'date_day', 'event_type', 'occurred_at', '_fivetran_synced', '_fivetran_id', 'app_session_length', 'app_build_number', 'app_version', 'has_bluetooth_en...
+- **Values change.** If `properties` is 'a; "b"', in `mixpanel__event`, the output changes.
+  - case 004: `delimiter-mix` input 'a; "b"' in `event.properties` (changed)
+  - mixpanel__event: header: [['unique_event_id', 'date_day', 'event_type', 'occurred_at', '_fivetran_synced', '_fivetran_id', 'app_session_length', 'app_build_number', 'app_version', 'has_bluetooth_en...
+- **Values change.** If `insert_id` is 'a; "b"', in `mixpanel__event`, the output changes.
+  - case 005: `delimiter-mix` input 'a; "b"' in `event.insert_id` (changed)
+  - mixpanel__event: header: [['unique_event_id', 'date_day', 'event_type', 'occurred_at', '_fivetran_synced', '_fivetran_id', 'app_session_length', 'app_build_number', 'app_version', 'has_bluetooth_en...
+- **Values change.** If `device_id` is 'a; "b"', in `mixpanel__event`, the output changes.
+  - case 006: `delimiter-mix` input 'a; "b"' in `event.device_id` (changed)
+  - mixpanel__event: header: [['unique_event_id', 'date_day', 'event_type', 'occurred_at', '_fivetran_synced', '_fivetran_id', 'app_session_length', 'app_build_number', 'app_version', 'has_bluetooth_en...
+- **Values change.** If `_file` is '"a"; b', in `mixpanel__event`, the output changes.
+  - case 007: `delimiter-mix` input '"a"; b' in `event._file` (changed)
+  - mixpanel__event: header: [['unique_event_id', 'date_day', 'event_type', 'occurred_at', '_fivetran_synced', '_fivetran_id', 'app_session_length', 'app_build_number', 'app_version', 'has_bluetooth_en...
+
+Proof ID `cbcdca68a5e1651a` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/mixpanel@v0.17.0/out/integration_tests_dbt_project/proof.json`
+

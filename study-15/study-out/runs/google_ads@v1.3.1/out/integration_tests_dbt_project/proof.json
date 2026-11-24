@@ -1,0 +1,3302 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "d2cf088b70dc440a70307d3a7289647436d310ef47e6cee3c1a4a334a28e1508",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "ca35c090879824e1a3de80f981cee9810992968d",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "9145505b8fffe3cc29ea33c350d639d650995380670a81f654b834f8606991a7"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "e6001725bf77ff7eac884f1febd4882e59d011e6f1d85541f28b0a12a2212e7e"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "4e9e50776e595ab9180b2b37814b4e27b21db1fd3493c718e7afe84896bc95a1"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "98822311655171044cae10028d36e134b7511364014cf84044bd7bd627087113"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "8dc46e0b93627752893015e6e2a090d0d8e9ed9aff47c8295e54c5631dc24a58"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "efb696cd73c988c30972d41871fc37c294e3b193a32c2568607336b1d3ae834f"
+      },
+      {
+        "path": "integration_tests/seeds/campaign_history_data.csv",
+        "status": "M",
+        "sha256": "2d9d10b149c94fe0e8abcf8c2ca01609b3cf5d3544cf824675d31b3ce0d0cb67"
+      },
+      {
+        "path": "macros/staging/get_campaign_history_columns.sql",
+        "status": "M",
+        "sha256": "d94482f9d8d9ec55abe7d17497472337acc998401c357a7be5fde32e0f950523"
+      },
+      {
+        "path": "models/staging/src_google_ads.yml",
+        "status": "M",
+        "sha256": "1a7f1c1aa7a8d4b9b50576166fa7dac45a99a840dead7165302ac3cdea7c56ba"
+      },
+      {
+        "path": "models/staging/stg_google_ads.yml",
+        "status": "M",
+        "sha256": "cad3482be7fffe93d8ac89bde6cbb26cda17994326ec83dd062e59cc104aa22c"
+      },
+      {
+        "path": "models/staging/stg_google_ads__campaign_history.sql",
+        "status": "M",
+        "sha256": "cdb38860c92f2cc2cccd5ad53659d73dc91944140b7a6fe1eef5b2956ba440b9"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "stg_google_ads__campaign_history"
+      ],
+      "compared": [
+        "google_ads__ad_group_report",
+        "google_ads__ad_report",
+        "google_ads__campaign_bid_modifiers_report",
+        "google_ads__campaign_budget_diagnostics_report",
+        "google_ads__campaign_report",
+        "google_ads__keyword_report",
+        "google_ads__search_term_report",
+        "google_ads__url_report"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "campaign_budget_history_data": {
+        "name": "campaign_budget_history_data.csv",
+        "sha256": "e61b5dc7ac8bbc21fe9366c3e8b633188a7fa311c51b486c58b819ba16f82aa9"
+      },
+      "account_history_data": {
+        "name": "account_history_data.csv",
+        "sha256": "bf0559a512f089514aa67964b7ae5aef0fee8deb6e0874c01e853ed78dd7883d"
+      },
+      "ad_history_data": {
+        "name": "ad_history_data.csv",
+        "sha256": "29a508f4d618f2a97d589a38f0a7392390a88dc90684bc1eaf4575e957e4612c"
+      },
+      "ad_group_criterion_history_data": {
+        "name": "ad_group_criterion_history_data.csv",
+        "sha256": "108de9fd330418cad863135204a871aa2d5cc4b1e75c2618c1d37227977e76b8"
+      },
+      "campaign_stats_data": {
+        "name": "campaign_stats_data.csv",
+        "sha256": "f8ffb40c33a31cdd4185ed5e956cfdaff9736054806ef3f9da5cf6f036ef7d0d"
+      },
+      "keyword_stats_data": {
+        "name": "keyword_stats_data.csv",
+        "sha256": "e4745703dd19dabf77a7df047ced6c1c56966ad8552d2f67676bcfd4ff36c94f"
+      },
+      "ad_group_history_data": {
+        "name": "ad_group_history_data.csv",
+        "sha256": "98245caad88a432b3674b4198fe48654a60074c09b3eb82ffd8aceb6d9549fd7"
+      },
+      "campaign_bid_modifier_history_data": {
+        "name": "campaign_bid_modifier_history_data.csv",
+        "sha256": "964a76003c66a646d31f936284e8344f885688b69c4c47f00671a6aac0bbc337"
+      },
+      "ad_stats_data": {
+        "name": "ad_stats_data.csv",
+        "sha256": "961f0cd768971391bb46dcfa4641f780e30aaed321ec1aa9bce6ae2be458eb7e"
+      },
+      "search_term_keyword_stats_data": {
+        "name": "search_term_keyword_stats_data.csv",
+        "sha256": "a4622d48da3123b5911e71c541e8ae6688986412895b4b7e5c5a4f0076a1de32"
+      },
+      "campaign_criterion_history_data": {
+        "name": "campaign_criterion_history_data.csv",
+        "sha256": "02a1809b883f93d27ce29b040dd2bf01dce6e0691ef1758bd73a48c829c404d5"
+      },
+      "campaign_history_data": {
+        "name": "campaign_history_data.csv",
+        "sha256": "2d9d10b149c94fe0e8abcf8c2ca01609b3cf5d3544cf824675d31b3ce0d0cb67"
+      },
+      "campaign_bidding_strategy_history_data": {
+        "name": "campaign_bidding_strategy_history_data.csv",
+        "sha256": "59ca70fc2b1d1e8ced97619ef707d3a321418bc38bf6efc92a886b071474d204"
+      },
+      "ad_group_stats_data": {
+        "name": "ad_group_stats_data.csv",
+        "sha256": "d3ac6d88466ebf8fca7753e60be01dfa615a8e9b654da4d91fab8ee59c6c7cf0"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs google_ads__ad_group_report,google_ads__ad_report,google_ads__campaign_bid_modifiers_report,google_ads__campaign_budget_diagnostics_report,google_ads__campaign_report,google_ads__keyword_report,google_ads__search_term_report,google_ads__url_report {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "google_ads__ad_group_report",
+        "google_ads__ad_report",
+        "google_ads__campaign_bid_modifiers_report",
+        "google_ads__campaign_budget_diagnostics_report",
+        "google_ads__campaign_report",
+        "google_ads__keyword_report",
+        "google_ads__search_term_report",
+        "google_ads__url_report"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "INCONCLUSIVE",
+  "reasons": [
+    "no valid input could be compared (the original failed on all of them)"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 0,
+    "changed": 0,
+    "not_comparable": 300,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "campaign_budget_history_data",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "campaign_budget_history_data",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "campaign_budget_history_data",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.campaign_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.campaign_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.campaign_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.campaign_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.campaign_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "long",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.explicitly_shared",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.explicitly_shared",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.explicitly_shared",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "long",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.reference_count",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.reference_count",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.reference_count",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.reference_count",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.reference_count",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "long",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.has_recommended_budget",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.has_recommended_budget",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.has_recommended_budget",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "long",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.recommended_budget_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.recommended_budget_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.recommended_budget_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.recommended_budget_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.recommended_budget_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.total_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.total_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.total_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.total_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.total_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "long",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_active",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_active",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_active",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.campaign_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.explicitly_shared",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.reference_count",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.has_recommended_budget",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.recommended_budget_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.total_amount_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_active",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "campaign_budget_history_data",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.delivery_method",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.period",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "flip",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.explicitly_shared",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "flip",
+      "kind": "valid",
+      "column": "campaign_budget_history_data.has_recommended_budget",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "flip",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_active",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "campaign_budget_history_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "schema",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.updated_at",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_history_data.final_urls",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_history_data.final_urls",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_stats_data._fivetran_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_stats_data._fivetran_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_stats_data.ad_network_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_stats_data.ad_network_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_stats_data.base_campaign",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_stats_data.base_campaign",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_stats_data.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_stats_data.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_stats_data.interaction_event_types",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_stats_data.interaction_event_types",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_base_ad_group",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_base_ad_group",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_network_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_network_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_base_campaign",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_base_campaign",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.interaction_event_types",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.interaction_event_types",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data._fivetran_synced",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_bid_modifier_history_data.interaction_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_bid_modifier_history_data.interaction_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_bid_modifier_history_data.interaction_event_types",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_bid_modifier_history_data.interaction_event_types",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_stats_data.ad_group",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_stats_data.ad_group",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_stats_data.keyword_ad_group_criterion",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_stats_data.keyword_ad_group_criterion",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_stats_data.ad_network_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_stats_data.ad_network_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_stats_data.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_stats_data.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "case",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "case",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.info_text",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.info_text",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "case",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.keyword_ad_group_criterion",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.keyword_ad_group_criterion",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "case",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.search_term",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.search_term",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "case",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.search_term_match_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.search_term_match_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "case",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "search_term_keyword_stats_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.age_range_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.age_range_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.carrier_country_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.carrier_country_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.carrier_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.carrier_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.content_label_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.content_label_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.device_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.device_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.display_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.display_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.gender_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.gender_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.income_range_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.income_range_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.language_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.language_code",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.language_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.language_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.mobile_app_category_constant_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.mobile_app_category_constant_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.mobile_application_app_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.mobile_application_app_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.mobile_application_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.mobile_application_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.parental_status_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.parental_status_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.placement_url",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.placement_url",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.youtube_channel_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.youtube_channel_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.youtube_video_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_criterion_history_data.youtube_video_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "empty",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_history_data.start_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "campaign_history_data.end_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.advertising_channel_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.advertising_channel_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.advertising_channel_subtype",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.advertising_channel_subtype",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.serving_status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.serving_status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_bidding_strategy_history_data.location",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_bidding_strategy_history_data.location",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_bidding_strategy_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_bidding_strategy_history_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_bidding_strategy_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_bidding_strategy_history_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_bidding_strategy_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_bidding_strategy_history_data.type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_stats_data._fivetran_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_stats_data._fivetran_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_stats_data.ad_network_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_stats_data.ad_network_type",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_stats_data.base_ad_group",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_stats_data.base_ad_group",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_stats_data.campaign_base_campaign",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_stats_data.campaign_base_campaign",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_stats_data.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_stats_data.device",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_stats_data.interaction_event_types",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_stats_data.interaction_event_types",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: ca35c0908798 (ca35c0908798); fix: your working tree (11 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 39 models; compiled SQL changed in stg_google_ads__campaign_history; comparing google_ads__ad_group_report, google_ads__ad_report, google_ads__campaign_bid_modifiers_report, google_ads__campaign_budget_diagnostics_report, google_ads__campaign_report, google_ads__keyword_report, google_ads__search_term_report, google_ads__url_report (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (14 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (12: ad_stats_data.date not_null, ad_stats_data.ad_id not_null, ad_group_stats_data.date not_null, ad_group_stats_data.id not_null, campaign_stats_data.date not_null, campaign_stats_data.id not_null, keyword_stats_data.date not_null, keyword_stats_data._fivetran_id not_null, account_stats_data.customer_id not_null, account_stats_data.date not_null, search_term_keyword_stats_data.date not_null, search_term_keyword_stats_data._fivetran_id not_null); no generated input breaks them"
+  ],
+  "warnings": [
+    "the original failed on the sample itself: fixwitness.sqlrun: query failed: UndefinedColumn: column \"end_date_time\" does not exist\nLINE 16:             end_date_time as end_date_time,\n                     ^",
+    "300 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "date-format": "valid dates, leap days and unpadded months/days",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:10:14Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_google_ads",
+    "base": "ca35c0908798",
+    "base_commit": "ca35c090879824e1a3de80f981cee9810992968d",
+    "path": "/home/runner/work/_temp/clones/dbt_google_ads/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs google_ads__ad_group_report,google_ads__ad_report,google_ads__campaign_bid_modifiers_report,google_ads__campaign_budget_diagnostics_report,google_ads__campaign_report,google_ads__keyword_report,google_ads__search_term_report,google_ads__url_report {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

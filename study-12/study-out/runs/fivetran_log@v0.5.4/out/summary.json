@@ -1,0 +1,19 @@
+{
+  "verdict": "INCONCLUSIVE",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "NOT CHECKED",
+      "reason": "the sources read the seeds from schema fivetran_log, which no variable in integration_tests/dbt_project.yml sets, so they can't be pointed at a private schema in your warehouse",
+      "proof": null,
+      "detail": null
+    }
+  ],
+  "not_checked": [
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    }
+  ]
+}

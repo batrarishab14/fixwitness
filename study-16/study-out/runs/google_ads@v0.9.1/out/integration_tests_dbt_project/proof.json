@@ -1,0 +1,4189 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "8b644ac23e000b054beaa9bc307c0d436134755c48f27376a8b229b94727fa3f",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "bfea2ac56bd6d0307be863dbfb77fd8d230577b2",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "7313530f2e7f1d3b78b71055296a4c62f9c334819cc2648c105f09206fcc6956"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "5c942acda9ed57a4cae089448cd971e8dd5aeec5419a0cf5a5b0fc21d49238e4"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "c4f73af6a9c4d3ab0e9d9cc00b8bfc29f343dbfddb1aa750105f48ecb26087c0"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "bb840a55b54e917c417d78fa977700ffbff8fcc5d54d94652e706224a1cf4e0f"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "0b8340c1107379c794fe6e1a11e50519ee01092143824d6f6e2f071d342b9f5f"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "0bbe908f92fe2a1979474e45f9e0a05fb04fa792259ea3fc61dff55ffb7dbee8"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "ea935fd77e38cfad043f056fb4d5e02e38a1ef3325859c3a76e5128cd0d330a3"
+      },
+      {
+        "path": "models/google_ads__keyword_report.sql",
+        "status": "M",
+        "sha256": "870db2f6365f35426d59288becfe4d2a961a59e4f96ffc5514f4604d72dfa3a9"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "google_ads__keyword_report"
+      ],
+      "compared": [
+        "google_ads__keyword_report"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "account_history_data": {
+        "name": "account_history_data.csv",
+        "sha256": "bf0559a512f089514aa67964b7ae5aef0fee8deb6e0874c01e853ed78dd7883d"
+      },
+      "ad_group_criterion_history_data": {
+        "name": "ad_group_criterion_history_data.csv",
+        "sha256": "108de9fd330418cad863135204a871aa2d5cc4b1e75c2618c1d37227977e76b8"
+      },
+      "keyword_stats_data": {
+        "name": "keyword_stats_data.csv",
+        "sha256": "e4745703dd19dabf77a7df047ced6c1c56966ad8552d2f67676bcfd4ff36c94f"
+      },
+      "ad_group_history_data": {
+        "name": "ad_group_history_data.csv",
+        "sha256": "82518353626bed4214f1dea514b77c97c96da2e4c7253734c3268e55111e67ce"
+      },
+      "campaign_history_data": {
+        "name": "campaign_history_data.csv",
+        "sha256": "54db8f4f5a51eae1af9391b9b74c4b847485e82c382a25ebc1b4a727640825e5"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs google_ads__keyword_report {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_google_ads__keyword_stats: not_null(date_day)",
+      "stg_google_ads__keyword_stats: not_null(keyword_id)",
+      "stg_google_ads__keyword_stats: unique_combination_of_columns(keyword_id, date_day)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "google_ads__keyword_report"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 290 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 290,
+    "identical": 0,
+    "changed": 290,
+    "not_comparable": 0,
+    "review_inputs": 10,
+    "review_differences": 6,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.auto_tagging_enabled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.auto_tagging_enabled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "long",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.descriptive_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.final_url_suffix",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.final_url_suffix",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.hidden",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.hidden",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.manager",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "long",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "long",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.pay_per_conversion_eligibility_failure_reasons",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.pay_per_conversion_eligibility_failure_reasons",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "long",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.time_zone",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.tracking_url_template",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.auto_tagging_enabled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.descriptive_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.final_url_suffix",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.hidden",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.manager",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.pay_per_conversion_eligibility_failure_reasons",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.time_zone",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_history_data.tracking_url_template",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "account_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "account_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_history_data.auto_tagging_enabled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_history_data.final_url_suffix",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_history_data.hidden",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_history_data.pay_per_conversion_eligibility_failure_reasons",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "schema",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.base_campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.base_campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.base_campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.base_campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.base_campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "long",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "long",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "long",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "long",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.base_campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_match_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.keyword_text",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ad_group_criterion_history_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "keyword_stats_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "schema",
+      "kind": "valid",
+      "column": "keyword_stats_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_base_ad_group",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_network_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_base_campaign",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "keyword_stats_data.device",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "keyword_stats_data.interaction_event_types",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "keyword_stats_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "empty",
+      "kind": "review",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "long",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "empty",
+      "kind": "valid",
+      "column": "keyword_stats_data.customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data.customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "pairs",
+      "kind": "review",
+      "column": "keyword_stats_data.customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "empty",
+      "kind": "review",
+      "column": "keyword_stats_data.date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data.date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "empty",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "pairs",
+      "kind": "review",
+      "column": "keyword_stats_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_impressions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_impressions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "empty",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_impressions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_impressions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "pairs",
+      "kind": "review",
+      "column": "keyword_stats_data.active_view_impressions",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "empty",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "pairs",
+      "kind": "review",
+      "column": "keyword_stats_data.active_view_measurability",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurable_cost_micros",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurable_cost_micros",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "empty",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurable_cost_micros",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurable_cost_micros",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "pairs",
+      "kind": "review",
+      "column": "keyword_stats_data.active_view_measurable_cost_micros",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurable_impressions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurable_impressions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "empty",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurable_impressions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data.active_view_measurable_impressions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "pairs",
+      "kind": "review",
+      "column": "keyword_stats_data.active_view_measurable_impressions",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "empty",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "pairs",
+      "kind": "review",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "empty",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "pairs",
+      "kind": "review",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data._fivetran_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_base_ad_group",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_group_base_ad_group",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_network_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.ad_network_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_base_campaign",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.campaign_base_campaign",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.device",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.device",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "case",
+      "kind": "valid",
+      "column": "keyword_stats_data.interaction_event_types",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "keyword_stats_data.interaction_event_types",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.campaign_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_history_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "case",
+      "kind": "valid",
+      "column": "ad_group_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ad_group_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.advertising_channel_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.advertising_channel_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.advertising_channel_subtype",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.advertising_channel_subtype",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.serving_status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.serving_status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "case",
+      "kind": "valid",
+      "column": "campaign_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "campaign_history_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: bfea2ac56bd6 (bfea2ac56bd6); fix: your working tree (8 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 26 models; compiled SQL changed in google_ads__keyword_report; comparing google_ads__keyword_report (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (5 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (15: ad_stats_data.date not_null, ad_stats_data.ad_id not_null, ad_stats_data.ad_id+ad_network_type+device+ad_group_id+keyword_ad_group_criterion+date unique, ad_group_stats_data.date not_null, ad_group_stats_data.id not_null, ad_group_stats_data.id+device+ad_network_type+date unique, campaign_stats_data.date not_null, campaign_stats_data.id not_null, campaign_stats_data.id+ad_network_type+device+date unique, keyword_stats_data.date not_null, keyword_stats_data._fivetran_id not_null, keyword_stats_data._fivetran_id+date unique, ...); 10 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "value": "<sample as given>",
+      "status": "changed",
+      "explanation": "If the file is sample as given, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "value": "<extra column at the end>",
+      "status": "changed",
+      "explanation": "If the input has another column layout (<extra column at the end>), in `google_ads__keyword_report`, `account_id` for '2021-01-13' changes from 2121450128 to empty (and 5 more cells).",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `currency_code` is 'a; \"b\"', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `optimization_score` is 'a; \"b\"', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `test_account` is 'a; \"b\"', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "account_history_data",
+      "family": null,
+      "value": "a; \"b\" (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a; \"b\" (in an added 'note' column)', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `id` is the number 0, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `id` has extra spaces (' 42 '), in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `id`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.id",
+      "family": null,
+      "value": "9007199254740993 | 1",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `id` = 9007199254740993 and 1, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.updated_at",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `updated_at`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.updated_at",
+      "family": null,
+      "value": "2022-02-01 2:20:51 | 2022-02-01 2:20:51",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `updated_at` = '2022-02-01 2:20:51' and '2022-02-01 2:20:51', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data._fivetran_synced",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `_fivetran_synced`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data._fivetran_synced",
+      "family": null,
+      "value": "2022-02-01 2:20:52 | 2022-02-01 2:20:52",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `_fivetran_synced` = '2022-02-01 2:20:52' and '2022-02-01 2:20:52', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "014",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.auto_tagging_enabled",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `auto_tagging_enabled`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.auto_tagging_enabled",
+      "family": null,
+      "value": "TRUE | true",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `auto_tagging_enabled` = 'TRUE' and 'true', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `currency_code`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "Ünïcødé",
+      "status": "changed",
+      "explanation": "If `currency_code` is 'Ünïcødé', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "018",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "north-east",
+      "status": "changed",
+      "explanation": "If `currency_code` is 'north-east', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "long",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+      "status": "changed",
+      "explanation": "If `currency_code` is 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "comma, inside",
+      "status": "changed",
+      "explanation": "If `currency_code` is 'comma, inside', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "O'Brien",
+      "status": "changed",
+      "explanation": "If `currency_code` is 'O'Brien', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "022",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "*",
+      "status": "changed",
+      "explanation": "If `currency_code` is '*', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.currency_code",
+      "family": null,
+      "value": "USD | usd",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `currency_code` = 'USD' and 'usd', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.descriptive_name",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `descriptive_name`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "025",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.final_url_suffix",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `final_url_suffix`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "026",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.final_url_suffix",
+      "family": null,
+      "value": "FALSE | false",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `final_url_suffix` = 'FALSE' and 'false', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.hidden",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `hidden`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.hidden",
+      "family": null,
+      "value": "FALSE | false",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `hidden` = 'FALSE' and 'false', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.manager",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `manager`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "030",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `manager_customer_id` is the number 0, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `manager_customer_id` has extra spaces (' 42 '), in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `manager_customer_id`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "long",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "value": "999999999999999999999999999999",
+      "status": "changed",
+      "explanation": "If `manager_customer_id` is 999999999999999999999999999999, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "034",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.manager_customer_id",
+      "family": null,
+      "value": "0.005 | 0.005",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `manager_customer_id` = 0.005 and 0.005, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `optimization_score`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "Ünïcødé",
+      "status": "changed",
+      "explanation": "If `optimization_score` is 'Ünïcødé', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "case",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "UPPER",
+      "status": "changed",
+      "explanation": "If `optimization_score` is written in another case ('UPPER'), in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "038",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "north-east",
+      "status": "changed",
+      "explanation": "If `optimization_score` is 'north-east', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "long",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+      "status": "changed",
+      "explanation": "If `optimization_score` is 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "comma, inside",
+      "status": "changed",
+      "explanation": "If `optimization_score` is 'comma, inside', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "O'Brien",
+      "status": "changed",
+      "explanation": "If `optimization_score` is 'O'Brien', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "*",
+      "status": "changed",
+      "explanation": "If `optimization_score` is '*', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.optimization_score",
+      "family": null,
+      "value": "[] | []",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `optimization_score` = '[]' and '[]', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "044",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.pay_per_conversion_eligibility_failure_reasons",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `pay_per_conversion_eligibility_failure_reasons`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_history_data.pay_per_conversion_eligibility_failure_reasons",
+      "family": null,
+      "value": "FALSE | false",
+      "status": "changed",
+      "explanation": "If two `account_history_data` rows of the same group have `pay_per_conversion_eligibility_failure_reasons` = 'FALSE' and 'false', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_history_data` row has an empty `test_account`, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "047",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "value": "Ünïcødé",
+      "status": "changed",
+      "explanation": "If `test_account` is 'Ünïcødé', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "048",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "value": "north-east",
+      "status": "changed",
+      "explanation": "If `test_account` is 'north-east', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    },
+    {
+      "id": "049",
+      "category": "long",
+      "kind": "valid",
+      "column": "account_history_data.test_account",
+      "family": null,
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+      "status": "changed",
+      "explanation": "If `test_account` is 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "google_ads__keyword_report: row 1, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 2, account_id: '2121450128' -> ''",
+        "google_ads__keyword_report: row 2, campaign_id: '344106493' -> ''",
+        "google_ads__keyword_report: row 3, account_id: '2121450128' -> ''"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "date-format": "valid dates, leap days and unpadded months/days",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:10:55Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_google_ads",
+    "base": "bfea2ac56bd6",
+    "base_commit": "bfea2ac56bd6d0307be863dbfb77fd8d230577b2",
+    "path": "/home/runner/work/_temp/clones/dbt_google_ads/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs google_ads__keyword_report {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

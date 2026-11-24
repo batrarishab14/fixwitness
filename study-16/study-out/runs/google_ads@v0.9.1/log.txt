@@ -1,0 +1,61 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/google_ads@v0.9.1/out/report.html
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If the file is sample as given, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells). |
+
+Not checked: `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `bfea2ac56bd6` (original) vs working tree (fix); changed: `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/index.html`, `docs/manifest.json` and 3 more. dbt project: changed `google_ads__keyword_report`; compared `google_ads__keyword_report`; SQL on warehouse; tables `account_history_data` (account_history_data.csv), `ad_group_criterion_history_data` (ad_group_criterion_history_data.csv), `keyword_stats_data` (keyword_stats_data.csv), `ad_group_history_data` (ad_group_history_data.csv), `campaign_history_data` (campaign_history_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 290 comparable valid inputs give the same output |
+| Needs review | 6 of 10 inputs in review categories (inputs that break your dbt tests (stg_google_ads__keyword_stats: not_null(date_day); stg_google_ads__keyword_stats: not_null(keyword_id); stg_google_ads__keyword_stats: unique_combination_of_columns(keyword_id, date_day))) differ |
+
+**Why:** the fix changes output on 290 valid inputs.
+
+**What could go wrong:**
+
+- **Numbers change.** If the file is sample as given, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).
+  - case 000: `file-structure` input '<sample as given>' in `account_history_data` (changed)
+  - google_ads__keyword_report: row 1, account_id: '2121450128' -> ''
+  - google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''
+- **Numbers change.** If the input has another column layout (<extra column at the end>), in `google_ads__keyword_report`, `account_id` for '2021-01-13' changes from 2121450128 to empty (and 5 more cells).
+  - case 001: `schema` input '<extra column at the end>' in `account_history_data` (changed); input shrunk to the rows that show it
+  - google_ads__keyword_report: row 1, account_id: '2121450128' -> ''
+  - google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''
+- **Numbers change.** If `currency_code` is 'a; "b"', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).
+  - case 002: `delimiter-mix` input 'a; "b"' in `account_history_data.currency_code` (changed)
+  - google_ads__keyword_report: row 1, account_id: '2121450128' -> ''
+  - google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''
+- **Numbers change.** If `optimization_score` is 'a; "b"', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).
+  - case 003: `delimiter-mix` input 'a; "b"' in `account_history_data.optimization_score` (changed)
+  - google_ads__keyword_report: row 1, account_id: '2121450128' -> ''
+  - google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''
+- **Numbers change.** If `test_account` is 'a; "b"', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).
+  - case 004: `delimiter-mix` input 'a; "b"' in `account_history_data.test_account` (changed)
+  - google_ads__keyword_report: row 1, account_id: '2121450128' -> ''
+  - google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''
+- **Numbers change.** If a value is 'a; "b" (in an added 'note' column)', in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).
+  - case 005: `delimiter-mix` input 'a; "b" (in an added \'note\' column)' in `account_history_data` (changed)
+  - google_ads__keyword_report: row 1, account_id: '2121450128' -> ''
+  - google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''
+- **Numbers change.** If `id` is the number 0, in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).
+  - case 006: `numeric-format` input '0' in `account_history_data.id` (changed)
+  - google_ads__keyword_report: row 1, account_id: '2121450128' -> ''
+  - google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''
+- **Numbers change.** If `id` has extra spaces (' 42 '), in `google_ads__keyword_report`, `account_id` for '2021-01-12' changes from 2121450128 to empty (and 29 more cells).
+  - case 007: `whitespace` input ' 42 ' in `account_history_data.id` (changed)
+  - google_ads__keyword_report: row 1, account_id: '2121450128' -> ''
+  - google_ads__keyword_report: row 1, campaign_id: '344106493' -> ''
+
+Proof ID `8b644ac23e000b05` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/google_ads@v0.9.1/out/integration_tests_dbt_project/proof.json`
+
