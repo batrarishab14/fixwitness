@@ -946,6 +946,23 @@ class UnstableOriginalTests(TempDirTest):
         self.assertTrue(any("run to run" in w for w in proof["warnings"]))
 
 
+class FocusUnderCapTests(unittest.TestCase):
+    def test_changed_column_keeps_its_cases_when_many_tables_compete(self):
+        """Many tables and columns, few cases allowed: the column the change touched (quantity, in
+        the last table) still gets a zero, a NULL and its other kinds of input."""
+        from fixwitness.sql import generate_sql_cases, table_types
+        tables = {f"t{i:02d}": ("id," + ",".join(f"c{j}" for j in range(8)) + "\n"
+                                + "\n".join(f"{r}," + ",".join(f"v{r}{j}" for j in range(8)) for r in range(1, 4))
+                                + "\n").encode() for i in range(12)}
+        tables["zz_line_item"] = b"id,amount,quantity\n1,10.5,2\n2,3.0,1\n3,8.25,4\n"
+        types = {t: table_types(v) for t, v in tables.items()}
+        cases = generate_sql_cases(tables, types, max_cases=60, focus=["zz_line_item.quantity"])
+        mine = [c for c in cases if c.column == "zz_line_item.quantity"]
+        self.assertTrue(any(c.value == "0" for c in mine), [c.value for c in mine])
+        self.assertTrue(any(c.category == "empty" for c in mine))
+        self.assertEqual(len(cases), 60)
+
+
 class TypedColumnTests(TempDirTest):
     """Booleans and timestamps typed by dbt (or a warehouse) are loaded and varied as such."""
 

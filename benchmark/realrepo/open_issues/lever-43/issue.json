@@ -8,7 +8,7 @@
     {
       "name": "bug reproduced: main's models, with the new seed rows, fail the restored uniqueness test",
       "expect": "fail",
-      "expect_log": "Failure in test dbt_utils_unique_combination_of_columns_lever__interview_enhanced",
+      "expect_log": "FAIL \\d+ dbt_utils_unique_combination_of_columns_lever__interview_enhanced",
       "run": "git apply {patch} && git checkout HEAD -- models/intermediate/int_lever__interview_feedback.sql && cd integration_tests && dbt deps && dbt seed && dbt build --select +lever__interview_enhanced"
     },
     {

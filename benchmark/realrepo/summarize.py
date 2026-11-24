@@ -23,6 +23,7 @@ def pct(a: int, b: int) -> str:
 
 def main() -> None:
     src = Path(sys.argv[1])
+    dest = Path(sys.argv[2]) if len(sys.argv) > 2 else HERE / "RESULTS.md"
     rows = list(csv.DictReader((src / "results.csv").open(encoding="utf-8")))
     cands = {r["id"]: r for r in csv.DictReader((HERE / "candidates.csv").open(encoding="utf-8"))}
     extra = {r["id"]: r for r in csv.DictReader((HERE / "after_freeze.csv").open(encoding="utf-8"))}
@@ -96,7 +97,7 @@ def main() -> None:
         out.append(f"| `{r['id']}` | {r['set']} | {r['label']} | {r['outcome']} | {r['differences']} | "
                    f"{r['categories']} | {r['seconds']} |")
     out.append("")
-    (HERE / "RESULTS.md").write_text("\n".join(out) + "\n", encoding="utf-8")
+    dest.write_text("\n".join(out) + "\n", encoding="utf-8")
     print(f"bug: caught {caught}/{checked} checked ({len(bug)} total); refactor: {len(fails)} FAIL "
           f"({len(false)} false alarms, {len(unread)} unread) of {checked_ref} checked ({len(ref)} total)")
 

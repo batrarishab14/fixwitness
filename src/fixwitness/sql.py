@@ -783,20 +783,22 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
             cases.append(Case(id=f"{len(cases):03d}", category=category, kind=kind, column=column, value=value,
                               content=make_bundle({**tables, t: content}, types)))
     if len(cases) > max_cases:
+        # Under the cap, in this order: one case of every kind for the columns the change touched,
+        # then (up to a third of the budget) their other cases, then one case of every kind for every
+        # other column, then the touched columns' remaining cases, then a seeded random sample.
         focused = set(focus or [])
-        seen, first, near, rest = set(), [], [], []
+        seen = set()
+        first_f, more_f, first, rest = [], [], [], []
         for i in sorted(range(len(cases)), key=lambda i: (i not in own_values, i)):
             c = cases[i]
             key = (c.column, c.category)
-            if key not in seen:
-                first.append(i)
-            elif c.column in focused:
-                near.append(i)  # the columns the change touched keep all their cases
+            if c.column in focused:
+                (first_f if key not in seen else more_f).append(i)
             else:
-                rest.append(i)
+                (first if key not in seen else rest).append(i)
             seen.add(key)
-        chosen = set(first[:max_cases])
-        chosen |= set(near[: max(0, max_cases - len(chosen))])
+        order = first_f + more_f[: max_cases // 3] + first + more_f[max_cases // 3:]
+        chosen = set(order[:max_cases])
         budget = max_cases - len(chosen)
         rest.sort()
         chosen |= set(random.Random(seed).sample(rest, min(max(0, budget), len(rest))))
