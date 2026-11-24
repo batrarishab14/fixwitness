@@ -665,11 +665,24 @@ class LinkedKeysTests(TempDirTest):
         types = {t: table_types(v) for t, v in tables.items()}
         linked, links = link_tables(tables, types)
         self.assertEqual(links, ["orders.customer_id -> customers.id"])
-        self.assertIn(b"1,1,10\n2,2,20\n3,3,30\n4,1,40", linked["orders"])  # cycles over the first 3 keys
+        self.assertIn(b"1,1,10\n2,1,20\n3,2,30\n4,2,40", linked["orders"])  # one to many: two orders per customer
         self.assertEqual(linked["customers"], tables["customers"])
         self.assertEqual(link_tables(linked, types)[1], [])  # keys that already join are left alone
         both = {"orders": self.ORD.encode(), "customers": self.CUS.encode(), "customer": self.CUS.encode()}
         self.assertEqual(link_tables(both, {t: table_types(v) for t, v in both.items()})[1], [])  # ambiguous
+
+    def test_link_table_fans_out_both_ways(self):
+        """A link table with two keys: each side gets several rows, and every pair is distinct."""
+        from fixwitness.sql import link_tables, table_types
+        tables = {"interview_feedback": b"feedback_form_id,interview_id\n90,70\n91,71\n92,72\n93,73\n",
+                  "feedback_form": b"id,deleted_at\n1,\n2,\n3,\n", "interview": b"id,subject\n5,a\n6,b\n7,c\n"}
+        types = {t: table_types(v) for t, v in tables.items()}
+        linked, links = link_tables(tables, types)
+        self.assertEqual(len(links), 2)
+        rows = [tuple(l.split(",")) for l in linked["interview_feedback"].decode().split()[1:]]
+        self.assertEqual(len(set(rows)), len(rows))
+        self.assertGreater(len(rows) - len({r[0] for r in rows}), 0)  # a form with two interviews
+        self.assertGreater(len(rows) - len({r[1] for r in rows}), 0)  # an interview with two forms
 
     def test_join_logic_change_is_seen_only_with_linked_keys(self):
         write(self.tmp / "orders.csv", self.ORD)

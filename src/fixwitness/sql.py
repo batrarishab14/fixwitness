@@ -595,9 +595,11 @@ def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
     separately seldom match), so joins match nothing and a change to join logic can't show. A
     column named after another table (`customer_id`, with a table `customers` keyed by `id` or
     `customer_id`) whose values match none of that table's keys gets that table's keys instead:
-    row i takes the key of row i modulo the first `rows` rows, so the rows of every case still
-    join, and several rows point at one key. Columns whose values already match some key, or that
-    could name several tables, are left as they are. Returns the tables and the links made.
+    rows take the keys of the other table's first `rows` rows, so the rows of every case still join,
+    and several rows point at one key: two rows per key for the first linked column (one to many),
+    alternating for a second (so a link table's pairs stay distinct and both sides fan out). A
+    column declared unique gets one key per row. Columns whose values already match some key, or
+    that could name several tables, are left as they are. Returns the tables and the links made.
     """
     from fixwitness.cases import parse_sample
     parsed = {}
@@ -609,6 +611,7 @@ def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
     out, links = dict(tables), []
     for b, (hb, rb) in parsed.items():
         changed = [list(r) for r in rb]
+        nth = 0  # how many of this table's columns were linked so far
         for j, col in enumerate(hb):
             if not _KEY.search(col) or col.lower() == "id":
                 continue
@@ -631,13 +634,23 @@ def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
             if not keys or not mine or mine & set(keys):
                 continue
             first = keys[: max(1, min(rows, len(keys)))]
-            if (b, col.lower()) in (unique or set()):  # declared unique: one row per key, never repeated
+            declared_unique = (b, col.lower()) in (unique or set())
+            if declared_unique:  # declared unique: one row per key, never repeated
                 if len([r for r in changed if r[j] != ""]) > len(keys):
                     continue
                 first = keys
             for i, r in enumerate(changed):
-                if r[j] != "":
+                if r[j] == "":
+                    continue
+                if declared_unique:
+                    r[j] = first[i]
+                elif nth == 0:  # one-to-many: two rows per key (0, 0, 1, 1, ...)
+                    r[j] = first[(i // 2) % len(first)]
+                elif nth == 1:  # a second key alternates, so each pair of keys is new: (0,0) (0,1) (1,0)
+                    r[j] = first[i % min(2, len(first))]
+                else:
                     r[j] = first[i % len(first)]
+            nth += 1
             links.append(f"{b}.{col} -> {a}.{key}")
         if changed != [list(r) for r in rb]:
             buf = io.StringIO()

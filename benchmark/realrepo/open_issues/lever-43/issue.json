@@ -3,18 +3,18 @@
   "base": "08b845884628a80e13226870c8d3e01a167f959c",
   "issue": "https://github.com/fivetran/dbt_lever/issues/43",
   "title": "lever__interview_enhanced duplicates rows when an interview has multiple deleted feedback forms",
-  "fix": "Join interview_feedback to the live (not deleted) feedback forms first, then left join interview to that, so a link to a deleted form adds no row; restore the uniqueness test removed in 7829497; add seed rows that link across tables (two deleted forms on one interview, one live and one deleted form on another, and the two interviews' opportunities, without which the mart's inner join drops them).",
+  "fix": "Join interview_feedback to the live (not deleted) feedback forms first, then left join interview to that, so a link to a deleted form adds no row; restore the uniqueness test removed in 7829497; add seed rows that link across tables (two deleted forms on one interview, one live and one deleted form on another, and the two interviews pointed at opportunities that exist in the seeds, without which the mart's inner join drops them).",
   "steps": [
     {
       "name": "bug reproduced: main's models, with the new seed rows, fail the restored uniqueness test",
       "expect": "fail",
       "expect_log": "Failure in test dbt_utils_unique_combination_of_columns_lever__interview_enhanced",
-      "run": "git apply {patch} && git checkout HEAD -- models/intermediate/int_lever__interview_feedback.sql && cd integration_tests && dbt deps && dbt build --select +lever__interview_enhanced"
+      "run": "git apply {patch} && git checkout HEAD -- models/intermediate/int_lever__interview_feedback.sql && cd integration_tests && dbt deps && dbt seed && dbt build --select +lever__interview_enhanced"
     },
     {
       "name": "fixed: with the fix, the same build and tests pass",
       "expect": "pass",
-      "run": "git apply {patch} && cd integration_tests && dbt deps && dbt build --select +lever__interview_enhanced"
+      "run": "git apply {patch} && cd integration_tests && dbt deps && dbt seed && dbt build --select +lever__interview_enhanced"
     },
     {
       "name": "found without the new seed rows: fixwitness on the model change alone, with main's own seeds (whose keys do not link across tables)",

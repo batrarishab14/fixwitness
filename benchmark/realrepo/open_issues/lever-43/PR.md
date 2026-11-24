@@ -23,9 +23,10 @@ This PR follows the approach proposed in the issue:
   keeps exactly one row, with a `NULL` form;
 - restores the `dbt_utils.unique_combination_of_columns` test on `lever__interview_enhanced`
   (`source_relation`, `feedback_form_id`, `interview_id`) removed in 7829497;
-- adds integration seed rows that link across tables: an interview with two deleted forms, an
-  interview with one live and one deleted form, and the two interviews' opportunities (without
-  them, the mart's inner join to `opportunity` drops the interviews and the bug can't show).
+- adds integration seed rows that link across tables: an interview with two deleted forms and an
+  interview with one live and one deleted form, and points those two interviews at opportunities
+  that exist in the seeds (otherwise the mart's inner join to `opportunity` drops them, and the bug
+  can't show).
 
 Suggested CHANGELOG entry:
 
@@ -34,7 +35,7 @@ Suggested CHANGELOG entry:
 - Fixes duplicate rows in `lever__interview_enhanced` when an interview has deleted feedback forms: links to deleted forms no longer add rows ([#43](https://github.com/fivetran/dbt_lever/issues/43)).
 
 ## Under the Hood
-- Restores the uniqueness test on `lever__interview_enhanced` and adds integration seed rows that link interviews, feedback forms and opportunities.
+- Restores the uniqueness test on `lever__interview_enhanced` and updates the integration seeds so interviews, feedback forms and opportunities link.
 ```
 
 Note: the fan-out when an opportunity has more than one application (#22) is not part of this PR.

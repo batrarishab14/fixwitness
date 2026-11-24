@@ -10,6 +10,18 @@ index a3f6899..65acbd6 100644
 +4f3c2a10-0000-4000-8000-000000000002,2020-07-21 11:12:52.554,,,2019-11-05 23:00:00.000,56762747-41f4-4b81-adbe-57a44c6958db,2020-06-02 10:00:00.000,"",330ef081-6717-4794-9efd-72ec06cdabd2,,AFduOyqipSI2Jx+0nlL63X7du5Q=,Interview Feedback,interview,810
 +4f3c2a10-0000-4000-8000-000000000003,2020-07-21 11:12:52.554,,2019-11-06 09:00:00.000,2019-11-05 23:00:00.000,56762747-41f4-4b81-adbe-57a44c6958db,,"",238ca8ee-eb00-4839-ae33-de59f505171e,,AFduOyqipSI2Jx+0nlL63X7du5Q=,Interview Feedback,interview,810
 +4f3c2a10-0000-4000-8000-000000000004,2020-07-21 11:12:52.554,,,2019-11-05 23:00:00.000,56762747-41f4-4b81-adbe-57a44c6958db,2020-06-03 10:00:00.000,"",238ca8ee-eb00-4839-ae33-de59f505171e,,AFduOyqipSI2Jx+0nlL63X7du5Q=,Interview Feedback,interview,810
+diff --git a/integration_tests/seeds/interview.csv b/integration_tests/seeds/interview.csv
+index 3f93339..20fa2a9 100644
+--- a/integration_tests/seeds/interview.csv
++++ b/integration_tests/seeds/interview.csv
+@@ -1,4 +1,4 @@
+ id,_fivetran_synced,canceled_at,candidate_id,created_at,creator_id,date,duration,feedback_reminder,gcal_event_url,location,note,panel_id,stage_id,subject,timezone,opportunity_id
+-330ef081-6717-4794-9efd-72ec06cdabd2,2020-08-25 21:51:15.479,,,2019-10-21 17:54:25.792,56762747-41f4-4b81-adbe-57a44c6958db,2019-11-05 22:00:00,45,daily,,Oakland-4-Woke Vineyard (6) [Google Meet],,a3c8e110-3e9c-4596-a9db-785557dd81fe,f1d6956d-592b-464c-b86e-ab34ddfd2d61,clown,America/Los_Angeles,810566bc-8bd5-434a-a96e-726d3d19c2fa
+-238ca8ee-eb00-4839-ae33-de59f505171e,2020-07-21 09:26:07.631,,,2019-07-16 01:39:40.429,e04fd583-d79c-44ee-a414-1f4cca68be34,2019-07-17 18:45:00,30,once,,Oakland-4-Small (6) [Google Meet],,183217ef-212e-4524-b554-4569dd7597bc,f1d6956d-592b-464c-b86e-ab34ddfd2d61,mime,America/Los_Angeles,25cf7b0f-3aca-4aae-96a7-c246e5b6a336
++330ef081-6717-4794-9efd-72ec06cdabd2,2020-08-25 21:51:15.479,,,2019-10-21 17:54:25.792,56762747-41f4-4b81-adbe-57a44c6958db,2019-11-05 22:00:00,45,daily,,Oakland-4-Woke Vineyard (6) [Google Meet],,a3c8e110-3e9c-4596-a9db-785557dd81fe,f1d6956d-592b-464c-b86e-ab34ddfd2d61,clown,America/Los_Angeles,f9214712-30b0-4d5a-9890-5a5dca493c07
++238ca8ee-eb00-4839-ae33-de59f505171e,2020-07-21 09:26:07.631,,,2019-07-16 01:39:40.429,e04fd583-d79c-44ee-a414-1f4cca68be34,2019-07-17 18:45:00,30,once,,Oakland-4-Small (6) [Google Meet],,183217ef-212e-4524-b554-4569dd7597bc,f1d6956d-592b-464c-b86e-ab34ddfd2d61,mime,America/Los_Angeles,343d198c-7533-4d1e-9908-8e1bee98d417
+ 6ff56b3d-0aad-439e-b1a4-4dee6ec8d9a4,2020-10-17 22:08:20.208,,,2020-06-04 21:44:07.059,f8083093-5a28-4089-b121-b459db40087d,2020-06-15 17:30:00,30,daily,,,,2b00889d-4bf9-4f32-b283-62566ff993e2,3b24b1b1-ca67-4f29-aaab-b4dde6e0f54e,another mime,America/Los_Angeles,3d2d1059-f268-4729-819d-9d812ef10153
+\ No newline at end of file
 diff --git a/integration_tests/seeds/interview_feedback.csv b/integration_tests/seeds/interview_feedback.csv
 index 0333e02..c896ae6 100644
 --- a/integration_tests/seeds/interview_feedback.csv
@@ -22,19 +34,6 @@ index 0333e02..c896ae6 100644
 +4f3c2a10-0000-4000-8000-000000000002,330ef081-6717-4794-9efd-72ec06cdabd2,2020-10-17 23:48:46.704
 +4f3c2a10-0000-4000-8000-000000000003,238ca8ee-eb00-4839-ae33-de59f505171e,2020-10-17 23:48:46.704
 +4f3c2a10-0000-4000-8000-000000000004,238ca8ee-eb00-4839-ae33-de59f505171e,2020-10-17 23:48:46.704
-diff --git a/integration_tests/seeds/opportunity.csv b/integration_tests/seeds/opportunity.csv
-index 45ba80c..0c70a6d 100644
---- a/integration_tests/seeds/opportunity.csv
-+++ b/integration_tests/seeds/opportunity.csv
-@@ -1,4 +1,6 @@
- id,_fivetran_synced,archived_at,archived_reason_id,contact,created_at,data_protection_contact_allowed,data_protection_contact_expires_at,data_protection_store_allowed,data_protection_store_expires_at,headline,is_anonymized,last_advanced_at,last_interaction_at,location,name,origin,owner_id,snoozed_until,stage_id,updated_at
- f9214712-30b0-4d5a-9890-5a5dca493c07,2020-09-18 17:09:37.378,2019-01-14 22:46:17.464,f5ca116f-26b9-4881-ad72-6ffb6291a4ff,7441b5f5-023a-4ddc-9e9b-620c40a582ee,2019-01-12 04:09:11.975,false,2020-01-14 22:46:17.464,false,2020-01-14 22:46:17.464,,true,2019-01-12 04:09:11.975,2020-09-18 09:04:02.071,,somebody,applied,94d6efa3-c00b-49bf-878b-7c1beeee2d52,,applicant-new,
- 343d198c-7533-4d1e-9908-8e1bee98d417,2020-07-27 08:20:01.050,,,ce173b42-c543-4c8d-9177-9c61aa8fbb50,2020-07-27 07:41:23,true,,true,,Paytm,false,2020-07-27 07:41:23,2020-07-27 07:41:23.604,,abby the beagle,sourced,,,lead-responded,
--3e4f0148-9eec-46ae-b0c3-05e9e9e11713,2020-10-17 21:59:34.901,,,41c67c84-f2b0-41ad-b67d-1d091650f683,2020-06-23 14:50:17.072,true,,true,,Analytic-edge,false,2020-06-23 14:50:17.072,2020-06-23 14:50:17.082,,tiki the chihuaha,applied,ad8545f3-0616-449d-8b93-0aa4eb8d9c7b,,applicant-new,2020-10-17 16:50:05.874
-\ No newline at end of file
-+3e4f0148-9eec-46ae-b0c3-05e9e9e11713,2020-10-17 21:59:34.901,,,41c67c84-f2b0-41ad-b67d-1d091650f683,2020-06-23 14:50:17.072,true,,true,,Analytic-edge,false,2020-06-23 14:50:17.072,2020-06-23 14:50:17.082,,tiki the chihuaha,applied,ad8545f3-0616-449d-8b93-0aa4eb8d9c7b,,applicant-new,2020-10-17 16:50:05.874
-+810566bc-8bd5-434a-a96e-726d3d19c2fa,2020-09-18 17:09:37.378,2019-01-14 22:46:17.464,f5ca116f-26b9-4881-ad72-6ffb6291a4ff,7441b5f5-023a-4ddc-9e9b-620c40a582ee,2019-01-12 04:09:11.975,false,2020-01-14 22:46:17.464,false,2020-01-14 22:46:17.464,,true,2019-01-12 04:09:11.975,2020-09-18 09:04:02.071,,somebody,applied,94d6efa3-c00b-49bf-878b-7c1beeee2d52,,applicant-new,
-+25cf7b0f-3aca-4aae-96a7-c246e5b6a336,2020-09-18 17:09:37.378,2019-01-14 22:46:17.464,f5ca116f-26b9-4881-ad72-6ffb6291a4ff,7441b5f5-023a-4ddc-9e9b-620c40a582ee,2019-01-12 04:09:11.975,false,2020-01-14 22:46:17.464,false,2020-01-14 22:46:17.464,,true,2019-01-12 04:09:11.975,2020-09-18 09:04:02.071,,somebody,applied,94d6efa3-c00b-49bf-878b-7c1beeee2d52,,applicant-new,
 diff --git a/models/intermediate/int_lever__interview_feedback.sql b/models/intermediate/int_lever__interview_feedback.sql
 index 16e3978..b687410 100644
 --- a/models/intermediate/int_lever__interview_feedback.sql
