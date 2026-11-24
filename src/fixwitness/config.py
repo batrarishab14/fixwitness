@@ -57,6 +57,7 @@ class Config:
     tolerance: float = 0.0
     unordered: bool = False
     auto_ignore_unstable: bool = True
+    shrink: bool = True                     # shrink each difference to the smallest input that shows it
     # Runtime
     timeout: float = 10.0
     workers: int = 0

@@ -723,6 +723,47 @@ PIPE_REVENUE = """
 """
 
 
+class ReportTests(TempDirTest):
+    """Plain-English findings, the smallest input that shows them, and report.html."""
+    _check = SqlModeTests._check
+
+    def test_finding_is_explained_shrunk_and_rendered(self):
+        from fixwitness.report import write_outputs
+        proof = self._check(REVENUE.replace("count(*)", "count(o.amount)"))
+        self.assertEqual(proof["verdict"], "FAIL")
+        d = next(x for x in proof["differences"] if x["category"] == "empty" and x["column"] == "orders.amount")
+        self.assertEqual(d["impact"], "numbers")
+        self.assertTrue(d["explanation"].startswith("If an `orders` row has an empty `amount`, `orders` for 'east'"),
+                        d["explanation"])
+        self.assertTrue(d["shrunk"])
+        out = write_outputs(proof, self.tmp / "out").parent
+        repro = out / "repro" / d["id"] / "tables" / "orders.csv"
+        self.assertEqual(len(repro.read_text().strip().splitlines()), 2, repro.read_text())  # header + one row
+        page = (out / "report.html").read_text()
+        self.assertIn("Don&#x27;t merge yet", page)
+        self.assertIn("Numbers change", page)
+        self.assertIn('class="m"', page)  # the changed input cell is marked
+        self.assertIn("**Numbers change.** If an `orders` row", (out / "report.md").read_text())
+
+    def test_pass_and_no_shrink(self):
+        from fixwitness.report import write_outputs
+        ok = self._check(REVENUE.replace("count(*) as orders", "count(1) as orders"))
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+        page = (write_outputs(ok, self.tmp / "ok").parent / "report.html").read_text()
+        self.assertIn("Safe to merge", page)
+        bad = self._check(REVENUE.replace("count(*)", "count(o.amount)"), shrink=False)
+        self.assertFalse(any(x["shrunk"] for x in bad["differences"]))
+
+    def test_sentences(self):
+        from fixwitness.explain import align, input_phrase
+        self.assertEqual(input_phrase("missing-key", "status", "<key left out>", False), "a record has no `status` key")
+        self.assertEqual(input_phrase("duplicate-row", "orders", None, True), "an `orders` row appears twice")
+        view = align((["region", "n"], [["east", "2"], ["west", "1"]]), (["region", "n"], [["east", "2"]]))
+        self.assertEqual([r["state"] for r in view["rows"]], ["both", "original"])
+        view = align((["k", "v"], [["a", "1.0"]]), (["k", "v"], [["a", "1"]]))
+        self.assertFalse(view["rows"][0]["cells"][1]["changed"])
+
+
 class PipelineUnitTests(unittest.TestCase):
     def test_run_order_and_dependencies(self):
         from fixwitness.sql import SqlError, dependencies, run_order

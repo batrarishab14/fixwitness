@@ -56,6 +56,7 @@ def _overrides(args: argparse.Namespace) -> dict:
         "ignore_columns": _csv_list(args.ignore_columns), "ignore_patterns": args.ignore_pattern or None,
         "tolerance": args.tolerance, "unordered": True if args.unordered else None,
         "auto_ignore_unstable": False if args.no_auto_ignore else None,
+        "shrink": False if getattr(args, "no_shrink", False) else None,
         "max_cases": args.max_cases, "seed": args.seed, "timeout": args.timeout, "workers": args.workers,
         "pass_env": args.pass_env or None, "allow_any_command": True if args.allow_any_command else None,
         "no_network": True if args.no_network else None,
@@ -101,12 +102,42 @@ def _whole_change(cfg, args: argparse.Namespace) -> int | None:
     text = summary_markdown(result, skipped)
     out.mkdir(parents=True, exist_ok=True)
     (out / "report.md").write_text(text, encoding="utf-8")
+    _open(args, _write_whole_html(result, skipped, out, cfg))
     clean = {"verdict": result["verdict"], "checks": [{k: v for k, v in r.items() if not k.startswith("_")}
                                                        for r in result["checks"]],
              "not_checked": [{"path": p, "why": w} for p, w in skipped]}
     (out / "summary.json").write_text(json.dumps(clean, indent=2), encoding="utf-8")
     print(json.dumps(clean, indent=2) if args.json else text)
     return 0 if result["verdict"] == "PASS" else 1
+
+
+def _open(args: argparse.Namespace, path: Path | None) -> None:
+    if path is not None and getattr(args, "open", False):
+        import webbrowser
+        webbrowser.open(path.resolve().as_uri())
+    elif path is not None and not getattr(args, "json", False):
+        print(f"Report: {path}")
+
+
+def _write_whole_html(result: dict, skipped, out: Path, cfg) -> Path | None:
+    from fixwitness.core import REPRO
+    from fixwitness.htmlreport import render
+    checks = []
+    for r in result["checks"]:
+        proof = r.get("_proof")
+        info = REPRO.get(proof["proof_id"], {}) if proof else {}
+        checks.append({"target": r["target"], "kind": r["kind"], "verdict": r["verdict"], "proof": proof,
+                       "reason": r.get("reason"), "explained": info.get("explained") or {},
+                       "repro_dir": Path(r["proof"]).parent / "repro" if r.get("proof") else None})
+    base = next((r["_proof"]["inputs"].get("base_commit") for r in result["checks"] if r.get("_proof")), None)
+    context = (f"Original: {cfg.base}" + (f" (commit {base[:12]})" if base else "") + ". Fix: your working tree.")
+    try:
+        path = out / "report.html"
+        path.write_text(render(checks, skipped, "fixwitness report", context), encoding="utf-8")
+        return path
+    except Exception as exc:
+        print(f"fixwitness: report.html could not be built: {exc}", file=sys.stderr)
+        return None
 
 
 def cmd_check(args: argparse.Namespace) -> int:
@@ -121,6 +152,7 @@ def cmd_check(args: argparse.Namespace) -> int:
     proof = run_check(cfg)
     proof_path = write_outputs(proof, Path(args.out_dir))
     print(json.dumps(proof, indent=2, ensure_ascii=False) if args.json else markdown(proof, str(proof_path)))
+    _open(args, proof_path.parent / "report.html")
     if proof["verdict"] != "PASS":
         return 1
     if proof["confidence"]["score"] < args.min_confidence:
@@ -324,6 +356,8 @@ def _selection_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--tolerance", type=float, help="relative tolerance for numeric values, e.g. 1e-9")
     p.add_argument("--unordered", action="store_true", help="ignore row order")
     p.add_argument("--no-auto-ignore", action="store_true", help="don't ignore columns that are not deterministic")
+    p.add_argument("--no-shrink", action="store_true",
+                   help="don't shrink each difference to the smallest input that shows it")
     p.add_argument("--max-cases", type=int)
     p.add_argument("--seed", type=int)
     p.add_argument("--timeout", type=float, help="seconds per run (default 10)")
@@ -342,7 +376,8 @@ def build_parser() -> argparse.ArgumentParser:
     check = sub.add_parser("check", help="compare the original with the fix")
     _selection_args(check)
     check.add_argument("--config", help="TOML config (default: ./fixwitness.toml when no file is given)")
-    check.add_argument("--out-dir", default=".fixwitness", help="where to write proof.json and report.md")
+    check.add_argument("--out-dir", default=".fixwitness", help="where to write proof.json, report.md and report.html")
+    check.add_argument("--open", action="store_true", help="open report.html in your browser when the check ends")
     check.add_argument("--min-confidence", type=int, default=0, help="fail if confidence is below this")
     check.add_argument("--json", action="store_true", help="print JSON instead of the summary")
     check.add_argument("--dry-run", action="store_true", help="show what would be compared, without comparing")

@@ -124,8 +124,10 @@ def run_items(cfg: Config, items: list[Item], out_dir: Path | None = None) -> di
             results.append({"target": item.target, "kind": item.kind, "verdict": "NOT CHECKED",
                             "reason": str(exc).splitlines()[0][:300], "proof": None})
             continue
+        first = next((d.get("explanation") for d in proof["differences"]
+                      if d["kind"] != "review" and d.get("explanation")), None)
         entry = {"target": item.target, "kind": item.kind, "verdict": proof["verdict"],
-                 "score": proof["confidence"]["score"], "reason": "; ".join(proof["reasons"]) or "-",
+                 "score": proof["confidence"]["score"], "reason": first or "; ".join(proof["reasons"]) or "-",
                  "proof_id": proof["proof_id"][:16], "proof": None, "_proof": proof}
         if out_dir is not None:
             slug = re.sub(r"[^A-Za-z0-9_.-]+", "_", item.target).strip("_")[:80] or f"check{i}"

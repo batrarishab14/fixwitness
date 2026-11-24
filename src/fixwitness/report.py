@@ -100,12 +100,19 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
 
     diffs = [d for d in proof["differences"] if d["kind"] != "review"][:8]
     if diffs:
-        lines += ["**What changed (first examples):**", ""]
+        from fixwitness.explain import IMPACTS
+        lines += ["**What could go wrong:**", ""]
         for d in diffs:
             label = f"still exploitable ({d['family']})" if d["status"] == "still-exploitable" else d["status"]
-            lines.append(f"- `{d['category']}` input {d['value']!r} in `{d['column']}`: {label}")
-            for detail in d["details"][:3]:
-                lines.append(f"  - {detail}")
+            impact = IMPACTS.get(d.get("impact") or "", "Security" if d.get("impact") == "security" else None)
+            if d.get("explanation"):
+                lines.append(f"- {'**' + impact + '.** ' if impact else ''}{d['explanation']}")
+                lines.append(f"  - case {d['id']}: `{d['category']}` input {d['value']!r} in `{d['column']}` ({label})"
+                             + ("; input shrunk to the rows that show it" if d.get("shrunk") else ""))
+            else:
+                lines.append(f"- `{d['category']}` input {d['value']!r} in `{d['column']}`: {label}")
+            for detail in d["details"][:2]:
+                lines.append(f"  - {_clip(detail, 200)}")
         lines.append("")
     if v == "PASS":
         c = conf["components"]
@@ -231,4 +238,10 @@ def write_outputs(proof: dict, out_dir: Path) -> Path:
         text += (f"\nEach difference above has a runnable reproduction (its input, both outputs and the commands) "
                  f"in `{out_dir / 'repro'}/<case>/`.\n")
     (out_dir / "report.md").write_text(text, encoding="utf-8")
+    try:
+        from fixwitness.htmlreport import write_single
+        write_single(proof, out_dir)
+    except Exception as exc:  # the HTML page is a convenience; the proof and report.md are the record
+        (out_dir / "report.html").write_text(f"<!doctype html><p>report.html could not be built: {exc}</p>",
+                                             encoding="utf-8")
     return proof_path

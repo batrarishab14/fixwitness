@@ -8,6 +8,7 @@ import json
 import os
 import re
 import shutil
+import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -222,6 +223,63 @@ def _frame_server(plan: Plan, cfg: Config, warnings: list[str]):
     return server, rewrite
 
 
+def _explain(plan: Plan, opts: CompareOptions, kept: dict, entries: list[dict], details: dict) -> dict:
+    """Plain-English sentence, impact and evidence tables for each difference."""
+    from fixwitness.explain import explain_case, input_phrase
+    out = {}
+    for e in entries:
+        if e["status"] not in ("changed", "after-failed", "still-exploitable"):
+            continue
+        k = kept.get(e["id"])
+        if k is not None:
+            try:
+                out[e["id"]] = explain_case(k["case"], k["original"], k["fix"], plan.output, plan.sample_format,
+                                            plan.sql is not None, opts.tolerance or 1e-9)
+                continue
+            except Exception as exc:  # an explanation must never break a check
+                out[e["id"]] = {"sentence": None, "impact": None, "error": f"no explanation: {exc}"}
+        if e["status"] == "still-exploitable":
+            out[e["id"]] = {"impact": "security", "sentence": f"The {e['family']} payload still works on the fix."}
+        else:
+            phrase = input_phrase(e["category"], e["column"], e["value"], plan.sql is not None)
+            first = (details.get(e["id"]) or ["the output changes"])[0]
+            out[e["id"]] = {"impact": "fails" if e["status"] == "after-failed" else "values",
+                            "sentence": f"If {phrase}, {'the fix fails' if e['status'] == 'after-failed' else 'the output changes'} ({first[:120]})."}
+    return out
+
+
+SHRINK_SECONDS = 25
+SHRINK_FINDINGS = 6
+
+
+def _shrink_kept(plan: Plan, inv_b, inv_a, opts: CompareOptions, kept: dict, status: dict) -> None:
+    """Make the first findings as small as possible (fewer rows), keeping the same difference."""
+    from fixwitness.shrink import shrink_case
+    deadline = time.time() + SHRINK_SECONDS
+    counter = [0]
+
+    def run_pair(content: bytes):
+        counter[0] += 1
+        d = plan.work / "shrink" / str(counter[0])
+        b = run_side(inv_b, plan.before, d, content)
+        a = run_side(inv_a, plan.after, d, content)
+        shutil.rmtree(d, ignore_errors=True)
+        return b, a
+
+    for cid in sorted(kept)[:SHRINK_FINDINGS]:
+        if time.time() > deadline:
+            break
+        k = kept[cid]
+        try:
+            got = shrink_case(k["case"], status.get(cid, "changed"), run_pair, lambda x, y: compare(x, y, opts)[0],
+                              plan.sample_format, plan.sql is not None, deadline)
+        except Exception:  # shrinking only makes the evidence smaller; it must never break a check
+            got = None
+        if got is not None:
+            k["case"], k["original"], k["fix"] = got
+            k["shrunk"] = True
+
+
 def _cases(plan: Plan, cfg: Config) -> list[Case]:
     if plan.sql is not None:
         try:
@@ -301,6 +359,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
     try:
         with ThreadPoolExecutor(max_workers=workers) as pool:
             results = list(pool.map(one, cases))
+        if kept and cfg.shrink:
+            _shrink_kept(plan, inv_b, inv_a, opts, kept, {e["id"]: e["status"] for (e, _), _ in results})
     finally:
         if server is not None:
             server[0].stop()
@@ -398,11 +458,13 @@ def _run(plan: Plan, cfg: Config) -> dict:
         ],
     }
     proof_id = hashlib.sha256(_canonical(core)).hexdigest()
+    explained = _explain(plan, opts, kept, entries, detail_map)
     REPRO[proof_id] = {
         "kept": {k: kept[k] for k in sorted(kept)[:MAX_REPROS]},
         "invocations": (plan.invocation, plan.fix_invocation), "sides": (plan.before, plan.after),
         "mode": plan.mode, "base_commit": plan.inputs.get("base_commit"), "repo": plan.replay.get("repo"),
         "tables": plan.sql is not None,
+        "explained": explained,
     }
     return {
         "proof_id": proof_id,
@@ -413,6 +475,9 @@ def _run(plan: Plan, cfg: Config) -> dict:
         "differences": [
             {"id": e["id"], "category": e["category"], "kind": e["kind"], "column": e["column"],
              "family": e["family"], "value": e["value"], "status": e["status"],
+             "explanation": explained.get(e["id"], {}).get("sentence"),
+             "impact": explained.get(e["id"], {}).get("impact"),
+             "shrunk": bool(kept.get(e["id"], {}).get("shrunk")),
              "details": detail_map.get(e["id"], [])}
             for e in entries if e["status"] in ("changed", "after-failed", "still-exploitable")
         ][:50],
