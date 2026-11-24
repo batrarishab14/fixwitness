@@ -46,6 +46,7 @@ def _overrides(args: argparse.Namespace) -> dict:
         "engine": args.engine, "sql_ordered": True if args.sql_ordered else None,
         "dialect": args.dialect, "sql_outputs": _csv_list(args.sql_outputs),
         "function": args.function, "library": args.library,
+        "manifest": args.manifest, "base_manifest": args.base_manifest,
         "path": args.path, "base": args.base, "command": args.command, "incident": args.incident,
         "incident_expected": args.incident_expected,
         "attacks": False if args.no_attacks else None,
@@ -69,8 +70,50 @@ def _config(args: argparse.Namespace):
     return load_config(config_path, _overrides(args))
 
 
+def _whole_change(cfg, args: argparse.Namespace) -> int | None:
+    """Several checks for one change (the whole working tree, or a file with several changed
+    functions); None when the change is a single ordinary check."""
+    from fixwitness.changes import plan_items, run_items, summary_markdown
+    whole = not (cfg.path or cfg.command or cfg.before or cfg.after or cfg.manifest)
+    if not whole and not (cfg.path and not cfg.command and not cfg.function
+                          and cfg.resolve(cfg.path).suffix == ".py"):
+        return None
+    try:
+        items, skipped = plan_items(cfg)
+    except Exception as exc:
+        if whole:
+            raise ConfigError(f"nothing to check: {exc}") from exc
+        return None
+    if not whole and len(items) == 1 and items[0].kind == "script":
+        return None
+    if not items:
+        print("fixwitness: nothing to check in this change" + (
+            ": " + "; ".join(f"{p} ({why})" for p, why in skipped) if skipped else ""))
+        return 0 if whole else 1
+    if args.dry_run:
+        for it in items:
+            print(f"  {it.kind:10} {it.target}")
+        for p, why in skipped:
+            print(f"  {'skipped':10} {p}: {why}")
+        return 0
+    out = Path(args.out_dir)
+    result = run_items(cfg, items, out)
+    text = summary_markdown(result, skipped)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "report.md").write_text(text, encoding="utf-8")
+    clean = {"verdict": result["verdict"], "checks": [{k: v for k, v in r.items() if not k.startswith("_")}
+                                                       for r in result["checks"]],
+             "not_checked": [{"path": p, "why": w} for p, w in skipped]}
+    (out / "summary.json").write_text(json.dumps(clean, indent=2), encoding="utf-8")
+    print(json.dumps(clean, indent=2) if args.json else text)
+    return 0 if result["verdict"] == "PASS" else 1
+
+
 def cmd_check(args: argparse.Namespace) -> int:
     cfg = _config(args)
+    multi = _whole_change(cfg, args)
+    if multi is not None:
+        return multi
     if args.dry_run:
         summary = dry_run(cfg)
         print(json.dumps(summary, indent=2) if args.json else plan_text(summary))
@@ -261,6 +304,8 @@ def _selection_args(p: argparse.ArgumentParser) -> None:
                    help="SQL/dbt: query engine (default: DuckDB if installed, else SQLite)")
     p.add_argument("--sql-ordered", "--ordered", dest="sql_ordered", action="store_true",
                    help="SQL/dbt and DataFrames: compare result rows in order (default: as a set of rows)")
+    p.add_argument("--manifest", metavar="FILE", help="dbt: the fix's target/manifest.json (from dbt compile)")
+    p.add_argument("--base-manifest", metavar="FILE", help="dbt: the original's manifest.json")
     p.add_argument("--function", metavar="NAME",
                    help="Python DataFrame code: the function to call with the tables (pandas, polars or PySpark)")
     p.add_argument("--library", choices=["auto", "pandas", "polars", "pyspark"],

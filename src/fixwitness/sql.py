@@ -374,7 +374,9 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
     results: dict[str, bytes] = {}
     try:
         load_tables(con, engine, tables, types)
-        for name in run_order(models):
+        order_file = root / "fixwitness_order.txt"  # written for dbt projects, from dbt's own graph
+        names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
+        for name in names:
             sql = prepare(models[name], dbt, dialect, engine, set(tables) | set(models))
             con.execute(f"CREATE TABLE {_quote(name)} AS {sql}")
         for name in wanted:

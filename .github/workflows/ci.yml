@@ -21,3 +21,23 @@ jobs:
         run: |
           python -m pip install .
           fixwitness demo
+  action:
+    # The GitHub Action itself, on a change made in this checkout: with no path it checks every
+    # changed file. A wrong change to the JSON Lines job must come back FAIL.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make a wrong change (e.get('status') -> e['status'])
+        run: sed -i 's/e.get("status")/e["status"]/' benchmark/complex/C05-jsonl-events/original.py
+      - id: fw
+        uses: ./
+        with:
+          args: --no-attacks --max-cases 60
+          install: ""
+        continue-on-error: true
+      - name: The verdict is FAIL
+        env:
+          VERDICT: ${{ steps.fw.outputs.verdict }}
+        run: |
+          cat fixwitness-report/report.md
+          test "$VERDICT" = "FAIL"

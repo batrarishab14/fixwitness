@@ -4,6 +4,33 @@ Each use case below says who it's for, what goes wrong today, and the exact comm
 
 ---
 
+## 0. Review an agent's pull request in one step
+
+**Who:** anyone whose AI agent opens pull requests against data code.
+
+**What goes wrong today:** the PR touches a dbt model, a pandas function and a job script; CI runs the existing tests, which don't cover what changed, and the reviewer reads the diff.
+
+**With fixwitness:** one check covers every changed file, each the way that fits it, and comments on the pull request with a row per file.
+
+```bash
+fixwitness check --base main --no-attacks
+```
+
+```yaml
+# .github/workflows/fixwitness.yml
+on: pull_request
+permissions: {contents: read, pull-requests: write}
+jobs:
+  fixwitness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: batrarishab14/fixwitness@v0.6.0
+        with: {install: "duckdb,dbt,pandas", args: "--no-attacks"}
+```
+
+---
+
 ## 1. Gate the repairs of a self-healing pipeline
 
 **Who:** data platform teams running agents that fix failed jobs automatically.

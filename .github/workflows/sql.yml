@@ -24,14 +24,21 @@ jobs:
           java-version: "17"
       - name: Install the optional libraries
         run: |
-          python -m pip install --quiet duckdb sqlglot pyarrow pandas polars pyspark
+          python -m pip install --quiet duckdb sqlglot pyarrow pandas polars pyspark dbt-core dbt-duckdb
           python - <<'EOF' | tee versions.log
-          import importlib, platform
+          import importlib, importlib.metadata as md, platform
           print("python", platform.python_version())
           for m in ("duckdb", "sqlglot", "pyarrow", "pandas", "polars", "pyspark"):
               print(m, importlib.import_module(m).__version__)
+          for d in ("dbt-core", "dbt-duckdb"):
+              print(d, md.version(d))
           EOF
-      - name: Tests (SQL, pipelines, dialects, DataFrames, JSON, Parquet)
+      - name: Get dbt-labs/jaffle_shop (a public dbt project with seeds and Jinja)
+        run: |
+          git clone --quiet --depth 1 https://github.com/dbt-labs/jaffle_shop.git "$RUNNER_TEMP/jaffle_shop"
+          git -C "$RUNNER_TEMP/jaffle_shop" log -1 --format='jaffle_shop %H' | tee -a versions.log
+          echo "FIXWITNESS_DBT_PROJECT=$RUNNER_TEMP/jaffle_shop" >> "$GITHUB_ENV"
+      - name: Tests (SQL, pipelines, dialects, DataFrames, JSON, Parquet, dbt, whole changes)
         run: |
           set -o pipefail
           python -m unittest -v \
@@ -40,7 +47,9 @@ jobs:
             tests.test_fixwitness.DialectTests \
             tests.test_fixwitness.FrameUnitTests tests.test_fixwitness.FrameModeTests \
             tests.test_fixwitness.JsonUnitTests tests.test_fixwitness.JsonModeTests \
-            tests.test_fixwitness.ParquetTests 2>&1 | tee tests.log
+            tests.test_fixwitness.ParquetTests \
+            tests.test_fixwitness.WholeChangeTests tests.test_fixwitness.DbtManifestTests \
+            tests.test_fixwitness.DbtProjectTests 2>&1 | tee tests.log
       - name: SQL benchmark on DuckDB
         if: always()
         run: |

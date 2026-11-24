@@ -104,12 +104,38 @@ TOOLS = [
                                     "description": "Regexes masked out of compared values (e.g. timestamps)."},
                 "tolerance": {"type": "number", "minimum": 0, "description": "Relative numeric tolerance."},
                 "unordered": {"type": "boolean", "description": "Ignore row order."},
-                "output": {"type": "string", "enum": ["csv", "text"]},
+                "output": {"type": "string", "enum": ["csv", "json", "text"]},
+                "manifest": {"type": "string", "description": "dbt: the fix's target/manifest.json (from dbt compile)."},
+                "base_manifest": {"type": "string", "description": "dbt: the original's manifest.json."},
                 "max_cases": {"type": "integer", "minimum": 10, "maximum": 5000},
                 "seed": {"type": "integer"},
                 "dry_run": {"type": "boolean", "description": "Only show what would be compared."},
                 "proof_dir": {"type": "string", "description": "Where to write proof.json and report.md "
                               "(default: .fixwitness in the current folder)."},
+            },
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "prove_change",
+        "title": "Check everything a change touched",
+        "description": (
+            "Check every file changed in the working tree against git 'base' (default HEAD), with no other "
+            "setup: dbt projects (compiled by dbt when it is installed), SQL files (tables found by name among "
+            "the data files), pandas/polars/PySpark functions that changed (tables matched to their parameter "
+            "names), and scripts that read CSV, JSON, JSON Lines or Parquet. Returns one verdict, a row per "
+            "check, and the files not checked with the reason. Call it before you open a pull request."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "base": {"type": "string", "description": "Git revision with the original. Default HEAD."},
+                "path": {"type": "string", "description": "Only changes under this folder or file."},
+                "attacks": {"type": "boolean", "description": "Run attack payloads on scripts (default true)."},
+                "engine": {"type": "string", "enum": ["auto", "duckdb", "sqlite"]},
+                "dialect": {"type": "string", "description": "SQL written for this warehouse (needs sqlglot)."},
+                "max_cases": {"type": "integer", "minimum": 10, "maximum": 5000},
+                "proof_dir": {"type": "string", "description": "Where to write the reports (default .fixwitness)."},
             },
             "additionalProperties": False,
         },
@@ -146,6 +172,7 @@ def _prove_fix(args: dict) -> dict:
         "engine": args.get("engine"), "sql_ordered": args.get("sql_ordered"),
         "dialect": args.get("dialect"), "sql_outputs": args.get("sql_outputs"),
         "function": args.get("function"), "library": args.get("library"),
+        "manifest": args.get("manifest"), "base_manifest": args.get("base_manifest"),
         "incident_expected": args.get("incident_expected_path"),
         "columns": args.get("columns"), "review": args.get("review_categories"),
         "ignore_columns": args.get("ignore_columns"), "ignore_patterns": args.get("ignore_patterns"),
@@ -181,6 +208,20 @@ def _prove_fix(args: dict) -> dict:
     return _text_result(markdown(proof, str(proof_path)), structured)
 
 
+def _prove_change(args: dict) -> dict:
+    from fixwitness.changes import plan_items, run_items, summary_markdown
+    cfg = load_config(None, {"base": args.get("base"), "path": args.get("path"), "attacks": args.get("attacks"),
+                             "engine": args.get("engine"), "dialect": args.get("dialect"),
+                             "max_cases": args.get("max_cases"), "allow_any_command": False})
+    items, skipped = plan_items(cfg)
+    out_dir = Path(args["proof_dir"]) if args.get("proof_dir") else Path.cwd() / ".fixwitness"
+    result = run_items(cfg, items, out_dir)
+    structured = {"verdict": result["verdict"],
+                  "checks": [{k: v for k, v in r.items() if not k.startswith("_")} for r in result["checks"]],
+                  "not_checked": [{"path": p, "why": w} for p, w in skipped]}
+    return _text_result(summary_markdown(result, skipped), structured)
+
+
 def _replay_proof(args: dict) -> dict:
     proof = json.loads(Path(args["proof_path"]).read_text(encoding="utf-8"))
     result = replay(proof, allow_any_command=False)
@@ -191,7 +232,7 @@ def _replay_proof(args: dict) -> dict:
     return _text_result(text, result)
 
 
-HANDLERS = {"prove_fix": _prove_fix, "replay_proof": _replay_proof}
+HANDLERS = {"prove_fix": _prove_fix, "prove_change": _prove_change, "replay_proof": _replay_proof}
 
 
 def handle(message: dict) -> dict | None:

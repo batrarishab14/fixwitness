@@ -46,3 +46,12 @@ Changes made after seeing a result, each a general rule:
 | A pandas test capped at 80 cases missed `str.lower()`: the cap kept the catalogue value `UPPER` for the `case` category of `status`, not `PAID` | Under the cap, the one case kept for each (column, category) pair is the variant made from the sample's own value, when there is one |
 
 The last change affects SQL mode too. It only changes which cases are kept when there are more than `max_cases`.
+
+## Whole changes, dbt compiled by dbt, reproductions, faster DataFrame runs
+
+- **`fixwitness check` with no file** checks every file the working tree changed: dbt projects, SQL files, changed DataFrame functions and scripts, each with the data files found by name. One verdict; files that are not code are listed with the reason. The same is the MCP tool `prove_change` and the GitHub Action with no `path` (which comments on the pull request).
+- **dbt projects** are compiled by dbt itself (`dbt seed` + `dbt compile` with dbt-duckdb, for each version), or read from the manifests CI already has. Tested on dbt-labs' jaffle_shop in CI.
+- **Every difference has a reproduction** under `repro/<case>/`: the input, both outputs, and the commands to re-run each side.
+- **DataFrame runs** go through a server that imports pandas or polars once and forks a fresh process for each run (not for PySpark or `--no-network`). On the pandas test with 60 cases, the same 58 identical / 2 changed results in 5 s instead of about 30 s here.
+
+Three CI failures on the first run with every library installed were in the tests, not in fixwitness. The polars and PySpark rewrites written as "correct" in two tests were not faithful to pandas: polars and Spark keep a group for a null key that pandas drops, Spark sums an all-NULL column to NULL where pandas gives 0, and neither matches null keys in a join. fixwitness reported the difference. The tests now use faithful rewrites, and one more test checks that the null-group rewrite fails. The third test expected a Parquet case that adds a column to keep the sample's exact schema.

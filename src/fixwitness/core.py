@@ -33,6 +33,12 @@ LIMITATIONS = [
 ]
 
 
+# Inputs and outputs of the differences, kept per proof (not in proof.json: bytes, and not evidence
+# of their own) so that write_outputs can save a runnable reproduction of each one.
+REPRO: dict[str, dict] = {}
+MAX_REPROS = 25
+
+
 def _canonical(obj) -> bytes:
     return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
 
@@ -192,6 +198,30 @@ def _plan_summary(plan: Plan, cfg: Config, cases: list[Case], unstable: set[str]
 SQL_TOLERANCE = 1e-9
 
 
+def _frame_server(plan: Plan, cfg: Config, warnings: list[str]):
+    """For DataFrame functions: a server that imports the libraries once and forks each run.
+
+    Returns (server, invocation rewriter), or None to run each case as its own process."""
+    if plan.sql is None or not plan.sql.get("function") or cfg.no_network or os.name != "posix":
+        return None
+    libs = sorted(set(plan.sql.get("libraries") or []))
+    if "pyspark" in libs or os.environ.get("FIXWITNESS_NO_SERVER"):
+        return None
+    from fixwitness.pyserve import Server
+    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONPATH": plan.invocation.env.get("PYTHONPATH", ""),
+           "PYTHONHASHSEED": "0", "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "TZ": "UTC", "HOME": str(plan.work)}
+    try:
+        server = Server(plan.work, libs, env)
+    except (OSError, RuntimeError) as exc:
+        warnings.append(f"ran each case as its own process (the DataFrame server did not start: {exc})")
+        return None
+
+    def rewrite(inv):
+        template = inv.template.replace(" -m fixwitness.pyrun ", f" -m fixwitness.pyserve {server.path} -- ", 1)
+        return dataclasses.replace(inv, template=template, env={**inv.env, "FIXWITNESS_RUN_TIMEOUT": str(inv.timeout)})
+    return server, rewrite
+
+
 def _cases(plan: Plan, cfg: Config) -> list[Case]:
     if plan.sql is not None:
         try:
@@ -246,10 +276,14 @@ def _run(plan: Plan, cfg: Config) -> dict:
                         "original on the same input")
     cases = _cases(plan, cfg)
 
+    inv_b, inv_a, server = plan.invocation, plan.fix_invocation, _frame_server(plan, cfg, warnings)
+    if server is not None:
+        inv_b, inv_a = server[1](inv_b), server[1](inv_a)
+
     def one(case: Case):
         case_dir = plan.work / "cases" / case.id
-        b = run_side(plan.invocation, plan.before, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
-        a = run_side(plan.fix_invocation, plan.after, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
+        b = run_side(inv_b, plan.before, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
+        a = run_side(inv_a, plan.after, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
         shutil.rmtree(case_dir, ignore_errors=True)
         rows = None
         if case.kind == "valid" and b.ok and b.output is not None and plan.output == "csv" and plan.sql is None \
@@ -257,11 +291,19 @@ def _run(plan: Plan, cfg: Config) -> dict:
             n_in, n_out = _data_rows(case.content), _data_rows(b.output)
             if n_in is not None and n_out is not None:
                 rows = (n_in, n_out)
-        return _evaluate(case, b, a, opts), rows
+        entry, details = _evaluate(case, b, a, opts)
+        if entry["status"] in ("changed", "after-failed") and entry["kind"] != "attack":
+            kept[case.id] = {"case": case, "original": b, "fix": a}
+        return (entry, details), rows
 
+    kept: dict[str, dict] = {}
     workers = cfg.workers or min(8, os.cpu_count() or 2)
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        results = list(pool.map(one, cases))
+    try:
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            results = list(pool.map(one, cases))
+    finally:
+        if server is not None:
+            server[0].stop()
     evaluated = [r for r, _ in results]
     row_pairs = [rows for _, rows in results if rows is not None]
     preserves_rows = len(row_pairs) >= 5 and all(i == o for i, o in row_pairs)
@@ -356,6 +398,12 @@ def _run(plan: Plan, cfg: Config) -> dict:
         ],
     }
     proof_id = hashlib.sha256(_canonical(core)).hexdigest()
+    REPRO[proof_id] = {
+        "kept": {k: kept[k] for k in sorted(kept)[:MAX_REPROS]},
+        "invocations": (plan.invocation, plan.fix_invocation), "sides": (plan.before, plan.after),
+        "mode": plan.mode, "base_commit": plan.inputs.get("base_commit"), "repo": plan.replay.get("repo"),
+        "tables": plan.sql is not None,
+    }
     return {
         "proof_id": proof_id,
         **core,
@@ -406,7 +454,15 @@ def replay(proof: dict, allow_any_command: bool | None = None) -> dict:
                     problems.append(f"{label} {name} is missing or has changed ({p.name})")
         if settings.get("engine") == "auto" and inputs.get("engine"):
             settings["engine"] = inputs["engine"]  # replay with the engine the proof used
-    if rp.get("mode") == "files":
+    dbt_project = bool(rp.get("dbt_project"))
+    if rp.get("mode") == "files" and dbt_project:
+        for label in ("base_manifest", "manifest"):
+            p = Path(rp.get(label, ""))
+            if not p.is_file() or sha256_file(p) != inputs[label]["sha256"]:
+                problems.append(f"{label.replace('_', ' ')} is missing or has changed ({p.name})")
+        cfg_args = {"manifest": rp.get("manifest"), "base_manifest": rp.get("base_manifest"),
+                    "incident_expected": rp.get("incident_expected")}
+    elif rp.get("mode") == "files":
         for label in ("before", "after") + (() if sql_tables is not None else ("sample",)):
             p = Path(rp.get(label, ""))
             if not p.exists():
@@ -423,13 +479,13 @@ def replay(proof: dict, allow_any_command: bool | None = None) -> dict:
             current = sha256_file(f) if f.is_file() else None
             if current != item["sha256"]:
                 problems.append(f"{item['path']} has changed since the proof was made")
-        if sql_tables is None:
+        if sql_tables is None and not dbt_project:
             s = Path(rp.get("sample", ""))
             if not s.is_file() or sha256_file(s) != inputs["sample"]["sha256"]:
                 problems.append("the sample file is missing or has changed")
         cfg_args = {"path": rp.get("path"), "base": rp.get("base_commit"), "command": rp.get("command"),
-                    "run": None if (rp.get("command") or sql_tables is not None) else rp.get("run"),
-                    "sample": rp.get("sample"),
+                    "run": None if (rp.get("command") or sql_tables is not None or dbt_project) else rp.get("run"),
+                    "sample": None if dbt_project else rp.get("sample"),
                     "incident": rp.get("incident"), "incident_expected": rp.get("incident_expected")}
     else:
         return {"reproduced": False, "problems": ["the proof has no replay information"]}
@@ -437,6 +493,8 @@ def replay(proof: dict, allow_any_command: bool | None = None) -> dict:
         p = Path(rp["incident"])
         if not p.is_file() or sha256_file(p) != inputs["incident"]["sha256"]:
             problems.append("the incident file is missing or has changed")
+    if dbt_project and rp.get("dbt_tables"):
+        cfg_args["tables"] = rp["dbt_tables"]
     if sql_tables is not None:
         cfg_args["tables"] = sql_tables
         cfg_args["incident_tables"] = rp.get("incident_tables")

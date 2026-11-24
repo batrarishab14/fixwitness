@@ -28,12 +28,13 @@ dependencies = []
 [project.optional-dependencies]
 # Each is optional: fixwitness runs SQL on SQLite and checks CSV and JSON without any of them.
 duckdb = ["duckdb"]
+dbt = ["dbt-core", "dbt-duckdb"]     # dbt projects compiled by dbt itself
 dialects = ["sqlglot"]               # Snowflake, BigQuery, Postgres, T-SQL ... translated for the check
 pandas = ["pandas"]
 polars = ["polars"]
 pyspark = ["pyspark"]
 parquet = ["pyarrow"]
-all = ["duckdb", "sqlglot", "pandas", "polars", "pyarrow"]
+all = ["duckdb", "dbt-core", "dbt-duckdb", "sqlglot", "pandas", "polars", "pyarrow"]
 
 [project.urls]
 Homepage = "https://github.com/batrarishab14/fixwitness"

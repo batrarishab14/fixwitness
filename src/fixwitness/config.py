@@ -37,6 +37,9 @@ class Config:
                                             # translated with sqlglot to the engine's dialect
     sql_outputs: list[str] | None = None    # a folder of models: the models to compare (default: the final
                                             # ones, which no other model reads); ["all"] for every model
+    # dbt projects: manifests your CI already compiled (otherwise fixwitness compiles with dbt-duckdb)
+    manifest: str | None = None             # the fix's target/manifest.json
+    base_manifest: str | None = None        # the original's
     # Python DataFrame code: the function to call with the tables (pandas, polars or PySpark)
     function: str | None = None
     library: str = "auto"                   # auto (from the script's imports), pandas, polars, pyspark
@@ -68,18 +71,20 @@ class Config:
         return p if p.is_absolute() else (self.base_dir / p)
 
     def mode(self) -> str:
+        if self.manifest or self.base_manifest:
+            if not (self.manifest and self.base_manifest):
+                raise ConfigError("give both --manifest (the fix's) and --base-manifest (the original's)")
+            if not (self.before or self.after or self.path):
+                return "files"
         if self.before or self.after:
             if not (self.before and self.after):
                 raise ConfigError("give both --before and --after, or use a changed file in git instead")
             return "files"
-        if self.path or self.command:
-            return "git"
-        raise ConfigError(
-            "tell fixwitness what to check, for example:\n"
-            "  fixwitness check etl/clean.py --sample data/sample.csv      (your change vs git HEAD)\n"
-            "  fixwitness check --before old.py --after new.py --sample s.csv\n"
-            "  fixwitness check --base main --command 'python3 etl/run.py {input} {output}' --sample s.csv"
-        )
+        return "git"  # with no file named: every change in the working tree (see changes.py)
+
+    def require_target(self) -> None:
+        if self.mode() == "git" and not (self.path or self.command):
+            raise ConfigError(NO_TARGET)
 
     def validate(self) -> None:
         self.mode()
@@ -113,10 +118,18 @@ class Config:
             raise ConfigError("incident_tables needs tables (the sample tables)")
 
 
+NO_TARGET = (
+    "tell fixwitness what to check, for example:\n"
+    "  fixwitness check                                            (every change in your working tree)\n"
+    "  fixwitness check etl/clean.py --sample data/sample.csv      (your change vs git HEAD)\n"
+    "  fixwitness check --before old.py --after new.py --sample s.csv\n"
+    "  fixwitness check --base main --command 'python3 etl/run.py {input} {output}' --sample s.csv"
+)
+
 _KEYS = {f for f in Config.__dataclass_fields__ if f != "base_dir"}
 _DIALECT = re.compile(r"[a-z][a-z0-9_]*")
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
-_PATH_KEYS = {"path", "before", "after", "sample", "incident", "incident_expected"}
+_PATH_KEYS = {"path", "before", "after", "sample", "incident", "incident_expected", "manifest", "base_manifest"}
 _ALIASES = {"timeout_seconds": "timeout"}
 
 

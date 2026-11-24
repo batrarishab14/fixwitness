@@ -6,10 +6,10 @@ branding:
   color: "green"
 inputs:
   path:
-    description: "The file the fix changed, e.g. etl/clean.py (compared with the pull request's base commit)"
+    description: "What to check. Empty (the default): every file the pull request changed (SQL, dbt models, DataFrame code, scripts)"
     default: ""
   sample:
-    description: "Sample input CSV (found automatically when there is exactly one next to the script)"
+    description: "Sample input (CSV, JSON Lines or Parquet); found automatically when one sits next to the code"
     default: ""
   command:
     description: "Entry command when the fix spans several files, e.g. 'python3 etl/run.py {input} {output}'"
@@ -20,6 +20,15 @@ inputs:
   config:
     description: "Path to a fixwitness.toml (optional; ./fixwitness.toml is used when nothing else is given)"
     default: ""
+  args:
+    description: "More fixwitness check options, e.g. '--no-attacks --dialect snowflake'"
+    default: ""
+  install:
+    description: "Optional libraries to install: any of duckdb, dbt, sqlglot, pandas, polars, pyspark, pyarrow (comma-separated)"
+    default: "duckdb"
+  comment:
+    description: "Post the report as a pull-request comment, updated on every push (needs 'pull-requests: write')"
+    default: "true"
   min-confidence:
     description: "Fail the step if the confidence score (0-100) is below this"
     default: "0"
@@ -31,7 +40,7 @@ outputs:
     description: "PASS, FAIL or INCONCLUSIVE"
     value: ${{ steps.run.outputs.verdict }}
   confidence:
-    description: "Confidence score 0-100"
+    description: "Confidence score 0-100 (single checks)"
     value: ${{ steps.run.outputs.confidence }}
 runs:
   using: "composite"
@@ -43,7 +52,20 @@ runs:
       shell: bash
       env:
         ACTION_PATH: ${{ github.action_path }}
-      run: python -m pip install --quiet "$ACTION_PATH"
+        FP_INSTALL: ${{ inputs.install }}
+      run: |
+        pkgs=("$ACTION_PATH")
+        IFS=',' read -ra want <<< "$FP_INSTALL"
+        for w in "${want[@]}"; do
+          w="$(echo "$w" | tr -d ' ')"
+          case "$w" in
+            "") ;;
+            dbt) pkgs+=(dbt-core dbt-duckdb) ;;
+            duckdb|sqlglot|pandas|polars|pyspark|pyarrow) pkgs+=("$w") ;;
+            *) echo "::warning::fixwitness: unknown install option '$w'" ;;
+          esac
+        done
+        python -m pip install --quiet "${pkgs[@]}"
     - name: Run fixwitness
       id: run
       shell: bash
@@ -54,6 +76,7 @@ runs:
         FP_BASE: ${{ inputs.base }}
         FP_PR_BASE: ${{ github.event.pull_request.base.sha }}
         FP_CONFIG: ${{ inputs.config }}
+        FP_ARGS: ${{ inputs.args }}
         FP_MIN: ${{ inputs.min-confidence }}
       run: |
         set +e
@@ -64,14 +87,53 @@ runs:
         [ -n "$FP_COMMAND" ] && args+=(--command "$FP_COMMAND")
         base="$FP_BASE"
         [ -z "$base" ] && base="$FP_PR_BASE"
-        [ -n "$base" ] && args+=(--base "$base")
+        if [ -n "$base" ]; then
+          # a shallow checkout (the default) has no base commit: fetch just that commit
+          git cat-file -e "$base^{commit}" 2>/dev/null || git fetch --quiet --no-tags --depth=1 origin "$base" \
+            || echo "::warning::fixwitness: could not fetch the base commit $base (use fetch-depth: 0)"
+          args+=(--base "$base")
+        fi
+        if [ -n "$FP_ARGS" ]; then read -ra extra <<< "$FP_ARGS"; args+=("${extra[@]}"); fi
         fixwitness "${args[@]}"
         code=$?
         if [ -f fixwitness-report/report.md ]; then
           cat fixwitness-report/report.md >> "$GITHUB_STEP_SUMMARY"
-          python -c "import json; p = json.load(open('fixwitness-report/proof.json')); print('verdict=' + p['verdict']); print('confidence=' + str(p['confidence']['score']))" >> "$GITHUB_OUTPUT"
         fi
+        python - <<'EOF' >> "$GITHUB_OUTPUT"
+        import json, pathlib
+        d = pathlib.Path("fixwitness-report")
+        if (d / "summary.json").is_file():
+            print("verdict=" + json.loads((d / "summary.json").read_text())["verdict"])
+        elif (d / "proof.json").is_file():
+            p = json.loads((d / "proof.json").read_text())
+            print("verdict=" + p["verdict"])
+            print("confidence=" + str(p["confidence"]["score"]))
+        EOF
         exit $code
+    - name: Comment on the pull request
+      if: always() && inputs.comment == 'true' && github.event_name == 'pull_request'
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PR: ${{ github.event.pull_request.number }}
+        REPO: ${{ github.repository }}
+      run: |
+        [ -f fixwitness-report/report.md ] || exit 0
+        python - <<'EOF' > /tmp/fixwitness-comment.json
+        import json, pathlib
+        text = pathlib.Path("fixwitness-report/report.md").read_text(encoding="utf-8")
+        if len(text) > 60000:
+            text = text[:60000] + "\n\n(truncated; the full report is in the job summary and the fixwitness-proof artifact)"
+        print(json.dumps({"body": "<!-- fixwitness -->\n" + text}))
+        EOF
+        id=$(gh api "repos/$REPO/issues/$PR/comments" --paginate -q '.[] | select(.body | startswith("<!-- fixwitness -->")) | .id' 2>/dev/null | tail -1)
+        if [ -n "$id" ]; then
+          gh api -X PATCH "repos/$REPO/issues/comments/$id" --input /tmp/fixwitness-comment.json >/dev/null \
+            || echo "::warning::fixwitness: could not update the comment (does the workflow have pull-requests: write?)"
+        else
+          gh api -X POST "repos/$REPO/issues/$PR/comments" --input /tmp/fixwitness-comment.json >/dev/null \
+            || echo "::warning::fixwitness: could not comment (does the workflow have pull-requests: write?)"
+        fi
     - uses: actions/upload-artifact@v4
       if: always()
       with:

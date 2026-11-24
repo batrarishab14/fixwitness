@@ -1,3 +1,4 @@
+import importlib.util
 import json
 import os
 import shutil
@@ -701,7 +702,7 @@ class SqlModeTests(TempDirTest):
         result = replay(json.loads(path.read_text()))
         self.assertTrue(result["reproduced"], result["problems"])
 
-    @unittest.skipUnless(__import__("importlib").util.find_spec("duckdb"), "DuckDB not installed")
+    @unittest.skipUnless(importlib.util.find_spec("duckdb"), "DuckDB not installed")
     def test_duckdb_engine(self):
         ok = self._check(REVENUE.replace("count(*)", "count(1)"), engine="duckdb")
         self.assertEqual(ok["config"]["sql"]["engine"], "duckdb")
@@ -822,7 +823,7 @@ PD_REVENUE = """
         joined = paid.merge(customers, on="customer_id")
         return joined.groupby("region").agg(revenue=("amount", "sum"), orders=("order_id", "size"))
 """
-HAS = {m: __import__("importlib").util.find_spec(m) is not None for m in ("pandas", "polars", "pyspark")}
+HAS = {m: importlib.util.find_spec(m) is not None for m in ("pandas", "polars", "pyspark")}
 
 
 @unittest.skipUnless(HAS["pandas"], "pandas not installed")
@@ -903,20 +904,43 @@ class FrameModeTests(TempDirTest):
         result = replay(json.loads(write_outputs(proof, self.tmp / "out").read_text()))
         self.assertTrue(result["reproduced"], result["problems"])
 
+    def test_warm_server_gives_the_same_results_as_separate_processes(self):
+        wrong = PD_REVENUE.replace('("order_id", "size")', '("amount", "count")')
+        fast = self._check(wrong, max_cases=40)
+        os.environ["FIXWITNESS_NO_SERVER"] = "1"
+        try:
+            slow = self._check(wrong, max_cases=40)
+        finally:
+            del os.environ["FIXWITNESS_NO_SERVER"]
+        self.assertEqual([(c["id"], c["status"]) for c in fast["cases"]], [(c["id"], c["status"]) for c in slow["cases"]])
+        self.assertFalse(any("own process" in w for w in fast["warnings"]), fast["warnings"])
+
+    def test_warm_server_enforces_the_timeout(self):
+        t0 = time.time()
+        proof = self._check(PD_REVENUE.replace("    paid = ", "    __import__('time').sleep(60)\n    paid = "),
+                            max_cases=10, timeout=2)
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertLess(time.time() - t0, 90)  # 10 cases x 2 s, not 10 x 60 s
+
     @unittest.skipUnless(HAS["polars"], "polars not installed")
     def test_pandas_to_polars_migration(self):
+        # A faithful rewrite: null keys match in the join and the null group is dropped, as in pandas.
         polars_ok = """
             import polars as pl
 
             def revenue(orders, customers):
-                return (orders.filter(pl.col("status") == "paid").join(customers, on="customer_id")
-                        .group_by("region").agg(pl.col("amount").sum().alias("revenue"), pl.len().alias("orders")))
+                return (orders.filter(pl.col("status") == "paid")
+                        .join(customers, on="customer_id", how="inner", nulls_equal=True)
+                        .group_by("region").agg(pl.col("amount").sum().alias("revenue"), pl.len().alias("orders"))
+                        .drop_nulls("region"))
         """
         proof = self._check(polars_ok)
         self.assertEqual(proof["config"]["frame"]["libraries"], ["pandas", "polars"])
         self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
         bad = self._check(polars_ok.replace('pl.len()', 'pl.col("amount").count()'))
         self.assertEqual(bad["verdict"], "FAIL")
+        null_group = self._check(polars_ok.replace('\n                        .drop_nulls("region"))', ')'))
+        self.assertEqual(null_group["verdict"], "FAIL")  # polars keeps the null group that pandas drops
 
     @unittest.skipUnless(HAS["pyspark"], "pyspark not installed")
     def test_pyspark_function(self):
@@ -924,8 +948,11 @@ class FrameModeTests(TempDirTest):
             from pyspark.sql import functions as F
 
             def revenue(orders, customers):
-                return (orders.where(F.col("status") == "paid").join(customers, "customer_id")
-                        .groupBy("region").agg(F.sum("amount").alias("revenue"), F.count("*").alias("orders")))
+                # as pandas: null keys match, the null group is dropped, an all-null sum is 0
+                c = customers.withColumnRenamed("customer_id", "cid")
+                joined = orders.where(F.col("status") == "paid").join(c, F.col("customer_id").eqNullSafe(F.col("cid")))
+                return (joined.where(F.col("region").isNotNull()).groupBy("region")
+                        .agg(F.coalesce(F.sum("amount"), F.lit(0.0)).alias("revenue"), F.count("*").alias("orders")))
         """
         proof = self._check(spark, max_cases=40, timeout=120)
         self.assertEqual(proof["config"]["frame"]["libraries"], ["pandas", "pyspark"])
@@ -1052,7 +1079,7 @@ SNOWFLAKE_REVENUE = """
 """
 
 
-@unittest.skipUnless(__import__("importlib").util.find_spec("sqlglot"), "sqlglot not installed")
+@unittest.skipUnless(importlib.util.find_spec("sqlglot"), "sqlglot not installed")
 class DialectTests(TempDirTest):
     _check = SqlModeTests._check
 
@@ -1107,7 +1134,7 @@ PARQUET_FILTER = """
 """
 
 
-@unittest.skipUnless(__import__("importlib").util.find_spec("pyarrow"), "pyarrow not installed")
+@unittest.skipUnless(importlib.util.find_spec("pyarrow"), "pyarrow not installed")
 class ParquetTests(TempDirTest):
     def _check(self, after: str, **extra):
         import datetime
@@ -1134,8 +1161,10 @@ class ParquetTests(TempDirTest):
         cases = generate_parquet_cases(sample)
         self.assertGreater(len(cases), 20)
         schema = pq.read_table(pa.BufferReader(sample)).schema
-        for c in cases:
-            self.assertEqual(pq.read_table(pa.BufferReader(c.content)).schema.types, schema.types, c.value)
+        for c in cases:  # every column of the sample keeps its type (schema cases add or move columns)
+            got = pq.read_table(pa.BufferReader(c.content)).schema
+            for field in schema:
+                self.assertEqual(got.field(field.name).type, field.type, c.value)
         self.assertIn("null-column", {c.category for c in cases})
 
     def test_rewrite_in_python_passes(self):
@@ -1156,6 +1185,169 @@ class ParquetTests(TempDirTest):
                                                    'pc.equal(pc.utf8_lower(t["status"]), "paid")'))
         self.assertEqual(proof["verdict"], "FAIL")
         self.assertIn("case", {d["category"] for d in proof["differences"]})
+
+
+class WholeChangeTests(TempDirTest):
+    """`fixwitness check` with no file: every changed file, each checked the way that fits it."""
+
+    def _repo(self):
+        from pathlib import Path as P
+        b = ROOT / "benchmark" / "complex"
+        files = {"data/orders.csv": ORDERS, "data/customers.csv": CUSTOMERS,
+                 "data/events.jsonl": (b / "C05-jsonl-events" / "events.jsonl").read_text(),
+                 "sql/revenue.sql": REVENUE, "jobs/events.py": (b / "C05-jsonl-events" / "original.py").read_text(),
+                 "README.md": "# readme\n"}
+        if HAS["pandas"]:
+            files["etl/revenue.py"] = textwrap.dedent(PD_REVENUE).lstrip()
+        repo = self.repo(files)
+        P(repo / "sql/revenue.sql").write_text(REVENUE.replace("count(*)", "count(o.amount)"))
+        jobs = repo / "jobs/events.py"
+        jobs.write_text(jobs.read_text().replace('e.get("status")', 'e["status"]'))
+        if HAS["pandas"]:
+            etl = repo / "etl/revenue.py"
+            etl.write_text(etl.read_text().replace('("order_id", "size")', '("amount", "count")'))
+        (repo / "README.md").write_text("# readme, edited\n")
+        os.chdir(repo)
+        return repo
+
+    def test_items_are_classified_and_tables_found_by_name(self):
+        from fixwitness.changes import plan_items
+        self._repo()
+        items, skipped = plan_items(load_config(None, {}))
+        kinds = {i.target: i.kind for i in items}
+        self.assertEqual(kinds["sql/revenue.sql"], "sql")
+        self.assertEqual(kinds["jobs/events.py"], "script")
+        if HAS["pandas"]:
+            self.assertEqual(kinds["etl/revenue.py: revenue()"], "dataframe")
+        self.assertIn(("README.md", "not code"), skipped)
+
+    def test_every_change_is_checked_with_one_verdict(self):
+        from fixwitness.changes import plan_items, run_items
+        repo = self._repo()
+        cfg = load_config(None, {"engine": "sqlite", "max_cases": 60, "attacks": False})
+        items, _ = plan_items(cfg)
+        result = run_items(cfg, items, repo / ".fixwitness")
+        self.assertEqual(result["verdict"], "FAIL")
+        verdicts = {r["target"]: r["verdict"] for r in result["checks"]}
+        self.assertEqual(verdicts["sql/revenue.sql"], "FAIL")
+        self.assertEqual(verdicts["jobs/events.py"], "FAIL")  # the sample is events.jsonl: the script reads JSON
+        if HAS["pandas"]:
+            self.assertEqual(verdicts["etl/revenue.py: revenue()"], "FAIL")
+        # every difference comes with a reproduction: the input, both outputs, the commands
+        sql = next(r for r in result["checks"] if r["target"] == "sql/revenue.sql")
+        repro = Path(sql["proof"]).parent / "repro"
+        cases = sorted(repro.iterdir())
+        self.assertTrue(cases)
+        names = {p.name for p in cases[0].iterdir()}
+        self.assertTrue({"README.md", "input.json", "original.csv", "fix.csv", "tables"} <= names, names)
+        self.assertIn("git worktree add", (cases[0] / "README.md").read_text())
+
+    def test_mcp_prove_change(self):
+        from fixwitness.mcp_server import handle
+        self._repo()
+        reply = handle({"jsonrpc": "2.0", "id": 1, "method": "tools/call",
+                        "params": {"name": "prove_change", "arguments": {"attacks": False, "max_cases": 30,
+                                                                          "engine": "sqlite"}}})
+        result = reply["result"]["structuredContent"]
+        self.assertEqual(result["verdict"], "FAIL")
+        self.assertIn("sql/revenue.sql", {c["target"] for c in result["checks"]})
+        self.assertIn({"path": "README.md", "why": "not code"}, result["not_checked"])
+
+    def test_cli_with_no_file(self):
+        self._repo()
+        env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
+        r = subprocess.run([sys.executable, "-m", "fixwitness", "check", "--dry-run"], capture_output=True,
+                           text=True, env=env)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("sql/revenue.sql", r.stdout)
+        self.assertIn("README.md: not code", r.stdout)
+
+
+class DbtManifestTests(TempDirTest):
+    """A dbt project checked from manifests (what dbt compile writes): relation names, the graph,
+    seeds as tables, and the final models downstream of the change."""
+
+    def _manifests(self):
+        R = lambda n: f'"memory"."main"."{n}"'  # noqa: E731
+
+        def node(kind, name, code=None, deps=(), mat="table", path=None):
+            n = {"resource_type": kind, "name": name, "package_name": "shop", "language": "sql",
+                 "original_file_path": path or f"models/{name}.sql", "relation_name": R(name),
+                 "config": {"materialized": mat}, "depends_on": {"nodes": list(deps)}}
+            if code is not None:
+                n["compiled_code"] = code
+            return n
+
+        def manifest(stg, rev):
+            return {"metadata": {"adapter_type": "duckdb", "project_name": "shop"}, "sources": {}, "nodes": {
+                "seed.shop.raw_orders": node("seed", "raw_orders", path="seeds/raw_orders.csv"),
+                "seed.shop.raw_customers": node("seed", "raw_customers", path="seeds/raw_customers.csv"),
+                "model.shop.stg_orders": node("model", "stg_orders", stg, ["seed.shop.raw_orders"], "view"),
+                "model.shop.paid": node("model", "paid", None, ["model.shop.stg_orders"], "ephemeral"),
+                "model.shop.stg_customers": node("model", "stg_customers",
+                                                 f"select customer_id, region from {R('raw_customers')}",
+                                                 ["seed.shop.raw_customers"]),
+                "model.shop.revenue": node("model", "revenue", rev, ["model.shop.paid", "model.shop.stg_customers"])}}
+
+        stg = f"select order_id, customer_id, amount, status from {R('raw_orders')}"
+        # The CTE `orders` has the name of a column: dbt's graph, not the SQL, gives the order.
+        rev = (f"with __dbt__cte__paid as (select * from {R('stg_orders')} where status = 'paid'), "
+               f"orders as (select * from __dbt__cte__paid) "
+               f"select c.region, sum(o.amount) as revenue, count(*) as orders "
+               f"from orders o join {R('stg_customers')} c using (customer_id) group by c.region")
+        write(self.tmp / "dbt_project.yml", "name: shop\nprofile: shop\n")
+        write(self.tmp / "seeds/raw_orders.csv", ORDERS)
+        write(self.tmp / "seeds/raw_customers.csv", CUSTOMERS)
+        for name, (a, b) in {"base": (stg, rev), "ok": (stg, rev.replace("count(*)", "count(1)")),
+                             "bad": (stg.replace("status from", "lower(status) as status from"), rev)}.items():
+            (self.tmp / f"{name}.json").write_text(json.dumps(manifest(a, b)))
+        os.chdir(self.tmp)
+
+    def test_change_in_staging_is_judged_on_the_mart(self):
+        self._manifests()
+        bad = self.check(manifest="bad.json", base_manifest="base.json", engine="sqlite")
+        self.assertEqual(bad["verdict"], "FAIL")
+        self.assertEqual(bad["inputs"]["dbt"]["changed_models"], ["stg_orders"])
+        self.assertEqual(bad["inputs"]["dbt"]["compared"], ["revenue"])
+        self.assertIn("case", {d["category"] for d in bad["differences"]})
+        ok = self.check(manifest="ok.json", base_manifest="base.json", engine="sqlite")
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+        from fixwitness.report import write_outputs
+        result = replay(json.loads(write_outputs(ok, self.tmp / "out").read_text()))
+        self.assertTrue(result["reproduced"], result["problems"])
+
+    def test_no_change_is_reported(self):
+        self._manifests()
+        with self.assertRaises(PlanError):
+            self.check(manifest="base.json", base_manifest="base.json", engine="sqlite")
+
+
+@unittest.skipUnless(os.environ.get("FIXWITNESS_DBT_PROJECT") and shutil.which("dbt"),
+                     "needs dbt-core + dbt-duckdb and FIXWITNESS_DBT_PROJECT (a jaffle_shop checkout)")
+class DbtProjectTests(TempDirTest):
+    """dbt-labs' jaffle_shop, compiled by dbt itself: its orders model uses a Jinja loop."""
+
+    def _project(self):
+        src = Path(os.environ["FIXWITNESS_DBT_PROJECT"])
+        repo = self.tmp / "repo"
+        shutil.copytree(src, repo, ignore=shutil.ignore_patterns(".git", "target", "logs", "dbt_packages"))
+        git(repo, "init", "-q")
+        git(repo, "add", ".")
+        git(repo, "commit", "-q", "-m", "original")
+        os.chdir(repo)
+        return repo
+
+    def test_wrong_and_correct_changes(self):
+        repo = self._project()
+        customers = repo / "models" / "customers.sql"
+        original = customers.read_text()
+        customers.write_text(original.replace("count(order_id)", "count(*)"))
+        bad = self.check(path="models", max_cases=120)
+        self.assertEqual(bad["verdict"], "FAIL", bad["reasons"])
+        self.assertIn("customers", bad["inputs"]["dbt"]["changed_models"])
+        customers.write_text(original.replace("final", "result"))
+        ok = self.check(path="models", max_cases=120)
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
 
 
 class CliAndMcpTests(TempDirTest):
@@ -1202,7 +1394,7 @@ class CliAndMcpTests(TempDirTest):
         replies = [json.loads(line) for line in r.stdout.splitlines()]
         self.assertEqual([x["id"] for x in replies], [1, 2, 3, 4, 5, 6], r.stderr)
         self.assertEqual(replies[0]["result"]["protocolVersion"], "2025-06-18")
-        self.assertEqual({t["name"] for t in replies[1]["result"]["tools"]}, {"prove_fix", "replay_proof"})
+        self.assertEqual({t["name"] for t in replies[1]["result"]["tools"]}, {"prove_fix", "prove_change", "replay_proof"})
         call = replies[2]["result"]
         self.assertFalse(call["isError"], call)
         self.assertEqual(call["structuredContent"]["verdict"], "FAIL")

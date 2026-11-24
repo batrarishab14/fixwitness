@@ -11,11 +11,45 @@ AI agents now patch vulnerabilities and repair broken pipelines on their own. Ea
    - For a self-healing repair: does the input that broke the job now go through?
 2. **Did it change anything else?** fixwitness runs both versions on generated edge-case inputs and compares the output cell by cell.
 
-You get a **verdict** (PASS / FAIL), a **confidence score** (0–100) and a **proof record** anyone can replay. It needs no tests, only a sample input file. It runs from the command line, in CI, or **inside a coding agent over MCP**, so the agent checks its own fix before it ships.
+You get a **verdict** (PASS / FAIL), a **confidence score** (0–100), a **proof record** anyone can replay, and a **runnable reproduction** of every difference. It needs no tests, only the sample data your repository already has. It runs from the command line, in CI (with a comment on the pull request), or **inside a coding agent over MCP**, so the agent checks its own change before it ships.
+
+## One command for the whole change
 
 ```bash
-fixwitness check etl/clean_amounts.py            # in a git repo: HEAD vs. your working copy
+fixwitness check          # in a git repo: every file you changed, against HEAD (or --base main)
+```
+
+Each changed file is checked the way that fits it. The sample data is found by name:
+
+| Changed | Checked as |
+|---|---|
+| A file in a **dbt project** | The project compiled by dbt itself (with `dbt-duckdb`), so macros and packages work; seeds are the sample tables; the final models downstream of the change are compared |
+| A **`.sql`** query | Its tables are the data files named after them (`orders.csv` for `orders`) |
+| A **pandas, polars or PySpark** function that changed | Called with the data files named after its parameters; each side uses the library it imports |
+| A **script** that reads CSV, JSON, JSON Lines or Parquet | Run on the sample next to it |
+| Docs, data, config, tests | Listed as not checked, with the reason |
+
+```
+$ fixwitness check --no-attacks
+## fixwitness: FAIL (3 checks)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `etl/revenue.py: revenue()` | dataframe | PASS 99/100 | - |
+| `jobs/events.py` | script | **FAIL** | the fix changes output on 1 valid inputs |
+| `models/revenue.sql` | sql | **FAIL** | the fix changes output on 2 valid inputs |
+
+Not checked: `README.md` (not code)
+```
+
+Here `jobs/events.py` changed `e.get("status")` to `e["status"]`, which fails on an event without that key, and `models/revenue.sql` changed `count(*)` to `count(o.amount)`. Neither shows on today's data. For each difference, `.fixwitness/<check>/repro/<case>/` holds the input, both outputs and the commands to re-run each side, so you can confirm it yourself.
+
+One file or a pair of files also works:
+
+```bash
+fixwitness check etl/clean_amounts.py            # one file: HEAD vs. your working copy
 fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv
+fixwitness check --before old.py --after new.py --sample data/sample.csv
 ```
 
 ## SQL queries and dbt models
@@ -57,7 +91,7 @@ These are development results on SQLite: the SQL input classes were refined on t
 - **Engine:** DuckDB when it is installed (`pip install duckdb`), otherwise SQLite from Python's standard library. Both versions always run on the same engine, which is recorded in the proof.
 - **Types:** column types come from your sample tables. An empty cell is NULL. A value the column's type can't hold, such as `1,250` in a numeric column, is skipped, just as a warehouse would reject it.
 - **Row order and numbers:** rows are compared as a set unless you pass `--sql-ordered`. Numbers are compared with a relative tolerance of 1e-9, because an equivalent query may add them up in a different order.
-- **dbt models:** `{{ ref('x') }}` and `{{ source('s', 'x') }}` become table `x`, and `{{ config(...) }}` is removed. A model that uses macros or other Jinja is refused with a message; check its compiled SQL from `dbt compile` instead.
+- **dbt models:** with `dbt-core` and `dbt-duckdb` installed, fixwitness runs `dbt seed` and `dbt compile` on both versions of the project in a private DuckDB file, so macros, packages, `var()` and `is_incremental()` are rendered by dbt. Or pass the `manifest.json` files your CI already has (`--manifest`, `--base-manifest`). Without dbt, `{{ ref('x') }}`, `{{ source('s', 'x') }}` and `{{ config(...) }}` are rendered by fixwitness, and other Jinja is refused with a message.
 - **Incidents:** `--incident-table customers=customers_bad.csv` gives a table's contents when the original broke, and `--incident-expected` gives the correct result.
 
 ## Pipelines, warehouse SQL, DataFrames, JSON and Parquet
@@ -74,15 +108,15 @@ The same check works on the other places an agent changes data code:
 
 A polars rewrite of a pandas function, for example, can match it on today's data and still differ when a value is missing: pandas `size()` counts rows, but `pl.col("amount").count()` counts non-null values; and polars `group_by` keeps the group for a null key, which pandas `groupby` drops.
 
-**On the benchmark for these kinds** ([`benchmark/complex/`](benchmark/complex/), synthetic fixes, each modelling a known pitfall). The dbt project, pandas and JSON Lines cases ran here on SQLite, with 16 fixes:
+**On the benchmark for these kinds** ([`benchmark/complex/`](benchmark/complex/): a dbt project, a Snowflake query, a pandas function, a pandas → polars migration, a JSON Lines job and a Parquet job; 28 synthetic fixes, each modelling a known pitfall), run in CI on DuckDB with every library installed:
 
 | Check | Wrong fixes caught | Correct fixes wrongly rejected |
 |---|---|---|
-| The job runs | 0/11 | 0/5 |
-| Same output on the sample | 0/11 | 0/5 |
-| **fixwitness** | **10/11** | **0/5** |
+| The job runs | 0/20 | 0/8 |
+| Same output on the sample | 1/20 | 0/8 |
+| **fixwitness** | **19/20** | **0/8** |
 
-The miss is `round_each`: it rounds each amount before summing. That only shows when two records of the same country both have sub-cent amounts, and fixwitness changes one value at a time. The Snowflake, polars and Parquet cases need sqlglot, polars and pyarrow; they run in CI (`.github/workflows/sql.yml`), which also runs everything on DuckDB. These are development results ([development log](study/DEVLOG_v0.6.md)).
+The miss is `round_each`: it rounds each amount before summing. That only shows when two records of the same country both have sub-cent amounts, and fixwitness changes one value at a time. The CI logs are on the [`ci-results`](../../tree/ci-results) branch. These are development results ([development log](study/DEVLOG_v0.6.md)).
 
 ## What it catches
 
@@ -177,13 +211,13 @@ More scenarios with ready-to-run commands are in [docs/USE_CASES.md](docs/USE_CA
 ## Install
 
 ```bash
-pip install "git+https://github.com/batrarishab14/fixwitness@v0.5.0"
+pip install "git+https://github.com/batrarishab14/fixwitness"
 fixwitness demo
 ```
 
 Python 3.11+, no dependencies. git is needed for the one-line mode. For SQL, DuckDB is used if installed (`pip install duckdb`), otherwise SQLite.
 
-Optional, only for what you check: `sqlglot` (warehouse dialects), `pandas`, `polars` or `pyspark` (DataFrame functions), `pyarrow` (Parquet). `pip install "fixwitness[all] @ git+https://github.com/batrarishab14/fixwitness"` installs all but PySpark.
+Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects with macros), `sqlglot` (warehouse dialects), `pandas`, `polars` or `pyspark` (DataFrame functions), `pyarrow` (Parquet). `pip install "fixwitness[all] @ git+https://github.com/batrarishab14/fixwitness"` installs all but PySpark.
 
 ## Usage
 
@@ -277,13 +311,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0              # the base commit must be available
-      - uses: batrarishab14/fixwitness@v0.5.0
+      - uses: batrarishab14/fixwitness@v0.6.0
         with:
-          path: etl/clean.py          # compared with the pull request's base commit
-          min-confidence: 90
+          install: duckdb,dbt,pandas    # only what your code needs
+          args: --no-attacks            # data changes, not security fixes
 ```
 
-The report appears in the job summary, and `proof.json` is uploaded as an artifact. To make proofs tamper-evident, add GitHub artifact attestations (`actions/attest-build-provenance`, `subject-path: fixwitness-report/proof.json`).
+With no `path`, the Action checks every file the pull request changed, against its base commit. The report is posted as one comment on the pull request and updated on every push; add `permissions: {contents: read, pull-requests: write}` to the job. It also appears in the job summary, and the proofs and reproductions are uploaded as an artifact. To make proofs tamper-evident, add GitHub artifact attestations (`actions/attest-build-provenance`, `subject-path: fixwitness-report/proof.json`).
 
 ## How it works
 
