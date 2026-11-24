@@ -319,9 +319,23 @@ def _source(side) -> str | None:
 
 
 def focus(plan: Plan, columns: list[str]) -> list[str]:
-    """Columns named in the lines the change touched; their cases are kept first under the cap."""
+    """Columns named in the lines the change touched; their cases are kept first under the cap. For
+    a dbt project, every column the changed models name counts (a filter the change moved around,
+    such as `where deleted_at is null`, sits on a line the change did not touch)."""
     from fixwitness.cases import focus_columns
-    return focus_columns(_source(plan.before), _source(plan.after), columns)
+    found = focus_columns(_source(plan.before), _source(plan.after), columns)
+    changed = (plan.inputs.get("dbt") or {}).get("changed_models") or []
+    if changed:
+        texts = []
+        for side in (plan.before, plan.after):
+            root = side.script if side.script is not None and Path(side.script).is_dir() else None
+            for name in changed:
+                f = Path(root) / f"{name}.sql" if root is not None else None
+                if f is not None and f.is_file():
+                    texts.append(f.read_text(encoding="utf-8", errors="replace"))
+        words = set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", "\n".join(texts)))
+        found += [c for c in columns if c.rsplit(".", 1)[-1] in words and c not in found]
+    return found
 
 
 def _apply_contracts(plan: Plan, cases: list[Case], contracts: list[dict], base: dict[str, bytes]) -> None:
