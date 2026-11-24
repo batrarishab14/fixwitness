@@ -81,7 +81,7 @@ pre.cmd{background:var(--soft);border:1px solid var(--rule);border-radius:8px;pa
 .copy{font:600 12.5px var(--sans);color:var(--accent);background:none;border:1px solid var(--rule);border-radius:6px;
 padding:3px 10px;cursor:pointer;margin-top:8px}
 .bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--soft);gap:2px;margin:8px 0 6px}
-.bar span{display:block;height:100%}.s-ok{background:var(--pass)}.s-ch{background:var(--fail)}.s-nc{background:var(--muted)}
+.bar span{display:block;height:100%}.s-ok{background:var(--pass)}.s-ch{background:var(--fail)}.s-nc{background:var(--muted)}.s-ex{background:var(--accent)}
 .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 24px;font-size:13.5px;margin-top:10px}
@@ -198,9 +198,12 @@ def _finding(d: dict, ex: dict | None, repro_cmd: str | None, idx: str, target: 
 def _how(proof: dict) -> str:
     beh = proof["behavior"]
     total = beh["identical"] + beh["changed"] + beh["not_comparable"]
+    expected = beh.get("expected_change", 0) if proof["config"].get("expect_change") else 0
+    same = beh["identical"] - min(expected, beh["identical"])
     seg = ""
     if total:
-        for cls, n in (("s-ok", beh["identical"]), ("s-ch", beh["changed"]), ("s-nc", beh["not_comparable"])):
+        for cls, n in (("s-ok", same), ("s-ex", min(expected, beh["identical"])), ("s-ch", beh["changed"]),
+                       ("s-nc", beh["not_comparable"])):
             if n:
                 seg += f"<span class={cls} style='flex:{n}' title='{n}'></span>"
     cats: dict[str, int] = {}
@@ -229,8 +232,9 @@ def _how(proof: dict) -> str:
     return (f"<h3>How it was checked</h3>"
             f"<div class=bar role=img aria-label='{beh['identical']} identical, {beh['changed']} changed, "
             f"{beh['not_comparable']} not comparable'>{seg}</div>"
-            f"<div class=legend><span><i class=s-ok></i>{beh['identical']} gave the same output</span>"
-            f"<span><i class=s-ch></i>{beh['changed']} changed</span>"
+            f"<div class=legend><span><i class=s-ok></i>{same} gave the same output</span>"
+            + (f"<span><i class=s-ex></i>{expected} changed only the expected columns</span>" if expected else "")
+            + f"<span><i class=s-ch></i>{beh['changed']} changed</span>"
             f"<span><i class=s-nc></i>{beh['not_comparable']} not comparable (the original failed too)</span></div>"
             f"<div class=facts>{''.join(f'<div><b>{E(k)}</b>{E(str(v))}</div>' for k, v in facts)}</div>"
             f"<details><summary>Kinds of input, notes and limits</summary><p class=sub>{E(kinds)}</p>"
@@ -272,6 +276,14 @@ def _change_section(check: dict, idx: int, interactive: bool = False) -> str:
         cols = ", ".join(proof["config"]["expect_change"])
         body.append(f"<p class=sub>Only the expected columns ({E(cols)}) changed, on {beh.get('expected_change', 0)} "
                     f"of {beh['identical']} generated inputs; everything else gave the same output.</p>")
+        shown = proof.get("expected_changes") or []
+        if shown:
+            body.append("<h3>What the fix changes</h3><ul class=notes style='color:var(--ink)'>")
+            for e in shown[:4]:
+                cells = "; ".join(e.get("details", [])[:3])
+                body.append(f"<li>When <code>{E(str(e.get('column')))}</code> is {E(repr(e.get('value')))} "
+                            f"({E(e.get('category', ''))}): {E(cells)}</li>")
+            body.append("</ul>")
     elif verdict == "PASS":
         body.append(f"<p class=sub>All {beh['identical']} generated inputs gave the same output.</p>")
     if other:
@@ -294,7 +306,8 @@ def render(checks: list[dict], skipped: list[tuple[str, str]], title: str, conte
     verdict = "FAIL" if "FAIL" in verdicts else ("PASS" if verdicts and all(v == "PASS" for v in verdicts)
                                                  else "INCONCLUSIVE")
     failed = [c for c in checks if c["verdict"] == "FAIL"]
-    headline, tone = decision(verdict, 0, len(checks), len(failed))
+    expects = [c for c in checks if ((c.get("proof") or {}).get("config") or {}).get("expect_change")]
+    headline, tone = decision(verdict, 0, len(checks), len(failed), expected=bool(expects) and len(expects) == len(checks))
     first = headline.split(":", 1)
     h1, why = (first[0], first[1].strip()) if len(first) == 2 else (headline, "")
     why = why[:1].upper() + why[1:]
@@ -310,8 +323,12 @@ def render(checks: list[dict], skipped: list[tuple[str, str]], title: str, conte
     for i, c in enumerate(checks):
         p = c.get("proof") or {}
         d = next((x for x in p.get("differences", []) if x["kind"] != "review" and x.get("explanation")), None)
+        exp = (p.get("config") or {}).get("expect_change")
+        passed = (f"only {', '.join(exp)} changed, on {p.get('behavior', {}).get('expected_change', 0)} of "
+                  f"{p.get('behavior', {}).get('identical', 0)} inputs" if exp else
+                  f"{p.get('behavior', {}).get('identical', 0)} inputs gave the same output")
         line = (d or {}).get("explanation") or (c.get("reason") if c.get("reason") not in (None, "-") else None) or (
-            f"{p.get('behavior', {}).get('identical', 0)} inputs gave the same output" if c["verdict"] == "PASS" else "")
+            passed if c["verdict"] == "PASS" else "")
         rows.append(f"<tr><td><a href='#c{i}'>{E(c['target'])}</a></td><td class=kind>{E(c['kind'])}</td>"
                     f"<td><span class='pill {E(c['verdict'].split()[0])}'>{E(c['verdict'])}</span></td>"
                     f"<td>{E(str(line)).replace('`', '')}</td></tr>")

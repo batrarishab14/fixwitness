@@ -355,8 +355,12 @@ def explain_case(case, before, after, output_mode: str, input_fmt: str, tables: 
     return result
 
 
-def decision(verdict: str, n_changed: int, n_checks: int, n_failed: int) -> tuple[str, str]:
-    """(headline, tone) for the top of a report."""
+def decision(verdict: str, n_changed: int, n_checks: int, n_failed: int, expected: bool = False) -> tuple[str, str]:
+    """(headline, tone) for the top of a report. expected: the checks named the output the fix
+    should change (--expect-change)."""
+    if verdict == "PASS" and expected:
+        return ("Safe to merge: the fix changes only the results it is meant to change, on every input checked.",
+                "pass")
     if verdict == "PASS":
         return ("Safe to merge: every change gives the same results on every input checked."
                 if n_checks > 1 else "Safe to merge: the change gives the same results on every input checked."), "pass"

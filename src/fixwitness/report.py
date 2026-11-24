@@ -83,8 +83,9 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
     else:
         lines.append("| Security | not checked (attack payloads turned off) |")
     same = beh["changed"] == 0 and beh["identical"] > 0
+    apart = " apart from the expected change" if proof["config"].get("expect_change") else ""
     lines.append(f"| Data unchanged | {_mark(same)}: {beh['identical']} of {beh['identical'] + beh['changed']} "
-                 f"comparable valid inputs give the same output |")
+                 f"comparable valid inputs give the same output{apart} |")
     if proof["config"].get("expect_change"):
         cols = ", ".join(f"`{c}`" for c in proof["config"]["expect_change"])
         lines.append(f"| Expected change | {beh.get('expected_change', 0)} inputs changed only {cols} |")
