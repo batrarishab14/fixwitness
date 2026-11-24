@@ -127,3 +127,16 @@ changes to `.csv` files are undone in the working tree (changed files put back a
 added files removed); only code changes are compared. The number of files put back is recorded
 per candidate (`seeds_restored`). A candidate that cannot be built without its new seed files is
 reported as not checked.
+
+**2026-11-24, direction for bug fixes.** A bug fix is run in the direction the bug arrived: the
+fixed commit is the original (`--base <commit>`) and the parent, which has the bug, is the change
+(checked out as the working tree, with its own seed data). The question becomes the one a team
+asks before merging: would fixwitness flag the change that introduces this bug? This also makes
+crash-on-data bugs count: the bug-introducing change fails on inputs the fixed version handles,
+which is a finding ("the fix fails where the original worked"), whereas run the other way an
+input on which only the original fails cannot be compared. Refactors keep the commit's direction
+(parent, then commit), with the parent's seed data. Caught is still: verdict FAIL.
+
+**2026-11-24, incremental models.** Since the project is built before it is compiled, `dbt compile`
+runs with `--full-refresh`, so incremental models compile as full builds rather than as updates of
+themselves.

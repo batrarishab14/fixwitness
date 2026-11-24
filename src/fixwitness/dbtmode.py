@@ -352,7 +352,14 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
                     notes.append(f"dbt: `dbt run` on the seeds failed in {project.name} ({first.strip()[:200]}); "
                                  f"models were still compiled, but macros that read a model's columns may "
                                  f"not have seen them")
-        _run(["dbt", "compile", *common], project, env, timeout)
+        # --full-refresh: the models were just built, so without it is_incremental() is true and
+        # incremental models would compile as an update of themselves ({{ this }}).
+        try:
+            _run(["dbt", "compile", "--full-refresh", *common], project, env, timeout)
+        except DbtError as exc:
+            if "full-refresh" not in str(exc) and "No such option" not in str(exc):
+                raise
+            _run(["dbt", "compile", *common], project, env, timeout)  # a dbt without the option
     finally:
         if warehouse:
             from fixwitness.warehouse import drop_schemas

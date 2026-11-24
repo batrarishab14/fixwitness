@@ -57,26 +57,33 @@ def run_one(row: dict, clones: Path, out: Path, limit: int, warehouse: str | Non
         shutil.rmtree(dest)
     dest.mkdir(parents=True)
     start = time.time()
+    # Bug fixes are run in the direction a bug arrives: the fixed commit is the original and the
+    # parent (which has the bug) is the change, so the question is whether fixwitness flags the
+    # change that introduces the bug (PROTOCOL.md, amendment "direction"). Refactors: parent ->
+    # commit.
+    bug = row["set"] == "bug"
+    base, head = (row["commit"], row["parent"]) if bug else (row["parent"], row["commit"])
     try:
         repo = clone(clones, row["package"])
-        git(repo, "checkout", "-q", "-f", row["commit"])
+        git(repo, "checkout", "-q", "-f", head)
         git(repo, "clean", "-qfdx")
         # The sample is the data the original had: seed files the commit changed are put back as
         # they were, and seed files it added are removed (PROTOCOL.md, amendment "seeds").
-        changed = [l.split("\t") for l in git(repo, "diff", "--name-status", "--no-renames", row["parent"],
-                                                 row["commit"], "--", "*.csv").splitlines() if l.strip()]
         restored = 0
-        for status, path in ((c[0], c[-1]) for c in changed):
-            if status.startswith("A"):
-                (repo / path).unlink(missing_ok=True)
-            else:
-                git(repo, "checkout", "-q", row["parent"], "--", path)
-            restored += 1
+        if not bug:  # bug fixes: the working tree is the parent already, with the parent's data
+            changed = [l.split("\t") for l in git(repo, "diff", "--name-status", "--no-renames", row["parent"],
+                                                     row["commit"], "--", "*.csv").splitlines() if l.strip()]
+            for status, path in ((c[0], c[-1]) for c in changed):
+                if status.startswith("A"):
+                    (repo / path).unlink(missing_ok=True)
+                else:
+                    git(repo, "checkout", "-q", row["parent"], "--", path)
+                restored += 1
         res["seeds_restored"] = restored
     except subprocess.CalledProcessError as exc:
         return {**res, "outcome": "not checked", "detail": f"checkout failed: {exc.stderr.strip()[:200]}",
                 "seconds": round(time.time() - start)}
-    cmd = [sys.executable, "-m", "fixwitness", "check", "--base", row["parent"], "--no-attacks",
+    cmd = [sys.executable, "-m", "fixwitness", "check", "--base", base, "--no-attacks",
            "--out-dir", str(dest / "out")] + (["--warehouse", warehouse] if warehouse else [])
     try:
         proc = subprocess.run(cmd, cwd=repo, capture_output=True, text=True, timeout=limit)
