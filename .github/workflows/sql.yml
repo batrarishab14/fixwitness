@@ -1,10 +1,14 @@
 name: data
 on:
   push:
+    branches-ignore: [study, study-results, ci-results, debug]   # the study runs its own workflow
   pull_request:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:   # a newer push to the same branch replaces a run still in progress
+  group: data-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   # SQL on DuckDB, warehouse dialects (sqlglot), pandas, polars, PySpark and Parquet (pyarrow):
   # the optional libraries the main test job does not install.

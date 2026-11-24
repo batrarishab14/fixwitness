@@ -1,9 +1,13 @@
 name: tests
 on:
   push:
+    branches-ignore: [study, study-results, ci-results, debug]   # the study runs its own workflow
   pull_request:
 permissions:
   contents: read
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: ubuntu-latest
