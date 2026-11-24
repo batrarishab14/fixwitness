@@ -13,6 +13,8 @@ AI agents now patch vulnerabilities and repair broken pipelines on their own. Ea
 
 You get a **verdict** (PASS / FAIL), a **confidence score** (0–100), a **proof record** anyone can replay, and a **runnable reproduction** of every difference. It needs no tests, only the sample data your repository already has. It runs from the command line, in CI (with a comment on the pull request), or **inside a coding agent over MCP**, so the agent checks its own change before it ships.
 
+**Try it in your browser:** the [playground](https://batrarishab14.github.io/fixwitness/playground/standalone.html) runs fixwitness's SQL cases on SQLite in your browser: paste a query and its changed version, or pick one of the eight classic silent bugs in the [bug zoo](docs/BUG_ZOO.md).
+
 ## One command for the whole change
 
 ```bash
