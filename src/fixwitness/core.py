@@ -447,7 +447,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
         b = run_side(inv_b, plan.before, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
         a = run_side(inv_a, plan.after, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
         again = None
-        if case.kind != "attack" and b.ok and a.ok and b.output is not None and a.output is not None \
+        if cfg.auto_ignore_unstable and case.kind != "attack" and b.ok and a.ok and b.output is not None \
+                and a.output is not None \
                 and compare(b.output, a.output, opts)[0] == "changed":
             # A difference counts only if the original gives the same output when run again on this
             # input: ties in ORDER BY or row_number(), or set order, can make it differ by itself.
