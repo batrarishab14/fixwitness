@@ -216,12 +216,13 @@ More scenarios with ready-to-run commands are in [docs/USE_CASES.md](docs/USE_CA
 
 ```bash
 pip install "git+https://github.com/batrarishab14/fixwitness"
-fixwitness demo
+fixwitness doctor      # in your repository: what would be checked, and what to install
+fixwitness check       # check your uncommitted change (or --base main for a branch)
 ```
 
 Python 3.11+, no dependencies. git is needed for the one-line mode. For SQL, DuckDB is used if installed (`pip install duckdb`), otherwise SQLite.
 
-Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects with macros), `sqlglot` (warehouse dialects), `pandas`, `polars` or `pyspark` (DataFrame functions), `pyarrow` (Parquet). `pip install "fixwitness[all] @ git+https://github.com/batrarishab14/fixwitness"` installs all but PySpark.
+Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects with macros; `dbt-postgres`, `dbt-snowflake` or `dbt-bigquery` with `--warehouse`), `sqlglot` (warehouse dialects), `pandas`, `polars` or `pyspark` (DataFrame functions), `pyarrow` (Parquet). `pip install "fixwitness[all] @ git+https://github.com/batrarishab14/fixwitness"` installs all but PySpark.
 
 ## Usage
 
