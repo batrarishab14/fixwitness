@@ -74,7 +74,15 @@ The same check works on the other places an agent changes data code:
 
 A polars rewrite of a pandas function, for example, can match it on today's data and still differ when a value is missing: pandas `size()` counts rows, but `pl.col("amount").count()` counts non-null values; and polars `group_by` keeps the group for a null key, which pandas `groupby` drops.
 
-<!-- complex-benchmark -->
+**On the benchmark for these kinds** ([`benchmark/complex/`](benchmark/complex/), synthetic fixes, each modelling a known pitfall). The dbt project, pandas and JSON Lines cases ran here on SQLite, with 16 fixes:
+
+| Check | Wrong fixes caught | Correct fixes wrongly rejected |
+|---|---|---|
+| The job runs | 0/11 | 0/5 |
+| Same output on the sample | 0/11 | 0/5 |
+| **fixwitness** | **10/11** | **0/5** |
+
+The miss is `round_each`: it rounds each amount before summing. That only shows when two records of the same country both have sub-cent amounts, and fixwitness changes one value at a time. The Snowflake, polars and Parquet cases need sqlglot, polars and pyarrow; they run in CI (`.github/workflows/sql.yml`), which also runs everything on DuckDB. These are development results ([development log](study/DEVLOG_v0.6.md)).
 
 ## What it catches
 
