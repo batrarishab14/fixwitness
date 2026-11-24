@@ -88,8 +88,11 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
     if beh["not_comparable"]:
         lines.append(f"| Not comparable | {beh['not_comparable']} valid inputs made the original fail too |")
     if beh["review_inputs"]:
+        acc = proof["config"].get("accepted") or []
+        what = ", ".join(proof["config"]["review"] + [f"{a['category']}" + (f" in {a['column']}" if a.get("column") else "")
+                                                     + " (marked as intended)" for a in acc])
         lines.append(f"| Needs review | {beh['review_differences']} of {beh['review_inputs']} inputs in review "
-                     f"categories ({', '.join(proof['config']['review'])}) differ |")
+                     f"categories ({what}) differ |")
     lines.append("")
     if proof["reasons"]:
         lines += ["**Why:** " + "; ".join(proof["reasons"]) + ".", ""]

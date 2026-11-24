@@ -97,6 +97,13 @@ document.querySelectorAll('button.copy').forEach(function(b){b.addEventListener(
 var t=document.getElementById(b.dataset.for).innerText;
 (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copied';
 setTimeout(function(){b.textContent='Copy commands'},1500)},function(){b.textContent='Select and copy'})})});
+var tok=document.querySelector('meta[name=fw-token]');
+document.querySelectorAll('button.intend').forEach(function(b){b.addEventListener('click',function(){
+if(!tok)return;b.disabled=true;fetch('/api/accept',{method:'POST',headers:{'X-Fixwitness-Token':tok.content,
+'Content-Type':'application/json'},body:JSON.stringify({target:b.dataset.target,category:b.dataset.category,
+column:b.dataset.column})}).then(function(r){return r.json()}).then(function(){b.textContent=
+'Marked as intended in fixwitness.toml. Run the check again to update the verdict.'}).catch(function(){
+b.disabled=false;b.textContent='Could not save; try again'})})});
 var all=document.getElementById('expand');if(all){all.addEventListener('click',function(){
 var open=all.dataset.open!=='1';document.querySelectorAll('details.ev').forEach(function(d){d.open=open});
 all.dataset.open=open?'1':'0';all.textContent=open?'Hide all evidence':'Show all evidence'})}
@@ -143,7 +150,8 @@ def _grid_outputs(view: dict) -> str:
     return f"<div class=grid><table><tr>{head}</tr>{''.join(body)}</table></div>"
 
 
-def _finding(d: dict, ex: dict | None, repro_cmd: str | None, idx: str) -> str:
+def _finding(d: dict, ex: dict | None, repro_cmd: str | None, idx: str, target: str = "",
+             interactive: bool = False) -> str:
     impact = d.get("impact") or (ex or {}).get("impact")
     label = IMPACTS.get(impact or "", "Security" if impact == "security" else "Difference")
     sentence = d.get("explanation") or (ex or {}).get("sentence") or f"{d['category']} input changes the output"
@@ -178,6 +186,11 @@ def _finding(d: dict, ex: dict | None, repro_cmd: str | None, idx: str) -> str:
                      f"<ul class=notes><li>Case {E(d['id'])}: <code>{E(d['category'])}</code> value "
                      f"<code>{E(repr(d['value']))}</code> in <code>{E(str(d['column']))}</code>, {E(d['status'])}</li>"
                      f"{tech}</ul>{cmd}</details>")
+    if interactive and d.get("kind") == "valid":
+        parts.append(f"<p><button class='copy intend' data-target='{E(target)}' data-category='{E(d['category'])}' "
+                     f"data-column='{E(str(d.get('column') or ''))}'>This difference is intended</button> "
+                     f"<span class=rowtag>Inputs like this one (<code>{E(d['category'])}</code> in "
+                     f"<code>{E(str(d.get('column') or 'any column'))}</code>) will be reported as reviewed, not failed.</span></p>")
     parts.append("</article>")
     return "".join(parts)
 
@@ -239,7 +252,7 @@ def _repro_cmd(repro_dir: Path | None, cid: str) -> str | None:
     return text.split("```bash", 1)[1].split("```", 1)[0].strip()
 
 
-def _change_section(check: dict, idx: int) -> str:
+def _change_section(check: dict, idx: int, interactive: bool = False) -> str:
     proof = check.get("proof")
     target, verdict = check["target"], check["verdict"]
     pill = f"<span class='pill {E(verdict.split()[0])}'>{E(verdict.title() if verdict == 'NOT CHECKED' else verdict)}</span>"
@@ -262,14 +275,16 @@ def _change_section(check: dict, idx: int) -> str:
     if diffs:
         body.append("<h3>What could go wrong</h3>")
         for j, d in enumerate(diffs[:25]):
-            body.append(_finding(d, explained.get(d["id"]), _repro_cmd(check.get("repro_dir"), d["id"]), f"{idx}-{j}"))
+            body.append(_finding(d, explained.get(d["id"]), _repro_cmd(check.get("repro_dir"), d["id"]), f"{idx}-{j}",
+                                 target, interactive))
         if len(diffs) > 25:
             body.append(f"<p class=sub>and {len(diffs) - 25} more differences in proof.json.</p>")
     body.append(_how(proof))
     return head + "".join(body) + "</section>"
 
 
-def render(checks: list[dict], skipped: list[tuple[str, str]], title: str, context: str) -> str:
+def render(checks: list[dict], skipped: list[tuple[str, str]], title: str, context: str,
+           interactive: bool = False) -> str:
     """The whole page. Each check: target, kind, verdict, proof, explained (by case id), repro_dir."""
     verdicts = [c["verdict"] for c in checks]
     verdict = "FAIL" if "FAIL" in verdicts else ("PASS" if verdicts and all(v == "PASS" for v in verdicts)
@@ -300,7 +315,7 @@ def render(checks: list[dict], skipped: list[tuple[str, str]], title: str, conte
               + "".join(rows) + "</table>")
     skipped_html = ("<p class=skipped>Not checked: " + "; ".join(f"<code>{E(p)}</code> ({E(w)})" for p, w in skipped)
                     + "</p>") if skipped else ""
-    sections = "".join(_change_section(c, i) for i, c in enumerate(checks))
+    sections = "".join(_change_section(c, i, interactive) for i, c in enumerate(checks))
     any_evidence = any((c.get("proof") or {}).get("differences") for c in checks)
     expand = "<p><button class=copy id=expand>Show all evidence</button></p>" if any_evidence else ""
     return (f"<!doctype html><html lang=en><head><meta charset=utf-8>"

@@ -1295,6 +1295,43 @@ class WholeChangeTests(TempDirTest):
         self.assertIn("sql/revenue.sql", {c["target"] for c in result["checks"]})
         self.assertIn({"path": "README.md", "why": "not code"}, result["not_checked"])
 
+    def test_accept_marks_a_difference_as_intended(self):
+        repo = self._repo()
+        env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
+        r = subprocess.run([sys.executable, "-m", "fixwitness", "accept", "--target", "jobs/events.py",
+                            "--category", "missing-key", "--column", "status", "--note", "status is required now"],
+                           capture_output=True, text=True, env=env, cwd=repo)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn('category = "missing-key"', (repo / "fixwitness.toml").read_text())
+        r = subprocess.run([sys.executable, "-m", "fixwitness", "check", "jobs/events.py", "--no-attacks",
+                            "--max-cases", "60"], capture_output=True, text=True, env=env, cwd=repo)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("marked as intended", r.stdout)
+
+    def test_ui_server(self):
+        import threading
+        import urllib.request
+        from http.server import ThreadingHTTPServer
+        from fixwitness.ui import Handler, State
+        repo = self._repo()
+        state = State(repo)
+        server = ThreadingHTTPServer(("127.0.0.1", 0), type("H", (Handler,), {"state": state}))
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        base = f"http://127.0.0.1:{server.server_address[1]}"
+        try:
+            with self.assertRaises(urllib.error.HTTPError):  # no token, no access
+                urllib.request.urlopen(base + "/api/plan")
+            plan = json.load(urllib.request.urlopen(f"{base}/api/plan?t={state.token}"))
+            self.assertIn("sql/revenue.sql", [i["target"] for i in plan["items"]])
+            req = urllib.request.Request(base + "/api/accept", method="POST",
+                                         data=json.dumps({"category": "case", "column": "orders.status"}).encode(),
+                                         headers={"X-Fixwitness-Token": state.token})
+            self.assertEqual(json.load(urllib.request.urlopen(req))["accepted"]["category"], "case")
+            self.assertIn("[[accept]]", (repo / "fixwitness.toml").read_text())
+        finally:
+            server.shutdown()
+            server.server_close()
+
     def test_cli_with_no_file(self):
         self._repo()
         env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))

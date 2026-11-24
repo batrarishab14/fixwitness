@@ -248,6 +248,26 @@ def _explain(plan: Plan, opts: CompareOptions, kept: dict, entries: list[dict], 
     return out
 
 
+def _accepted(cfg: Config) -> list[dict]:
+    """The [[accept]] entries for this check (no target, or the target being checked)."""
+    if not cfg.accept:
+        return []
+    here = [str(p) for p in (cfg.path, cfg.after) if p]
+    out = []
+    for a in cfg.accept:
+        t = a.get("target")
+        t_file = t.split(":", 1)[0].strip() if t else None
+        t_func = t.split(":", 1)[1].strip().rstrip("()") if t and ":" in t else None
+        if t is None or (any(h == t_file or h.endswith("/" + t_file) for h in here)
+                         and (t_func is None or t_func == cfg.function)):
+            out.append(a)
+    return out
+
+
+def _is_accepted(case: Case, accepted: list[dict]) -> bool:
+    return any(a["category"] == case.category and (a.get("column") in (None, "", case.column)) for a in accepted)
+
+
 SHRINK_SECONDS = 25
 SHRINK_FINDINGS = 6
 
@@ -333,6 +353,10 @@ def _run(plan: Plan, cfg: Config) -> dict:
         warnings.append(f"ignored column(s) {', '.join(sorted(unstable))}: they change between two runs of the "
                         "original on the same input")
     cases = _cases(plan, cfg)
+    accepted = _accepted(cfg)
+    if accepted:
+        cases = [dataclasses.replace(c, kind="review") if c.kind == "valid" and _is_accepted(c, accepted) else c
+                 for c in cases]
 
     inv_b, inv_a, server = plan.invocation, plan.fix_invocation, _frame_server(plan, cfg, warnings)
     if server is not None:
@@ -418,6 +442,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "columns": cfg.columns,
             "output": plan.output,
             "review": sorted(cfg.review),
+            "accepted": accepted or None,
             "attacks": cfg.attacks,
             "ignore_columns": sorted(cfg.ignore_columns),
             "auto_ignored_columns": sorted(unstable),
@@ -488,6 +513,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
         "replay": plan.replay | {
             "settings": {
                 "columns": cfg.columns, "review": cfg.review, "output": cfg.output, "max_cases": cfg.max_cases,
+                "accept": cfg.accept,
                 "attacks": cfg.attacks,
                 "rows": cfg.rows, "seed": cfg.seed, "ignore_columns": cfg.ignore_columns,
                 "ignore_patterns": cfg.ignore_patterns, "tolerance": cfg.tolerance, "unordered": cfg.unordered,

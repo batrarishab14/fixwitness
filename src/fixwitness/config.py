@@ -58,6 +58,9 @@ class Config:
     unordered: bool = False
     auto_ignore_unstable: bool = True
     shrink: bool = True                     # shrink each difference to the smallest input that shows it
+    # Differences someone marked as intended ([[accept]] in fixwitness.toml): inputs of that category
+    # (and column) for that target are reported as "reviewed", not failed.
+    accept: list[dict] | None = None
     # Runtime
     timeout: float = 10.0
     workers: int = 0
@@ -115,6 +118,10 @@ class Config:
             if value is not None and (not isinstance(value, dict) or not all(
                     isinstance(k, str) and isinstance(v, str) for k, v in value.items())):
                 raise ConfigError(f"{name} must map table names to CSV file paths")
+        if self.accept is not None and (not isinstance(self.accept, list) or not all(
+                isinstance(a, dict) and isinstance(a.get("category"), str) and set(a) <= _ACCEPT_KEYS
+                for a in self.accept)):
+            raise ConfigError("each [[accept]] needs a category, and may have target, column and note")
         if self.incident_tables and not self.tables and not self.sample:
             raise ConfigError("incident_tables needs tables (the sample tables)")
 
@@ -132,6 +139,7 @@ _DIALECT = re.compile(r"[a-z][a-z0-9_]*")
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 _PATH_KEYS = {"path", "before", "after", "sample", "incident", "incident_expected", "manifest", "base_manifest"}
 _ALIASES = {"timeout_seconds": "timeout"}
+_ACCEPT_KEYS = {"target", "category", "column", "note"}
 
 
 def load_config(path: Path | None, overrides: dict) -> Config:
@@ -148,6 +156,8 @@ def load_config(path: Path | None, overrides: dict) -> Config:
         base_dir = path.resolve().parent
         for section in ("fix", "cases", "compare", "runtime", "sql"):
             data.update(raw.get(section, {}))
+        if "accept" in raw:
+            data["accept"] = raw["accept"]
     for k, v in overrides.items():
         if v is None:
             continue
@@ -169,3 +179,22 @@ def load_config(path: Path | None, overrides: dict) -> Config:
     cfg.timeout, cfg.tolerance = float(cfg.timeout), float(cfg.tolerance)
     cfg.validate()
     return cfg
+
+
+def append_accept(path: Path, target: str | None, category: str, column: str | None, note: str | None) -> dict:
+    """Record a difference as intended: add an [[accept]] table to fixwitness.toml (created if missing)."""
+    import json
+    entry = {k: v for k, v in (("target", target), ("category", category), ("column", column),
+                               ("note", note)) if v}
+    if path.is_file():
+        with path.open("rb") as fh:
+            existing = tomllib.load(fh).get("accept", [])
+        if entry in existing:
+            return entry
+        text = path.read_text(encoding="utf-8")
+    else:
+        text = "# fixwitness settings\n"
+    lines = ["", "[[accept]]  # a difference marked as intended: reported as reviewed, not failed"]
+    lines += [f"{k} = {json.dumps(v)}" for k, v in entry.items()]
+    path.write_text(text.rstrip("\n") + "\n" + "\n".join(lines) + "\n", encoding="utf-8")
+    return entry

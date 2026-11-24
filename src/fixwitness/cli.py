@@ -68,7 +68,15 @@ def _config(args: argparse.Namespace):
     explicit = args.path or args.before or args.command
     if config_path is None and not explicit and Path("fixwitness.toml").is_file():
         config_path = Path("fixwitness.toml")
-    return load_config(config_path, _overrides(args))
+    overrides = _overrides(args)
+    if config_path is None and Path("fixwitness.toml").is_file():  # differences marked as intended still apply
+        import tomllib
+        try:
+            with open("fixwitness.toml", "rb") as fh:
+                overrides["accept"] = tomllib.load(fh).get("accept")
+        except (OSError, tomllib.TOMLDecodeError):
+            pass
+    return load_config(config_path, overrides)
 
 
 def _whole_change(cfg, args: argparse.Namespace) -> int | None:
@@ -171,6 +179,19 @@ def _toml_value(v) -> str:
     if isinstance(v, dict):
         return "{ " + ", ".join(f"{k} = {_toml_value(x)}" for k, x in v.items()) + " }"
     return json.dumps(str(v))
+
+
+def cmd_accept(args: argparse.Namespace) -> int:
+    from fixwitness.config import append_accept
+    path = Path(args.config or "fixwitness.toml")
+    entry = append_accept(path, args.target, args.category, args.column, args.note)
+    print(f"Recorded in {path}: {entry}. Inputs of this kind are now reported as reviewed, not failed.")
+    return 0
+
+
+def cmd_ui(args: argparse.Namespace) -> int:
+    from fixwitness.ui import serve
+    return serve(port=args.port, open_browser=not args.no_browser)
 
 
 def cmd_init(args: argparse.Namespace) -> int:
@@ -394,6 +415,17 @@ def build_parser() -> argparse.ArgumentParser:
     rp.add_argument("--allow-any-command", action="store_true")
     rp.set_defaults(func=cmd_replay)
 
+    acc = sub.add_parser("accept", help="mark a difference as intended (recorded in fixwitness.toml)")
+    acc.add_argument("--category", required=True, help="the input category, e.g. case or null-column")
+    acc.add_argument("--column", help="the column it is about, e.g. orders.status (default: any column)")
+    acc.add_argument("--target", help="the changed file it is about, e.g. models/revenue.sql (default: any)")
+    acc.add_argument("--note", help="why the difference is intended")
+    acc.add_argument("--config", help="settings file to write (default: ./fixwitness.toml)")
+    acc.set_defaults(func=cmd_accept)
+    ui = sub.add_parser("ui", help="open the local web app: run checks, read reports, mark differences as intended")
+    ui.add_argument("--port", type=int, default=0, help="port on 127.0.0.1 (default: any free port)")
+    ui.add_argument("--no-browser", action="store_true", help="don't open a browser window")
+    ui.set_defaults(func=cmd_ui)
     sub.add_parser("demo", help="run the built-in examples").set_defaults(func=cmd_demo)
     sub.add_parser("categories", help="list the input categories fixwitness generates").set_defaults(func=cmd_categories)
     sub.add_parser("mcp", help="start the MCP server on stdio").set_defaults(func=cmd_mcp)
