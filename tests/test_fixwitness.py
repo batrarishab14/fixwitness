@@ -219,8 +219,9 @@ class ConfigTests(unittest.TestCase):
     def test_unknown_setting_and_missing_target(self):
         with self.assertRaises(ConfigError):
             load_config(None, {"path": "x.py", "nonsense": 1})
+        load_config(None, {})  # no file named: valid, it checks every change in the working tree
         with self.assertRaises(ConfigError):
-            load_config(None, {})
+            load_config(None, {}).require_target()  # ... but a single check needs one
         with self.assertRaises(ConfigError):
             load_config(None, {"before": "a.py"})
 
@@ -470,7 +471,7 @@ class AutoDetectTests(TempDirTest):
         write(self.tmp / "y.csv", SAMPLE)
         with self.assertRaises(PlanError) as ctx:
             dry_run(load_config(None, {"before": str(self.tmp / "a.py"), "after": str(self.tmp / "b.py")}))
-        self.assertIn("several CSV files", str(ctx.exception))
+        self.assertIn("several files could be the sample", str(ctx.exception))
 
 
 class RobustnessTests(TempDirTest):
