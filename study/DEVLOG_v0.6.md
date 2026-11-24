@@ -76,3 +76,37 @@ Benchmarks re-run after these changes (SQLite here):
 | `benchmark/sql/` in CI (DuckDB; commit a1da8fe) | 17 | 0 (10 of 11, 11 of 11 with the expected result, 0 of 6) |
 
 One false alarm appeared on the way and was fixed by a general rule. Q06's correct fix (one row per customer before the join) was rejected on pairs in `customers.name` and `customers.region`: the twin row repeats the customer's key, which is a duplicate key, and Q06 puts duplicates under review. Pairs now follow the `duplicate` review setting (and `duplicate-row` when the two values are equal), the way `delimiter-mix` follows the categories it combines. With that rule the SQL benchmark is back to 10/11, 11/11 with the expected result, and 0/6 correct fixes rejected. The CSV and complex results can't change under this rule: no CSV verdict depended on pairs, and the complex cases put nothing under review.
+
+## Real dbt packages: what it took to run on them
+
+Added on 24 November 2026, while preparing the real-repository study (`benchmark/realrepo/`), before
+its counted run. Pilots on 8 of the frozen candidates and on two open bug reports were used only to
+make fixwitness run on real packages; every change is general, and listed with the gap it closes:
+
+| Gap seen on real packages | Change |
+|---|---|
+| Booleans and timestamps in seeds were loaded as text, so `not coalesce(_fivetran_deleted, false)` failed on every input | Seeds are loaded with the column types dbt gave them; two new kinds, boolean and timestamp, with their own cases (the other truth value; day, month and year boundaries, the epoch, clock changes) |
+| Seed tables sampled one by one share no key values, so joins matched nothing | Keys are linked across tables when they don't join (the tables as given still run first) |
+| A random private schema name compiled into `source_relation` looked like a difference | The name is normalized in compiled SQL |
+| Old packages compile only on their supported warehouses | dbt compiles with the warehouse's own adapter (`--warehouse`), in a private schema dropped afterwards |
+| Reserved words (`default`, `user`, `end`) as column and table names | Quoted; seed columns get the names the warehouse stored for dbt (a header written `"default"`) |
+| Seed configs that test `target.name` | Targets are named after the adapter, as packages' own CI names them |
+| Incremental models compiled as updates of themselves after the build | `dbt compile --full-refresh` |
+| A mart read by another mart was never compared | Every published model downstream of a change is compared (not staging or intermediate) |
+| dbt errors were reported as "`dbt seed` failed" with no reason | dbt's own explanation, and the full text in the summary |
+
+Two changes reduce false alarms on real projects:
+
+- **Your dbt tests are rules on the inputs.** `unique`, `not_null`, `accepted_values` and
+  `unique_combination_of_columns` tests are traced back to the input column (through models that
+  pass it through unchanged); inputs that break one are reviewed, not failed.
+- **Every difference is checked twice.** The original is run again on the input; if its own output
+  changes (ties in `row_number()`), the input is left out and reported.
+
+And two make fixwitness more useful on bug fixes:
+
+- **`--expect-change model.column`**: passes only when nothing else changes; the report shows what
+  the fix changes, by example.
+- **`fixwitness doctor`**: says what would be checked and the one command that fixes each gap.
+
+Benchmarks are re-run in CI on the final commit; the numbers are in the README.
