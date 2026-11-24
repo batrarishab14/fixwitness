@@ -484,16 +484,17 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
     if engine == "warehouse":
         from fixwitness.warehouse import Session, ident, url_from_env
         results = {}
+        quoted = order_file.is_file()  # dbt: the compiled SQL quotes every relation name it reads
         with Session(url_from_env()) as wh:
-            wh.load(tables, types, exact if exact_adapter == wh.kind else None)
+            wh.load(tables, types, exact if exact_adapter == wh.kind else None, quoted)
             names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
             for name in names:
                 if needed is not None and name not in needed:
                     continue
-                wh.create_as(name, prepare(models[name], dbt, dialect, engine, set(tables) | set(models)))
+                wh.create_as(name, prepare(models[name], dbt, dialect, engine, set(tables) | set(models)), quoted)
             for name in wanted:
                 if name in models:
-                    results[name] = _result_csv(wh.query(f"SELECT * FROM {ident(name, wh.kind)}"), ordered)
+                    results[name] = _result_csv(wh.query(f"SELECT * FROM {ident(name, wh.kind, quoted)}"), ordered)
         return make_outputs(results)
     con = _connect(engine)
     results: dict[str, bytes] = {}

@@ -184,9 +184,10 @@ class Session:
         from google.cloud import bigquery
         return bigquery.QueryJobConfig(default_dataset=f"{self.client.project}.{self.schema}")
 
-    def load(self, tables: dict[str, str], types: dict, exact: dict | None = None) -> None:
+    def load(self, tables: dict[str, str], types: dict, exact: dict | None = None, quoted: bool = False) -> None:
         """Create and fill each table. `exact`: the SQL type dbt gave a column in this warehouse,
-        used in place of the kind's default type."""
+        used in place of the kind's default type. `quoted`: table names exactly as written (dbt's
+        compiled SQL quotes every relation it reads)."""
         from fixwitness.sql import seed_column_key as key, typed_rows
         for name, text in tables.items():
             header, kinds, rows = typed_rows(name, text, types)
@@ -207,10 +208,10 @@ class Session:
                     job = self.client.load_table_from_json(data, table, job_config=bigquery.LoadJobConfig(schema=schema))
                     job.result()
                 continue
-            self._exec(f"CREATE TABLE {ident(name, self.kind)} ({cols})")
+            self._exec(f"CREATE TABLE {ident(name, self.kind, quoted)} ({cols})")
             if rows:
                 marks = ", ".join(["%s"] * len(header))
-                self.con.cursor().executemany(f"INSERT INTO {ident(name, self.kind)} VALUES ({marks})", rows)
+                self.con.cursor().executemany(f"INSERT INTO {ident(name, self.kind, quoted)} VALUES ({marks})", rows)
 
     def query(self, sql: str):
         if self.kind == "bigquery":
@@ -219,8 +220,8 @@ class Session:
             return cur
         return self._exec(sql)
 
-    def create_as(self, name: str, sql: str) -> None:
-        self.query(f"CREATE TABLE {ident(name, self.kind)} AS {sql}")
+    def create_as(self, name: str, sql: str, quoted: bool = False) -> None:
+        self.query(f"CREATE TABLE {ident(name, self.kind, quoted)} AS {sql}")
 
 
 def _connect(url: str):
