@@ -300,24 +300,48 @@ def _shrink_kept(plan: Plan, inv_b, inv_a, opts: CompareOptions, kept: dict, sta
             k["shrunk"] = True
 
 
+def _source(side) -> str | None:
+    """The code of one side: a file, or every .sql/.py file of a folder."""
+    if side.script is None:
+        return None
+    p = (side.root / side.script) if side.root is not None else Path(side.script)
+    try:
+        if p.is_dir():
+            return "\n".join(f.read_text(encoding="utf-8", errors="replace")
+                             for f in sorted(p.rglob("*")) if f.suffix in (".sql", ".py"))
+        return p.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+
+
+def focus(plan: Plan, columns: list[str]) -> list[str]:
+    """Columns named in the lines the change touched; their cases are kept first under the cap."""
+    from fixwitness.cases import focus_columns
+    return focus_columns(_source(plan.before), _source(plan.after), columns)
+
+
 def _cases(plan: Plan, cfg: Config) -> list[Case]:
     if plan.sql is not None:
+        cols = [f"{t}.{c}" for t, kinds in plan.sql["types"].items() for c in kinds]
         try:
             return generate_sql_cases(plan.sql["tables"], plan.sql["types"], cfg.columns, cfg.rows, cfg.max_cases,
-                                      cfg.seed, cfg.review, plan.sql["incident_tables"])
+                                      cfg.seed, cfg.review, plan.sql["incident_tables"], focus(plan, cols))
         except ValueError as exc:
             raise PlanError(str(exc)) from exc
     try:
         if plan.sample_format == "json":
+            paths = list(json_paths(parse_json_sample(plan.sample)[1]))
             return generate_json_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
-                                       str(plan.canary_dir), cfg.attacks, plan.incident)
+                                       str(plan.canary_dir), cfg.attacks, plan.incident,
+                                       focus(plan, paths))
         if plan.sample_format == "parquet":
             return generate_parquet_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
                                           plan.incident)
     except SampleError as exc:
         raise PlanError(str(exc)) from exc
+    header = list(column_types(plan.sample))
     return generate_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
-                          str(plan.canary_dir), cfg.attacks, plan.incident)
+                          str(plan.canary_dir), cfg.attacks, plan.incident, focus(plan, header))
 
 
 def dry_run(cfg: Config) -> dict:

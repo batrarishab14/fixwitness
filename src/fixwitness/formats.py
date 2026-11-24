@@ -220,7 +220,8 @@ def _value_plan(kind: str, current) -> list[tuple[str, object]]:
 
 def generate_json_cases(sample: bytes, columns: list[str] | None = None, rows: int = 3, max_cases: int = 300,
                         seed: int = 1337, review: list[str] | None = None, canary_dir: str | None = None,
-                        attacks: bool = True, incident: bytes | None = None) -> list[Case]:
+                        attacks: bool = True, incident: bytes | None = None,
+                        focus: list[str] | None = None) -> list[Case]:
     shape, records = parse_json_sample(sample)
     base = [copy.deepcopy(r) for r in records[: max(1, rows)]]
     target = min(1, len(base) - 1)
@@ -299,6 +300,21 @@ def generate_json_cases(sample: bytes, columns: list[str] | None = None, rows: i
             recs = [copy.deepcopy(r) for r in base]
             if other_value is not None and _set(recs[target], path, other_value):
                 raw.append(("duplicate", col, json.dumps(other_value, ensure_ascii=False), write(recs), None))
+        if types[col] in ("number", "string") and _get(base[target], path) is not None:
+            from fixwitness.cases import pair_values
+            current = _get(base[target], path)
+            for a, b in pair_values("numeric" if types[col] == "number" else "text", str(current)):
+                recs = [copy.deepcopy(r) for r in base]
+                twin = copy.deepcopy(recs[target])
+                raws = {}
+                for rec, v in ((recs[target], a), (twin, b)):
+                    if types[col] == "number":
+                        token = _RAW.format(f"{len(raw)}-{len(raws)}")
+                        raws[token] = v
+                        v = token
+                    _set(rec, path, v)
+                recs.insert(target + 1, twin)
+                raw.append(("pairs", col, f"{a} | {b}", write(recs, raws), None))
         if attacks and types[col] in ("string", "date"):
             for spec in ATTACKS:
                 raw.append(("attack", col, None, b"", spec))
@@ -306,12 +322,16 @@ def generate_json_cases(sample: bytes, columns: list[str] | None = None, rows: i
     keep_always = ("file-structure", "attack")
     keep_first = ("schema", "missing-key", "null")
     if len(raw) > max_cases:
+        focused = set(focus or [])
         keep = [i for i, r in enumerate(raw) if r[0] in keep_always]
         first = [i for i, r in enumerate(raw) if r[0] in keep_first]
-        rest = [i for i, r in enumerate(raw) if r[0] not in keep_always + keep_first]
+        near = [i for i, r in enumerate(raw) if r[0] not in keep_always + keep_first and r[1] in focused]
+        rest = [i for i, r in enumerate(raw) if r[0] not in keep_always + keep_first and r[1] not in focused]
         budget = max(0, max_cases - len(keep))
         chosen = set(keep) | set(first[:budget])
         budget = max(0, budget - len(first))
+        chosen |= set(near[:budget])  # the keys the change touched keep all their cases
+        budget = max(0, budget - len(near))
         chosen |= set(random.Random(seed).sample(rest, min(budget, len(rest))))
         raw = [r for i, r in enumerate(raw) if i in chosen]
 

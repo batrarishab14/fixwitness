@@ -409,7 +409,7 @@ SQL_SKIP_VALUES = ("<CRLF line endings>",)
 def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]],
                        columns: list[str] | None = None, rows: int = 3, max_cases: int = 300,
                        seed: int = 1337, review: list[str] | None = None,
-                       incident_tables: dict[str, bytes] | None = None):
+                       incident_tables: dict[str, bytes] | None = None, focus: list[str] | None = None):
     """Cases for a query over several tables: vary one table at a time, keep the others as sampled.
 
     `columns` may name columns as "table.column" (or just "column" when only one table has it).
@@ -502,13 +502,20 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
             cases.append(Case(id=f"{len(cases):03d}", category=category, kind=kind, column=column, value=value,
                               content=make_bundle({**tables, t: content}, types)))
     if len(cases) > max_cases:
-        seen, first, rest = set(), [], []
+        focused = set(focus or [])
+        seen, first, near, rest = set(), [], [], []
         for i in sorted(range(len(cases)), key=lambda i: (i not in own_values, i)):
             c = cases[i]
             key = (c.column, c.category)
-            (rest if key in seen else first).append(i)
+            if key not in seen:
+                first.append(i)
+            elif c.column in focused:
+                near.append(i)  # the columns the change touched keep all their cases
+            else:
+                rest.append(i)
             seen.add(key)
         chosen = set(first[:max_cases])
+        chosen |= set(near[: max(0, max_cases - len(chosen))])
         budget = max_cases - len(chosen)
         rest.sort()
         chosen |= set(random.Random(seed).sample(rest, min(max(0, budget), len(rest))))

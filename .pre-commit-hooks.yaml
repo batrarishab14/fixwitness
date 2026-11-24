@@ -1,0 +1,9 @@
+# fixwitness as a pre-commit hook: checks every change in the working tree against HEAD
+# (dbt, SQL, DataFrame code, scripts) before the commit is made.
+- id: fixwitness
+  name: fixwitness (does the change give the same results?)
+  entry: fixwitness check --no-attacks
+  language: python
+  pass_filenames: false
+  files: \.(sql|py|ya?ml|csv|jsonl?|ndjson|parquet)$
+  require_serial: true

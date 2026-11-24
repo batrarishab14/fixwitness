@@ -189,6 +189,18 @@ def cmd_accept(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_setup(args: argparse.Namespace) -> int:
+    from fixwitness.plan import repo_root
+    from fixwitness.setup import setup
+    try:
+        root = repo_root(Path.cwd())
+    except Exception:
+        root = Path.cwd()
+    for line in setup(args.target, root, args.instructions):
+        print(line)
+    return 0
+
+
 def cmd_ui(args: argparse.Namespace) -> int:
     from fixwitness.ui import serve
     return serve(port=args.port, open_browser=not args.no_browser)
@@ -422,6 +434,11 @@ def build_parser() -> argparse.ArgumentParser:
     acc.add_argument("--note", help="why the difference is intended")
     acc.add_argument("--config", help="settings file to write (default: ./fixwitness.toml)")
     acc.set_defaults(func=cmd_accept)
+    st = sub.add_parser("setup", help="connect fixwitness to Claude Code, Cursor, VS Code, GitHub or pre-commit")
+    st.add_argument("target", choices=["claude", "cursor", "vscode", "github", "pre-commit"])
+    st.add_argument("--instructions", action="store_true",
+                    help="also tell coding agents (CLAUDE.md or AGENTS.md) to call prove_change before finishing")
+    st.set_defaults(func=cmd_setup)
     ui = sub.add_parser("ui", help="open the local web app: run checks, read reports, mark differences as intended")
     ui.add_argument("--port", type=int, default=0, help="port on 127.0.0.1 (default: any free port)")
     ui.add_argument("--no-browser", action="store_true", help="don't open a browser window")

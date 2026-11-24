@@ -191,6 +191,10 @@ def input_phrase(category: str, column: str | None, value, tables: bool) -> str:
         return f"a record has no {c} key"
     if category == "duplicate-row":
         return f"{_a(table)} `{table}` row appears twice" if table else "a row appears twice"
+    if category == "pairs":
+        a_b = str(value).split(" | ", 1) if value else ["?", "?"]
+        rows_word = f"`{table}` rows" if table else "rows"
+        return f"two {rows_word} of the same group have {c} = {_q(a_b[0])} and {_q(a_b[-1])}"
     if category == "duplicate":
         return f"{c} repeats the value of another row ({v})"
     if category == "case":

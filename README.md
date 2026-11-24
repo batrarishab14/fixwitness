@@ -237,6 +237,9 @@ Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects wit
 | Snowflake or BigQuery SQL | add `--dialect snowflake` (needs `pip install sqlglot`) |
 | A pandas / polars / PySpark function | `fixwitness check etl/revenue.py --function revenue --table orders=data/orders.csv` |
 | A job that reads JSON Lines or Parquet | `fixwitness check etl/events.py --sample data/events.jsonl --no-attacks` |
+| The local web app (run, read, mark as intended) | `fixwitness ui` |
+| Mark a difference as intended | `fixwitness accept --category case --column orders.status --target models/revenue.sql` |
+| Connect it to your tools | `fixwitness setup claude` (or `cursor`, `vscode`, `github`, `pre-commit`); `--instructions` also tells coding agents to use it |
 | See what would run | add `--dry-run` |
 | Save the detected settings | `fixwitness init etl/clean.py`, then just `fixwitness check` |
 

@@ -1429,6 +1429,31 @@ class DbtProjectTests(TempDirTest):
         self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
 
 
+class SetupTests(TempDirTest):
+    def test_setup_merges_and_never_overwrites(self):
+        from fixwitness.setup import setup
+        root = self.tmp
+        write(root / ".mcp.json", '{"mcpServers": {"other": {"command": "x"}}}')
+        write(root / "etl" / "job.py", "import pandas as pd\n")
+        out = setup("claude", root, instructions=True)
+        data = json.loads((root / ".mcp.json").read_text())
+        self.assertEqual(set(data["mcpServers"]), {"other", "fixwitness"})
+        self.assertIn("prove_change", (root / "CLAUDE.md").read_text())
+        self.assertIn("already has", setup("claude", root)[0])
+        setup("vscode", root)
+        self.assertEqual(json.loads((root / ".vscode" / "mcp.json").read_text())["servers"]["fixwitness"]["type"], "stdio")
+        setup("github", root)
+        wf = (root / ".github" / "workflows" / "fixwitness.yml").read_text()
+        self.assertIn("install: duckdb,pandas", wf)
+        self.assertIn("pull-requests: write", wf)
+        write(root / ".pre-commit-config.yaml", "repos:\n  - repo: https://github.com/psf/black\n    rev: 24.1.0\n")
+        setup("pre-commit", root)
+        text = (root / ".pre-commit-config.yaml").read_text()
+        self.assertIn("psf/black", text)
+        self.assertIn("id: fixwitness", text)
+        self.assertTrue(out)
+
+
 class CliAndMcpTests(TempDirTest):
     def run_cli(self, *args, cwd=None, stdin=None):
         env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
