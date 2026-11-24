@@ -174,6 +174,8 @@ def summary_markdown(result: dict, skipped: list[tuple[str, str]]) -> str:
         lines.append(f"| `{r['target']}` | {r['kind']} | {res} | {r['reason']} |")
     if skipped:
         lines += ["", "Not checked: " + "; ".join(f"`{p}` ({why})" for p, why in skipped)]
+    if any(r["verdict"] == "NOT CHECKED" for r in result["checks"]):
+        lines += ["", "To see what is missing and the command that fixes it: `fixwitness doctor`."]
     for r in result["checks"]:
         if r.get("_proof") is not None and r["verdict"] != "PASS":
             lines += ["", "---", "", f"### `{r['target']}`", ""]
