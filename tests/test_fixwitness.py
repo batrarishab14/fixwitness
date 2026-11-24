@@ -776,6 +776,8 @@ class PairsAndFocusTests(unittest.TestCase):
         reviewed = generate_cases(ORDERS.encode(), attacks=False, review=["duplicate-row"])
         kinds = {c.value: c.kind for c in reviewed if c.category == "pairs" and c.column == "amount"}
         self.assertEqual((kinds["0.005 | 0.005"], kinds["2.675 | 1.005"]), ("review", "valid"))
+        reviewed = generate_cases(ORDERS.encode(), attacks=False, review=["duplicate"])  # the twin repeats keys
+        self.assertTrue(all(c.kind == "review" for c in reviewed if c.category == "pairs"))
 
     def test_focus_keeps_the_touched_columns_under_the_cap(self):
         from fixwitness.cases import focus_columns

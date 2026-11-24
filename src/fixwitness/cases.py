@@ -472,8 +472,13 @@ def generate_cases(
             value = template.format(c=marker_path, up=up)
             content = with_value(col, value)
         kind = kinds[category]
-        if category == "pairs" and value is not None and len(set(value.split(" | "))) == 1:
-            kind = kinds["duplicate-row"]  # two equal values make the twin an exact repeat of the row
+        if category == "pairs" and value is not None:
+            # The twin repeats every other value of its row, so it repeats the row's keys (a duplicate
+            # key), and with two equal values it is an exact repeat of the row: it is reviewed when
+            # those are.
+            same = len(set(value.split(" | "))) == 1
+            if kinds["duplicate"] == "review" or (same and kinds["duplicate-row"] == "review"):
+                kind = "review"
         if category == "delimiter-mix" and kind == "valid" and value is not None \
                 and any(kinds.get(c) == "review" for c in related_categories(_base_value(value))):
             kind = "review"

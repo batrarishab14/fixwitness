@@ -1,17 +1,17 @@
 case,kind,fix,label,pattern,job runs,sample test,fixwitness,fixwitness+exp,score,reason,caught_by
 Q01-revenue-refactor,refactor,count_column.sql,wrong,COUNT(column) instead of COUNT(*): rows with a NULL amount stop being counted,True,True,False,False,0,the fix changes output on 2 valid inputs,"empty, null-column"
-Q01-revenue-refactor,refactor,left_join.sql,wrong,join type changed: a LEFT JOIN keeps orders whose customer is missing,True,True,False,False,0,the fix changes output on 29 valid inputs,"duplicate, empty, file-structure, null-column, numeric-format, whitespace"
-Q01-revenue-refactor,refactor,lower_status.sql,wrong,case-insensitive match added: 'PAID' and 'Paid' now count as paid,True,True,False,False,0,the fix changes output on 2 valid inputs,case
-Q01-revenue-refactor,refactor,negated_filter.sql,wrong,filter rewritten as a negation: status <> 'refunded' admits every other status,True,True,False,False,0,the fix changes output on 53 valid inputs,"case, csv-structure, delimiter-mix, long, punctuation, quotes, shell-metachar, unicode, whitespace"
+Q01-revenue-refactor,refactor,left_join.sql,wrong,join type changed: a LEFT JOIN keeps orders whose customer is missing,True,True,False,False,0,the fix changes output on 31 valid inputs,"duplicate, empty, file-structure, null-column, numeric-format, pairs, whitespace"
+Q01-revenue-refactor,refactor,lower_status.sql,wrong,case-insensitive match added: 'PAID' and 'Paid' now count as paid,True,True,False,False,0,the fix changes output on 3 valid inputs,"case, pairs"
+Q01-revenue-refactor,refactor,negated_filter.sql,wrong,filter rewritten as a negation: status <> 'refunded' admits every other status,True,True,False,False,0,the fix changes output on 55 valid inputs,"case, csv-structure, delimiter-mix, long, pairs, punctuation, quotes, shell-metachar, unicode, whitespace"
 Q01-revenue-refactor,refactor,reference.sql,correct,the filter moved into a CTE; same joins and aggregates,True,True,True,True,99,-,-
 Q02-not-exists-rewrite,refactor,not_in.sql,wrong,NOT IN with a subquery: one NULL in blocked.customer_id makes it return no rows,True,True,False,False,0,the fix changes output on 4 valid inputs,"empty, null-column"
 Q02-not-exists-rewrite,refactor,reference.sql,correct,anti-join with LEFT JOIN ... IS NULL,True,True,True,True,99,-,-
 Q03-average-rewrite,refactor,coalesce_zero.sql,wrong,NULL treated as 0: missing ratings become 0 stars,True,True,False,False,0,the fix changes output on 2 valid inputs,"empty, null-column"
 Q03-average-rewrite,refactor,count_star.sql,wrong,COUNT(*) as the divisor: NULL ratings now pull the average down,True,True,False,False,0,the fix changes output on 1 valid inputs,empty
-Q03-average-rewrite,refactor,reference.sql,correct,SUM over COUNT of the same column (both skip NULLs),True,True,True,True,93,-,-
+Q03-average-rewrite,refactor,reference.sql,correct,SUM over COUNT of the same column (both skip NULLs),True,True,True,True,94,-,-
 Q04-union-total,refactor,reference.sql,correct,"sum of per-channel sums (NULL when both are empty, like the original)",True,True,True,True,98,-,-
-Q04-union-total,refactor,union_distinct.sql,wrong,UNION instead of UNION ALL: equal amounts are counted once,True,True,False,False,0,the fix changes output on 6 valid inputs,"duplicate, duplicate-row, numeric-format"
-Q05-exists-to-join,refactor,inner_join.sql,wrong,join fan-out: a customer with two addresses doubles their orders,True,True,False,False,0,the fix changes output on 3 valid inputs,"duplicate, duplicate-row, numeric-format"
+Q04-union-total,refactor,union_distinct.sql,wrong,UNION instead of UNION ALL: equal amounts are counted once,True,True,False,False,0,the fix changes output on 10 valid inputs,"duplicate, duplicate-row, numeric-format, pairs"
+Q05-exists-to-join,refactor,inner_join.sql,wrong,join fan-out: a customer with two addresses doubles their orders,True,True,False,False,0,the fix changes output on 5 valid inputs,"duplicate, duplicate-row, numeric-format, pairs"
 Q05-exists-to-join,refactor,reference.sql,correct,semi-join written as IN (no fan-out),True,True,True,True,99,-,-
 Q06-incident-duplicate-customers,incident,dedupe_left_join.sql,wrong,de-duplicates customers but also switches to a LEFT JOIN,True,True,False,False,0,the fix changes output on 27 valid inputs,"empty, file-structure, null-column, numeric-format, whitespace"
 Q06-incident-duplicate-customers,incident,distinct_orders.sql,wrong,de-duplicates the wrong table: orders instead of customers,True,True,True,False,0,"the fix processes customers_incident.csv but its output differs from the expected output (row 1, revenue: '318.5' -> '631.75'; row 1, orders: '3' -> '5')",-
