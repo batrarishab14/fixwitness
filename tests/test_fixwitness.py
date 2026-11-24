@@ -965,7 +965,8 @@ class TypedColumnTests(TempDirTest):
         self.assertEqual(parse_timestamp("2020-03-20T02:32:49Z"), dt.datetime(2020, 3, 20, 2, 32, 49))
         self.assertEqual(parse_timestamp("2020-03-20 02:00:00+02:00"), dt.datetime(2020, 3, 20, 0, 0))
         self.assertEqual(parse_timestamp("2020-03-20"), dt.datetime(2020, 3, 20))
-        for bad in ("2020-02-30 00:00:00", " 2020-03-20", "yesterday", "2020-03-20 25:00:00"):
+        self.assertEqual(parse_timestamp("2020-09-11 13:26:15.000 "), dt.datetime(2020, 9, 11, 13, 26, 15))
+        for bad in ("2020-02-30 00:00:00", "yesterday", "2020-03-20 25:00:00"):
             with self.assertRaises(SqlError):
                 parse_timestamp(bad)
 

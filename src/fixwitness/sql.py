@@ -322,7 +322,7 @@ def _convert(value: str, sql_type: str, table: str, column: str):
 def parse_timestamp(value: str, table: str = "?", column: str = "?") -> _dt.datetime:
     """A timestamp written the ways warehouses and dbt seeds write them. A zone is converted to UTC
     and dropped (the column holds times without a zone)."""
-    m = _TIMESTAMP.fullmatch(value.strip()) if value.strip() == value else None
+    m = _TIMESTAMP.fullmatch(value.strip())  # warehouses trim spaces when they read a timestamp
     if m is None:
         raise SqlError(f"value {value!r} in {table}.{column} is not a timestamp (YYYY-MM-DD HH:MM:SS)")
     y, mo, d, h, mi, sec, frac, zone = m.groups()
