@@ -110,3 +110,24 @@ And two make fixwitness more useful on bug fixes:
 - **`fixwitness doctor`**: says what would be checked and the one command that fixes each gap.
 
 Benchmarks are re-run in CI on the final commit; the numbers are in the README.
+
+### Real-repository study: two runs (24 November 2026)
+
+Candidates frozen before any run (`benchmark/realrepo/candidates.csv`); defaults only; each run is
+reported as it came out. Refactors that fail were read by hand (`runs/*/inspections.csv`).
+
+| | Run 1 (official) | Run 2 (after later fixes) |
+|---|---|---|
+| Bug fixes caught | 22 of 48 checked (46%) | 20 of 50 checked (40%) |
+| Refactors flagged | 4 of 22 checked; 2 real differences, 2 false alarms (9%) | 2 of 21 checked; 2 real differences, 0 false alarms |
+| Not checked | 25 bug-fix + 21 refactor candidates | 21 bug-fix + 18 refactor candidates |
+
+- Run 1 is the counted result. Run 2 was run after fixing run 1's false alarms and some not-checked causes.
+- Run 2 caught fewer bug fixes (20 vs 22) while checking more; I have not diagnosed the difference. One
+  CI shard (5) was shut down by the runner in both runs.
+- Several run 2 candidates were not checked with "no profile was specified" (dbt parse in the
+  original version): a cause still open. Other not-checked causes: no compiled SQL change between
+  versions, source schema no variable sets, original fails on every input.
+- The two real refactor differences: `fivetran_log@v2.4.0-a1` (audit table rows 16 → 12, release notes say
+  speed-up; the final v2.4.0 notes add a duplicate-records fix) and `netsuite@v1.7.0` (`source_relation`
+  changes when a project sets `netsuite_schema`). Same two in both runs.

@@ -188,6 +188,14 @@ How well 0.5.0 does on fixes it has never seen will be measured on new tasks and
 
 How the answers were captured, the labels and the evidence: [`study/`](study/README.md).
 
+## Tested on real dbt packages
+
+On Fivetran's public dbt packages (candidates frozen before any run, Postgres + dbt-postgres, defaults only):
+run 1 caught 22 of 48 checked real bug fixes (46%) and flagged 4 of 22 checked refactors, 2 real differences
+and 2 false alarms (since fixed); a later run 2 caught 20 of 50 and flagged 2 of 21, both real, 0 false alarms.
+Many candidates could not be checked; the table of reasons is in
+[benchmark/realrepo/RESULTS.md](benchmark/realrepo/RESULTS.md).
+
 ## Why this exists
 
 - **Most AI patches aren't clean.** In 1Password's study of 6,080 AI-generated vulnerability patches (Aug 2026):
