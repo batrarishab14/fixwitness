@@ -361,18 +361,32 @@ def typed_rows(name: str, text: str, types: dict[str, dict[str, str]],
     return header, kinds, values
 
 
+def seed_column_key(name: str) -> str:
+    """How a seed's CSV header name and the column name dbt stored are matched: case and one layer
+    of surrounding double quotes ignored."""
+    n = name.strip()
+    if len(n) >= 2 and n[0] == n[-1] == '"':
+        n = n[1:-1].replace('""', '"')
+    return n.lower()
+
+
 def load_tables(con, engine: str, tables: dict[str, str], types: dict[str, dict[str, str]],
                 exact: dict[str, dict[str, str]] | None = None) -> None:
     """Create and fill each table. `exact`: the SQL type dbt gave a column (DuckDB only), used in
     place of the kind's default type so the models see the column exactly as dbt built it."""
     for name, text in tables.items():
         header, kinds, values = typed_rows(name, text, types, engine)
-        given = {c.lower(): t for c, t in ((exact or {}).get(name) or {}).items()} if engine == "duckdb" else {}
-        cols = ", ".join(f"{_quote(c)} {given.get(c.lower()) or _column_type(k, engine)}"
+        given = {seed_column_key(c): (c, t) for c, t in ((exact or {}).get(name) or {}).items()} \
+            if engine == "duckdb" else {}
+        # A seed's columns get the names dbt gave them (a header written "default" in quotes is
+        # the column default when dbt does not quote seed columns).
+        cols = ", ".join(f"{_quote(given[seed_column_key(c)][0])} {given[seed_column_key(c)][1]}"
+                         if seed_column_key(c) in given else f"{_quote(c)} {_column_type(k, engine)}"
                          for c, k in zip(header, kinds))
+        given = {k: v[1] for k, v in given.items()}
         con.execute(f"CREATE TABLE {_quote(name)} ({cols})")
         exact_text = [i for i, c in enumerate(header)
-                      if re.match(r"(DECIMAL|NUMERIC|HUGEINT|UHUGEINT)", given.get(c.lower(), ""), re.I)]
+                      if re.match(r"(DECIMAL|NUMERIC|HUGEINT|UHUGEINT)", given.get(seed_column_key(c), ""), re.I)]
         if exact_text and values:  # exact numbers go in as written: no float on the way
             raw = list(csv.reader(io.StringIO(text, newline="")))[1:]
             for r, v in zip(raw, values):

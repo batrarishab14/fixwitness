@@ -187,13 +187,13 @@ class Session:
     def load(self, tables: dict[str, str], types: dict, exact: dict | None = None) -> None:
         """Create and fill each table. `exact`: the SQL type dbt gave a column in this warehouse,
         used in place of the kind's default type."""
-        from fixwitness.sql import typed_rows
+        from fixwitness.sql import seed_column_key as key, typed_rows
         for name, text in tables.items():
             header, kinds, rows = typed_rows(name, text, types)
-            given = {c.lower(): (c, t) for c, t in ((exact or {}).get(name) or {}).items()}
-            sql_types = [given[c.lower()][1] if c.lower() in given else TYPES[self.kind][k] for c, k in zip(header, kinds)]
+            given = {key(c): (c, t) for c, t in ((exact or {}).get(name) or {}).items()}
+            sql_types = [given[key(c)][1] if key(c) in given else TYPES[self.kind][k] for c, k in zip(header, kinds)]
             # Column names as the warehouse stored them for dbt's seed, quoted exactly; others as usual.
-            names = [ident(given[c.lower()][0], self.kind, exact=True) if c.lower() in given else ident(c, self.kind)
+            names = [ident(given[key(c)][0], self.kind, exact=True) if key(c) in given else ident(c, self.kind)
                      for c in header]
             cols = ", ".join(f"{n} {t}" for n, t in zip(names, sql_types))
             if self.kind == "bigquery":

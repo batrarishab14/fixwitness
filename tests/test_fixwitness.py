@@ -957,6 +957,17 @@ class TypedColumnTests(TempDirTest):
             out = read_outputs(run_pipeline(models, make_bundle(tables, types), engine="duckdb"))
             self.assertEqual(out["live"].decode().split(), ["id", "1", "3"])
 
+    @unittest.skipUnless(importlib.util.find_spec("duckdb"), "needs duckdb")
+    def test_quoted_seed_header_gets_dbts_name(self):
+        """A seed header written "default" in quotes (for warehouses that need it) is the column
+        default when dbt does not quote seed columns: the column gets the name dbt stored."""
+        import duckdb
+        from fixwitness.sql import load_tables
+        con = duckdb.connect()
+        load_tables(con, "duckdb", {"brand": 'id,"""default"""\n1,TRUE\n'}, {"brand": {"id": "integer", '"default"': "boolean"}},
+                    {"brand": {"id": "BIGINT", "default": "BOOLEAN"}})
+        self.assertEqual(con.execute('select "default" from brand').fetchall(), [(True,)])
+
     def test_dbt_errors_say_why(self):
         from fixwitness.dbtmode import error_lines
         log = ("\x1b[0m06:24:50  Running with dbt=1.10.1\n\x1b[0m06:24:51  Encountered an error:\n"

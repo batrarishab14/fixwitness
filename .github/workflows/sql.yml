@@ -64,7 +64,10 @@ jobs:
             tests.test_fixwitness.WholeChangeTests tests.test_fixwitness.DbtManifestTests \
             tests.test_fixwitness.DbtProjectTests \
             tests.test_fixwitness.WarehouseTests tests.test_fixwitness.WarehouseUnitTests \
-            tests.test_fixwitness.ReportTests 2>&1 | tee tests.log
+            tests.test_fixwitness.ReportTests tests.test_fixwitness.TypedColumnTests \
+            tests.test_fixwitness.LinkedKeysTests tests.test_fixwitness.DbtContractTests \
+            tests.test_fixwitness.ExpectChangeTests tests.test_fixwitness.DbtWarehouseUnitTests \
+            tests.test_fixwitness.UnstableOriginalTests 2>&1 | tee tests.log
       - name: SQL benchmark on DuckDB
         if: always()
         run: |

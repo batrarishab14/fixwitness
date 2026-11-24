@@ -379,11 +379,12 @@ def _build_tables(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: 
     if exact_file is not None and exact_file.is_file():  # dbt: the types dbt gave the seeds
         exact = json.loads(exact_file.read_text(encoding="utf-8"))
         exact = exact.get("types", {}) if "adapter" in exact else exact
+        from fixwitness.sql import seed_column_key
         for name, cols in exact.items():
-            by_lower = {c.lower(): t for c, t in cols.items()}
+            by_key = {seed_column_key(c): t for c, t in cols.items()}
             for col in types.get(name, {}):
-                if col.lower() in by_lower:
-                    types[name][col] = kind_of(by_lower[col.lower()])
+                if seed_column_key(col) in by_key:
+                    types[name][col] = kind_of(by_key[seed_column_key(col)])
     if cfg.function:
         return _finish_frame(cfg, work, canary_dir, mode, side_b, side_a, inputs, replay, notes, paths, tables, types)
     wh_env, wh_pass = {}, []
