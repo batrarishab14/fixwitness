@@ -111,23 +111,31 @@ And two make fixwitness more useful on bug fixes:
 
 Benchmarks are re-run in CI on the final commit; the numbers are in the README.
 
-### Real-repository study: two runs (24 November 2026)
+### Real-repository study: five runs (24 November 2026)
 
-Candidates frozen before any run (`benchmark/realrepo/candidates.csv`); defaults only; each run is
-reported as it came out. Refactors that fail were read by hand (`runs/*/inspections.csv`).
+Candidates frozen before any run (`benchmark/realrepo/candidates.csv`); defaults only; every run reported as it came
+out. Failing refactors and every flagged bug fix were read by hand (`runs/*/inspections.csv`, `bug_inspections.csv`).
 
-| | Run 1 (official) | Run 2 (after later fixes) |
-|---|---|---|
-| Bug fixes caught | 22 of 48 checked (46%) | 20 of 50 checked (40%) |
-| Refactors flagged | 4 of 22 checked; 2 real differences, 2 false alarms (9%) | 2 of 21 checked; 2 real differences, 0 false alarms |
-| Not checked | 25 bug-fix + 21 refactor candidates | 21 bug-fix + 18 refactor candidates |
+| Run | Change before it | Bug fixes flagged / checked | Refactors flagged / checked |
+|---|---|---|---|
+| 1 | - | 22 / 48 | 4 / 22 (2 real, 2 false alarms) |
+| 2 | false alarms fixed | 20 / 50 | 2 / 21 (real) |
+| 3 | fair share of the case cap; ranked focus | 27 / 57 | 2 / 25 (real) |
+| 4 | seed column order; edited models switched on | 31 / 63 | 2 / 25 (real) |
+| 5 | switch-on limited to plain flags | 31 / 63 | 2 / 25 (real) |
 
-- Run 1 is the counted result. Run 2 was run after fixing run 1's false alarms and some not-checked causes.
-- Run 2 caught fewer bug fixes (20 vs 22) while checking more; I have not diagnosed the difference. One
-  CI shard (5) was shut down by the runner in both runs.
-- Several run 2 candidates were not checked with "no profile was specified" (dbt parse in the
-  original version): a cause still open. Other not-checked causes: no compiled SQL change between
-  versions, source schema no variable sets, original fails on every input.
-- The two real refactor differences: `fivetran_log@v2.4.0-a1` (audit table rows 16 → 12, release notes say
-  speed-up; the final v2.4.0 notes add a duplicate-records fix) and `netsuite@v1.7.0` (`source_relation`
-  changes when a project sets `netsuite_schema`). Same two in both runs.
+What the runs showed (each verified by reproducing it):
+
+- Run 2 lost two catches of run 1 (`stripe@v0.14.1`, `quickbooks@v1.2.1`). Cause: under the 300-case cap, cases were
+  taken in table order, so a zero in `quantity` or a NULL `currency_id` never got a case. Fixed generally; both are
+  caught again.
+- Seeds whose header ends with a comma had every column shifted, because stored column names were sorted
+  alphabetically. The original then failed on its own sample (`quickbooks@v0.19.0`, `workday@v0.1.1`).
+- Models switched on by a variable that is off in the test project (`using_ticket_chat`) compiled to nothing, so the
+  fix looked unchanged. The variables are now set for edited models; a first version set a list variable too and
+  broke `mixpanel@v0.17.0`, caught by run 4.
+
+Run 5, hand-read against the release notes: 22 of the 31 flagged bug fixes are the bug the note describes, 3 are in
+the model the note names, 4 are unclear, 2 are not the bug. Confirmed 22 of 63 checked (35%), upper bound 49%.
+The 32 misses were not yet analysed. Run 1's counted 22 were not read against the notes. "Flagged" means fixwitness
+found a difference; a bug fix always changes behaviour, so a flag is not by itself proof it found the bug.

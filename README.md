@@ -190,11 +190,17 @@ How the answers were captured, the labels and the evidence: [`study/`](study/REA
 
 ## Tested on real dbt packages
 
-On Fivetran's public dbt packages (candidates frozen before any run, Postgres + dbt-postgres, defaults only):
-run 1 caught 22 of 48 checked real bug fixes (46%) and flagged 4 of 22 checked refactors, 2 real differences
-and 2 false alarms (since fixed); a later run 2 caught 20 of 50 and flagged 2 of 21, both real, 0 false alarms.
-Many candidates could not be checked; the table of reasons is in
-[benchmark/realrepo/RESULTS.md](benchmark/realrepo/RESULTS.md).
+On Fivetran's public dbt packages (candidates frozen before any run, Postgres + dbt-postgres, defaults only; run 5):
+
+- **Real bug fixes** (63 of 71 could be checked): fixwitness reported a difference between the buggy and the fixed
+  version on 31 (49%). I read each against its release note: 22 are the bug the note describes, 3 are in the
+  model the note names, 4 are unclear and 2 are not the bug. So **22 of 63 (35%) are confirmed catches**; 49% is the
+  upper bound. The other 32 were missed: the package's own seed data, varied by fixwitness, did not expose the bug.
+- **Real refactors** (25 of 39 could be checked): 2 reported differences, both real (a release described as a
+  speed-up, and a changed `source_relation`), so no false alarms among those 25.
+- Earlier runs, and what each fix to fixwitness changed, are in
+  [benchmark/realrepo/RESULTS.md](benchmark/realrepo/RESULTS.md). Run 1 (the first, counted run) was 22 of 48;
+  its refactor check had 2 false alarms, since fixed.
 
 ## Why this exists
 
