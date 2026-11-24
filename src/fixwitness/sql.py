@@ -39,6 +39,7 @@ import datetime as _dt
 import decimal
 import io
 import json
+import os
 import re
 from pathlib import Path
 
@@ -454,7 +455,10 @@ def _cell(v) -> str:
 def _connect(engine: str):
     if engine == "duckdb":
         import duckdb
-        return duckdb.connect(":memory:")
+        # Several cases run at once, each in its own DuckDB: each gets a share of memory, so one
+        # runaway query (a date spine from 1970) fails its own case instead of the machine.
+        limit = os.environ.get("FIXWITNESS_DUCKDB_MEMORY", "2GB")
+        return duckdb.connect(":memory:", config={"memory_limit": limit, "threads": 2})
     import sqlite3
     return sqlite3.connect(":memory:")
 

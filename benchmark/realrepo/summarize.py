@@ -28,8 +28,10 @@ def main() -> None:
     cands = {r["id"]: r for r in csv.DictReader((HERE / "candidates.csv").open(encoding="utf-8"))}
     extra = {r["id"]: r for r in csv.DictReader((HERE / "after_freeze.csv").open(encoding="utf-8"))}
     reads = {}
-    if (HERE / "inspections.csv").is_file():
-        reads = {r["id"]: r for r in csv.DictReader((HERE / "inspections.csv").open(encoding="utf-8"))}
+    for f in (src / "inspections.csv", HERE / "inspections.csv"):  # the run's own reading first
+        if f.is_file():
+            reads = {r["id"]: r for r in csv.DictReader(f.open(encoding="utf-8"))}
+            break
     commit = (src / "commit.txt").read_text(encoding="utf-8").strip() if (src / "commit.txt").is_file() else "?"
     frozen = [r for r in rows if r["id"] in cands]
     later = [r for r in rows if r["id"] in extra]

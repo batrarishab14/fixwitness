@@ -395,7 +395,8 @@ def _build_tables(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: 
         except WarehouseError as exc:
             raise PlanError(str(exc)) from exc
         engine = "warehouse"
-        wh_env, wh_pass = {URL_ENV: cfg.warehouse}, SECRET_ENV[kind]
+        wh_env, wh_pass = {URL_ENV: cfg.warehouse,
+                           "FIXWITNESS_STATEMENT_TIMEOUT": str(int(max(cfg.timeout, 120)))}, SECRET_ENV[kind]
         notes.append(f"SQL runs in your {kind} warehouse ({cfg.warehouse}): each run gets its own schema, "
                      f"dropped after it; the SQL runs as written")
     else:

@@ -981,6 +981,28 @@ class FocusUnderCapTests(unittest.TestCase):
         self.assertEqual(len(cases), 60)
 
 
+class ColumnOrderTests(TempDirTest):
+    def test_sql_columns_compared_by_name(self):
+        from fixwitness.compare import CompareOptions, compare
+        b = b"id,name,total\n1,a,10\n2,b,20\n"
+        a = b"name,id,total\na,1,10\nb,2,20\n"
+        self.assertEqual(compare(b, a, CompareOptions(columns_by_name=True))[0], "same-data")
+        self.assertEqual(compare(b, a, CompareOptions())[0], "changed")  # a file: positions matter
+        self.assertEqual(compare(b, b"name,id,total\na,1,10\nb,2,21\n", CompareOptions(columns_by_name=True))[0],
+                         "changed")
+
+    def test_reordered_select_passes(self):
+        write(self.tmp / "orders.csv", ORDERS)
+        write(self.tmp / "customers.csv", CUSTOMERS)
+        write(self.tmp / "before.sql", REVENUE)
+        write(self.tmp / "after.sql", REVENUE.replace("select c.region, sum(o.amount) as revenue, count(*) as orders",
+                                                      "select count(*) as orders, c.region, sum(o.amount) as revenue"))
+        proof = self.check(before=str(self.tmp / "before.sql"), after=str(self.tmp / "after.sql"), engine="sqlite",
+                           tables={"orders": str(self.tmp / "orders.csv"), "customers": str(self.tmp / "customers.csv")},
+                           max_cases=60)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+
+
 class TypedColumnTests(TempDirTest):
     """Booleans and timestamps typed by dbt (or a warehouse) are loaded and varied as such."""
 

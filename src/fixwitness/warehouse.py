@@ -139,6 +139,9 @@ class Session:
                 self.con.autocommit = True
             self._exec(f"CREATE SCHEMA {self.schema}")
             self._exec(f"SET search_path TO {self.schema}")
+            # A query that runs away (a date spine from 1970) is stopped by the server too, not only
+            # by fixwitness's own time limit, which ends the client but not the server's work.
+            self._exec(f"SET statement_timeout TO '{_statement_seconds()}s'")
         elif k == "snowflake":
             import snowflake.connector
             args = {"user": i["user"], "account": i["host"], "database": i["path"] or None,
@@ -312,6 +315,13 @@ def drop_schemas(url: str, prefix: str) -> list[str]:
     finally:
         con.close()
     return names
+
+
+def _statement_seconds() -> int:
+    try:
+        return max(1, int(float(os.environ.get("FIXWITNESS_STATEMENT_TIMEOUT", "300"))))
+    except ValueError:
+        return 300
 
 
 def url_from_env() -> str:

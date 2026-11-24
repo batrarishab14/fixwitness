@@ -453,7 +453,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
         cfg = dataclasses.replace(cfg, attacks=False, tolerance=cfg.tolerance or SQL_TOLERANCE)
     opts = CompareOptions(mode=plan.output, ignore_columns=set(cfg.ignore_columns),
                           ignore_patterns=_compile_patterns(cfg.ignore_patterns),
-                          tolerance=cfg.tolerance, unordered=cfg.unordered)
+                          tolerance=cfg.tolerance, unordered=cfg.unordered,
+                          columns_by_name=plan.sql is not None and not cfg.function and not cfg.sql_ordered)
     unstable, warnings, baseline = _baseline(plan, opts, cfg.auto_ignore_unstable)
     if unstable:
         opts.ignore_columns |= unstable

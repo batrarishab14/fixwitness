@@ -22,6 +22,7 @@ class CompareOptions:
     ignore_patterns: list[re.Pattern] = field(default_factory=list)
     tolerance: float = 0.0                  # relative tolerance for numeric cells
     unordered: bool = False                 # compare rows (or lines) as a multiset
+    columns_by_name: bool = False           # SQL results: columns are matched by name, not position
 
 
 def _short(value: str, limit: int = 80) -> str:
@@ -135,14 +136,26 @@ def compare(before: bytes, after: bytes, opts: CompareOptions) -> tuple[str, lis
     if opts.mode in ("csv", "json"):
         b_rows, a_rows = parse_rows(before), parse_rows(after)
         if b_rows is not None and a_rows is not None:
+            reordered = False
             if b_rows[:1] != a_rows[:1]:
-                return "changed", [f"header: {b_rows[:1]} -> {a_rows[:1]}"]
+                hb0, ha0 = (b_rows[0] if b_rows else []), (a_rows[0] if a_rows else [])
+                if not (opts.columns_by_name and len(set(hb0)) == len(hb0) and sorted(hb0) == sorted(ha0)):
+                    return "changed", [f"header: {b_rows[:1]} -> {a_rows[:1]}"]
+                # A SQL result's columns are found by name: the same columns in another order are
+                # the same result. The rows are put in the original's column order.
+                pos = [ha0.index(c) for c in hb0]
+                a_rows = [hb0] + [[r[i] if i < len(r) else "" for i in pos] for r in a_rows[1:]]
+                reordered = True
+                a_rows = [a_rows[0]] + sorted(a_rows[1:])  # SQL rows were sorted by their own column order
+                b_rows = [b_rows[0]] + sorted(b_rows[1:])
             hb, rb = _normalise_csv(b_rows, opts)
             _, ra = _normalise_csv(a_rows, opts)
             details = _csv_details(hb, rb, ra, opts)
             if not details:
-                return "same-data", ["every compared cell is equal (formatting, ignored columns, "
-                                     "masked patterns, tolerance or row order differ)"]
+                return "same-data", (["the same columns in another order (SQL columns are compared by name)"]
+                                     if reordered else
+                                     ["every compared cell is equal (formatting, ignored columns, "
+                                      "masked patterns, tolerance or row order differ)"])
             return "changed", details
     return _compare_text(before, after, opts)
 
