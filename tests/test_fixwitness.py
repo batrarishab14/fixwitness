@@ -1005,6 +1005,21 @@ class FocusUnderCapTests(unittest.TestCase):
         self.assertTrue(any(c.category == "null-column" for c in mine))
         self.assertEqual(len(cases), 60)
 
+class GatedModelTests(TempDirTest):
+    def test_variable_that_enables_an_edited_model_is_switched_on(self):
+        from fixwitness.dbtmode import gated_vars
+        for side, body in (("t0", "select cast(a as int) as a from x"), ("t1", "select nullif(a, '')::int as a from x")):
+            write(self.tmp / side / "models" / "stg_chat.sql", "{{ config(enabled=var('using_chat', False)) }}\n" + body)
+            write(self.tmp / side / "models" / "same.sql", "{{ config(enabled=var('other', False)) }}\nselect 1")
+        self.assertEqual(gated_vars(self.tmp / "t0", self.tmp / "t1"), {"using_chat": True})
+
+    def test_seed_column_order_is_kept_for_headers_with_an_empty_name(self):
+        from fixwitness.dbtmode import seed_table
+        write(self.tmp / "s.csv", "id,flag,note,\n66,TRUE,x,\n")
+        out = seed_table([self.tmp / "s.csv"], self.tmp / "o.csv", ["id", "flag", "note", "field_4"])
+        self.assertEqual(out.read_text().splitlines()[0], "id,flag,note,field_4")
+
+
 class ColumnOrderTests(TempDirTest):
     def test_sql_columns_compared_by_name(self):
         from fixwitness.compare import CompareOptions, compare

@@ -256,7 +256,7 @@ def cache_dir() -> Path | None:
     return base / "dbt"
 
 
-def tree_key(tree: Path, project: Path, warehouse: str | None) -> str:
+def tree_key(tree: Path, project: Path, warehouse: str | None, enable: dict | None = None) -> str:
     """What a compile depends on: every file of the tree (the project and the package it installs
     from ../), the project's place in it, the adapter, the warehouse and the dbt version."""
     import hashlib
@@ -272,19 +272,48 @@ def tree_key(tree: Path, project: Path, warehouse: str | None) -> str:
         dbt_version = version("dbt-core")
     except PackageNotFoundError:
         dbt_version = "?"
-    h.update(f"\0{project.relative_to(tree).as_posix()}\0{warehouse or 'duckdb'}\0{dbt_version}".encode())
+    h.update(f"\0{project.relative_to(tree).as_posix()}\0{warehouse or 'duckdb'}\0{dbt_version}\0{json.dumps(enable or {}, sort_keys=True)}".encode())
     for name in sorted(os.environ):  # env_var() in the project can read these (only their hash is kept)
         if name.startswith("DBT_") and name not in ("DBT_PROFILES_DIR", "DBT_TARGET_PATH", "DBT_LOG_PATH"):
             h.update(f"\0{name}={os.environ[name]}".encode())
     return h.hexdigest()[:32]
 
 
+_ENABLED = re.compile(r"enabled\s*=\s*([^\n]*)")
+_VAR = re.compile(r"""var\(\s*['"]([A-Za-z0-9_]+)['"]""")
+
+
+def gated_vars(tree0: Path, tree1: Path) -> dict:
+    """Variables that switch on the models the change edited: a model written `config(enabled=var('x',
+    False))` is not in the manifest unless x is true, so a fix to it would compile to nothing. The
+    variables read in the `enabled` of every model file that differs between the two trees are set true."""
+    out: dict = {}
+    for a in sorted(tree1.rglob("*.sql")):
+        rel = a.relative_to(tree1)
+        if any(part in _SKIP_DIRS for part in rel.parts):
+            continue
+        b = tree0 / rel
+        try:
+            new = a.read_text(encoding="utf-8", errors="replace")
+            old = b.read_text(encoding="utf-8", errors="replace") if b.is_file() else None
+        except OSError:
+            continue
+        if old == new:
+            continue
+        for text in (new, old or ""):
+            m = _ENABLED.search(text[:1500])
+            if m:
+                for name in _VAR.findall(m.group(1)):
+                    out[name] = True
+    return out
+
+
 def compile_cached(tree: Path, project: Path, out: Path, notes: list[str] | None = None,
-                   warehouse: str | None = None, timeout: int = 900) -> Path:
+                   warehouse: str | None = None, timeout: int = 900, enable: dict | None = None) -> Path:
     """compile_project, reusing the manifest of an identical earlier compile (same files, adapter,
     warehouse and dbt version), so checking again after a small change rebuilds only what changed."""
     root = cache_dir()
-    key = tree_key(tree, project, warehouse) if root is not None else None
+    key = tree_key(tree, project, warehouse, enable) if root is not None else None
     hit = root / key if root is not None else None
     if hit is not None and (hit / "manifest.json").is_file():
         (out / "target").mkdir(parents=True, exist_ok=True)
@@ -294,7 +323,7 @@ def compile_cached(tree: Path, project: Path, out: Path, notes: list[str] | None
             notes.append(f"dbt: reused an identical earlier compile of {project.name} (cache {key[:12]}; "
                          f"set {CACHE_ENV}=off to rebuild)")
         return out / "target" / "manifest.json"
-    manifest = compile_project(project, out, timeout, notes, warehouse)
+    manifest = compile_project(project, out, timeout, notes, warehouse, enable)
     if hit is not None:
         try:
             tmp = hit.with_name(hit.name + f".tmp{os.getpid()}")
@@ -309,7 +338,7 @@ def compile_cached(tree: Path, project: Path, out: Path, notes: list[str] | None
 
 
 def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[str] | None = None,
-                    warehouse: str | None = None) -> Path:
+                    warehouse: str | None = None, enable: dict | None = None) -> Path:
     """dbt seed, dbt run and dbt compile, in a private DuckDB file or, with a warehouse URL, in a
     private schema of your warehouse with its own dbt adapter (dropped afterwards); return the
     manifest path."""
@@ -335,6 +364,9 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
                DBT_TARGET_PATH=str(out / "target"), DBT_LOG_PATH=str(out / "logs"))
     # --profile: a package's own dbt_project.yml may name no profile at all.
     common = ["--project-dir", str(project), "--profiles-dir", str(profiles), "--profile", profile, "--target", adapter]
+    flags = dict(enable or {})  # variables that switch on the models the change edited
+    if flags:
+        common += ["--vars", json.dumps(flags)]
     if ((project / "packages.yml").exists() or (project / "dependencies.yml").exists()) \
             and not (project / "dbt_packages").exists():
         _run(["dbt", "deps", *common], project, env, timeout)
@@ -352,7 +384,8 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
                         raise DbtError(f"the sources read the seeds from schema {src}, which no variable sets (in "
                                        f"{project.name}/dbt_project.yml or as a package default), so they can't "
                                        f"be pointed at a private schema in your warehouse")
-                    common += ["--vars", json.dumps({n: schema for n in names})]
+                    common = common[:common.index("--vars")] + common[common.index("--vars") + 2:] if "--vars" in common else common
+                    common += ["--vars", json.dumps({**flags, **{n: schema for n in names}})]
                 else:
                     _profile(profiles / "profiles.yml", profile, db, src)
             _run(["dbt", "seed", *common], project, env, timeout)
@@ -394,7 +427,8 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
     meta = out / "target" / SEED_TYPES_FILE
     if meta.is_file():  # the adapter the types come from, so they are used only in that database
         data = json.loads(meta.read_text(encoding="utf-8"))
-        meta.write_text(json.dumps({"adapter": adapter, "types": data}, indent=1, sort_keys=True) + "\n",
+        # tables sorted, columns left in table order (the seed loader uses that order)
+        meta.write_text(json.dumps({"adapter": adapter, "types": dict(sorted(data.items()))}, indent=1) + "\n",
                         encoding="utf-8")
     return manifest
 

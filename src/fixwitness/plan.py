@@ -591,7 +591,7 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
     (a1, t1), (a0, t0) = seed_types(manifests[1]), seed_types(manifests[0])
     exact = {t: cols for t, cols in {**t1, **t0}.items() if t in spec}
     if exact:
-        body = json.dumps({"adapter": a0 or a1, "types": exact}, indent=1, sort_keys=True) + "\n"
+        body = json.dumps({"adapter": a0 or a1, "types": dict(sorted(exact.items()))}, indent=1) + "\n"
         for d in (d0, d1):
             (d / TYPES_FILE).write_text(body, encoding="utf-8")
         notes.append(f"dbt: seeds loaded with the column types dbt gave them ({len(exact)} tables)")
@@ -629,12 +629,16 @@ def _dbt_adapter(cfg: Config) -> str:
 
 def _compile_both(t0_project: Path, t1_project: Path, work: Path, notes: list[str],
                   warehouse: str | None = None) -> tuple[Path, Path]:
-    from fixwitness.dbtmode import ADAPTER_PIP, DbtError, compile_cached
+    from fixwitness.dbtmode import ADAPTER_PIP, DbtError, compile_cached, gated_vars
     t0_tree, t1_tree = work / "trees" / "t0", work / "trees" / "t1"
     try:
         if t0_project.is_relative_to(t0_tree) and t1_project.is_relative_to(t1_tree):
-            m0 = compile_cached(t0_tree, t0_project, work / "dbt" / "build0", notes, warehouse)
-            m1 = compile_cached(t1_tree, t1_project, work / "dbt" / "build1", notes, warehouse)
+            enable = gated_vars(t0_tree, t1_tree)
+            if enable:
+                notes.append("dbt: switched on " + ", ".join(sorted(enable)) + " (the variables that enable the models "
+                             "the change edited; they are off by default, so the change would compile to nothing)")
+            m0 = compile_cached(t0_tree, t0_project, work / "dbt" / "build0", notes, warehouse, enable=enable)
+            m1 = compile_cached(t1_tree, t1_project, work / "dbt" / "build1", notes, warehouse, enable=enable)
         else:
             from fixwitness.dbtmode import compile_project
             m0 = compile_project(t0_project, work / "dbt" / "build0", notes=notes, warehouse=warehouse)
