@@ -1,0 +1,31 @@
+## fixwitness: INCONCLUSIVE (2 checks)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | no valid input could be compared (the original failed on all of them) |
+| `. (dbt project)` | dbt | not checked | `dbt parse` failed in t0: [ERROR]: Encountered an error: / Runtime Error / dbt cannot run because no profile was specified for this dbt project. / To specify a profile for this project, add a line like the this to |
+
+Not checked: `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code)
+
+To see what is missing and the command that fixes it: `fixwitness doctor`.
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `c9078c8297d5` (original) vs working tree (fix); changed: `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/index.html`, `docs/manifest.json` and 7 more. dbt project: changed `stg_google_play__stats_ratings_app_version`, `stg_google_play__stats_ratings_country`, `stg_google_play__stats_ratings_device`, `stg_google_play__stats_ratings_os_version`, `stg_google_play__stats_ratings_overview`; compared `stg_google_play__stats_ratings_app_version`, `stg_google_play__stats_ratings_country`, `stg_google_play__stats_ratings_device`, `stg_google_play__stats_ratings_os_version`, `stg_google_play__stats_ratings_overview`; SQL on warehouse; tables `stats_ratings_overview` (stats_ratings_overview.csv), `stats_ratings_country` (stats_ratings_country.csv), `stats_ratings_device` (stats_ratings_device.csv), `stats_ratings_os_version` (stats_ratings_os_version.csv), `stats_ratings_app_version` (stats_ratings_app_version.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 0 comparable valid inputs give the same output |
+| Not comparable | 293 valid inputs made the original fail too |
+| Needs review | 0 of 7 inputs in review categories (inputs that break your dbt tests (stg_google_play__stats_ratings_overview: unique_combination_of_columns(package_name, date_day))) differ |
+
+**Why:** no valid input could be compared (the original failed on all of them).
+
+- Note: the original failed on the sample itself: fixwitness.sqlrun: table stats_ratings_overview has an empty or repeated column name
+- Note: 293 valid inputs could not be compared because the original failed on them
+
+Proof ID `d4a3d1c42e8f3344` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/google_play_source@v0.1.1/out/integration_tests_dbt_project/proof.json`

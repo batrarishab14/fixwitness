@@ -1,0 +1,55 @@
+{
+  "verdict": "INCONCLUSIVE",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "NOT CHECKED",
+      "reason": "the sources read the seeds from schema klaviyo, which no variable sets (in integration_tests/dbt_project.yml or as a package default), so they can't be pointed at a private schema in your warehouse",
+      "proof": null,
+      "detail": null
+    }
+  ],
+  "not_checked": [
+    {
+      "path": ".github/pull_request_template.md",
+      "why": "documentation"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "README.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/graph.gpickle",
+      "why": "not code"
+    },
+    {
+      "path": "docs/index.html",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/partial_parse.msgpack",
+      "why": "not code"
+    },
+    {
+      "path": "docs/run_results.json",
+      "why": "not code"
+    },
+    {
+      "path": "integration_tests/requirements.txt",
+      "why": "not code"
+    }
+  ]
+}

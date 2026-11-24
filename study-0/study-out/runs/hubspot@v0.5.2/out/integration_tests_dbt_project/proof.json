@@ -1,0 +1,3251 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "686aef7d5e5e69615502a3f9fbefd97c4919a3f941224b2abe46c7045e2282bc",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "fa630cc4f0cb14f2e0d4e1a5cdcc3f99fa93ace0",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "28122c15d9af68fe9b0a0169089e1640f985745cd3d746ff1d28db2ccfa67ea7"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "4d17fd50c14af8edc6ff84e6e90d44e8d9c5c5f69dfa45bcfa5785bc1632feac"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "13a0c8fc9015a8b8ac4a1db538dfd2202c60cadb357338245f8bc6cc578038c4"
+      },
+      {
+        "path": "macros/engagements_joined.sql",
+        "status": "M",
+        "sha256": "50196d2bcec301690813587e5ecc3d09b985d04262791f4dedea2c1570a64abc"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "hubspot__engagement_calls",
+        "hubspot__engagement_emails",
+        "hubspot__engagement_meetings",
+        "hubspot__engagement_notes",
+        "hubspot__engagement_tasks"
+      ],
+      "compared": [
+        "hubspot__engagement_calls",
+        "hubspot__engagement_emails",
+        "hubspot__engagement_meetings",
+        "hubspot__engagement_notes",
+        "hubspot__engagement_tasks"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "engagement_call_data": {
+        "name": "engagement_call_data.csv",
+        "sha256": "a14b53204e4bc88615b9071b41e9d017859b8332573b96e5d0329c23bc2403bf"
+      },
+      "engagement_data": {
+        "name": "engagement_data.csv",
+        "sha256": "bc0116d99bbb4a5298349790e172681232dbb19655a95911dfb47527a5b1626c"
+      },
+      "engagement_note_data": {
+        "name": "engagement_note_data.csv",
+        "sha256": "cee44946dc82d0a0ddb2a374562a6a5d927dc9c06c0b477bbe2b992114867e15"
+      },
+      "engagement_contact_data": {
+        "name": "engagement_contact_data.csv",
+        "sha256": "50c5e0326fc2aca3df96f0411dff6e8f6c997608685b51ea224ddf28cd49f66f"
+      },
+      "engagement_task_data": {
+        "name": "engagement_task_data.csv",
+        "sha256": "34d96cdb535e89a3fc1e17ae3022c76d321f5714d2d26f3253319e8120b07742"
+      },
+      "engagement_deal_data": {
+        "name": "engagement_deal_data.csv",
+        "sha256": "851831bb563e331d84db49071e5c7eb6c110c0146fede28719f3925be3bac5b3"
+      },
+      "engagement_email_data": {
+        "name": "engagement_email_data.csv",
+        "sha256": "893e4cc3d0ab0cf86cbf59052b53c316e5e64a7432c4789f97c45dcead3eebc7"
+      },
+      "engagement_company_data": {
+        "name": "engagement_company_data.csv",
+        "sha256": "942de68372d1c4466fb1e5fca096ef06c8461085b3ea0005ffe3456f203268e2"
+      },
+      "engagement_meeting_data": {
+        "name": "engagement_meeting_data.csv",
+        "sha256": "13bdd431034bcf89a45d1c5e7ac03c1cc61e92188f652b244b7ee3ccc287eaa1"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs hubspot__engagement_calls,hubspot__engagement_emails,hubspot__engagement_meetings,hubspot__engagement_notes,hubspot__engagement_tasks {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_hubspot__engagement_call: not_null(engagement_id)",
+      "stg_hubspot__engagement_call: unique(engagement_id)",
+      "stg_hubspot__engagement_email: not_null(engagement_id)",
+      "stg_hubspot__engagement_email: unique(engagement_id)",
+      "stg_hubspot__engagement_meeting: not_null(engagement_id)",
+      "stg_hubspot__engagement_meeting: unique(engagement_id)",
+      "stg_hubspot__engagement_note: not_null(engagement_id)",
+      "stg_hubspot__engagement_note: unique(engagement_id)",
+      "stg_hubspot__engagement_task: not_null(engagement_id)",
+      "stg_hubspot__engagement_task: unique(engagement_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "hubspot__engagement_calls",
+        "hubspot__engagement_emails",
+        "hubspot__engagement_meetings",
+        "hubspot__engagement_notes",
+        "hubspot__engagement_tasks"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 282,
+      "evidence_strength": 0.989,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 282,
+    "identical": 282,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 18,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "engagement_call_data",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "schema",
+      "kind": "valid",
+      "column": "engagement_call_data",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_call_data",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "empty",
+      "kind": "review",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "long",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "pairs",
+      "kind": "review",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.callee_object_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.callee_object_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.callee_object_type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.callee_object_type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "long",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_call_data.duration_milliseconds",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_call_data.duration_milliseconds",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.duration_milliseconds",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.duration_milliseconds",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.external_account_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.external_account_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.external_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.external_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.from_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.from_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.recording_url",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.recording_url",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.to_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.to_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.transcription_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.transcription_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.unknown_visitor_conversation",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.unknown_visitor_conversation",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "long",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "pairs",
+      "kind": "review",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "null-column",
+      "kind": "review",
+      "column": "engagement_call_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.callee_object_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.callee_object_type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.disposition",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.duration_milliseconds",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.external_account_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.external_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.from_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.recording_url",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.to_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.transcription_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.unknown_visitor_conversation",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "engagement_call_data",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_call_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_call_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "engagement_data",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "schema",
+      "kind": "valid",
+      "column": "engagement_data",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_data.last_updated",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_data.timestamp",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_data.type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "engagement_data",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_data.owner_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_data.last_updated",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_data.last_updated",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_data.timestamp",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_data.timestamp",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_data.type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_data.type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "empty",
+      "kind": "review",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "null-column",
+      "kind": "review",
+      "column": "engagement_note_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_note_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_note_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_note_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_note_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_contact_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_contact_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_contact_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "empty",
+      "kind": "review",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "null-column",
+      "kind": "review",
+      "column": "engagement_task_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_task_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_task_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_task_data.completion_date",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_task_data.completion_date",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_task_data.for_object_type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_task_data.for_object_type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_task_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_task_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_task_data.task_type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_task_data.task_type",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_deal_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_deal_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_deal_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "empty",
+      "kind": "review",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "null-column",
+      "kind": "review",
+      "column": "engagement_email_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.logged_from",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.logged_from",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.media_processing_status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.media_processing_status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.message_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.message_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.thread_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.thread_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.validation_skipped",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.validation_skipped",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.from_email",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.from_email",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.from_first_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.from_first_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.from_last_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.from_last_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.html",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.html",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.subject",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.subject",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_email_data.text",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_email_data.text",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "empty",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "engagement_company_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_company_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_company_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "empty",
+      "kind": "review",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "null-column",
+      "kind": "review",
+      "column": "engagement_meeting_data.engagement_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_meeting_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_meeting_data.end_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.end_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.pre_meeting_prospect_reminders",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_meeting_data.source",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.source",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_meeting_data.source_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.source_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_meeting_data.start_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.start_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_meeting_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_meeting_data.external_url",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "engagement_meeting_data.external_url",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "case",
+      "kind": "valid",
+      "column": "engagement_meeting_data.title",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: fa630cc4f0cb (fa630cc4f0cb); fix: your working tree (4 changed files)",
+    "dbt: `dbt run` on the seeds failed in integration_tests ([ERROR]: in model stg_hubspot__deal_contact_tmp (models/tmp/stg_hubspot__deal_contact_tmp.sql) / Database Error in model stg_hubspot__deal_contact_tmp (models/tmp/stg_hubspot__deal_contact_tmp.sql) / ); models were still compiled, but macros that read a model's columns may not have seen them",
+    "dbt: `dbt run` on the seeds failed in integration_tests ([ERROR]: in model stg_hubspot__deal_contact_tmp (models/tmp/stg_hubspot__deal_contact_tmp.sql) / Database Error in model stg_hubspot__deal_contact_tmp (models/tmp/stg_hubspot__deal_contact_tmp.sql) / ); models were still compiled, but macros that read a model's columns may not have seen them",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 100 models; compiled SQL changed in hubspot__engagement_calls, hubspot__engagement_emails, hubspot__engagement_meetings, hubspot__engagement_notes, hubspot__engagement_tasks; comparing hubspot__engagement_calls, hubspot__engagement_emails, hubspot__engagement_meetings, hubspot__engagement_notes, hubspot__engagement_tasks (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (9 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): engagement_call_data.engagement_id -> engagement_data.id, engagement_contact_data.engagement_id -> engagement_data.id, engagement_task_data.engagement_id -> engagement_data.id, engagement_deal_data.engagement_id -> engagement_data.id, engagement_email_data.engagement_id -> engagement_data.id, engagement_company_data.engagement_id -> engagement_data.id, engagement_meeting_data.engagement_id -> engagement_data.id",
+    "the project's dbt tests are used as rules on the input tables (38: engagement_call_data.engagement_id not_null, engagement_call_data.engagement_id unique, engagement_email_data.engagement_id not_null, engagement_email_data.engagement_id unique, engagement_meeting_data.engagement_id not_null, engagement_meeting_data.engagement_id unique, engagement_note_data.engagement_id not_null, engagement_note_data.engagement_id unique, engagement_task_data.engagement_id not_null, engagement_task_data.engagement_id unique, engagement_data.id not_null, engagement_data.id unique, ...); 18 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:45:34Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_hubspot",
+    "base": "fa630cc4f0cb",
+    "base_commit": "fa630cc4f0cb14f2e0d4e1a5cdcc3f99fa93ace0",
+    "path": "/home/runner/work/_temp/clones/dbt_hubspot/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs hubspot__engagement_calls,hubspot__engagement_emails,hubspot__engagement_meetings,hubspot__engagement_notes,hubspot__engagement_tasks {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

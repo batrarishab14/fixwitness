@@ -1,0 +1,1939 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "9bc7bd0e11b8d9e60c3b03c0df5c0e41b133d48ecdb45f61aa79a9e14ba23d3e",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "d6f11d2870a86ec7625778e1aa5f5abfff2ce314",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md",
+        "status": "M",
+        "sha256": "5b8e5b0fb61492f79d08cfe81ef286f363d2694fa70e4d55789c161252eec812"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "ba8d930c5f2f9b1f7c5e1a5480fe817a00e0f225aace72b1b90c34fcff90836c"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "82216be3240cf21b3c60e7a725ecd6bd900c8c452cc16645868f3a710a5c2fdb"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "734fc12b16715cf59219470ec42e09a95f3accb0133e87116086e1812633241c"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "cfa65f7879496340e1b5759129d264bdd7510300b8d0611c836833dd157a5dfa"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "2f997bf24e906336d96c2ec204d8d37bc3ce2a4fed8574a0de328120b0b87eb4"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "abbe4c0f3e7c50873fc8357fd67e2639ff96a795b7c0f4141ba4c5e314d3cd88"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "ed16f414bd32e14c4a06a423a6670853ca4fc477a6fd28aa53589e85bba9fbfa"
+      },
+      {
+        "path": "models/stg_linkedin_ads__creative_history.sql",
+        "status": "M",
+        "sha256": "f89ca91c0c4e95d849891c7bd7c10d286beffa9917aa5d99b8a79f9d15a55a54"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "stg_linkedin_ads__creative_history"
+      ],
+      "compared": [
+        "stg_linkedin_ads__creative_history"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "linkedin_creative_history_data": {
+        "name": "linkedin_creative_history_data.csv",
+        "sha256": "2c6cfcea1f7d29ef5295480d5cb6a3465d7d14efb8cd2785e4128f83f54e68ad"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_linkedin_ads__creative_history {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "stg_linkedin_ads__creative_history"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 98,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 172,
+      "evidence_strength": 0.983,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 172,
+    "identical": 172,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "schema",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "schema",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "schema",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "schema",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "empty",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "empty",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "case",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "case",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "case",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "case",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "long",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "empty",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "case",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "case",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "case",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "case",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "long",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "empty",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "empty",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.intended_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.click_uri",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.last_modified_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "linkedin_creative_history_data.created_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: d6f11d2870a8 (d6f11d2870a8); fix: your working tree (9 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 12 models; compiled SQL changed in stg_linkedin_ads__creative_history; comparing stg_linkedin_ads__creative_history (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (1 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (2: linkedin_ad_analytics_by_creative_data.creative_id not_null, linkedin_ad_analytics_by_campaign_data.campaign_id not_null); no generated input breaks them"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:56:29Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_linkedin_source",
+    "base": "d6f11d2870a8",
+    "base_commit": "d6f11d2870a86ec7625778e1aa5f5abfff2ce314",
+    "path": "/home/runner/work/_temp/clones/dbt_linkedin_source/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_linkedin_ads__creative_history {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

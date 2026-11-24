@@ -1,0 +1,36 @@
+{
+  "verdict": "FAIL",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "FAIL",
+      "score": 0,
+      "reason": "If `sales_item_account_id` is the number 0, in `quickbooks__general_ledger`, the output has 2 rows instead of 2; a new row for 'b10f9c3768cff317b67931b0f28ef563' appears.",
+      "proof_id": "3c21a634fa466f70",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/quickbooks@v0.15.0/out/integration_tests_dbt_project/proof.json"
+    }
+  ],
+  "not_checked": [
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "README.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/run_results.json",
+      "why": "new file: there is no original to compare"
+    }
+  ]
+}

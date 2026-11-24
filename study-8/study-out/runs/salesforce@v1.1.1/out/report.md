@@ -1,0 +1,58 @@
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If the file is sample as given, in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears. |
+
+Not checked: `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `bd8821490201` (original) vs working tree (fix); changed: `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/manifest.json`, `docs/run_results.json` and 2 more. dbt project: changed `int_salesforce__date_spine`; compared `salesforce__daily_activity`; SQL on warehouse; tables `sf_opportunity_data` (sf_opportunity_data.csv), `sf_lead_data` (sf_lead_data.csv), `sf_task_data` (sf_task_data.csv), `sf_event_data` (sf_event_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 300 comparable valid inputs give the same output |
+
+**Why:** the fix changes output on 300 valid inputs.
+
+**What could go wrong:**
+
+- **Rows added or lost.** If the file is sample as given, in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 000: `file-structure` input '<sample as given>' in `sf_opportunity_data` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2571
+  - salesforce__daily_activity: row 1, date_day: '2026-10-24T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If the input has another column layout (<extra column at the end>), in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 001: `schema` input '<extra column at the end>' in `sf_opportunity_data` (changed); input shrunk to the rows that show it
+  - salesforce__daily_activity: row count: 32 -> 2571
+  - salesforce__daily_activity: row 1, date_day: '2026-10-24T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `account_id` is 'a; "b"', in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 002: `delimiter-mix` input 'a; "b"' in `sf_opportunity_data.account_id` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2571
+  - salesforce__daily_activity: row 1, date_day: '2026-10-24T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `fiscal` is 'a; "b"', in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 003: `delimiter-mix` input 'a; "b"' in `sf_opportunity_data.fiscal` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2571
+  - salesforce__daily_activity: row 1, date_day: '2026-10-24T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `forecast_category` is 'a; "b"', in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 004: `delimiter-mix` input 'a; "b"' in `sf_opportunity_data.forecast_category` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2571
+  - salesforce__daily_activity: row 1, date_day: '2026-10-24T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `forecast_category_name` is 'a; "b"', in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 005: `delimiter-mix` input 'a; "b"' in `sf_opportunity_data.forecast_category_name` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2571
+  - salesforce__daily_activity: row 1, date_day: '2026-10-24T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `id` is 'a; "b"', in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 006: `delimiter-mix` input 'a; "b"' in `sf_opportunity_data.id` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2571
+  - salesforce__daily_activity: row 1, date_day: '2026-10-24T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `lead_source` is 'a; "b"', in `salesforce__daily_activity`, the output has 2571 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 007: `delimiter-mix` input 'a; "b"' in `sf_opportunity_data.lead_source` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2571
+  - salesforce__daily_activity: row 1, date_day: '2026-10-24T00:00:00' -> '2019-11-11T00:00:00'
+
+Proof ID `9868ff1b0e0f997a` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/salesforce@v1.1.1/out/integration_tests_dbt_project/proof.json`

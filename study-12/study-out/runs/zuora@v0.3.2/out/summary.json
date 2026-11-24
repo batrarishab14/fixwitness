@@ -1,0 +1,40 @@
+{
+  "verdict": "INCONCLUSIVE",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "INCONCLUSIVE",
+      "score": 0,
+      "reason": "no valid input could be compared (the original failed on all of them)",
+      "proof_id": "2b9d57d56af05662",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/zuora@v0.3.2/out/integration_tests_dbt_project/proof.json"
+    },
+    {
+      "target": ".buildkite/scripts/run_models.sh",
+      "kind": "script",
+      "verdict": "NOT CHECKED",
+      "reason": "no sample input (CSV, JSON Lines or Parquet) found near /home/runner/work/_temp/clones/dbt_zuora/.buildkite/scripts; pass one with --sample",
+      "proof": null,
+      "detail": null
+    }
+  ],
+  "not_checked": [
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/index.html",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    }
+  ]
+}

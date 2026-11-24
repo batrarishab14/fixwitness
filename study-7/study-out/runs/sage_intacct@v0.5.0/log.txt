@@ -1,0 +1,61 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/sage_intacct@v0.5.0/out/report.html
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If the file is sample as given, in `sage_intacct__general_ledger_by_period`, the output has 180 rows instead of 6; a new row for 15030 appears. |
+
+Not checked: `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `b77ddf2c9d56` (original) vs working tree (fix); changed: `CHANGELOG.md`, `README.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/manifest.json` and 7 more. dbt project: changed `int_sage_intacct__general_ledger_date_spine`; compared `sage_intacct__balance_sheet`, `sage_intacct__general_ledger_by_period`, `sage_intacct__profit_and_loss`; SQL on warehouse; tables `sage_intacct__gl_batch` (sage_intacct__gl_batch.csv), `sage_intacct__gl_account` (sage_intacct__gl_account.csv), `sage_intacct__gl_detail` (sage_intacct__gl_detail.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 282 comparable valid inputs give the same output |
+| Needs review | 18 of 18 inputs in review categories (inputs that break your dbt tests (stg_sage_intacct__gl_account: unique(gl_account_id); stg_sage_intacct__gl_batch: not_null(record_no); stg_sage_intacct__gl_batch: unique(record_no); stg_sage_intacct__gl_detail: unique(gl_detail_id))) differ |
+
+**Why:** the fix changes output on 282 valid inputs.
+
+**What could go wrong:**
+
+- **Rows added or lost.** If the file is sample as given, in `sage_intacct__general_ledger_by_period`, the output has 180 rows instead of 6; a new row for 15030 appears.
+  - case 000: `file-structure` input '<sample as given>' in `sage_intacct__gl_batch` (changed)
+  - sage_intacct__general_ledger_by_period: row count: 6 -> 180
+  - sage_intacct__general_ledger_by_period: row 1, date_year: '2026-01-01' -> '2021-01-01'
+- **Rows added or lost.** If the input has another column layout (<extra column at the end>), in `sage_intacct__general_ledger_by_period`, the output has 60 rows instead of 2; a new row for 15030 appears.
+  - case 001: `schema` input '<extra column at the end>' in `sage_intacct__gl_batch` (changed); input shrunk to the rows that show it
+  - sage_intacct__general_ledger_by_period: row count: 6 -> 180
+  - sage_intacct__general_ledger_by_period: row 1, date_year: '2026-01-01' -> '2021-01-01'
+- **Rows added or lost.** If `batch_title` is 'a; "b"', in `sage_intacct__general_ledger_by_period`, the output has 180 rows instead of 6; a new row for 15030 appears.
+  - case 002: `delimiter-mix` input 'a; "b"' in `sage_intacct__gl_batch.batch_title` (changed)
+  - sage_intacct__general_ledger_by_period: row count: 6 -> 180
+  - sage_intacct__general_ledger_by_period: row 1, date_year: '2026-01-01' -> '2021-01-01'
+- **Rows added or lost.** If `journal` is 'a; "b"', in `sage_intacct__general_ledger_by_period`, the output has 180 rows instead of 6; a new row for 15030 appears.
+  - case 003: `delimiter-mix` input 'a; "b"' in `sage_intacct__gl_batch.journal` (changed)
+  - sage_intacct__general_ledger_by_period: row count: 6 -> 180
+  - sage_intacct__general_ledger_by_period: row 1, date_year: '2026-01-01' -> '2021-01-01'
+- **Rows added or lost.** If `modifiedbyid` is 'a; "b"', in `sage_intacct__general_ledger_by_period`, the output has 180 rows instead of 6; a new row for 15030 appears.
+  - case 004: `delimiter-mix` input 'a; "b"' in `sage_intacct__gl_batch.modifiedbyid` (changed)
+  - sage_intacct__general_ledger_by_period: row count: 6 -> 180
+  - sage_intacct__general_ledger_by_period: row 1, date_year: '2026-01-01' -> '2021-01-01'
+- **Rows added or lost.** If `module` is 'a; "b"', in `sage_intacct__general_ledger_by_period`, the output has 180 rows instead of 6; a new row for 15030 appears.
+  - case 005: `delimiter-mix` input 'a; "b"' in `sage_intacct__gl_batch.module` (changed)
+  - sage_intacct__general_ledger_by_period: row count: 6 -> 180
+  - sage_intacct__general_ledger_by_period: row 1, date_year: '2026-01-01' -> '2021-01-01'
+- **Rows added or lost.** If `state` is 'a; "b"', in `sage_intacct__general_ledger_by_period`, the output has 180 rows instead of 6; a new row for 15030 appears.
+  - case 006: `delimiter-mix` input 'a; "b"' in `sage_intacct__gl_batch.state` (changed)
+  - sage_intacct__general_ledger_by_period: row count: 6 -> 180
+  - sage_intacct__general_ledger_by_period: row 1, date_year: '2026-01-01' -> '2021-01-01'
+- **Rows added or lost.** If `userinfo_loginid` is 'a; "b"', in `sage_intacct__general_ledger_by_period`, the output has 180 rows instead of 6; a new row for 15030 appears.
+  - case 007: `delimiter-mix` input 'a; "b"' in `sage_intacct__gl_batch.userinfo_loginid` (changed)
+  - sage_intacct__general_ledger_by_period: row count: 6 -> 180
+  - sage_intacct__general_ledger_by_period: row 1, date_year: '2026-01-01' -> '2021-01-01'
+
+Proof ID `186fc3d866351402` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/sage_intacct@v0.5.0/out/integration_tests_dbt_project/proof.json`
+

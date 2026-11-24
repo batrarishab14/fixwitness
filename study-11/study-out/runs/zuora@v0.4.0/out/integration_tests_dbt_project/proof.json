@@ -1,0 +1,3323 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "e7d9865bd3637af9513fa1bb7355a0a15487cccd9eb78b3d9c3a5608d1644993",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "a1d4fbdaa70125490e1aa46a0914f19ce996b002",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "deb5c1211db754b8f639556cd6934db2a1bf71779d9f5502f97b9e9eac8f7b47"
+      },
+      {
+        "path": "README.md",
+        "status": "M",
+        "sha256": "c44a016c0e0588c15f0a8cb21eea9366180b2a6ef462193d01001af7088b5d89"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "f0acbe24a758657a5c9c5db65491ebcf278a00d50a720c36e0fd55d435f7bc6a"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "b4a875a62d62a219569abc12159cb7284dbfbce770c25123c384e3ea64800f4c"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "bf08d91863070a365dda4a44c150848144faadc16b587454069d8c0670a1a222"
+      },
+      {
+        "path": "integration_tests/ci/sample.profiles.yml",
+        "status": "M",
+        "sha256": "9ddffa70052f5859c1cb4c7243532665316892aeb7715104e97ce0ea117bf44f"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "0c8532dfdaf0ac2007b82838ddf2e86d22ba11f86650cb16ab3a953f173e33a6"
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_account_daily_overview.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_account_overview.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_billing_history.sql",
+        "status": "M",
+        "sha256": "59b39e1d505acdae3d6bceae23832e2fa21ee77106e2f8a0d6c649f3b2beed66"
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_billing_history_amount.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_line_item_enhanced.sql",
+        "status": "M",
+        "sha256": "dc58d9ce3157ae0ece708ce2d113991fa23bd2a79509a0101db699bf52067a10"
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_line_item_history.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_monthly_recurring_revenue.sql",
+        "status": "M",
+        "sha256": "28082b4d0b4da04407886b414280073be63230b96d4091c36dc8e79f3906658d"
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_subscription_overview.sql",
+        "status": "M",
+        "sha256": "8db0439254358377e3743637f962913a8a0c9f7d7cd992abdd76aeb03fe3b68d"
+      },
+      {
+        "path": "models/intermediate/int_zuora__account_enriched.sql",
+        "status": "M",
+        "sha256": "87906120b88f3deb11e47ba65194682846f91603f3a72395847e9df82c18254b"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_zuora__account_enriched"
+      ],
+      "compared": [
+        "zuora__account_daily_overview",
+        "zuora__account_overview",
+        "zuora__line_item_history",
+        "zuora__monthly_recurring_revenue",
+        "zuora__subscription_overview"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "zuora_taxation_item_data": {
+        "name": "zuora_taxation_item_data.csv",
+        "sha256": "0c2e9f3f9c56ebffc4d96d28f6f702d1a002871a48b41cc50652a94039bde10a"
+      },
+      "zuora_credit_balance_adjustment_data": {
+        "name": "zuora_credit_balance_adjustment_data.csv",
+        "sha256": "890ba1c1d249049a5d150d92f87b8a396ca8f4008c729e7d0b2e2c1c33c0402e"
+      },
+      "zuora_subscription_data": {
+        "name": "zuora_subscription_data.csv",
+        "sha256": "612fe9ef9b63f5c6c1f4e071eb53e032b20877d80c00b5237596dd11920562ef"
+      },
+      "zuora_product_rate_plan_data": {
+        "name": "zuora_product_rate_plan_data.csv",
+        "sha256": "89a83ffc65493fa037da29b1345ec48d5639a40d96eb98f92e713064eb3f3642"
+      },
+      "zuora_invoice_data": {
+        "name": "zuora_invoice_data.csv",
+        "sha256": "8f6b1f8c51db0bd2fd1fb7a465de4ad0d2751b2f404d622474c5a3aa3f85ca04"
+      },
+      "zuora_payment_method_data": {
+        "name": "zuora_payment_method_data.csv",
+        "sha256": "c810aec44e44e93a84d2f077a499c4c8bac18b6dc8a1894ede8bd1d4dadd5ce9"
+      },
+      "zuora_amendment_data": {
+        "name": "zuora_amendment_data.csv",
+        "sha256": "73afbd65c4c7ba61f29202353a223ca77b66d0697f6d858a0b2bf81d13bc2b27"
+      },
+      "zuora_invoice_payment_data": {
+        "name": "zuora_invoice_payment_data.csv",
+        "sha256": "66bec4a6a91f8bd8e68a0f78d48d91fba23cecb4fafadc82919fbbe04187b2e3"
+      },
+      "zuora_rate_plan_charge_data": {
+        "name": "zuora_rate_plan_charge_data.csv",
+        "sha256": "607879494964bb86c5fcf32fa1628e6cc38f8d017523f66abb26cd90706869f5"
+      },
+      "zuora_payment_data": {
+        "name": "zuora_payment_data.csv",
+        "sha256": "ee247d9dc5c8c5d594a795732002cf5be9d329b1e308b306c11134f93ab53766"
+      },
+      "zuora_invoice_item_data": {
+        "name": "zuora_invoice_item_data.csv",
+        "sha256": "321724e4b032bcf03cc60a802671d4f78bf88cd5f89b997538166d7b041db5ee"
+      },
+      "zuora_contact_data": {
+        "name": "zuora_contact_data.csv",
+        "sha256": "0320dd2d62c5a3c71fda26fdd4875b9f6a142e3919201c6ef8a38c281c818ec6"
+      },
+      "zuora_product_rate_plan_charge_data": {
+        "name": "zuora_product_rate_plan_charge_data.csv",
+        "sha256": "d6f98f3e7db7ecfac3b405e48877d149e1216326c2c094746c093e8ce7114931"
+      },
+      "zuora_account_data": {
+        "name": "zuora_account_data.csv",
+        "sha256": "c3eaff314b2550d4e2498d6bd359a7283c004cd94cf38c57a80cd5895dff0a60"
+      },
+      "zuora_product_data": {
+        "name": "zuora_product_data.csv",
+        "sha256": "ac98d00bf2218e9aa4828106314ee963545057464b5ad5d71b240e232a3db715"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs zuora__account_daily_overview,zuora__account_overview,zuora__line_item_history,zuora__monthly_recurring_revenue,zuora__subscription_overview {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "zuora__account_daily_overview",
+        "zuora__account_overview",
+        "zuora__line_item_history",
+        "zuora__monthly_recurring_revenue",
+        "zuora__subscription_overview"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "INCONCLUSIVE",
+  "reasons": [
+    "no valid input could be compared (the original failed on all of them)"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 0,
+    "changed": 0,
+    "not_comparable": 300,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_subscription_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_subscription_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_subscription_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_subscription_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_subscription_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_invoice_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.auto_pay",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.auto_pay",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_data.auto_pay",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "zuora_invoice_data.due_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.due_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.due_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_data.refund_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_data.refund_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.refund_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.refund_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_invoice_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.auto_pay",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.due_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.refund_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.tax_amount",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "flip",
+      "kind": "valid",
+      "column": "zuora_invoice_data.auto_pay",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_amendment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "zuora_amendment_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_amendment_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_amendment_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_amendment_data.created_date",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "long",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_amendment_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_amendment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_amendment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_amendment_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_amendment_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_payment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_payment_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_payment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_payment_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.invoice_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.subscription_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_contact_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_contact_data.account_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_charge_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_charge_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_account_data.account_number",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_account_data.account_number",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_account_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_account_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_account_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "zuora_account_data.status",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "case",
+      "kind": "valid",
+      "column": "zuora_product_data.name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: a1d4fbdaa701 (a1d4fbdaa701); fix: your working tree (16 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 52 models; compiled SQL changed in int_zuora__account_enriched; comparing zuora__account_daily_overview, zuora__account_overview, zuora__line_item_history, zuora__monthly_recurring_revenue, zuora__subscription_overview (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (15 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): zuora_taxation_item_data.account_id -> zuora_account_data.id, zuora_taxation_item_data.invoice_id -> zuora_invoice_data.id, zuora_taxation_item_data.product_rate_plan_charge_id -> zuora_product_rate_plan_charge_data.id, zuora_taxation_item_data.product_rate_plan_id -> zuora_product_rate_plan_data.id, zuora_taxation_item_data.rate_plan_charge_id -> zuora_rate_plan_charge_data.id, zuora_taxation_item_data.subscription_id -> zuora_subscription_data.id, zuora_invoice_data.account_id -> zuora_account_data.id, zuora_invoice_payment_data.invoice_id -> zuora_invoice_data.id, zuora_rate_plan_charge_data.amendment_id -> zuora_amendment_data.id, zuora_rate_plan_charge_data.subscription_id -> zuora_subscription_data.id, zuora_payment_data.account_id -> zuora_account_data.id, zuora_invoice_item_data.amendment_id -> zuora_amendment_data.id, zuora_invoice_item_data.product_rate_plan_charge_id -> zuora_product_rate_plan_charge_data.id, zuora_invoice_item_data.product_rate_plan_id -> zuora_product_rate_plan_data.id, zuora_invoice_item_data.rate_plan_charge_id -> zuora_rate_plan_charge_data.id, zuora_invoice_item_data.subscription_id -> zuora_subscription_data.id"
+  ],
+  "warnings": [
+    "the original failed on the sample itself: fixwitness.sqlrun: value ' ' in zuora_payment_method_data.credit_card_country is not an integer",
+    "300 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "date-format": "valid dates, leap days and unpadded months/days",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:49:20Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_zuora",
+    "base": "a1d4fbdaa701",
+    "base_commit": "a1d4fbdaa70125490e1aa46a0914f19ce996b002",
+    "path": "/home/runner/work/_temp/clones/dbt_zuora/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs zuora__account_daily_overview,zuora__account_overview,zuora__line_item_history,zuora__monthly_recurring_revenue,zuora__subscription_overview {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

@@ -1,0 +1,3281 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "5abe8f0979540409d660cd8f5ad13621e18576edd591b181c7e6b97c17fd1d45",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "d60e230df2af37b69dbca26e3fc56b4495dbb6d5",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".gitignore",
+        "status": "M",
+        "sha256": "42897d5d3babe9b0ddadddf52c68e04c5a1db1f6b3028c7b1e60d0eb0e1b84fd"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "060c225ea0f8ba0edc5ceb2fb6e224da7a67738d6fd6433676a04d39d1140a33"
+      },
+      {
+        "path": "README.md",
+        "status": "M",
+        "sha256": "437bdab601b6ef6316b14a6dd09dca49d93dc7abe9aac28dc5c735a9d43b9faa"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "5e8082b562821eeb3f3dfeb2bcad388020aa06843f543a18745e9e1c18f6516c"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "4cf689bffc2ccfdf755050277a254632b2dd4c7bbf2781d40f46f4c679d162d2"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "1f1f91565fff7fcd5357665cfc4820742dbd297052be8bb261c6bd7d644a2a4c"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "d53a48a8fdb2de26ed7bc6456756885de30c0db620a1cc19a8795d75c5a408ed"
+      },
+      {
+        "path": "integration_tests/ci/test_scenarios.yml",
+        "status": "M",
+        "sha256": "4f33a57fe353c89236fda253d550315156cae242b25abf0e66dc1f86f9291261"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "ac78393550ac833b95233af722448eb45097ac3acf6dd0d73028b79df4c72e64"
+      },
+      {
+        "path": "macros/staging_columns.sql",
+        "status": "M",
+        "sha256": "92dac38d553fd7a7097a0a64dbe482d11193a06f991a5783c2c730f80678bf5d"
+      },
+      {
+        "path": "macros/union/mixpanel_source_relation.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "macros/union/mixpanel_union_relations.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "macros/union/union_mixpanel_connections.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "models/mixpanel__daily_events.sql",
+        "status": "M",
+        "sha256": "9d50bf5e6985bfc12d30efa49adfca3d786ff15123a1d767a9bcbf5944ac61ac"
+      },
+      {
+        "path": "models/mixpanel__event.sql",
+        "status": "M",
+        "sha256": "fe80da00eaa671ba9d14b13544ac103c0aba0682aea4a472c81ac50edcbd5df4"
+      },
+      {
+        "path": "models/mixpanel__monthly_events.sql",
+        "status": "M",
+        "sha256": "a93bbcd6870a150e30fbe0d152037e567bc0e52756798b07cfe515c153162ecb"
+      },
+      {
+        "path": "models/mixpanel__sessions.sql",
+        "status": "M",
+        "sha256": "4b82f177991b3b585b4b09b486503035fa021b2be9747b414e77809cd11226ba"
+      },
+      {
+        "path": "models/staging/src_mixpanel.yml",
+        "status": "M",
+        "sha256": "587523857cef23ca92d322dacd61474d2b9f5bc8a374af067b0883528564d9d6"
+      },
+      {
+        "path": "models/staging/stg_mixpanel__event.sql",
+        "status": "M",
+        "sha256": "65e3a953f9986aeb436c9dfb9d394d57c9be5e7d19ac5e8ebf70686980799af0"
+      },
+      {
+        "path": "models/staging/tmp/stg_mixpanel__event_tmp.sql",
+        "status": "M",
+        "sha256": "09672a8bd201f06b16a1d5a6c897b422a0feaf9a1b81dcce070bd29b70e35a96"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "mixpanel__daily_events",
+        "mixpanel__event",
+        "mixpanel__monthly_events",
+        "mixpanel__sessions",
+        "stg_mixpanel__event_tmp",
+        "stg_mixpanel__user_first_event"
+      ],
+      "compared": [
+        "mixpanel__daily_events",
+        "mixpanel__event",
+        "mixpanel__monthly_events",
+        "mixpanel__sessions"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "event": {
+        "name": "event.csv",
+        "sha256": "29af64d43c6f18a740bb2d99c9df3683bff17e5b8553f975cedf80a24e9b3724"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs mixpanel__daily_events,mixpanel__event,mixpanel__monthly_events,mixpanel__sessions {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "mixpanel__daily_events",
+        "mixpanel__event",
+        "mixpanel__monthly_events",
+        "mixpanel__sessions"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 300,
+      "evidence_strength": 0.99,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 300,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "long",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "event._line",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event._line",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event._line",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event._line",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "long",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "event.event_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.event_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.event_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.event_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "event.mp_processing_time_ms",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.mp_processing_time_ms",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.mp_processing_time_ms",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.mp_processing_time_ms",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "event._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.screen_width",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.screen_width",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.wifi",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.wifi",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.app_release",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.app_release",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.app_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.app_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.os",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.os",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.mp_device_model",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.mp_device_model",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.city",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.city",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.os_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.os_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.mp_country_code",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.mp_country_code",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.lib_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.lib_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.manufacturer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.manufacturer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.radio",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.radio",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.carrier",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.carrier",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.screen_height",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.screen_height",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.app_build_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.app_build_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.model",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.model",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.region",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.region",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.app_version_string",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.app_version_string",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.mp_lib",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.mp_lib",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.initial_referring_domain",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.initial_referring_domain",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "long",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.referrer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.referrer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.current_url",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.current_url",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.browser",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.browser",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.browser_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.browser_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.initial_referrer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.initial_referrer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.search_engine",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.search_engine",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.referring_domain",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.referring_domain",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.bluetooth_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.bluetooth_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.has_nfc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.has_nfc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.brand",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.brand",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.has_telephone",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.has_telephone",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.screen_dpi",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.screen_dpi",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.google_play_services",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.google_play_services",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.had_persisted_distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.had_persisted_distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.bluetooth_enabled",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.bluetooth_enabled",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.ios_ifa",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.ios_ifa",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.device",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.device",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.mp_keyword",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.mp_keyword",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.distinct_id_before_identity",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.distinct_id_before_identity",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "empty",
+      "kind": "valid",
+      "column": "event.ae_session_length",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "event.ae_session_length",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event._line",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.event_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.mp_processing_time_ms",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.screen_width",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.wifi",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.app_release",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.app_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.os",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.mp_device_model",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.city",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.os_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.mp_country_code",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.lib_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.manufacturer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.radio",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.carrier",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.screen_height",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.app_build_number",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.model",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.region",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.app_version_string",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.mp_lib",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.initial_referring_domain",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.device_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.referrer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.current_url",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.browser",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.browser_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.initial_referrer",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.search_engine",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.referring_domain",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.bluetooth_version",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.has_nfc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.brand",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.has_telephone",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.screen_dpi",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.google_play_services",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.had_persisted_distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.bluetooth_enabled",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.ios_ifa",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.device",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.mp_keyword",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.distinct_id_before_identity",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "event.ae_session_length",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "case",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "case",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event._file",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "case",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "case",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "case",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event._fivetran_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.distinct_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.properties",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "case",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "event.insert_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "event.time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "event._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: d60e230df2af (d60e230df2af); fix: your working tree (20 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 6 models; compiled SQL changed in mixpanel__daily_events, mixpanel__event, mixpanel__monthly_events, mixpanel__sessions, stg_mixpanel__event_tmp, stg_mixpanel__user_first_event; comparing mixpanel__daily_events, mixpanel__event, mixpanel__monthly_events, mixpanel__sessions (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (1 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:47:03Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_mixpanel",
+    "base": "d60e230df2af",
+    "base_commit": "d60e230df2af37b69dbca26e3fc56b4495dbb6d5",
+    "path": "/home/runner/work/_temp/clones/dbt_mixpanel/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs mixpanel__daily_events,mixpanel__event,mixpanel__monthly_events,mixpanel__sessions {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

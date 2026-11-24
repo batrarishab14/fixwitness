@@ -1,0 +1,32 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/google_ads@v1.3.1/out/report.html
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | no valid input could be compared (the original failed on all of them) |
+
+Not checked: `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `ca35c0908798` (original) vs working tree (fix); changed: `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/index.html`, `docs/manifest.json` and 6 more. dbt project: changed `stg_google_ads__campaign_history`; compared `google_ads__ad_group_report`, `google_ads__ad_report`, `google_ads__campaign_bid_modifiers_report`, `google_ads__campaign_budget_diagnostics_report`, `google_ads__campaign_report`, `google_ads__keyword_report`, `google_ads__search_term_report`, `google_ads__url_report`; SQL on warehouse; tables `campaign_budget_history_data` (campaign_budget_history_data.csv), `account_history_data` (account_history_data.csv), `ad_history_data` (ad_history_data.csv), `ad_group_criterion_history_data` (ad_group_criterion_history_data.csv), `campaign_stats_data` (campaign_stats_data.csv), `keyword_stats_data` (keyword_stats_data.csv), `ad_group_history_data` (ad_group_history_data.csv), `campaign_bid_modifier_history_data` (campaign_bid_modifier_history_data.csv), `ad_stats_data` (ad_stats_data.csv), `search_term_keyword_stats_data` (search_term_keyword_stats_data.csv), `campaign_criterion_history_data` (campaign_criterion_history_data.csv), `campaign_history_data` (campaign_history_data.csv), `campaign_bidding_strategy_history_data` (campaign_bidding_strategy_history_data.csv), `ad_group_stats_data` (ad_group_stats_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 0 comparable valid inputs give the same output |
+| Not comparable | 298 valid inputs made the original fail too |
+| Needs review | 0 of 2 inputs in review categories (inputs that break your dbt tests (stg_google_ads__campaign_stats: not_null(campaign_id))) differ |
+
+**Why:** no valid input could be compared (the original failed on all of them).
+
+- Note: the original failed on the sample itself: fixwitness.sqlrun: query failed: UndefinedColumn: column "end_date_time" does not exist
+LINE 16:             end_date_time as end_date_time,
+                     ^
+- Note: 298 valid inputs could not be compared because the original failed on them
+
+Proof ID `5317fdca069d6108` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/google_ads@v1.3.1/out/integration_tests_dbt_project/proof.json`
+

@@ -1,0 +1,4264 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "fff018394e757c2aa39d2d82f973be81f9447c74c2bb5eaa84c647b05cdf8b1b",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "073c44e7b5bb6fa4c3d021b3c8a37e753a6c1e5e",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "3d385466b91f7885acf9ea0cbbc9f07d6fb7d67836625c948d69d7eeff3a898e"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "bd8cc4faf230411562f9c6ef9f0bffd2387366fa0a06095da11892af778d46a5"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "2a5dab9a6b0aa1d8b55c1140beebbab121c073fc7c7885dc210bb96315cd299b"
+      },
+      {
+        "path": "models/intermediate/int_github__issue_joined.sql",
+        "status": "M",
+        "sha256": "820f08356e8d112f0a4d335d71cc829218ea4a26882acf117ac97a4d90d614f9"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "github__issues",
+        "github__pull_requests"
+      ],
+      "compared": [
+        "github__daily_metrics",
+        "github__issues",
+        "github__monthly_metrics",
+        "github__pull_requests",
+        "github__quarterly_metrics",
+        "github__weekly_metrics"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "github_requested_reviewer_history_data": {
+        "name": "github_requested_reviewer_history_data.csv",
+        "sha256": "91225ac95874fc314f772530dfcb6ece74f35c292ea5bba53ff86b599b902743"
+      },
+      "github_issue_comment_data": {
+        "name": "github_issue_comment_data.csv",
+        "sha256": "6cc173c061308bc4de703c7c5d0fc30228b2c86117ed7db1daf9decf1a4238cd"
+      },
+      "github_label_data": {
+        "name": "github_label_data.csv",
+        "sha256": "f47357ad7761ae8e671c889ce5e385f6916b78cb669dfc65f09bacea1ecafb1f"
+      },
+      "github_issue_assignee_data": {
+        "name": "github_issue_assignee_data.csv",
+        "sha256": "fe25fadc4593349b873b50da5e2e2fbf436cbb3c1bcfe325c3340c64a7d8972b"
+      },
+      "github_pull_request_data": {
+        "name": "github_pull_request_data.csv",
+        "sha256": "1e27d3e9b6881a3fda6402b048071032411d81612ff4b2009d852a194b137006"
+      },
+      "github_team_data": {
+        "name": "github_team_data.csv",
+        "sha256": "a3916608387192c2bcec219067bd19e3280a23a3d4f546390e5d7e9aa16420bd"
+      },
+      "github_issue_label_data": {
+        "name": "github_issue_label_data.csv",
+        "sha256": "847ef3245b5610a81f3d8e91b4787d24829b2b0d3d064c529a61d430e90f0585"
+      },
+      "github_issue_closed_history_data": {
+        "name": "github_issue_closed_history_data.csv",
+        "sha256": "5f281ce9e29e69280633dc6aae2e9f8028c86815442821a608bb793c82aab3f1"
+      },
+      "github_issue_merged_data": {
+        "name": "github_issue_merged_data.csv",
+        "sha256": "397efa928dca45bafbdc11219b3335265bd9a6cce1447c02e07c0bf53ddaba31"
+      },
+      "github_repository_data": {
+        "name": "github_repository_data.csv",
+        "sha256": "78cd55c70468340db27d24a3fc299fc8c191129ca26ea80620a0d796a608a1a4"
+      },
+      "github_repo_team_data": {
+        "name": "github_repo_team_data.csv",
+        "sha256": "3a16bf772f5f15231f0d7e26c116041543fad5a9dbdabbdfec30ddd063058722"
+      },
+      "github_user_data": {
+        "name": "github_user_data.csv",
+        "sha256": "5d101839c6a685fac17231a071c6516f3ac668b133d7a96a83d97ede20f16e46"
+      },
+      "github_issue_data": {
+        "name": "github_issue_data.csv",
+        "sha256": "6eabcc9bc0920d64775f8058446b279e803384a2205f18a07d7a2f1ebcf89286"
+      },
+      "github_pull_request_review_data": {
+        "name": "github_pull_request_review_data.csv",
+        "sha256": "4bdebf989d5e5d1bf41df343300be0a7e2a12f74b8148de6a97e75118edf0efa"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs github__daily_metrics,github__issues,github__monthly_metrics,github__pull_requests,github__quarterly_metrics,github__weekly_metrics {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_github__issue: unique(issue_id)",
+      "stg_github__issue_closed_history: unique_combination_of_columns(issue_id, updated_at)",
+      "stg_github__issue_comment: unique(issue_comment_id)",
+      "stg_github__label: unique(label_id)",
+      "stg_github__pull_request_review: unique(pull_request_review_id)",
+      "stg_github__repo_team: not_null(repository_id)",
+      "stg_github__repo_team: not_null(team_id)",
+      "stg_github__repository: unique(repository_id)",
+      "stg_github__team: unique(team_id)",
+      "stg_github__user: unique(user_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "github__daily_metrics",
+        "github__issues",
+        "github__monthly_metrics",
+        "github__pull_requests",
+        "github__quarterly_metrics",
+        "github__weekly_metrics"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 209 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 12,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 275,
+    "identical": 12,
+    "changed": 209,
+    "not_comparable": 0,
+    "review_inputs": 25,
+    "review_differences": 18,
+    "expected_change": 0,
+    "unstable": 61
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "flip",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_label_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_assignee_data.user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_pull_request_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_pull_request_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_pull_request_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_pull_request_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_pull_request_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_team_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_label_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_label_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_label_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_label_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "github_issue_label_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_label_data.label_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_label_data.label_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_label_data.label_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_label_data.label_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "github_issue_label_data.label_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_label_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_label_data.label_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_closed_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_issue_closed_history_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_merged_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_merged_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_merged_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_merged_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_merged_data.merged_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_merged_data.merged_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "github_issue_merged_data.merged_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_merged_data.issue_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_merged_data.merged_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_issue_merged_data.merged_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_repository_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_repository_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_repository_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_repository_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_repository_data.full_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_repository_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_repository_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_repo_team_data.repository_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_repo_team_data.repository_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "empty",
+      "kind": "review",
+      "column": "github_repo_team_data.repository_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_repo_team_data.repository_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_repo_team_data.team_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_repo_team_data.team_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "empty",
+      "kind": "review",
+      "column": "github_repo_team_data.team_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_repo_team_data.team_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "null-column",
+      "kind": "review",
+      "column": "github_repo_team_data.repository_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "null-column",
+      "kind": "review",
+      "column": "github_repo_team_data.team_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_user_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_user_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_user_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_user_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_user_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_user_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_user_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_user_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_user_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_user_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_user_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_user_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.closed_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.closed_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_data.closed_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.created_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.created_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_data.created_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.milestone_id",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.milestone_id",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.pull_request",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.pull_request",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_data.pull_request",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_data.repository_id",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_data.repository_id",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.repository_id",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.repository_id",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.updated_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.updated_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_data.updated_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_data.user_id",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_data.user_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_data.user_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_data.user_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.closed_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.created_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.milestone_id",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.pull_request",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.repository_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.updated_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_data.user_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_data.body",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_data.state",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_data.title",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_issue_data.closed_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_issue_data.created_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "flip",
+      "kind": "valid",
+      "column": "github_issue_data.pull_request",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_issue_data.updated_at",
+      "family": null,
+      "status": "unstable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.pull_request_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.body",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "case",
+      "kind": "valid",
+      "column": "github_pull_request_review_data.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 073c44e7b5bb (073c44e7b5bb); fix: your working tree (4 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 34 models; compiled SQL changed in github__issues, github__pull_requests; comparing github__daily_metrics, github__issues, github__monthly_metrics, github__pull_requests, github__quarterly_metrics, github__weekly_metrics (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (14 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): github_issue_assignee_data.issue_id -> github_issue_data.id, github_issue_assignee_data.user_id -> github_user_data.id",
+    "dbt tests not used as rules, because the sample itself breaks them: stg_github__issue_assignee: unique_combination_of_columns(issue_id, user_id)",
+    "the project's dbt tests are used as rules on the input tables (19: github_label_data.id not_null, github_label_data.id unique, github_issue_closed_history_data.issue_id+updated_at unique, github_issue_comment_data.id unique, github_issue_comment_data.id not_null, github_issue_data.id unique, github_issue_data.id not_null, github_pull_request_review_data.id unique, github_pull_request_review_data.id not_null, github_pull_request_data.id unique, github_pull_request_data.id not_null, github_repo_team_data.repository_id not_null, ...); 25 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [
+    "61 inputs were left out: on them the original's own output changes from run to run (for example ties in ORDER BY or row_number()), so a difference there is not the change's (cases 132, 205, 206, 207, 209, 210, 211, 212)"
+  ],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "value": "<tables as given>",
+      "status": "changed",
+      "explanation": "If the file is tables as given, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_requested_reviewer_history_data` row has an empty `created_at`, in `github__issues`, `url_link` for 713211321 changes from 'https://github.com/2463fd7267062bf80a12…' to 'https://github.com/2463fd7267062bf80a12…'.",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "value": "2019-12-14 02:07:16",
+      "status": "changed",
+      "explanation": "If `created_at` repeats the value of another row ('2019-12-14 02:07:16'), in `github__issues`, `url_link` for 713211321 changes from 'https://github.com/2463fd7267062bf80a12…' to 'https://github.com/2463fd7267062bf80a12…'.",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "value": "2019-03-03 12:58:01 | 2019-03-03 12:58:01",
+      "status": "changed",
+      "explanation": "If two `github_requested_reviewer_history_data` rows of the same group have `created_at` = '2019-03-03 12:58:01' and '2019-03-03 12:58:01', in `github__issues`, `url_link` for 619852120 changes from 'https://github.com/a1f48d08072c3b24b0c2…' to 'https://github.com/a1f48d08072c3b24b0c2…' (and 6 more cells).",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `pull_request_id` is the number 0, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `pull_request_id` has extra spaces (' 42 '), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_requested_reviewer_history_data` row has an empty `pull_request_id`, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "value": "398307573",
+      "status": "changed",
+      "explanation": "If `pull_request_id` repeats the value of another row (398307573), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `requested_id` is the number 0, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `requested_id` has extra spaces (' 42 '), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_requested_reviewer_history_data` row has an empty `requested_id`, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "value": "54283769",
+      "status": "changed",
+      "explanation": "If `requested_id` repeats the value of another row (54283769), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_requested_reviewer_history_data` row has an empty `removed`, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "value": "FALSE",
+      "status": "changed",
+      "explanation": "If `removed` repeats the value of another row ('FALSE'), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4447685185187 to 2922.4447800925923 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "value": "FALSE | false",
+      "status": "changed",
+      "explanation": "If two `github_requested_reviewer_history_data` rows of the same group have `removed` = 'FALSE' and 'false', in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4447685185187 to 2922.4447800925923 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `created_at` in `github_requested_reviewer_history_data` is empty (NULL), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4447685185187 to 2922.4447800925923 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.pull_request_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `pull_request_id` in `github_requested_reviewer_history_data` is empty (NULL), in `github__daily_metrics`, `sum_days_pr_open` for '2019-01-14T00:00:00' changes from 2871.1181018518523 to 2871.118113425926 (and 177 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.requested_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `requested_id` in `github_requested_reviewer_history_data` is empty (NULL), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4447800925923 to 2922.444791666667 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "018",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `removed` in `github_requested_reviewer_history_data` is empty (NULL), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4447800925923 to 2922.444791666667 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.created_at",
+      "family": null,
+      "value": "2019-03-03 00:00:00",
+      "status": "changed",
+      "explanation": "If a `github_requested_reviewer_history_data` row has `created_at` = '2019-03-03 00:00:00', in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4447800925923 to 2922.444791666667 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "flip",
+      "kind": "valid",
+      "column": "github_requested_reviewer_history_data.removed",
+      "family": null,
+      "value": "true",
+      "status": "changed",
+      "explanation": "If a `github_requested_reviewer_history_data` row has `removed` set to 'true', in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.444791666667 to 2922.4448032407404 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `body` is 'a; \"b\"', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_issue_comment_data` row has an empty `body`, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "Ünïcødé",
+      "status": "changed",
+      "explanation": "If `body` is 'Ünïcødé', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "north-east",
+      "status": "changed",
+      "explanation": "If `body` is 'north-east', in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4448032407404 to 2922.444814814815 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "025",
+      "category": "long",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+      "status": "changed",
+      "explanation": "If `body` is 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "026",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "comma, inside",
+      "status": "changed",
+      "explanation": "If `body` is 'comma, inside', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "O'Brien",
+      "status": "changed",
+      "explanation": "If `body` is 'O'Brien', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "e90742eca10b5ab897384ac02ae9d88d5e643064e87fbd42c11739fa17c194bd",
+      "status": "changed",
+      "explanation": "If `body` repeats the value of another row ('e90742eca10b5ab897384ac02ae9d88d5e64306…'), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.444814814815 to 2922.4448263888885 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "*",
+      "status": "changed",
+      "explanation": "If `body` is '*', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "030",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "9bb7ac995d1ffa10d8bd2dc427b5d5c290be24753f8c48332e8038b108f97a7c | 9BB7AC995D...",
+      "status": "changed",
+      "explanation": "If two `github_issue_comment_data` rows of the same group have `body` = '9bb7ac995d1ffa10d8bd2dc427b5d5c290be247…' and '9BB7AC995D1FFA10D8BD2DC427B5D5C290BE247…', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_issue_comment_data` row has an empty `created_at`, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "value": "2019-07-25 00:04:12",
+      "status": "changed",
+      "explanation": "If `created_at` repeats the value of another row ('2019-07-25 00:04:12'), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "value": "2018-12-28 16:23:44 | 2018-12-28 16:23:44",
+      "status": "changed",
+      "explanation": "If two `github_issue_comment_data` rows of the same group have `created_at` = '2018-12-28 16:23:44' and '2018-12-28 16:23:44', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "034",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `issue_id` is the number 0, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `issue_id` has extra spaces (' 42 '), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_issue_comment_data` row has an empty `issue_id`, in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "value": "686391309",
+      "status": "changed",
+      "explanation": "If `issue_id` repeats the value of another row (686391309), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4448495370366 to 2922.444861111111 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_issue_comment_data` row has an empty `updated_at`, in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4448495370366 to 2922.444861111111 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "value": "2018-11-30 20:25:04",
+      "status": "changed",
+      "explanation": "If `updated_at` repeats the value of another row ('2018-11-30 20:25:04'), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4448495370366 to 2922.444861111111 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "pairs",
+      "kind": "review",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "value": "2019-02-25 05:56:53 | 2019-02-25 05:56:53",
+      "status": "changed",
+      "explanation": "If two `github_issue_comment_data` rows of the same group have `updated_at` = '2019-02-25 05:56:53' and '2019-02-25 05:56:53', in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `user_id` is the number 0, in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.444861111111 to 2922.4448726851847 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `user_id` has extra spaces (' 42 '), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.444861111111 to 2922.4448726851847 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `github_issue_comment_data` row has an empty `user_id`, in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.444861111111 to 2922.4448726851847 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "value": "38415991",
+      "status": "changed",
+      "explanation": "If `user_id` repeats the value of another row (38415991), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.body",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `body` in `github_issue_comment_data` is empty (NULL), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4448726851847 to 2922.4448842592597 (and 41 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.sum_days_issue_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open, github__monthly_metrics.longest_days_issue_open, github__quarterly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "046",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.created_at",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `created_at` in `github_issue_comment_data` is empty (NULL), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "047",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.issue_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `issue_id` in `github_issue_comment_data` is empty (NULL), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    },
+    {
+      "id": "048",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.updated_at",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `updated_at` in `github_issue_comment_data` is empty (NULL), in `github__daily_metrics`, `sum_days_issue_open` for '2018-11-24T00:00:00' changes from 2922.4448842592597 to 2922.4448958333337 (and 219 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'",
+        "left out on this input because the original's own output changes from run to run: github__daily_metrics.longest_days_issue_open, github__daily_metrics.longest_days_pr_open, github__daily_metrics.sum_days_issue_open, github__daily_metrics.sum_days_pr_open, github__issues.days_issue_open, github__monthly_metrics.avg_days_issue_open"
+      ]
+    },
+    {
+      "id": "049",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "github_issue_comment_data.user_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `user_id` in `github_issue_comment_data` is empty (NULL), in `github__issues`, `url_link` for 592969404 changes from 'https://github.com/6e5ef3e6ef42a78ea2e2…' to 'https://github.com/6e5ef3e6ef42a78ea2e2…' (and 29 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "github__issues: row 1, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 2, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 3, url_link: 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...' -> 'https://github.com/6e5ef3e6ef42a78ea2e20ed87de04a989e4712e28889db0f0b754341fe...'",
+        "github__issues: row 4, url_link: 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...' -> 'https://github.com/b076df8e31db30376e70a8ff1a073baf8cce3a2a543b8af5fd1127a4e1...'",
+        "github__issues: row 5, url_link: 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...' -> 'https://github.com/761f956cf4531e1f320718180c76c9e1ee21c2267cf4a0666a21ebf584...'"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:43:23Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_github",
+    "base": "073c44e7b5bb",
+    "base_commit": "073c44e7b5bb6fa4c3d021b3c8a37e753a6c1e5e",
+    "path": "/home/runner/work/_temp/clones/dbt_github/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs github__daily_metrics,github__issues,github__monthly_metrics,github__pull_requests,github__quarterly_metrics,github__weekly_metrics {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

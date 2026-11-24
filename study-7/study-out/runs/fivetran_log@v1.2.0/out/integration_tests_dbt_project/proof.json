@@ -1,0 +1,4199 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "ef991f3667337aebf2c176e4372a9786b433fc9796514dbf7a5ba94cd775ef9f",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "6864ac3e60f107890c3ebd1aa1e4519f4f54d0e2",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".gitignore",
+        "status": "M",
+        "sha256": "324da6a8da21aa2238f757ef3590ac59ced85ce780b22ec47adb753a9398d6f4"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "01c43b91e97d2ae697dd6eefcaaec0203a2ef9dab849dee6488b0a4d7690bc64"
+      },
+      {
+        "path": "README.md",
+        "status": "M",
+        "sha256": "e197da135fa572107593dff6660f3def200c9cb9d50a79d47dd41a23512459f4"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "dd7e9846b3359785509b2b48d62a4f8d2959a3573ebff8c98cd78f433ebe206f"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "f6ae76d9184957acad1373a247c07776575bc311c0129f8b439643514a39cd78"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "d9b235cba8b18056cb06eefdfaeb053511e54de2eadd9891e7f84dd55ce6725e"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "591e0fb2a065063f33dc394e61397171b37fcc11da837ef7fc95cd9fb64295c4"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "4e4cc55d5d489743e7559ae2835bb154660682b5eb95068436996de2fbaa6123"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "a8b05152bf541615d1eb453556a2c537105de60ad243162c18c13f078ab5fdbe"
+      },
+      {
+        "path": "integration_tests/requirements.txt",
+        "status": "M",
+        "sha256": "7b7c4ce7f9376e5eb3f62504d6b7baf95b7cae0106aaa71477dfd2fef0c8bc27"
+      },
+      {
+        "path": "models/fivetran_platform.yml",
+        "status": "M",
+        "sha256": "1a5cdf61835a8c385d99ef501fb58022f5ee493ef807660a3e25e533fc035e57"
+      },
+      {
+        "path": "models/fivetran_platform__audit_table.sql",
+        "status": "M",
+        "sha256": "3e16bab2e4677b30d8763f71f512cdc73366806853ce24d7b35a169c4db0b8cb"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "fivetran_platform__audit_table"
+      ],
+      "compared": [
+        "fivetran_platform__audit_table"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "connector": {
+        "name": "connector.csv",
+        "sha256": "1eaeac6c7f2c7fe2ed5fe22e76b41dc680b4b29bf507b6f532853e8da116e981"
+      },
+      "destination": {
+        "name": "destination.csv",
+        "sha256": "15f1a06c430d4bad1d0e7cfe516d3e019f901b9904c3668d52b6a396fbca7147"
+      },
+      "log": {
+        "name": "log.csv",
+        "sha256": "4669da87f8807fb244a197576689a4bedb85bef60bf58742de1f548764849931"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs fivetran_platform__audit_table {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_fivetran_platform__destination: not_null(destination_id)",
+      "stg_fivetran_platform__destination: unique(destination_id)",
+      "stg_fivetran_platform__log: unique_combination_of_columns(log_id, created_at)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "fivetran_platform__audit_table"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 237 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 52,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 289,
+    "identical": 52,
+    "changed": 237,
+    "not_comparable": 0,
+    "review_inputs": 11,
+    "review_differences": 9,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "connector",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "connector",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "long",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "connector._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "long",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "long",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "long",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "long",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector.paused",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "connector.paused",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector.paused",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector.signed_up",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "connector.signed_up",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "connector.signed_up",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "connector._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "connector.paused",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "connector.signed_up",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "connector",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "connector._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "flip",
+      "kind": "valid",
+      "column": "connector.paused",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "connector.signed_up",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "destination",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "schema",
+      "kind": "valid",
+      "column": "destination",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "destination",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "empty",
+      "kind": "review",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "long",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "long",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "long",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "empty",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "long",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "pairs",
+      "kind": "review",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "null-column",
+      "kind": "review",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "destination",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "case",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "destination.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "destination._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "destination.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "log",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "schema",
+      "kind": "valid",
+      "column": "log",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "log",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "empty",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "long",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "pairs",
+      "kind": "review",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.connector_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.message_event",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.transformation_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "case",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "log.sync_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 6864ac3e60f1 (6864ac3e60f1); fix: your working tree (12 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 20 models; compiled SQL changed in fivetran_platform__audit_table; comparing fivetran_platform__audit_table (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (3 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (8: destination.id unique, destination.id not_null, log.id+time_stamp unique, account.id unique, account.id not_null, destination_membership.destination_id+user_id unique, user.id unique, user.id not_null); 11 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "connector",
+      "family": null,
+      "value": "<sample as given>",
+      "status": "changed",
+      "explanation": "If the file is sample as given, in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "schema",
+      "kind": "valid",
+      "column": "connector",
+      "family": null,
+      "value": "<extra column at the end>",
+      "status": "changed",
+      "explanation": "If the input has another column layout (<extra column at the end>), in `fivetran_platform__audit_table`, `unique_table_sync_key` for 'intrinsic_departed' changes from 'd3c8a788662a6838843f04047d7d06e9' to 'a26d7efa3e1149bcf76cd582cfa8397d'.",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'a; \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connecting_user_id",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `connecting_user_id` is 'a; \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `connector_name` is 'a; \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_type",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `connector_type` is 'a; \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `destination_id` is 'a; \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector",
+      "family": null,
+      "value": "a; \"b\" (in an added 'note' column)",
+      "status": "changed",
+      "explanation": "If a value is 'a; \"b\" (in an added 'note' column)', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `connector_id` is '\"a\"; b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `connector_name` is '\"a\"; b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "\"a\"; b",
+      "status": "changed",
+      "explanation": "If `destination_id` is '\"a\"; b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "a;b;c",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'a;b;c', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "a;b;c",
+      "status": "changed",
+      "explanation": "If `connector_name` is 'a;b;c', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "a;b;c",
+      "status": "changed",
+      "explanation": "If `destination_id` is 'a;b;c', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "014",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'a\t \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "changed",
+      "explanation": "If `connector_name` is 'a\t \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "a\t \"b\"",
+      "status": "changed",
+      "explanation": "If `destination_id` is 'a\t \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "changed",
+      "explanation": "If `connector_id` is '\"a\"\t b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "018",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "changed",
+      "explanation": "If `connector_name` is '\"a\"\t b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "\"a\"\t b",
+      "status": "changed",
+      "explanation": "If `destination_id` is '\"a\"\t b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'a\tb\tc', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "changed",
+      "explanation": "If `connector_name` is 'a\tb\tc', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "022",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "a\tb\tc",
+      "status": "changed",
+      "explanation": "If `destination_id` is 'a\tb\tc', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'a| \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "changed",
+      "explanation": "If `connector_name` is 'a| \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "025",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "a| \"b\"",
+      "status": "changed",
+      "explanation": "If `destination_id` is 'a| \"b\"', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "026",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "changed",
+      "explanation": "If `connector_id` is '\"a\"| b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "changed",
+      "explanation": "If `connector_name` is '\"a\"| b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "\"a\"| b",
+      "status": "changed",
+      "explanation": "If `destination_id` is '\"a\"| b', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "a|b|c",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'a|b|c', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "030",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.connector_name",
+      "family": null,
+      "value": "a|b|c",
+      "status": "changed",
+      "explanation": "If `connector_name` is 'a|b|c', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from 'cdff13c70b5a69488f3697fc11f1ea10' to '6808881ca15f4b07b459a40598039791' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: 'cdff13c70b5a69488f3697fc11f1ea10' -> '6808881ca15f4b07b459a40598039791'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '843d505636dbf0ab906d8f941bf89fc2' -> '5fb92a0ce8dab35f4a5b506b7dec93cd'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'a15ce8bdd5232efbfe38a85362d5b9c6' -> 'c191f243eba66678f08f83ec28ce6d64'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: '6ed3756c63a392795229310bdabc1b06' -> '1d016e0993286e783946c3cb2b9fd99a'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '2d069af8e20ff022611439e853370b46' -> 'b24fff6796055d9ec84b45c2c5e30390'"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "connector.destination_id",
+      "family": null,
+      "value": "a|b|c",
+      "status": "changed",
+      "explanation": "If `destination_id` is 'a|b|c', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "  padded  ",
+      "status": "changed",
+      "explanation": "If `connector_id` has extra spaces ('  padded  '), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "multiple   spaces",
+      "status": "changed",
+      "explanation": "If `connector_id` has extra spaces ('multiple   spaces'), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "034",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "tab\tinside",
+      "status": "changed",
+      "explanation": "If `connector_id` has extra spaces ('tab\tinside'), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "trailing ",
+      "status": "changed",
+      "explanation": "If `connector_id` has extra spaces ('trailing '), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "  leading",
+      "status": "changed",
+      "explanation": "If `connector_id` has extra spaces ('  leading'), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": " ",
+      "status": "changed",
+      "explanation": "If `connector_id` has extra spaces (' '), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `connector` row has an empty `connector_id`, in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "Ünïcødé",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'Ünïcødé', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "日本語",
+      "status": "changed",
+      "explanation": "If `connector_id` is '日本語', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "emoji 📈",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'emoji 📈', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "café",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'café', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "naïve",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'naïve', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "044",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "Ελλάδα",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'Ελλάδα', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "Straße",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'Straße', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "046",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "İstanbul",
+      "status": "changed",
+      "explanation": "If `connector_id` is 'İstanbul', in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "047",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "UPPER",
+      "status": "changed",
+      "explanation": "If `connector_id` is written in another case ('UPPER'), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "048",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "lower",
+      "status": "changed",
+      "explanation": "If `connector_id` is written in another case ('lower'), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    },
+    {
+      "id": "049",
+      "category": "case",
+      "kind": "valid",
+      "column": "connector.connector_id",
+      "family": null,
+      "value": "MiXeD",
+      "status": "changed",
+      "explanation": "If `connector_id` is written in another case ('MiXeD'), in `fivetran_platform__audit_table`, `unique_table_sync_key` changes from '83ebf1a920fc9bc1c18befedefdd2b12' to 'a26d7efa3e1149bcf76cd582cfa8397d' (and 5 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "fivetran_platform__audit_table: row 1, unique_table_sync_key: '83ebf1a920fc9bc1c18befedefdd2b12' -> 'a26d7efa3e1149bcf76cd582cfa8397d'",
+        "fivetran_platform__audit_table: row 2, unique_table_sync_key: '9dd940a2492c9cbdd1bfdff47f49e5f3' -> '12bab09eed9bba93b782815db508df51'",
+        "fivetran_platform__audit_table: row 3, unique_table_sync_key: 'd1ae9203741f3d4e0af250a91e2213a5' -> 'de39799de28d5a70308322ccb7b25804'",
+        "fivetran_platform__audit_table: row 4, unique_table_sync_key: 'df3e43f653af024c977f8e8079ccc117' -> '738f412049a8521bdae02ed5a65a81ed'",
+        "fivetran_platform__audit_table: row 5, unique_table_sync_key: '898e94d52157604612a93efc686eae47' -> '26d55e89db3a86ad219131ce5e536533'"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:43:21Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_fivetran_log",
+    "base": "6864ac3e60f1",
+    "base_commit": "6864ac3e60f107890c3ebd1aa1e4519f4f54d0e2",
+    "path": "/home/runner/work/_temp/clones/dbt_fivetran_log/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs fivetran_platform__audit_table {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

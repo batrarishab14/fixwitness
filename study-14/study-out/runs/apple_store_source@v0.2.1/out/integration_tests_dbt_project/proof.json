@@ -1,0 +1,214 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "2df4d4590e3c16afcda9469f939ee8f59ef086096553158d593fea09a4fec640",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "dbd7c7fe73a90e52a0f94fbb90774bfbcc61f1f0",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "5443de39790e419d3ea7da6ea50f470ce6e0bb8d6170488edaa462e6874b2ce0"
+      },
+      {
+        "path": "README.md",
+        "status": "M",
+        "sha256": "d8a2a294c9a6b767a2e6741d83234931b7beb533f0b3568c8a196410b578a3ba"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "c96af48ddf0de11923567479c3843ff36e45a67b9674b854e80b23b833db7694"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "8cf3b5b36a7d71b3400ec3867c0b5f5ff00b5e437be3eef39e11fe24c0d5c103"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "bb840a55b54e917c417d78fa977700ffbff8fcc5d54d94652e706224a1cf4e0f"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "d97368beb25459af6e7ccbe892cf6fd6224e682fee0d52db11e935a924f9d654"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "d97d329caf78c7bc3db178fb5c767627456791da47a4143adf4c24313e664122"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "3b6b4af68fc00beaaebf7491bbb24de68494ec68760bd2b9b4e68f123bb3df90"
+      },
+      {
+        "path": "models/stg_apple_store__sales_subscription_events.sql",
+        "status": "M",
+        "sha256": "48ee5e49a6449e2c12f7fdc9c2a803e260c1c7885b2d566593408dc0c1a26e4b"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "stg_apple_store__sales_subscription_events"
+      ],
+      "compared": [
+        "stg_apple_store__sales_subscription_events"
+      ],
+      "adapter": "postgres"
+    },
+    "tables": {
+      "sales_subscription_events": {
+        "name": "sales_subscription_events.csv",
+        "sha256": "04c613e3c10db418886b7e313db88a9e2a074e2ea106de540fbc59d3a2d381de"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_apple_store__sales_subscription_events {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "stg_apple_store__sales_subscription_events"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 0,
+    "level": "LOW",
+    "components": {
+      "valid_inputs_identical": 1,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 1,
+    "identical": 1,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "sales_subscription_events",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: dbd7c7fe73a9 (dbd7c7fe73a9); fix: your working tree (9 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 32 models; compiled SQL changed in stg_apple_store__sales_subscription_events; comparing stg_apple_store__sales_subscription_events (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (1 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (14: app.id unique, app_store_source_type_device.date+app_id+source_type+device unique, app_store_platform_version_source_type.date+app_id+source_type+platform_version unique, app_store_territory_source_type.date+app_id+source_type+territory unique, crashes_app_version.date+app_id+device+app_version unique, crashes_platform_version.date+app_id+device+platform_version unique, downloads_source_type_device.date+app_id+source_type+device unique, downloads_platform_version_source_type.date+app_id+source_type+platform_version unique, downloads_territory_source_type.date+app_id+source_type+territory unique, sales_account.id unique, usage_app_version_source_type.date+app_id+source_type+app_version unique, usage_source_type_device.date+app_id+source_type+device unique, ...); no generated input breaks them"
+  ],
+  "warnings": [
+    "the original failed on the sample itself: fixwitness.sqlrun: value ' ' in sales_subscription_events.days_canceled is not an integer"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T16:49:47Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_apple_store_source",
+    "base": "dbd7c7fe73a9",
+    "base_commit": "dbd7c7fe73a90e52a0f94fbb90774bfbcc61f1f0",
+    "path": "/home/runner/work/_temp/clones/dbt_apple_store_source/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs stg_apple_store__sales_subscription_events {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}
