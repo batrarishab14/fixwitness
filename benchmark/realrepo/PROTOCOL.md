@@ -147,3 +147,8 @@ wrong for packages: the bug is in `lever__interview_enhanced`, a published mart,
 reads it, so only that other mart was compared and the duplicated rows did not show. fixwitness now
 compares every published model downstream of the change (dbt's structure: not staging or
 intermediate models), plus the final ones. The pilot was on an open report, not on a candidate.
+
+**2026-11-24, case budget.** Pilots showed that in packages with many seed tables the case cap
+(300) was spent on one case of every kind for every column before the columns named in the change
+got any. The columns the change touches now come first (`sql.generate_sql_cases`). This is the
+last change before the counted run.
