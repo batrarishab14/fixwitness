@@ -64,7 +64,8 @@ def _compile_patterns(patterns: list[str]) -> list[re.Pattern]:
     return compiled
 
 
-def _evaluate(case: Case, before: RunResult, after: RunResult, opts: CompareOptions) -> tuple[dict, list[str]]:
+def _evaluate(case: Case, before: RunResult, after: RunResult, opts: CompareOptions,
+              expected: CompareOptions | None = None) -> tuple[dict, list[str]]:
     entry = {
         "id": case.id, "category": case.category, "kind": case.kind, "column": case.column,
         "family": case.family, "value": _short(case.value),
@@ -84,6 +85,9 @@ def _evaluate(case: Case, before: RunResult, after: RunResult, opts: CompareOpti
                        + (after.error or ("timed out" if after.timed_out else _tail(after.stderr)) or "no output"))
     else:
         status, details = compare(before.output, after.output, opts)
+        if status == "changed" and expected is not None \
+                and compare(before.output, after.output, expected)[0] in ("identical", "same-data"):
+            status = "expected-change"  # only the columns the fix is meant to change differ
     entry["status"] = status
     return entry, details
 
@@ -388,6 +392,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
         opts.ignore_columns |= unstable
         warnings.append(f"ignored column(s) {', '.join(sorted(unstable))}: they change between two runs of the "
                         "original on the same input")
+    expected_opts = dataclasses.replace(opts, ignore_columns=opts.ignore_columns | set(cfg.expect_change)) \
+        if cfg.expect_change else None
     cases = _cases(plan, cfg)
     accepted = _accepted(cfg)
     if accepted:
@@ -409,7 +415,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             n_in, n_out = _data_rows(case.content), _data_rows(b.output)
             if n_in is not None and n_out is not None:
                 rows = (n_in, n_out)
-        entry, details = _evaluate(case, b, a, opts)
+        entry, details = _evaluate(case, b, a, opts, expected_opts)
         if entry["status"] in ("changed", "after-failed") and entry["kind"] != "attack":
             kept[case.id] = {"case": case, "original": b, "fix": a}
         return (entry, details), rows
@@ -439,6 +445,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
     still_open = [e for e in attacks if e["status"] == "still-exploitable"]
     changed = [e for e in valid if e["status"] in ("changed", "after-failed")]
     identical = [e for e in valid if e["status"] in ("identical", "same-data")]
+    expected = [e for e in valid + review if e["status"] == "expected-change"]
+    identical += [e for e in valid if e["status"] == "expected-change"]  # nothing but the expected change
     not_comparable = [e for e in valid if e["status"] == "not-comparable"]
     review_diffs = [e for e in review if e["status"] in ("changed", "after-failed")]
 
@@ -452,11 +460,26 @@ def _run(plan: Plan, cfg: Config) -> dict:
         reasons.append(f"the fix is still exploitable by {len(still_open)} of {len(attacks)} payloads "
                        f"({', '.join(fams)})")
     if changed:
-        reasons.append(f"the fix changes output on {len(changed)} valid inputs")
+        reasons.append(f"the fix changes more than {', '.join(cfg.expect_change)}: other output differs on "
+                       f"{len(changed)} valid inputs" if cfg.expect_change else
+                       f"the fix changes output on {len(changed)} valid inputs")
     if not identical and not changed:
         reasons.append("no valid input could be compared (the original failed on all of them)")
     incident_failed = bool(incident and incident["status"] in ("still-failing", "resolved-incorrectly"))
     verdict = "FAIL" if (still_open or changed or incident_failed) else ("INCONCLUSIVE" if not identical else "PASS")
+    if cfg.expect_change:
+        cols = ", ".join(cfg.expect_change)
+        if expected and verdict == "PASS":
+            notes_extra = [f"the expected change ({cols}) appears on {len(expected)} inputs, and nothing else "
+                           f"changes on any of the {len(identical)} compared inputs"]
+        elif not expected and verdict != "FAIL":
+            verdict = "INCONCLUSIVE"
+            reasons.append(f"no input changed {cols}: the change you expect did not show")
+            notes_extra = []
+        else:
+            notes_extra = []
+    else:
+        notes_extra = []
     if cfg.attacks and not reproduced:
         warnings.append("no built-in payload exploited the original, so 'hole closed' could not be demonstrated")
     if incident and incident["status"] == "not-reproduced":
@@ -481,6 +504,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "accepted": accepted or None,
             "attacks": cfg.attacks,
             "ignore_columns": sorted(cfg.ignore_columns),
+            "expect_change": sorted(cfg.expect_change) or None,
             "auto_ignored_columns": sorted(unstable),
             "ignore_patterns": list(cfg.ignore_patterns),
             "tolerance": cfg.tolerance,
@@ -511,6 +535,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "valid_inputs": len(valid), "identical": len(identical), "changed": len(changed),
             "not_comparable": len(not_comparable), "review_inputs": len(review),
             "review_differences": len(review_diffs),
+            "expected_change": len(expected),
         },
         "cases": [
             {k: e[k] for k in ("id", "category", "kind", "column", "family", "status")}
@@ -530,7 +555,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
     return {
         "proof_id": proof_id,
         **core,
-        "notes": plan.notes,
+        "notes": plan.notes + notes_extra,
         "warnings": warnings,
         "incident_details": incident_details,
         "differences": [
@@ -542,6 +567,12 @@ def _run(plan: Plan, cfg: Config) -> dict:
              "details": detail_map.get(e["id"], [])}
             for e in entries if e["status"] in ("changed", "after-failed", "still-exploitable")
         ][:50],
+        # Inputs on which only the expected columns changed: what the fix does, shown by example.
+        "expected_changes": [
+            {"id": e["id"], "category": e["category"], "column": e["column"], "value": e["value"],
+             "details": detail_map.get(e["id"], [])[:6]}
+            for e in entries if e["status"] == "expected-change"
+        ][:10] if cfg.expect_change else None,
         "categories": {k: (CATEGORY_DESCRIPTIONS | JSON_CATEGORY_DESCRIPTIONS).get(k, k)
                        for k in sorted({e["category"] for e in entries})},
         "limitations": LIMITATIONS,
@@ -552,6 +583,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
                 "accept": cfg.accept,
                 "attacks": cfg.attacks,
                 "rows": cfg.rows, "seed": cfg.seed, "ignore_columns": cfg.ignore_columns,
+                "expect_change": cfg.expect_change,
                 "ignore_patterns": cfg.ignore_patterns, "tolerance": cfg.tolerance, "unordered": cfg.unordered,
                 "auto_ignore_unstable": cfg.auto_ignore_unstable, "timeout": cfg.timeout,
                 "pass_env": cfg.pass_env, "allow_any_command": cfg.allow_any_command,

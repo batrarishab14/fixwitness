@@ -85,6 +85,9 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
     same = beh["changed"] == 0 and beh["identical"] > 0
     lines.append(f"| Data unchanged | {_mark(same)}: {beh['identical']} of {beh['identical'] + beh['changed']} "
                  f"comparable valid inputs give the same output |")
+    if proof["config"].get("expect_change"):
+        cols = ", ".join(f"`{c}`" for c in proof["config"]["expect_change"])
+        lines.append(f"| Expected change | {beh.get('expected_change', 0)} inputs changed only {cols} |")
     if beh["not_comparable"]:
         lines.append(f"| Not comparable | {beh['not_comparable']} valid inputs made the original fail too |")
     if beh["review_inputs"]:
@@ -115,6 +118,14 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
             else:
                 lines.append(f"- `{d['category']}` input {d['value']!r} in `{d['column']}`: {label}")
             for detail in d["details"][:2]:
+                lines.append(f"  - {_clip(detail, 200)}")
+        lines.append("")
+    shown = proof.get("expected_changes") or []
+    if shown:
+        lines += ["**What the fix changes (as expected):**", ""]
+        for e in shown[:3]:
+            lines.append(f"- case {e['id']}: `{e['category']}` input {e['value']!r} in `{e['column']}`")
+            for detail in e["details"][:3]:
                 lines.append(f"  - {_clip(detail, 200)}")
         lines.append("")
     if v == "PASS":

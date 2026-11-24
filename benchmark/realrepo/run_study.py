@@ -140,6 +140,8 @@ def run_issue(name: str, clones: Path, out: Path) -> dict:
                     c_["cases"] = b.get("valid_inputs")
                     c_["identical"] = b.get("identical")
                     c_["changed"] = b.get("changed")
+                    c_["expected_change"] = b.get("expected_change")
+                    c_["expected_examples"] = [e.get("details", [])[:3] for e in (proof.get("expected_changes") or [])[:3]]
                     c_["findings"] = [d.get("explanation") for d in proof.get("differences", [])[:8]]
             got["ok"] = summary is not None
         else:
@@ -166,6 +168,9 @@ def main() -> None:
     args.clones, args.out = args.clones.resolve(), args.out.resolve()  # fixwitness runs inside each clone
     rows = list(csv.DictReader((HERE / "candidates.csv").open(encoding="utf-8")))
     only = {x for x in args.only.split(",") if x}
+    # Real fixes found after the list was frozen: run only when named, and reported apart.
+    extra = list(csv.DictReader((HERE / "after_freeze.csv").open(encoding="utf-8")))
+    rows += [r for r in extra if r["id"] in only]
     issues = sorted(x[5:] for x in only if x.startswith("open:"))
     rows = [r for r in rows if r["id"] in only] if only else [r for r in rows if in_scope(r, args.all)]
     mine = [r for i, r in enumerate(rows) if i % args.shards == args.shard]

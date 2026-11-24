@@ -100,6 +100,9 @@ TOOLS = [
                                       "description": "Categories where differences are expected; reported, not failed."},
                 "ignore_columns": {"type": "array", "items": {"type": "string"},
                                    "description": "Output columns to leave out of the comparison."},
+                "expect_change": {"type": "array", "items": {"type": "string"},
+                                  "description": "For a bug fix: the output columns (model.column or column) it "
+                                                 "should change. PASS means only these changed."},
                 "ignore_patterns": {"type": "array", "items": {"type": "string"},
                                     "description": "Regexes masked out of compared values (e.g. timestamps)."},
                 "tolerance": {"type": "number", "minimum": 0, "description": "Relative numeric tolerance."},
@@ -131,6 +134,9 @@ TOOLS = [
             "properties": {
                 "base": {"type": "string", "description": "Git revision with the original. Default HEAD."},
                 "path": {"type": "string", "description": "Only changes under this folder or file."},
+                "expect_change": {"type": "array", "items": {"type": "string"},
+                                  "description": "For a bug fix: the output columns (model.column or column) it "
+                                                 "should change. PASS means nothing else changed."},
                 "attacks": {"type": "boolean", "description": "Run attack payloads on scripts (default true)."},
                 "engine": {"type": "string", "enum": ["auto", "duckdb", "sqlite"]},
                 "dialect": {"type": "string", "description": "SQL written for this warehouse (needs sqlglot)."},
@@ -176,6 +182,7 @@ def _prove_fix(args: dict) -> dict:
         "incident_expected": args.get("incident_expected_path"),
         "columns": args.get("columns"), "review": args.get("review_categories"),
         "ignore_columns": args.get("ignore_columns"), "ignore_patterns": args.get("ignore_patterns"),
+        "expect_change": args.get("expect_change"),
         "tolerance": args.get("tolerance"), "unordered": args.get("unordered"),
         "output": args.get("output"), "max_cases": args.get("max_cases"), "seed": args.get("seed"),
         "allow_any_command": False,  # MCP never runs programs outside the allow-list
@@ -213,7 +220,8 @@ def _prove_change(args: dict) -> dict:
     from fixwitness.changes import plan_items, run_items, summary_markdown
     cfg = load_config(None, {"base": args.get("base"), "path": args.get("path"), "attacks": args.get("attacks"),
                              "engine": args.get("engine"), "dialect": args.get("dialect"),
-                             "max_cases": args.get("max_cases"), "allow_any_command": False})
+                             "max_cases": args.get("max_cases"), "expect_change": args.get("expect_change"),
+                             "allow_any_command": False})
     items, skipped = plan_items(cfg)
     out_dir = Path(args["proof_dir"]) if args.get("proof_dir") else Path.cwd() / ".fixwitness"
     result = run_items(cfg, items, out_dir)

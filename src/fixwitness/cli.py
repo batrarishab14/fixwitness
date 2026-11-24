@@ -54,6 +54,7 @@ def _overrides(args: argparse.Namespace) -> dict:
         "run_after": args.run_after,
         "columns": _csv_list(args.columns), "review": _csv_list(args.review), "output": args.output,
         "ignore_columns": _csv_list(args.ignore_columns), "ignore_patterns": args.ignore_pattern or None,
+        "expect_change": _csv_list(getattr(args, "expect_change", None)),
         "tolerance": args.tolerance, "unordered": True if args.unordered else None,
         "auto_ignore_unstable": False if args.no_auto_ignore else None,
         "shrink": False if getattr(args, "no_shrink", False) else None,
@@ -389,6 +390,9 @@ def _selection_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--output", choices=["csv", "json", "text"],
                    help="how to compare outputs (default: json for JSON inputs, else csv)")
     p.add_argument("--ignore-columns", help="comma-separated output columns to leave out of the comparison")
+    p.add_argument("--expect-change", metavar="COLUMNS",
+                   help="for a bug fix: the output columns it should change (model.column or column, comma-separated); "
+                        "the check passes when nothing else changes")
     p.add_argument("--ignore-pattern", action="append", help="regex masked out of every compared value (repeatable)")
     p.add_argument("--tolerance", type=float, help="relative tolerance for numeric values, e.g. 1e-9")
     p.add_argument("--unordered", action="store_true", help="ignore row order")

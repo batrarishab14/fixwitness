@@ -54,6 +54,9 @@ class Config:
     output: str | None = None
     ignore_columns: list[str] = field(default_factory=list)
     ignore_patterns: list[str] = field(default_factory=list)
+    # A bug fix that should change some output columns (model.column or column): the check passes
+    # when those are the only columns that change, and says on which inputs they changed.
+    expect_change: list[str] = field(default_factory=list)
     tolerance: float = 0.0
     unordered: bool = False
     auto_ignore_unstable: bool = True
@@ -180,7 +183,7 @@ def load_config(path: Path | None, overrides: dict) -> Config:
     if unknown:
         raise ConfigError(f"unknown setting(s): {', '.join(unknown)}")
     cfg = Config(base_dir=base_dir, **data)
-    for name in ("columns", "review", "ignore_columns", "ignore_patterns", "pass_env"):
+    for name in ("columns", "review", "ignore_columns", "ignore_patterns", "expect_change", "pass_env"):
         value = getattr(cfg, name)
         if isinstance(value, str):
             setattr(cfg, name, [v.strip() for v in value.split(",") if v.strip()])

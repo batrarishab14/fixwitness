@@ -684,6 +684,40 @@ class LinkedKeysTests(TempDirTest):
         self.assertEqual(proof["cases"][0]["status"], "identical")  # the tables as given: nothing joins
 
 
+class ExpectChangeTests(TempDirTest):
+    """A bug fix names the output columns it should change; anything else changing is a finding."""
+
+    def _check(self, after_sql: str, expect: list[str]):
+        write(self.tmp / "orders.csv", ORDERS)
+        write(self.tmp / "customers.csv", CUSTOMERS)
+        write(self.tmp / "before.sql", REVENUE)
+        write(self.tmp / "after.sql", after_sql)
+        return self.check(before=str(self.tmp / "before.sql"), after=str(self.tmp / "after.sql"), engine="sqlite",
+                          tables={"orders": str(self.tmp / "orders.csv"), "customers": str(self.tmp / "customers.csv")},
+                          expect_change=expect, max_cases=120)
+
+    def test_only_the_expected_column_changes(self):
+        proof = self._check(REVENUE.replace("count(*)", "count(o.amount)"), ["orders"])
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertGreater(proof["behavior"]["expected_change"], 0)
+        self.assertTrue(any(c["status"] == "expected-change" for c in proof["cases"]))
+        self.assertTrue(any("nothing else changes" in n for n in proof["notes"]))
+        self.assertTrue(proof["expected_changes"] and proof["expected_changes"][0]["details"])
+        from fixwitness.report import markdown
+        self.assertIn("Expected change", markdown(proof))
+
+    def test_something_else_changes_too(self):
+        bad = REVENUE.replace("count(*)", "count(o.amount)").replace("sum(o.amount)", "sum(round(o.amount))")
+        proof = self._check(bad, ["orders"])
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertTrue(any("changes more than orders" in r for r in proof["reasons"]), proof["reasons"])
+
+    def test_the_expected_change_never_shows(self):
+        proof = self._check(REVENUE.replace("count(*)", "count(1)"), ["orders"])
+        self.assertEqual(proof["verdict"], "INCONCLUSIVE")
+        self.assertTrue(any("did not show" in r for r in proof["reasons"]), proof["reasons"])
+
+
 class TypedColumnTests(TempDirTest):
     """Booleans and timestamps typed by dbt (or a warehouse) are loaded and varied as such."""
 

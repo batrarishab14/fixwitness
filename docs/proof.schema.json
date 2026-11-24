@@ -36,6 +36,8 @@
         "output": {"enum": ["csv", "json", "text"]},
         "review": {"type": "array", "items": {"type": "string"}},
         "accepted": {"type": ["array", "null"], "description": "Differences marked as intended ([[accept]] in fixwitness.toml)."},
+        "expect_change": {"type": ["array", "null"], "items": {"type": "string"},
+                          "description": "For a bug fix: the output columns it is meant to change. Inputs on which only these differ have status expected-change."},
         "attacks": {"type": "boolean"},
         "sql": {"type": ["object", "null"]},
         "frame": {"type": ["object", "null"]},
@@ -74,8 +76,8 @@
         "type": "object", "required": ["id", "category", "kind", "status"],
         "properties": {
           "kind": {"enum": ["valid", "review", "attack"]},
-          "status": {"enum": ["identical", "same-data", "changed", "after-failed", "not-comparable",
-                              "blocked", "not-triggered", "still-exploitable"]}
+          "status": {"enum": ["identical", "same-data", "changed", "expected-change", "after-failed",
+                              "not-comparable", "blocked", "not-triggered", "still-exploitable"]}
         }
       }
     },
@@ -92,6 +94,7 @@
         }
       }
     },
+    "expected_changes": {"type": ["array", "null"], "description": "Up to 10 inputs on which only the expected columns changed, with the cells that changed."},
     "categories": {"type": "object", "additionalProperties": {"type": "string"}},
     "notes": {"type": "array", "items": {"type": "string"}},
     "warnings": {"type": "array", "items": {"type": "string"}},

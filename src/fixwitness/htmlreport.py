@@ -268,6 +268,10 @@ def _change_section(check: dict, idx: int, interactive: bool = False) -> str:
     if beh["changed"]:
         body.append(f"<p class=sub>{beh['changed']} of {compared} generated inputs gave a different result; "
                     f"{beh['identical']} gave the same.</p>")
+    elif verdict == "PASS" and proof["config"].get("expect_change"):
+        cols = ", ".join(proof["config"]["expect_change"])
+        body.append(f"<p class=sub>Only the expected columns ({E(cols)}) changed, on {beh.get('expected_change', 0)} "
+                    f"of {beh['identical']} generated inputs; everything else gave the same output.</p>")
     elif verdict == "PASS":
         body.append(f"<p class=sub>All {beh['identical']} generated inputs gave the same output.</p>")
     if other:

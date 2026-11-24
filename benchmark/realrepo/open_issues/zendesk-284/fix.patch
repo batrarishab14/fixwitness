@@ -1,0 +1,59 @@
+diff --git a/integration_tests/tests/integrity/ticket_summary_unreplied_count_match.sql b/integration_tests/tests/integrity/ticket_summary_unreplied_count_match.sql
+new file mode 100644
+index 0000000..bf4d117
+--- /dev/null
++++ b/integration_tests/tests/integrity/ticket_summary_unreplied_count_match.sql
+@@ -0,0 +1,35 @@
++{{ config(
++    tags="fivetran_validations",
++    enabled=var('fivetran_validation_tests_enabled', false)
++) }}
++
++-- check that the unreplied ticket counts in zendesk__ticket_summary match the tickets with no agent reply
++with metrics as (
++    select
++        source_relation,
++        sum(case when total_agent_replies = 0 then 1 else 0 end) as unreplied_ticket_count,
++        sum(case when total_agent_replies = 0 and lower(status) not in ('solved', 'closed') then 1 else 0 end)
++            as unreplied_unsolved_ticket_count
++    from {{ ref('zendesk__ticket_metrics') }}
++    group by 1
++),
++
++summary as (
++    select
++        source_relation,
++        unreplied_ticket_count,
++        unreplied_unsolved_ticket_count
++    from {{ ref('zendesk__ticket_summary') }}
++)
++
++select
++    metrics.source_relation,
++    metrics.unreplied_ticket_count as expected_unreplied_ticket_count,
++    summary.unreplied_ticket_count,
++    metrics.unreplied_unsolved_ticket_count as expected_unreplied_unsolved_ticket_count,
++    summary.unreplied_unsolved_ticket_count
++from metrics
++full join summary
++    using(source_relation)
++where coalesce(metrics.unreplied_ticket_count, -1) != coalesce(summary.unreplied_ticket_count, -2)
++    or coalesce(metrics.unreplied_unsolved_ticket_count, -1) != coalesce(summary.unreplied_unsolved_ticket_count, -2)
+diff --git a/models/zendesk__ticket_summary.sql b/models/zendesk__ticket_summary.sql
+index 0f8079d..975f89d 100644
+--- a/models/zendesk__ticket_summary.sql
++++ b/models/zendesk__ticket_summary.sql
+@@ -76,11 +76,11 @@ with ticket_metrics as (
+             then 1
+             else 0
+                 end) as unassigned_unsolved_ticket_count,
+-        sum(case when total_agent_replies < 0
++        sum(case when total_agent_replies = 0
+             then 1
+             else 0
+                 end) as unreplied_ticket_count,
+-        sum(case when total_agent_replies < 0 and lower(status) not in ('solved', 'closed')
++        sum(case when total_agent_replies = 0 and lower(status) not in ('solved', 'closed')
+             then 1
+             else 0
+                 end) as unreplied_unsolved_ticket_count,
