@@ -119,3 +119,11 @@ timestamps were text, so models using them failed on every input); keys are link
 when the sample's tables share no key values; true/false and time-boundary cases for typed
 columns; dbt errors are reported with dbt's own explanation; dbt compiles with the warehouse's
 own adapter when a warehouse is given. fixwitness's verdict rules are unchanged.
+
+**2026-11-24, seeds.** Many bug-fix commits also add seed rows that show the bug (for example
+"adjusted the invoice_line_item seed data to include quantity = 0"). The sample fixwitness uses
+must be the data available before anyone knew of the bug, so before each run the commit's
+changes to `.csv` files are undone in the working tree (changed files put back as in the parent,
+added files removed); only code changes are compared. The number of files put back is recorded
+per candidate (`seeds_restored`). A candidate that cannot be built without its new seed files is
+reported as not checked.
