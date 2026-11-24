@@ -25,7 +25,7 @@ Each changed file is checked the way that fits it. The sample data is found by n
 
 | Changed | Checked as |
 |---|---|
-| A file in a **dbt project** | The project built and compiled by dbt itself (with `dbt-duckdb`, or your warehouse's adapter with `--warehouse`), so macros and packages work; seeds are the sample tables, with the column types dbt gave them; a dbt package is built through its `integration_tests/` project; the final models downstream of the change are compared |
+| A file in a **dbt project** | The project built and compiled by dbt itself (with `dbt-duckdb`, or your warehouse's adapter with `--warehouse`), so macros and packages work; seeds are the sample tables, with the column types dbt gave them; a dbt package is built through its `integration_tests/` project; the published models downstream of the change (not staging or intermediate ones) are compared, and your dbt tests are used as rules on the inputs |
 | A **`.sql`** query | Its tables are the data files named after them (`orders.csv` for `orders`) |
 | A **pandas, polars or PySpark** function that changed | Called with the data files named after its parameters; each side uses the library it imports |
 | A **script** that reads CSV, JSON, JSON Lines or Parquet | Run on the sample next to it |

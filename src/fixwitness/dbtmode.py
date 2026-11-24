@@ -49,6 +49,7 @@ class Graph:
     seeds: dict[str, Path] = field(default_factory=dict)          # seed name -> CSV file
     sources: dict[str, tuple[str, str]] = field(default_factory=dict)  # table name -> (source, table)
     skipped: list[str] = field(default_factory=list)
+    paths: dict[str, str] = field(default_factory=dict)            # model -> its file in the project
     # The project's own dbt tests, as rules on the input tables: {"table", "columns", "test", "values",
     # "from"}. A generated input that breaks one is reviewed instead of failed: the project says such
     # data does not occur.
@@ -477,6 +478,7 @@ def read_manifest(manifest_path: Path, project: Path | None) -> Graph:
             if code is None:
                 raise DbtError(f"the manifest has no compiled SQL for {n['name']}: run `dbt compile`, not `dbt parse`")
             g.models[n["name"]] = code
+            g.paths[n["name"]] = n.get("original_file_path") or n.get("path") or ""
             by_id[uid] = n["name"]
             if n.get("relation_name"):
                 g.relations[n["relation_name"]] = n["name"]
@@ -655,6 +657,35 @@ def changed_models(g0: Graph, g1: Graph) -> list[str]:
     names = set(g0.models) | set(g1.models)
     return sorted(n for n in names if n not in g0.models or n not in g1.models
                   or _norm(bare_sql(g0, n)) != _norm(bare_sql(g1, n)))
+
+
+# dbt's project structure (staging, intermediate, marts): models in the first two layers are
+# building blocks; the rest are what people and tools query.
+INTERNAL_PREFIXES = ("stg_", "int_", "base_", "tmp_", "_")
+INTERNAL_DIRS = {"staging", "intermediate", "base", "tmp", "utils", "utilities", "util"}
+
+
+def is_published(g: Graph, name: str) -> bool:
+    folders = {p.lower() for p in Path(g.paths.get(name, "")).parts[:-1]}
+    return not (name.lower().startswith(INTERNAL_PREFIXES) or name.lower().endswith("_tmp") or folders & INTERNAL_DIRS)
+
+
+def compared_models(g: Graph, changed: list[str]) -> list[str]:
+    """The models to compare for a change: every published model (not staging or intermediate)
+    downstream of a changed model, or changed itself, and the final models. A mart that another
+    mart reads is compared too: people query it, and the mart that reads it may hide a difference
+    (a count distinct over duplicated rows)."""
+    readers: dict[str, set[str]] = {m: set() for m in g.models}
+    for m, deps in g.depends.items():
+        for d in deps:
+            readers.setdefault(d, set()).add(m)
+    reach, todo = set(), [c for c in changed if c in g.models]
+    while todo:
+        m = todo.pop()
+        if m not in reach:
+            reach.add(m)
+            todo += list(readers.get(m, ()))
+    return sorted({m for m in reach if is_published(g, m)} | set(final_downstream(g, changed)))
 
 
 def final_downstream(g: Graph, changed: list[str]) -> list[str]:

@@ -526,7 +526,7 @@ def dbt_project_for(cfg: Config, target: Path | None, root: Path) -> Path | None
 def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: tuple[Path, Path],
                projects: tuple[Path | None, Path | None], inputs: dict, replay: dict, notes: list[str],
                search_roots: list[Path]) -> Plan:
-    from fixwitness.dbtmode import (DbtError, changed_models, final_downstream, read_manifest, seed_sample,
+    from fixwitness.dbtmode import (DbtError, changed_models, compared_models, read_manifest, seed_sample,
                                     write_models)
     try:
         g0, g1 = read_manifest(manifests[0], projects[0]), read_manifest(manifests[1], projects[1])
@@ -536,11 +536,12 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
     if not changed:
         raise PlanError("no dbt model's compiled SQL changed between the two versions")
     outputs = list(cfg.sql_outputs) if cfg.sql_outputs and cfg.sql_outputs != ["all"] else (
-        sorted(g0.models) if cfg.sql_outputs == ["all"] else final_downstream(g0, changed))
+        sorted(g0.models) if cfg.sql_outputs == ["all"] else compared_models(g0, changed))
     if not outputs:
         raise PlanError(f"the changed models ({', '.join(changed)}) are new: there is no original to compare")
     notes.append(f"dbt: {len(g0.models)} models; compiled SQL changed in {', '.join(changed)}; comparing "
-                 f"{', '.join(outputs)} (the final models downstream of the change)")
+                 f"{', '.join(outputs)} (the published models downstream of the change: not staging or "
+                 f"intermediate; --sql-outputs all compares every model)")
     for skipped in sorted(set(g0.skipped) | set(g1.skipped)):
         notes.append(f"dbt: not run: {skipped}")
     # Tables: the seeds (cut to their first rows) and a sample for each source, of those the compared

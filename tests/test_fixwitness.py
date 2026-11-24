@@ -827,6 +827,19 @@ class DbtContractTests(TempDirTest):
         (self.tmp / "base.json").write_text(json.dumps(data))
         self.assertEqual(read_manifest(self.tmp / "base.json", self.tmp).contracts, [])
 
+    def test_published_models_downstream_are_compared(self):
+        """A mart that another mart reads is compared too; staging and intermediate models are not."""
+        from fixwitness.dbtmode import Graph, compared_models
+        g = Graph(adapter="duckdb")
+        for name, path, deps in [("stg_a", "models/staging/stg_a.sql", []),
+                                 ("int_b", "models/intermediate/int_b.sql", ["stg_a"]),
+                                 ("interview_enhanced", "models/interview_enhanced.sql", ["int_b"]),
+                                 ("stage_history", "models/stage_history.sql", ["interview_enhanced"]),
+                                 ("other", "models/other.sql", [])]:
+            g.models[name], g.paths[name], g.depends[name] = "select 1", path, set(deps)
+        self.assertEqual(compared_models(g, ["int_b"]), ["interview_enhanced", "stage_history"])
+        self.assertEqual(compared_models(g, ["stage_history"]), ["stage_history"])
+
     def test_contract_breaks(self):
         from fixwitness.sql import contract_breaks
         rules = [{"table": "t", "columns": ["id"], "test": "unique"}, {"table": "t", "columns": ["id"], "test": "not_null"},
@@ -1756,7 +1769,7 @@ class WholeChangeTests(TempDirTest):
 
 class DbtManifestTests(TempDirTest):
     """A dbt project checked from manifests (what dbt compile writes): relation names, the graph,
-    seeds as tables, and the final models downstream of the change."""
+    seeds as tables, and the published models downstream of the change."""
 
     def _manifests(self):
         R = lambda n: f'"memory"."main"."{n}"'  # noqa: E731

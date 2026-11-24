@@ -140,3 +140,10 @@ input on which only the original fails cannot be compared. Refactors keep the co
 **2026-11-24, incremental models.** Since the project is built before it is compiled, `dbt compile`
 runs with `--full-refresh`, so incremental models compile as full builds rather than as updates of
 themselves.
+
+**2026-11-24, which models are compared.** fixwitness compared only the final models downstream of
+a change (models no other model reads). A pilot on the open report dbt_lever#43 showed why that is
+wrong for packages: the bug is in `lever__interview_enhanced`, a published mart, but another mart
+reads it, so only that other mart was compared and the duplicated rows did not show. fixwitness now
+compares every published model downstream of the change (dbt's structure: not staging or
+intermediate models), plus the final ones. The pilot was on an open report, not on a candidate.
