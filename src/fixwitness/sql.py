@@ -335,7 +335,10 @@ def parse_timestamp(value: str, table: str = "?", column: str = "?") -> _dt.date
         sign = -1 if zone[0] == "-" else 1
         digits = zone[1:].replace(":", "")
         offset = _dt.timedelta(hours=int(digits[:2]), minutes=int(digits[2:4] or 0))
-        out = out - sign * offset
+        try:
+            out = out - sign * offset
+        except OverflowError as exc:
+            raise SqlError(f"value {value!r} in {table}.{column} is out of the timestamp range") from exc
     return out
 
 
@@ -359,6 +362,38 @@ def typed_rows(name: str, text: str, types: dict[str, dict[str, str]],
     if engine == "sqlite":
         values = [[x.isoformat(" ") if isinstance(x, _dt.datetime) else x for x in r] for r in values]
     return header, kinds, values
+
+
+_INT_BITS = {"SMALLINT": 16, "INT2": 16, "INTEGER": 32, "INT": 32, "INT4": 32, "TINYINT": 8, "INT1": 8}
+
+
+def fits_exact(value: str, sql_type: str | None) -> bool:
+    """Whether a value can be stored in a column of this exact SQL type (when the type is narrower
+    than its kind: a 32-bit INTEGER, a TIMESTAMP, a BOOLEAN)."""
+    if not sql_type or value == "":
+        return True
+    t = sql_type.upper().strip()
+    bits = _INT_BITS.get(t)
+    if bits is not None:
+        try:
+            return -(2 ** (bits - 1)) <= int(value.strip()) < 2 ** (bits - 1)
+        except ValueError:
+            return False
+    kind = kind_of(t)
+    try:
+        if kind == "timestamp":
+            parse_timestamp(value)
+        elif kind == "boolean":
+            _convert(value, "BOOLEAN", "?", "?")
+        elif kind == "date":
+            _convert(value.strip(), "DATE", "?", "?")
+        elif kind == "integer":
+            _convert(value, "BIGINT", "?", "?")
+        elif kind == "number":
+            _convert(value, "DOUBLE", "?", "?")
+    except SqlError:
+        return False
+    return True
 
 
 def seed_column_key(name: str) -> str:
@@ -588,7 +623,8 @@ def contract_breaks(tables: dict[str, str | bytes], contracts: list[dict]) -> se
 
 
 def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
-                rows: int = 3, unique: set[tuple[str, str]] | None = None) -> tuple[dict[str, bytes], list[str]]:
+                rows: int = 3, unique: set[tuple[str, str]] | None = None,
+                exact: dict[str, dict[str, str]] | None = None) -> tuple[dict[str, bytes], list[str]]:
     """Make the samples' keys join when they don't.
 
     Tables sampled one by one rarely share key values (200 orders and 200 customers taken
@@ -629,6 +665,10 @@ def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
             ha, ra = parsed[a]
             if types.get(a, {}).get(key) != types.get(b, {}).get(col):
                 continue
+            ex_a = {seed_column_key(c): t for c, t in ((exact or {}).get(a) or {}).items()}.get(seed_column_key(key))
+            ex_b = {seed_column_key(c): t for c, t in ((exact or {}).get(b) or {}).items()}.get(seed_column_key(col))
+            if ex_a and ex_b and ex_a.lower() != ex_b.lower():
+                continue  # e.g. BIGINT keys would not fit an INTEGER column
             keys = list(dict.fromkeys(r[ha.index(key)] for r in ra if r[ha.index(key)] != ""))
             mine = {r[j] for r in rb if r[j] != ""}
             if not keys or not mine or mine & set(keys):
@@ -664,7 +704,8 @@ def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
 def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]],
                        columns: list[str] | None = None, rows: int = 3, max_cases: int = 300,
                        seed: int = 1337, review: list[str] | None = None,
-                       incident_tables: dict[str, bytes] | None = None, focus: list[str] | None = None):
+                       incident_tables: dict[str, bytes] | None = None, focus: list[str] | None = None,
+                       exact: dict[str, dict[str, str]] | None = None):
     """Cases for a query over several tables: vary one table at a time, keep the others as sampled.
 
     `columns` may name columns as "table.column" (or just "column" when only one table has it).
@@ -686,14 +727,20 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
         if len(owners) > 1:
             raise ValueError(f"column {spec!r} is in several tables ({', '.join(owners)}); write it as table.column")
         wanted.setdefault(owners[0], []).append(spec)
+    exact_keys = {t: {seed_column_key(c): ty for c, ty in cols.items()} for t, cols in (exact or {}).items()}
+
     def loadable(t: str, data: bytes) -> bool:
-        """Could a warehouse load this table with the sample's column types? (No: skip the case.)"""
+        """Could a warehouse load this table with the sample's column types (and the exact types dbt
+        gave them, such as a 32-bit INTEGER)? (No: skip the case.)"""
         try:
             rows = list(csv.reader(io.StringIO(data.decode("utf-8-sig"), newline="")))
             header = rows[0]
+            known = exact_keys.get(t, {})
             for r in rows[1:]:
                 for col, v in zip(header, r):
                     _convert(v, _column_type(types.get(t, {}).get(col, "text"), "duckdb"), t, col)
+                    if known and not fits_exact(v, known.get(seed_column_key(col))):
+                        return False
         except (SqlError, UnicodeDecodeError, csv.Error, IndexError):
             return False
         return True
@@ -761,9 +808,10 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
                 except SqlError:
                     continue
                 day = when.date()
-                for x in (f"{day} 00:00:00", f"{day} 23:59:59.999999", f"{day + _dt.timedelta(days=1)} 00:00:00",
+                nxt = [f"{day + _dt.timedelta(days=1)} 00:00:00"] if day < _dt.date.max else []
+                for x in [f"{day} 00:00:00", f"{day} 23:59:59.999999", *nxt,
                           f"{day.year}-12-31 23:59:59", "2024-02-29 12:00:00", "1970-01-01 00:00:00",
-                          "2026-03-08 02:30:00", "2026-11-01 01:30:00"):
+                          "2026-03-08 02:30:00", "2026-11-01 01:30:00"]:
                     if x == v:
                         continue
                     body = [list(r) for r in base]

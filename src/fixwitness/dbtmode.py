@@ -201,13 +201,29 @@ def _warehouse_profile(path: Path, name: str, url: str, schema: str) -> str:
     return k
 
 
-def schema_variable(project: Path, schema: str) -> str | None:
-    """The variable in dbt_project.yml whose value is the schema the sources read (zendesk_schema:
-    zendesk_integration_tests), so a private schema can be put in its place."""
+def schema_variables(project: Path, schema: str) -> list[str]:
+    """The variables that set the schema the sources read: in dbt_project.yml
+    (zendesk_schema: zendesk_integration_tests; several may hold it), or, when the project sets
+    none, the variable whose default is that schema in an installed package
+    (var('klaviyo_schema', 'klaviyo')). A private schema can then be put in their place."""
     text = (project / "dbt_project.yml").read_text(encoding="utf-8")
     hits = re.findall(rf"^\s*([A-Za-z_][\w]*)\s*:\s*['\"]?{re.escape(schema)}['\"]?\s*(?:#.*)?$", text, re.M)
-    hits = [h for h in hits if h not in ("schema", "+schema", "name", "profile")]
-    return hits[0] if len(set(hits)) == 1 else None
+    hits = sorted({h for h in hits if h not in ("schema", "+schema", "name", "profile")})
+    if hits:
+        return hits
+    pattern = re.compile(rf"var\(\s*['\"]([A-Za-z_]\w*)['\"]\s*,\s*['\"]{re.escape(schema)}['\"]\s*\)")
+    roots = [project / "dbt_packages", project / "models"]
+    if (project.parent / "dbt_project.yml").is_file():  # a package's integration tests install ../
+        roots += [project.parent / "models", project.parent / "macros"]
+    found: set[str] = set()
+    for root in roots:
+        for f in (root.rglob("*") if root.is_dir() else []):
+            if f.suffix in (".yml", ".yaml", ".sql") and f.is_file():
+                try:
+                    found |= set(pattern.findall(f.read_text(encoding="utf-8", errors="ignore")))
+                except OSError:
+                    pass
+    return sorted(found)
 
 
 def source_schema(manifest: Path) -> str | None:
@@ -330,12 +346,12 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
             src = source_schema(manifest)
             if src and src != schema:
                 if warehouse:
-                    var = schema_variable(project, src)
-                    if var is None:
-                        raise DbtError(f"the sources read the seeds from schema {src}, which no variable in "
-                                       f"{project.name}/dbt_project.yml sets, so they can't be pointed at a "
-                                       f"private schema in your warehouse")
-                    common += ["--vars", json.dumps({var: schema})]
+                    names = schema_variables(project, src)
+                    if not names:
+                        raise DbtError(f"the sources read the seeds from schema {src}, which no variable sets (in "
+                                       f"{project.name}/dbt_project.yml or as a package default), so they can't "
+                                       f"be pointed at a private schema in your warehouse")
+                    common += ["--vars", json.dumps({n: schema for n in names})]
                 else:
                     _profile(profiles / "profiles.yml", profile, db, src)
             _run(["dbt", "seed", *common], project, env, timeout)

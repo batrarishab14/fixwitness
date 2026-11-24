@@ -338,6 +338,20 @@ def focus(plan: Plan, columns: list[str]) -> list[str]:
     return found
 
 
+def _exact_types(plan: Plan) -> dict | None:
+    """The exact column types dbt gave the seeds (written beside the compiled models), if any."""
+    from fixwitness.sql import TYPES_FILE
+    root = plan.before.script if plan.before is not None else None
+    f = Path(root) / TYPES_FILE if root is not None and Path(root).is_dir() else None
+    if f is None or not f.is_file():
+        return None
+    try:
+        data = json.loads(f.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    return data.get("types") if "adapter" in data else data
+
+
 def _apply_contracts(plan: Plan, cases: list[Case], contracts: list[dict], base: dict[str, bytes]) -> None:
     """Inputs that break the project's own dbt tests (a duplicate in a column tested unique, a NULL
     in a column tested not_null, a value outside accepted_values) are reviewed, not failed: the
@@ -377,13 +391,14 @@ def _cases(plan: Plan, cfg: Config) -> list[Case]:
         cols = [f"{t}.{c}" for t, kinds in plan.sql["types"].items() for c in kinds]
         contracts = list(plan.sql.get("contracts") or [])
         unique = {(c["table"], c["columns"][0].lower()) for c in contracts if c["test"] == "unique" and len(c["columns"]) == 1}
-        tables, links = link_tables(plan.sql["tables"], plan.sql["types"], cfg.rows, unique)
+        exact = _exact_types(plan)
+        tables, links = link_tables(plan.sql["tables"], plan.sql["types"], cfg.rows, unique, exact)
         if links and not any(n.startswith("the sample's tables did not join") for n in plan.notes):
             plan.notes.append("the sample's tables did not join on these keys, so the cases use matching keys "
                               "(the tables as given are case 000): " + ", ".join(links))
         try:
             cases = generate_sql_cases(tables, plan.sql["types"], cfg.columns, cfg.rows, cfg.max_cases,
-                                       cfg.seed, cfg.review, plan.sql["incident_tables"], focus(plan, cols))
+                                       cfg.seed, cfg.review, plan.sql["incident_tables"], focus(plan, cols), exact)
         except ValueError as exc:
             raise PlanError(str(exc)) from exc
         if links:  # the tables exactly as given still run, first

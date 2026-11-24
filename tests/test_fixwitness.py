@@ -671,6 +671,18 @@ class LinkedKeysTests(TempDirTest):
         both = {"orders": self.ORD.encode(), "customers": self.CUS.encode(), "customer": self.CUS.encode()}
         self.assertEqual(link_tables(both, {t: table_types(v) for t, v in both.items()})[1], [])  # ambiguous
 
+    def test_exact_types_respected(self):
+        from fixwitness.sql import fits_exact, link_tables, table_types
+        self.assertTrue(fits_exact("2147483647", "integer"))
+        self.assertFalse(fits_exact("2147483648", "integer"))
+        self.assertTrue(fits_exact("2147483648", "bigint"))
+        self.assertFalse(fits_exact("north-east", "timestamp without time zone"))
+        self.assertTrue(fits_exact("", "integer"))
+        tables = {"orders": self.ORD.encode(), "customers": b"id,region\n5000000000,EU\n5000000001,US\n"}
+        types = {t: table_types(v) for t, v in tables.items()}
+        exact = {"orders": {"customer_id": "integer"}, "customers": {"id": "bigint"}}
+        self.assertEqual(link_tables(tables, types, exact=exact)[1], [])  # BIGINT keys don't fit INTEGER
+
     def test_link_table_fans_out_both_ways(self):
         """A link table with two keys: each side gets several rows, and every pair is distinct."""
         from fixwitness.sql import link_tables, table_types
@@ -711,12 +723,18 @@ class DbtWarehouseUnitTests(TempDirTest):
         with self.assertRaises(WarehouseError):
             _warehouse_profile(path, "shop", "postgres://ci:secret@db/analytics", "fw_0123456789")
 
-    def test_schema_variable(self):
-        from fixwitness.dbtmode import schema_variable
+    def test_schema_variables(self):
+        from fixwitness.dbtmode import schema_variables
         write(self.tmp / "dbt_project.yml", "name: z\nvars:\n  zendesk_schema: zendesk_integration_tests\n"
+                                            "  zendesk_history_schema: zendesk_integration_tests\n"
                                             "  zendesk:\n    zendesk_ticket_identifier: \"ticket_data\"\n")
-        self.assertEqual(schema_variable(self.tmp, "zendesk_integration_tests"), "zendesk_schema")
-        self.assertIsNone(schema_variable(self.tmp, "other"))
+        self.assertEqual(schema_variables(self.tmp, "zendesk_integration_tests"),
+                         ["zendesk_history_schema", "zendesk_schema"])
+        self.assertEqual(schema_variables(self.tmp, "other"), [])
+        # Not set by the project: the default of the variable in an installed package.
+        write(self.tmp / "dbt_packages/klaviyo_source/models/src_klaviyo.yml",
+              "sources:\n  - name: klaviyo\n    schema: \"{{ var('klaviyo_schema', 'klaviyo') }}\"\n")
+        self.assertEqual(schema_variables(self.tmp, "klaviyo"), ["klaviyo_schema"])
 
     def test_reserved_words_are_quoted(self):
         from fixwitness.warehouse import ident
