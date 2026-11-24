@@ -1,0 +1,98 @@
+# Real-repository study: protocol
+
+Written and committed before fixwitness was run on any of these commits. The candidate list and
+its labels (`candidates.csv`) are frozen in the same commit.
+
+## Questions
+
+1. **Real bugs.** Would fixwitness have caught each real bug that maintainers of widely used dbt
+   packages later fixed?
+2. **Real refactors.** On real changes that their authors described as having no effect on the
+   data, how often does fixwitness say the outputs differ, and how many of those differences are
+   false alarms?
+
+## Corpus
+
+Fivetran's public dbt packages (github.com/fivetran/dbt_*): 36 transformation packages and 30
+source packages, cloned with full history. They were chosen because:
+
+- they are widely used, and maintained by a company rather than by us;
+- every release is described in `CHANGELOG.md` under fixed headings ("Bug Fixes", "Under the
+  Hood", "Feature Updates", "Schema/Data Change", ...), which gives a label that we did not write;
+- each package has an integration-test project (`integration_tests/`) with seed data, which
+  fixwitness uses as its sample. We do not write or change any data.
+
+## Selecting commits (`mine.py`)
+
+A release is a candidate when its CHANGELOG entry names exactly one pull request, that pull
+request is one commit on the main line (squash-merged "... (#N)" or a merge commit "Merge pull
+request #N"), and the commit changes at least one `.sql` file in `models/` or `macros/`.
+The original is the commit's first parent; the change is the commit.
+
+From the CHANGELOG headings (`mine.py`, function `kind`):
+
+- **bug** set: every heading is a bug-fix heading ("Bug Fix", "Bug Fixes", "Fixes", ...), apart
+  from Documentation, Under the Hood, Contributors, Dependencies, Tests and Quickstart headings.
+  Releases that also add features or change schemas are left out, so that any difference found
+  comes from the fix.
+- **refactor** set: every heading is Under the Hood, Documentation, Contributors, Dependencies,
+  Tests or Quickstart.
+
+## Labels (`candidates.csv`, columns `label` and `why`)
+
+Each bug-fix release was read and labelled once, from its CHANGELOG text only:
+
+- `wrong-data`: the text describes wrong output (values, rows, duplicates, nulls, types) in the
+  package's default configuration, on any warehouse.
+- `crash-on-data`: the model fails on some data (divide by zero, a failed cast, an empty table) in
+  the default configuration, on any warehouse.
+- `out:<why>`: outside the question, not run in the headline numbers: `warehouse` (one warehouse
+  only: BigQuery, Snowflake, Databricks, Redshift or Postgres types), `compile` (a compile or parse
+  error, not data), `config` (only with a non-default variable, several unioned connections,
+  History Mode or Quickstart), `incremental` (incremental runs only), `source-type` (depends on
+  the connector's column names or types), `feature` (adds a field or model).
+- `duplicate`: the same commit as another release (a pre-release and its general release).
+- Two bug-fix releases whose text describes only a refactor (CTE renames; a performance rewrite)
+  are moved to the refactor set.
+
+Each refactor release was labelled `refactor`, or `out:announced` when its text announces a change
+to output values, types or column order despite the heading (for example "casts ids to string").
+
+Counts at freezing: bug set 60 `wrong-data` + 13 `crash-on-data` = 73 in scope (82 out of scope,
+6 duplicates); refactor set 43 `refactor` (10 `out:announced`, 2 duplicates).
+
+## Running (`run_study.py`, workflow `study.yml`)
+
+For each candidate: check out the commit, then run the command a user would run, with defaults:
+
+    fixwitness check --base <parent> --no-attacks
+
+(whole-change mode: no file named, no sample given, no configuration). fixwitness finds the
+package's integration-test project, builds both versions on the seeds with dbt-core and
+dbt-duckdb, and compares the final models downstream of the change on generated inputs. One run
+per candidate, seed 0, at most 25 minutes. dbt-core and dbt-duckdb are the latest releases at run
+time; their versions are recorded.
+
+## Measures
+
+- **Bug set.** Caught: the verdict is FAIL (some valid input gives a different output). Also
+  reported: a difference only on inputs held for review; PASS (missed); not checked (with the
+  reason: the project did not compile, no SQL changed after compiling, a timeout).
+  Catch rate = caught / checked, with the not-checked count shown beside it.
+- **Refactor set.** Each FAIL is inspected from its reproduction and labelled **real** (the outputs
+  really differ, with the input and the two outputs) or **false alarm** (they do not, or the
+  difference comes from fixwitness itself, with the cause). False-alarm rate = false alarms /
+  checked. A real difference in a release described as having no effect is reported as found.
+- Every result row links to its proof (`summary.json`, `report.md`).
+
+## What this does not show
+
+- Whether the difference fixwitness finds for a bug is the one described: any difference counts
+  as caught, because the change contains only the fix. A sample of findings is read and compared
+  with the CHANGELOG text, and reported as such.
+- Results on warehouses other than DuckDB, on projects without seed data, or on code other than
+  Fivetran's.
+- fixwitness was not tuned on these commits. Changes made only so that it can run on them (finding
+  the integration-test project, sources that read seeds) were made before the first run and are
+  listed in RESULTS.md. If anything that changes a verdict is changed after a run, the numbers
+  before and after are both reported.
