@@ -97,6 +97,62 @@ def run_one(row: dict, clones: Path, out: Path, limit: int) -> dict:
             "seconds": round(time.time() - start)}
 
 
+def run_issue(name: str, clones: Path, out: Path) -> dict:
+    """An open bug report: the fix in open_issues/NAME/fix.patch, and the evidence steps in issue.json."""
+    import re
+    folder = HERE / "open_issues" / name
+    meta = json.loads((folder / "issue.json").read_text(encoding="utf-8"))
+    repo = clone(clones, meta["package"])
+    dest = out / "issues" / name
+    if dest.exists():
+        shutil.rmtree(dest)
+    (dest / "profiles").mkdir(parents=True)
+    db = dest / "dbt.duckdb"
+    (dest / "profiles" / "profiles.yml").write_text(
+        f"{meta['profile']}:\n  target: dev\n  outputs:\n    dev:\n      type: duckdb\n      path: {json.dumps(str(db))}\n"
+        f"      schema: {json.dumps(meta['schema'])}\n      threads: 1\n", encoding="utf-8")
+    env = dict(os.environ, DBT_PROFILES_DIR=str(dest / "profiles"), DBT_SEND_ANONYMOUS_USAGE_STATS="false")
+    steps = []
+    for i, step in enumerate(meta["steps"], 1):
+        git(repo, "checkout", "-q", "-f", meta["base"])
+        git(repo, "clean", "-qfdx")
+        db.unlink(missing_ok=True)
+        cmd = step["run"].format(patch=str((folder / "fix.patch").resolve()), out=str(dest))
+        start = time.time()
+        try:
+            proc = subprocess.run(cmd, shell=True, cwd=repo, env=env, capture_output=True, text=True, timeout=1800)
+            code, log = proc.returncode, proc.stdout + proc.stderr
+        except subprocess.TimeoutExpired:
+            code, log = -1, "timed out"
+        (dest / f"step{i}.log").write_text(f"$ {cmd}\n\n{log}", encoding="utf-8")
+        got = {"name": step["name"], "expect": step["expect"], "exit": code, "seconds": round(time.time() - start)}
+        if step["expect"] == "fixwitness":
+            summary = next(iter(sorted(dest.glob("fw_*/summary.json"), key=lambda p: p.stat().st_mtime, reverse=True)), None)
+            data = json.loads(summary.read_text(encoding="utf-8")) if summary else {}
+            got["verdict"] = data.get("verdict", "not checked")
+            got["checks"] = [{k: c.get(k) for k in ("target", "kind", "verdict", "reason", "proof")}
+                             for c in data.get("checks", [])]
+            for c in data.get("checks", []):
+                if c.get("proof") and Path(c["proof"]).is_file():
+                    proof = json.loads(Path(c["proof"]).read_text(encoding="utf-8"))
+                    b = proof.get("behavior", {})
+                    c_ = next(x for x in got["checks"] if x["proof"] == c["proof"])
+                    c_["cases"] = b.get("valid_inputs")
+                    c_["identical"] = b.get("identical")
+                    c_["changed"] = b.get("changed")
+                    c_["findings"] = [d.get("explanation") for d in proof.get("differences", [])[:8]]
+            got["ok"] = summary is not None
+        else:
+            want = re.compile(step["expect_log"]) if step.get("expect_log") else None
+            got["ok"] = (code == 0) if step["expect"] == "pass" else (code != 0 and (want is None or bool(want.search(log))))
+        steps.append(got)
+        print(f"open:{name} step {i} {'ok ' if got['ok'] else 'NOT'} exit={code} {got.get('verdict', '')} "
+              f"{got['seconds']}s  {step['name']}", flush=True)
+    result = {"issue": meta["issue"], "title": meta["title"], "base": meta["base"], "steps": steps}
+    (dest / "evidence.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+    return result
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--shard", type=int, default=0)
@@ -107,12 +163,17 @@ def main() -> None:
     ap.add_argument("--all", action="store_true", help="also run the out-of-scope candidates")
     ap.add_argument("--limit", type=int, default=1500, help="seconds per candidate")
     args = ap.parse_args()
+    args.clones, args.out = args.clones.resolve(), args.out.resolve()  # fixwitness runs inside each clone
     rows = list(csv.DictReader((HERE / "candidates.csv").open(encoding="utf-8")))
     only = {x for x in args.only.split(",") if x}
+    issues = sorted(x[5:] for x in only if x.startswith("open:"))
     rows = [r for r in rows if r["id"] in only] if only else [r for r in rows if in_scope(r, args.all)]
     mine = [r for i, r in enumerate(rows) if i % args.shards == args.shard]
     args.clones.mkdir(parents=True, exist_ok=True)
     args.out.mkdir(parents=True, exist_ok=True)
+    for i, name in enumerate(issues):
+        if i % args.shards == args.shard:
+            run_issue(name, args.clones, args.out)
     path = args.out / f"results_{args.shard:02d}.csv"
     with path.open("w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=FIELDS, lineterminator="\n")
