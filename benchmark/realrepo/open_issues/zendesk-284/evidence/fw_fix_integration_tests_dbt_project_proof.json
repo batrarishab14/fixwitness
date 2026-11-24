@@ -1,0 +1,3355 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "611f2390494e94afcc6d1453d637f86f843630e47d46ff2a3c8870b8b2170f21",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "c5f2cfa03a1629a357a3ad2d06c8173f52eeff69",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "integration_tests/tests/integrity/ticket_summary_unreplied_count_match.sql",
+        "status": "A",
+        "sha256": "4dca5dcee82d4b1c2c1413f91285111827118bf220d62a6dda06a940f9717c1e"
+      },
+      {
+        "path": "models/zendesk__ticket_summary.sql",
+        "status": "M",
+        "sha256": "3a07174c99643686d12bb9a5f5317310fcb618efe1408f55dd79f856988084f7"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "zendesk__ticket_summary"
+      ],
+      "compared": [
+        "zendesk__ticket_summary"
+      ],
+      "adapter": "duckdb"
+    },
+    "tables": {
+      "time_zone_data": {
+        "name": "time_zone_data.csv",
+        "sha256": "b02df4f14e54c7deb0b15c40b35196968de4374ceb1cc5ad95986620a506adb2"
+      },
+      "ticket_schedule_data": {
+        "name": "ticket_schedule_data.csv",
+        "sha256": "f424de8666f25763a855a6031b2c9942170bc7cf5cc5fa88ef6b73ed133b88c3"
+      },
+      "organization_tag_data": {
+        "name": "organization_tag_data.csv",
+        "sha256": "adebcb3827e908ab449435adc556aadf587cfad4103cab2c840d3d9fddc16e20"
+      },
+      "domain_name_data": {
+        "name": "domain_name_data.csv",
+        "sha256": "3bf711417f9269957353aa9e1ddd28ada8bd74e03128a4b8c94e694a560a09cf"
+      },
+      "ticket_comment_data": {
+        "name": "ticket_comment_data.csv",
+        "sha256": "e5a5881696ecba75cc6c6f0af470950acab0b6a7b1099e57dab815153cecfbdf"
+      },
+      "organization_data": {
+        "name": "organization_data.csv",
+        "sha256": "b3e00faed1ea214f73182b110c5f55653a5b43f2bc082dcb87f6c63dea5303c3"
+      },
+      "user_tag_data": {
+        "name": "user_tag_data.csv",
+        "sha256": "fde0d85263495e783fd6fb342940a4dcd67c39581d55bfc9b28935d24367a096"
+      },
+      "schedule_data": {
+        "name": "schedule_data.csv",
+        "sha256": "5098632805f205775ce96b7b2c44ffb0a5b823e6fcfa1b4d0fdd0f34ea45428a"
+      },
+      "daylight_time_data": {
+        "name": "daylight_time_data.csv",
+        "sha256": "17642d90548c6367ab328762a47066a905e3ba2da8831cd86ef37ac659a38fc9"
+      },
+      "ticket_data": {
+        "name": "ticket_data.csv",
+        "sha256": "cfc6f3f18f13234474bea22d1b68bf5ee967bc8ce40d23e4509e9729e29f7581"
+      },
+      "ticket_field_history_data": {
+        "name": "ticket_field_history_data.csv",
+        "sha256": "06282a9cf55758b9161727bd1edb8c7ccc22b371c63382d696d640a242415d42"
+      },
+      "ticket_tag_data": {
+        "name": "ticket_tag_data.csv",
+        "sha256": "020b25c3247e21387702778ce0af4e5a5b8b3aee62daaa05f48c643489b57ea0"
+      },
+      "brand_data_postgres": {
+        "name": "brand_data_postgres.csv",
+        "sha256": "aa338ab31e4a221da8a0ed5040ec921a4d39a7377ae37a7e79b49e1402e490f5"
+      },
+      "group_data": {
+        "name": "group_data.csv",
+        "sha256": "ded51f1b267e9785ca862ca30656faa2485b5814d834ea35de6892702c3dbd1a"
+      },
+      "ticket_form_history_data": {
+        "name": "ticket_form_history_data.csv",
+        "sha256": "a5b4edef05a0baa9acac87db3eea1ac0ba55865809db778ff458e20b7352c665"
+      },
+      "schedule_holiday_data": {
+        "name": "schedule_holiday_data.csv",
+        "sha256": "f907dea5e2dc21649bf4eae0392add96a884f19f900dc0f2d568141038ba5d28"
+      },
+      "user_data": {
+        "name": "user_data.csv",
+        "sha256": "b7df2447ea40cd4c2d9253acd4d0a84e86ec7a5ee208b6eef69507a6698231b5"
+      }
+    },
+    "engine": "duckdb"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine duckdb --dbt off --outputs zendesk__ticket_summary {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": [
+      "zendesk__ticket_summary.unreplied_ticket_count",
+      "zendesk__ticket_summary.unreplied_unsolved_ticket_count"
+    ],
+    "contracts": [
+      "stg_zendesk__domain_name: not_null(organization_id)",
+      "stg_zendesk__organization: not_null(organization_id)",
+      "stg_zendesk__ticket_comment: not_null(ticket_comment_id)",
+      "stg_zendesk__time_zone: not_null(time_zone)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "duckdb",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "zendesk__ticket_summary"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 283,
+      "evidence_strength": 0.989,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 293,
+    "identical": 283,
+    "changed": 0,
+    "not_comparable": 10,
+    "review_inputs": 7,
+    "review_differences": 0,
+    "expected_change": 272,
+    "unstable": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "time_zone_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "schema",
+      "kind": "valid",
+      "column": "time_zone_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "time_zone_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "kind": "review",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "long",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "empty",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "case",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "long",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "null-column",
+      "kind": "review",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "time_zone_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "case",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "time_zone_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "time_zone_data.standard_offset",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "ticket_schedule_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "schema",
+      "kind": "valid",
+      "column": "ticket_schedule_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "ticket_schedule_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "ticket_schedule_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "organization_tag_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "schema",
+      "kind": "valid",
+      "column": "organization_tag_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "organization_tag_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "organization_tag_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "organization_tag_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_tag_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_tag_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_tag_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "long",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "organization_tag_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "organization_tag_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "case",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "organization_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "domain_name_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "schema",
+      "kind": "valid",
+      "column": "domain_name_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "domain_name_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "domain_name_data.index",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "domain_name_data.index",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "domain_name_data.index",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "domain_name_data.index",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "domain_name_data.index",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "domain_name_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "domain_name_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "empty",
+      "kind": "review",
+      "column": "domain_name_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "domain_name_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "domain_name_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "empty",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "empty",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "long",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "domain_name_data.index",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "null-column",
+      "kind": "review",
+      "column": "domain_name_data.organization_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "domain_name_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "case",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "domain_name_data.domain_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "ticket_comment_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "schema",
+      "kind": "valid",
+      "column": "ticket_comment_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "ticket_comment_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "empty",
+      "kind": "review",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "long",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.facebook_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.facebook_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.facebook_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.tweet",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.tweet",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.tweet",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.voice_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.voice_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.voice_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "null-column",
+      "kind": "review",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.facebook_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.tweet",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.voice_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "ticket_comment_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "flip",
+      "kind": "valid",
+      "column": "ticket_comment_data.facebook_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "flip",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "flip",
+      "kind": "valid",
+      "column": "ticket_comment_data.tweet",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "flip",
+      "kind": "valid",
+      "column": "ticket_comment_data.voice_comment",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": "organization_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "schema",
+      "kind": "valid",
+      "column": "organization_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "organization_data.url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "organization_data",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "empty",
+      "kind": "review",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_data._fivetran_synced",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data.created_at",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.created_at",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_data.created_at",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data.details",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.details",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data.external_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.external_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data.group_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.group_id",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "long",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data.notes",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.notes",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "case",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "organization_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "case",
+      "kind": "valid",
+      "column": "organization_data.url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "organization_data.url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "case",
+      "kind": "valid",
+      "column": "user_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "case",
+      "kind": "valid",
+      "column": "schedule_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "schedule_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "case",
+      "kind": "valid",
+      "column": "schedule_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "schedule_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "case",
+      "kind": "valid",
+      "column": "daylight_time_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "daylight_time_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_data.recipient",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.recipient",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_data.subject",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.subject",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_data.url",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.url",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_data.via_channel",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.via_channel",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_data.via_source_to_address",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.via_source_to_address",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_data.via_source_to_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.via_source_to_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.merged_ticket_ids",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_data.followup_ids",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_field_history_data.value",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_tag_data.tag",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.brand_url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.brand_url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.help_center_state",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.help_center_state",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_content_type",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_content_type",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_content_url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_content_url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_file_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_file_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_mapped_content_url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_mapped_content_url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.logo_url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.subdomain",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.subdomain",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "case",
+      "kind": "valid",
+      "column": "brand_data_postgres.url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "brand_data_postgres.url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "case",
+      "kind": "valid",
+      "column": "group_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "group_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "case",
+      "kind": "valid",
+      "column": "group_data.url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "group_data.url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_form_history_data.display_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_form_history_data.display_name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "case",
+      "kind": "valid",
+      "column": "ticket_form_history_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "ticket_form_history_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "case",
+      "kind": "valid",
+      "column": "schedule_holiday_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "schedule_holiday_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "case",
+      "kind": "valid",
+      "column": "user_data.email",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user_data.email",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "case",
+      "kind": "valid",
+      "column": "user_data.locale",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user_data.locale",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "case",
+      "kind": "valid",
+      "column": "user_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user_data.name",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "case",
+      "kind": "valid",
+      "column": "user_data.role",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user_data.role",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "case",
+      "kind": "valid",
+      "column": "user_data.ticket_restriction",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user_data.ticket_restriction",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "case",
+      "kind": "valid",
+      "column": "user_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user_data.time_zone",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "case",
+      "kind": "valid",
+      "column": "user_data.url",
+      "family": null,
+      "status": "expected-change",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: HEAD (c5f2cfa03a16); fix: your working tree (2 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-duckdb adapter, in a private DuckDB file), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 76 models; compiled SQL changed in zendesk__ticket_summary; comparing zendesk__ticket_summary (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (17 tables)",
+    "SQL engine: duckdb",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): organization_tag_data.organization_id -> organization_data.id, domain_name_data.organization_id -> organization_data.id, user_tag_data.user_id -> user_data.id, ticket_data.group_id -> group_data.id, ticket_data.organization_id -> organization_data.id, ticket_tag_data.ticket_id -> ticket_data.id, user_data.organization_id -> organization_data.id",
+    "the project's dbt tests are used as rules on the input tables (7: ticket_data.id not_null, domain_name_data.organization_id not_null, organization_data.id not_null, ticket_comment_data.id not_null, user_data.id not_null, time_zone_data.time_zone not_null, schedule_holiday_data.id not_null); 7 inputs break one and are reviewed, not failed",
+    "the expected change (zendesk__ticket_summary.unreplied_ticket_count, zendesk__ticket_summary.unreplied_unsolved_ticket_count) appears on 272 inputs, and nothing else changes on any of the 283 compared inputs"
+  ],
+  "warnings": [
+    "10 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "column": null,
+      "value": "<tables as given>",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "file-structure",
+      "column": "time_zone_data",
+      "value": "<sample as given>",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "schema",
+      "column": "time_zone_data",
+      "value": "<extra column at the end>",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "delimiter-mix",
+      "column": "time_zone_data.time_zone",
+      "value": "a; \"b\"",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "delimiter-mix",
+      "column": "time_zone_data",
+      "value": "a; \"b\" (in an added 'note' column)",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "column": "time_zone_data.time_zone",
+      "value": "",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "unicode",
+      "column": "time_zone_data.time_zone",
+      "value": "Ünïcødé",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "punctuation",
+      "column": "time_zone_data.time_zone",
+      "value": "north-east",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "long",
+      "column": "time_zone_data.time_zone",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "csv-structure",
+      "column": "time_zone_data.time_zone",
+      "value": "comma, inside",
+      "details": [
+        "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+      ]
+    }
+  ],
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "schema": "an extra column (including each column that is new in the incident file) and reordered columns",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-24T15:57:58Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_zendesk",
+    "base": "HEAD",
+    "base_commit": "c5f2cfa03a1629a357a3ad2d06c8173f52eeff69",
+    "path": "/home/runner/work/_temp/clones/dbt_zendesk/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine duckdb --dbt off --outputs zendesk__ticket_summary {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [
+        "zendesk__ticket_summary.unreplied_ticket_count",
+        "zendesk__ticket_summary.unreplied_unsolved_ticket_count"
+      ],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": null,
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}
