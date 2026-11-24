@@ -333,7 +333,8 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
         _profile(profiles / "profiles.yml", profile, db, "main")
     env = dict(os.environ, DBT_PROFILES_DIR=str(profiles), DBT_SEND_ANONYMOUS_USAGE_STATS="false",
                DBT_TARGET_PATH=str(out / "target"), DBT_LOG_PATH=str(out / "logs"))
-    common = ["--project-dir", str(project), "--profiles-dir", str(profiles), "--target", adapter]
+    # --profile: a package's own dbt_project.yml may name no profile at all.
+    common = ["--project-dir", str(project), "--profiles-dir", str(profiles), "--profile", profile, "--target", adapter]
     if ((project / "packages.yml").exists() or (project / "dependencies.yml").exists()) \
             and not (project / "dbt_packages").exists():
         _run(["dbt", "deps", *common], project, env, timeout)
@@ -427,7 +428,7 @@ def write_seed_types(db: Path, manifest: Path, dest: Path) -> None:
             out.setdefault(name, {})[column] = data_type
     if out:
         dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+        dest.write_text(json.dumps(out, indent=1) + "\n", encoding="utf-8")  # columns in table order
 
 
 def write_warehouse_seed_types(url: str, schema: str, manifest: Path, dest: Path) -> None:
@@ -449,7 +450,7 @@ def write_warehouse_seed_types(url: str, schema: str, manifest: Path, dest: Path
             out.setdefault(name, {})[column] = data_type
     if out:
         dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+        dest.write_text(json.dumps(out, indent=1) + "\n", encoding="utf-8")  # columns in table order
 
 
 def seed_types(manifest: Path) -> tuple[str | None, dict[str, dict[str, str]]]:
@@ -721,6 +722,44 @@ def final_downstream(g: Graph, changed: list[str]) -> list[str]:
     if not finals:  # a removed model: compare what read it in the original
         finals = sorted({r for c in changed for r in readers.get(c, ())})
     return finals
+
+
+# What dbt's seed loader (agate) reads as NULL, in any column: these cells, after trimming and
+# ignoring case.
+AGATE_NULLS = {"", "na", "n/a", "none", "null", "."}
+
+
+def seed_table(paths: list[Path], dest: Path, stored: list[str] | None = None) -> Path:
+    """The sample table for a seed, as dbt loads it: its first SEED_ROWS rows; cells dbt reads as
+    NULL written empty; a header with empty or repeated names given the names dbt stored; and,
+    when the two versions' seed files have different columns, the columns of both (the second
+    version's rows, with the other version's extra columns empty), so either version's models run.
+    `paths`: the seed file in the version whose rows are used, then the other version's."""
+    import csv
+    import itertools
+    with paths[0].open(encoding="utf-8-sig", newline="") as fh:
+        rows = list(itertools.islice(csv.reader(fh), SEED_ROWS + 1))
+    if not rows:
+        return paths[0]
+    header, data = rows[0], rows[1:]
+    if stored and len(stored) == len(header) and (len(set(header)) != len(header) or "" in header):
+        header = list(stored)
+    for other in paths[1:]:
+        try:
+            with other.open(encoding="utf-8-sig", newline="") as fh:
+                extra = [c for c in next(csv.reader(fh), []) if c and c not in header]
+        except OSError:
+            extra = []
+        header += extra
+    width = len(header)
+    data = [[("" if c.strip().lower() in AGATE_NULLS else c) for c in (r + [""] * (width - len(r)))[:width]]
+            for r in data]
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    with dest.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.writer(fh, lineterminator="\n")
+        w.writerow(header)
+        w.writerows(data)
+    return dest
 
 
 def seed_sample(path: Path, dest: Path) -> Path:

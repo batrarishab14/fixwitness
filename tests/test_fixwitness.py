@@ -757,6 +757,14 @@ class DbtWarehouseUnitTests(TempDirTest):
         with self.assertRaises(WarehouseError):
             _schemas("postgres://ci@localhost/test", "analytics")
 
+    def test_seed_table_as_dbt_loads_it(self):
+        from fixwitness.dbtmode import seed_table
+        write(self.tmp / "new.csv", "id,amount,amount,note\n1, ,5,null\n2,3,4,N/A\n")
+        write(self.tmp / "old.csv", "id,amount,end_date\n1,2,2020-01-01\n")
+        out = seed_table([self.tmp / "new.csv", self.tmp / "old.csv"], self.tmp / "s.csv",
+                         stored=["id", "amount", "amount_2", "note"])
+        self.assertEqual(out.read_text().split(), ["id,amount,amount_2,note,end_date", "1,,5,,", "2,3,4,,"])
+
     def test_compile_cache(self):
         from fixwitness import dbtmode
         tree = self.tmp / "tree"

@@ -40,6 +40,9 @@ def _show(root: Path, commit: str, rel: str) -> str | None:
         return None
 
 
+CI_FOLDERS = {".github", ".buildkite", ".circleci", ".gitlab", ".azure-pipelines", ".teamcity"}
+
+
 def plan_items(cfg: Config) -> tuple[list[Item], list[tuple[str, str]]]:
     """The checks to run for the working tree's changes against cfg.base (or for cfg.path only)."""
     from fixwitness.dbtmode import find_project
@@ -78,6 +81,9 @@ def plan_items(cfg: Config) -> tuple[list[Item], list[tuple[str, str]]]:
             from fixwitness.dbtmode import runnable_project
             project = runnable_project(project)  # a package: compiled through its integration tests
             projects.setdefault(project.relative_to(root).as_posix() or ".", project)
+            continue
+        if Path(rel).parts[:1] and Path(rel).parts[0] in CI_FOLDERS:
+            skipped.append((rel, "CI configuration"))
             continue
         if status.startswith("D"):
             skipped.append((rel, "deleted: nothing to run"))

@@ -527,7 +527,7 @@ def dbt_project_for(cfg: Config, target: Path | None, root: Path) -> Path | None
 def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: tuple[Path, Path],
                projects: tuple[Path | None, Path | None], inputs: dict, replay: dict, notes: list[str],
                search_roots: list[Path]) -> Plan:
-    from fixwitness.dbtmode import (DbtError, changed_models, compared_models, read_manifest, seed_sample,
+    from fixwitness.dbtmode import (DbtError, changed_models, compared_models, read_manifest,
                                     write_models)
     try:
         g0, g1 = read_manifest(manifests[0], projects[0]), read_manifest(manifests[1], projects[1])
@@ -551,9 +551,14 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
     texts = [sql for g in (g0, g1) for m, sql in _bare_models(g).items() if m in upstream(g, outputs)]
     reads = lambda t: any(f'"{t}"' in sql for sql in texts)  # noqa: E731
     spec: dict[str, str] = {}
+    from fixwitness.dbtmode import seed_table, seed_types
+    stored_types = {**seed_types(manifests[0])[1], **seed_types(manifests[1])[1]}
     for name, path in {**g0.seeds, **g1.seeds}.items():
         if path.is_file() and reads(name):
-            spec[name] = str(seed_sample(path, work / "dbt" / "seeds" / f"{name}.csv"))
+            other = g0.seeds.get(name) if g1.seeds.get(name) == path else g1.seeds.get(name)
+            stored = list((stored_types.get(name) or {}).keys()) or None
+            spec[name] = str(seed_table([path] + ([other] if other is not None and other.is_file() else []),
+                                        work / "dbt" / "seeds" / f"{name}.csv", stored))
     sources = {**g0.sources, **g1.sources}
     given = dict(cfg.tables or {})
     wanted = sorted(t for t in sources if reads(t))
