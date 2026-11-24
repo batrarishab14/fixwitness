@@ -705,6 +705,22 @@ class DbtWarehouseUnitTests(TempDirTest):
         self.assertEqual(schema_variable(self.tmp, "zendesk_integration_tests"), "zendesk_schema")
         self.assertIsNone(schema_variable(self.tmp, "other"))
 
+    def test_reserved_words_are_quoted(self):
+        from fixwitness.warehouse import ident
+        self.assertEqual(ident("orders", "postgres"), "orders")
+        self.assertEqual(ident("user", "postgres"), '"user"')
+        self.assertEqual(ident("default", "postgres"), '"default"')
+        self.assertEqual(ident("end", "bigquery"), "`end`")
+        self.assertEqual(ident("Order Total", "postgres"), '"Order Total"')
+        self.assertEqual(ident("Amount", "postgres", exact=True), '"Amount"')
+
+    def test_targets_named_after_the_adapter(self):
+        from fixwitness.dbtmode import _profile, _warehouse_profile
+        _profile(self.tmp / "a.yml", "shop", self.tmp / "x.duckdb", "main")
+        self.assertIn("target: duckdb", (self.tmp / "a.yml").read_text())
+        _warehouse_profile(self.tmp / "b.yml", "shop", "postgres://ci@h/db", "fw_0123456789")
+        self.assertIn("target: postgres", (self.tmp / "b.yml").read_text())
+
     def test_private_schemas_only(self):
         from fixwitness.warehouse import WarehouseError, _schemas
         with self.assertRaises(WarehouseError):

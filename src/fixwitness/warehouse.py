@@ -48,6 +48,22 @@ TYPES = {
                  "boolean": "BOOL", "timestamp": "DATETIME"},
 }
 _SIMPLE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+# Reserved words of Postgres, Snowflake and BigQuery: a column or table with one of these names
+# (`default`, `user`, `end`) must be quoted, as dbt does when it loads seeds.
+RESERVED = set("""
+all analyse analyze and any array as asc assert_rows_modified asymmetric at authorization between binary both
+by case cast check collate collation column concurrently connect connection constraint contains create cross
+cube current current_catalog current_date current_role current_schema current_time current_timestamp
+current_user database default deferrable define delete desc distinct do drop else end enum escape except
+exclude exists extract false fetch following for foreign freeze from full grant group grouping groups
+gscluster hash having if ignore ilike in increment initially inner insert intersect interval into is isnull
+issue join lateral leading left like limit localtime localtimestamp lookup merge minus natural new no not
+notnull null nulls of offset on only or order organization outer over overlaps partition placing preceding
+primary proto qualify range recursive references regexp respect returning revoke right rlike rollup row rows
+sample schema select session_user set similar some start struct symmetric system_user table tablesample then
+to trailing treat trigger true try_cast unbounded union unique unnest update user using values variadic
+verbose view when whenever where window with within
+""".split())
 
 
 class WarehouseError(Exception):
@@ -85,12 +101,16 @@ def check_url(url: str) -> str:
     return info["kind"]
 
 
-def ident(name: str, kind: str) -> str:
-    """A simple name is left unquoted, so the warehouse folds its case the way your SQL's names fold."""
-    if _SIMPLE.fullmatch(name):
+def ident(name: str, kind: str, exact: bool = False) -> str:
+    """A simple name is left unquoted, so the warehouse folds its case the way your SQL's names fold;
+    a reserved word or any other name is quoted. exact: quote it as written (a name the warehouse
+    already stored, or one dbt's compiled SQL quotes)."""
+    if _SIMPLE.fullmatch(name) and name.lower() not in RESERVED and not exact:
         return name
     if kind == "bigquery":
         return "`" + name.replace("`", "\\`") + "`"
+    if kind == "snowflake" and not exact and _SIMPLE.fullmatch(name):
+        name = name.upper()  # what an unquoted name folds to
     return '"' + name.replace('"', '""') + '"'
 
 
@@ -170,9 +190,12 @@ class Session:
         from fixwitness.sql import typed_rows
         for name, text in tables.items():
             header, kinds, rows = typed_rows(name, text, types)
-            given = {c.lower(): t for c, t in ((exact or {}).get(name) or {}).items()}
-            sql_types = [given.get(c.lower()) or TYPES[self.kind][k] for c, k in zip(header, kinds)]
-            cols = ", ".join(f"{ident(c, self.kind)} {t}" for c, t in zip(header, sql_types))
+            given = {c.lower(): (c, t) for c, t in ((exact or {}).get(name) or {}).items()}
+            sql_types = [given[c.lower()][1] if c.lower() in given else TYPES[self.kind][k] for c, k in zip(header, kinds)]
+            # Column names as the warehouse stored them for dbt's seed, quoted exactly; others as usual.
+            names = [ident(given[c.lower()][0], self.kind, exact=True) if c.lower() in given else ident(c, self.kind)
+                     for c in header]
+            cols = ", ".join(f"{n} {t}" for n, t in zip(names, sql_types))
             if self.kind == "bigquery":
                 from google.cloud import bigquery
                 schema = [bigquery.SchemaField(c, t) for c, t in zip(header, sql_types)]

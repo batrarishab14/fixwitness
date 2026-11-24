@@ -107,8 +107,12 @@ been a supported warehouse of every package throughout. Each shard has its own P
 each compile uses a private schema that is dropped afterwards. What the protocol measures is
 unchanged.
 
-**2026-11-24, changes to fixwitness made from the pilots.** Three pilot runs, on 8 of the
-candidates plus Fivetran's 2026-11-24 fix of dbt_lever#43, were used only to make the study run;
+**2026-11-24, correction.** An earlier version of this section, and the after_freeze.csv list,
+called commit 3f3c4a0 "Fivetran's fix of dbt_lever#43". It is not: it is our own fix, applied to a
+local clone. dbt_lever#43 is still open; it is handled as an open bug report (open_issues/lever-43).
+
+**2026-11-24, changes to fixwitness made from the pilots.** Pilot runs, on 8 of the
+candidates and on two open bug reports (dbt_lever#43, dbt_zendesk#284), were used only to make the study run;
 their verdicts are not counted and were not used to tune case generation. Changes since the list
 was frozen (commit 0c44e21): seeds are loaded with the column types dbt gave them (booleans and
 timestamps were text, so models using them failed on every input); keys are linked across tables

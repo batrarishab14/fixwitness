@@ -154,8 +154,10 @@ def _run(args: list[str], project: Path, env: dict, timeout: int) -> None:
 
 
 def _profile(path: Path, name: str, db: Path, schema: str) -> None:
+    # The target is named after the adapter, as dbt packages' own CI names it: their configs test
+    # target.name ("{{ 'varchar' if target.name == 'postgres' else 'string' }}") as well as target.type.
     path.write_text(
-        f"{name}:\n  target: fixwitness\n  outputs:\n    fixwitness:\n      type: duckdb\n"
+        f"{name}:\n  target: duckdb\n  outputs:\n    duckdb:\n      type: duckdb\n"
         f"      path: {json.dumps(str(db))}\n      schema: {json.dumps(schema)}\n      threads: 1\n",
         encoding="utf-8")
 
@@ -194,7 +196,7 @@ def _warehouse_profile(path: Path, name: str, url: str, schema: str) -> str:
         if q.get("location"):
             lines.append(f"location: {json.dumps(q['location'])}")
     body = "".join(f"      {l}\n" for l in lines)
-    path.write_text(f"{name}:\n  target: fixwitness\n  outputs:\n    fixwitness:\n{body}", encoding="utf-8")
+    path.write_text(f"{name}:\n  target: {k}\n  outputs:\n    {k}:\n{body}", encoding="utf-8")
     return k
 
 
@@ -223,6 +225,7 @@ def source_schema(manifest: Path) -> str | None:
     return schemas.pop() if len(schemas) == 1 and schemas != {"main"} else None
 
 
+PRIVATE_SCHEMA = "fw_compiled"  # how the private schema is named in compiled SQL kept by fixwitness
 CACHE_ENV = "FIXWITNESS_CACHE_DIR"     # where compiled manifests are kept; "off" turns the cache off
 _SKIP_DIRS = {".git", "target", "logs", "dbt_packages", "dbt_modules", "__pycache__", ".venv", "venv",
               "node_modules", ".fixwitness"}
@@ -313,7 +316,7 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
         _profile(profiles / "profiles.yml", profile, db, "main")
     env = dict(os.environ, DBT_PROFILES_DIR=str(profiles), DBT_SEND_ANONYMOUS_USAGE_STATS="false",
                DBT_TARGET_PATH=str(out / "target"), DBT_LOG_PATH=str(out / "logs"))
-    common = ["--project-dir", str(project), "--profiles-dir", str(profiles), "--target", "fixwitness"]
+    common = ["--project-dir", str(project), "--profiles-dir", str(profiles), "--target", adapter]
     if ((project / "packages.yml").exists() or (project / "dependencies.yml").exists()) \
             and not (project / "dbt_packages").exists():
         _run(["dbt", "deps", *common], project, env, timeout)
@@ -360,6 +363,9 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
                     notes.append(f"dbt: could not drop the private schemas {schema}*: {exc}")
     if not manifest.is_file():
         raise DbtError(f"dbt compile wrote no manifest for {project.name}")
+    if warehouse:  # the private schema's name is random: the same name in both versions' SQL
+        text = manifest.read_text(encoding="utf-8")
+        manifest.write_text(text.replace(schema, PRIVATE_SCHEMA), encoding="utf-8")
     meta = out / "target" / SEED_TYPES_FILE
     if meta.is_file():  # the adapter the types come from, so they are used only in that database
         data = json.loads(meta.read_text(encoding="utf-8"))
