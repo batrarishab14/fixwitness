@@ -93,7 +93,7 @@ def sample_checks(cfg) -> tuple[bool, bool]:
 
 def run_all(engine: str, only: set[str] | None) -> tuple[list[dict], list[str]]:
     rows, skipped = [], []
-    for case_dir in sorted(p for p in CASES.iterdir() if p.is_dir()):
+    for case_dir in sorted(p for p in CASES.iterdir() if p.is_dir() and not p.name.startswith((".", "__"))):
         if only and case_dir.name.split("-", 1)[0] not in only:
             continue
         meta = tomllib.loads((case_dir / "case.toml").read_text(encoding="utf-8"))
@@ -106,7 +106,7 @@ def run_all(engine: str, only: set[str] | None) -> tuple[list[dict], list[str]]:
         maker = case_dir / "make_sample.py"
         if maker.exists():
             subprocess.run([sys.executable, str(maker)], check=True)
-        for fix in sorted(p for p in (case_dir / "fixes").iterdir() if not p.name.startswith(".")):
+        for fix in sorted(p for p in (case_dir / "fixes").iterdir() if not p.name.startswith((".", "__"))):
             label, pattern = label_of(fix)
             cfg = load_config(None, settings(meta, fix, engine))
             runs, same = sample_checks(cfg)

@@ -465,9 +465,18 @@ def _run(plan: Plan, cfg: Config) -> dict:
         if again is not None and entry["status"] == "changed" and again.ok and again.output is not None:
             st, det = compare(b.output, again.output, opts)
             if st == "changed":
-                entry["status"] = "unstable"
-                details = ["the original gave a different output when run again on this input, so the "
-                           "difference is not the change's: " + "; ".join(det[:2])]
+                # The columns that change from run to run on this input are left out of this
+                # input's comparison; what still differs is the change's.
+                cols, problem = unstable_columns(b.output, again.output)
+                left = compare(b.output, a.output, dataclasses.replace(opts, ignore_columns=opts.ignore_columns | cols)) \
+                    if cols and not problem else ("unstable", [])
+                if left[0] == "changed":
+                    details = left[1] + [f"left out on this input because the original's own output changes from run "
+                                         f"to run: {', '.join(sorted(cols)[:6])}"]
+                else:
+                    entry["status"] = "unstable"
+                    details = ["the original gave a different output when run again on this input, so the "
+                               "difference is not the change's: " + "; ".join(det[:2])]
         if entry["status"] in ("changed", "after-failed") and entry["kind"] != "attack":
             kept[case.id] = {"case": case, "original": b, "fix": a}
         return (entry, details), rows
