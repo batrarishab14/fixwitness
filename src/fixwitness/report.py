@@ -228,13 +228,17 @@ def write_repros(proof: dict, out_dir: Path) -> list[Path]:
     return written
 
 
+PROOF_SCHEMA = "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json"
+
+
 def write_outputs(proof: dict, out_dir: Path) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     ignore = out_dir / ".gitignore"
     if not ignore.exists():
         ignore.write_text("*\n", encoding="utf-8")
     proof_path = out_dir / "proof.json"
-    proof_path.write_text(json.dumps(proof, indent=2, ensure_ascii=False), encoding="utf-8")
+    record = {"$schema": PROOF_SCHEMA, **proof}  # the format, for tools that read proofs
+    proof_path.write_text(json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8")
     repros = write_repros(proof, out_dir)
     text = markdown(proof, str(proof_path))
     if repros:

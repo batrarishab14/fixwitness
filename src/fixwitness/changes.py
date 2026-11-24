@@ -55,8 +55,20 @@ def plan_items(cfg: Config) -> tuple[list[Item], list[tuple[str, str]]]:
     items: list[Item] = []
     skipped: list[tuple[str, str]] = []
     projects: dict[str, Path] = {}
+    from fixwitness.adapters import claim, load_adapters
+    adapters = load_adapters(root)
     for status, rel in changes:
         path = root / rel
+        if adapters and path.is_file() and not status.startswith(("D", "A")) and status != "??":
+            got = claim(adapters, path, root)
+            if got is not None:
+                kind, settings = got
+                settings.pop("allow_any_command", None)  # only the user can lift the program allow-list
+                for key in ("sample", "incident", "incident_expected", "before", "after"):
+                    if isinstance(settings.get(key), str) and not Path(settings[key]).is_absolute():
+                        settings[key] = str(root / settings[key])
+                items.append(Item(rel, kind, {"path": str(path), **settings}))
+                continue
         project = find_project(path if path.exists() else path.parent, root) if cfg.dbt != "off" else None
         if project is not None and Path(rel).suffix.lower() in (".sql", ".yml", ".yaml", ".csv", ".md") \
                 and "target/" not in rel and "dbt_packages/" not in rel and not Path(rel).name.startswith("."):
@@ -114,7 +126,12 @@ def run_items(cfg: Config, items: list[Item], out_dir: Path | None = None) -> di
     from fixwitness.report import write_outputs
     results = []
     for i, item in enumerate(items):
-        sub = dataclasses.replace(cfg, **{k: v for k, v in item.overrides.items()})
+        try:
+            sub = dataclasses.replace(cfg, **{k: v for k, v in item.overrides.items()})
+        except TypeError as exc:  # an adapter gave a setting fixwitness doesn't have
+            results.append({"target": item.target, "kind": item.kind, "verdict": "NOT CHECKED",
+                            "reason": f"unknown setting from the adapter: {exc}", "proof": None})
+            continue
         if item.kind != "dataframe":
             sub = dataclasses.replace(sub, function=None) if not cfg.function else sub
         try:

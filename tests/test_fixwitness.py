@@ -1332,6 +1332,50 @@ class WholeChangeTests(TempDirTest):
             server.shutdown()
             server.server_close()
 
+    def test_adapter_claims_a_new_kind_of_file(self):
+        from fixwitness.changes import plan_items, run_items
+        repo = self._repo()
+        write(repo / "jobs" / "clean.etl", "import csv, sys\nrows = list(csv.reader(open(sys.argv[1])))\n"
+              "csv.writer(open(sys.argv[2], 'w', newline='')).writerows(rows)\n")
+        write(repo / "tools" / "fw_adapters.py", textwrap.dedent("""
+            class EtlJob:
+                name = "etl job"
+                def claims(self, path, root):
+                    return path.suffix == ".etl"
+                def settings(self, path, root):
+                    return {"run": "python3 {script} {input} {output}", "sample": "data/orders.csv",
+                            "attacks": False, "allow_any_command": True}
+        """))
+        git(repo, "add", ".")
+        git(repo, "commit", "-q", "-m", "etl job")
+        write(repo / "jobs" / "clean.etl", (repo / "jobs" / "clean.etl").read_text().replace(
+            "writerows(rows)", "writerows(r for r in rows if r[2] != '')"))
+        os.environ["FIXWITNESS_ADAPTERS"] = "tools/fw_adapters.py:EtlJob"
+        try:
+            cfg = load_config(None, {})
+            items, _ = plan_items(cfg)
+            item = next(i for i in items if i.target == "jobs/clean.etl")
+            self.assertEqual(item.kind, "etl job")
+            self.assertNotIn("allow_any_command", item.overrides)
+            result = run_items(cfg, [item])
+            self.assertEqual(result["checks"][0]["verdict"], "FAIL")  # rows with an empty amount are dropped
+        finally:
+            del os.environ["FIXWITNESS_ADAPTERS"]
+
+    def test_proofs_match_the_published_schema(self):
+        try:
+            import jsonschema
+        except ImportError:
+            self.skipTest("jsonschema not installed")
+        from fixwitness.report import write_outputs
+        schema = json.loads((ROOT / "docs" / "proof.schema.json").read_text())
+        repo = self._repo()
+        proof = self.check(path="sql/revenue.sql", engine="sqlite", max_cases=30,
+                           tables={"orders": "data/orders.csv", "customers": "data/customers.csv"})
+        record = json.loads(write_outputs(proof, repo / "out").read_text())
+        jsonschema.validate(record, schema)
+        self.assertTrue(record["$schema"].endswith("docs/proof.schema.json"))
+
     def test_cli_with_no_file(self):
         self._repo()
         env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
