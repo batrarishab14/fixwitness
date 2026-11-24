@@ -1,6 +1,6 @@
 # fixwitness SQL benchmark results
 
-fixwitness 0.5.0 · engine sqlite · 17 fixes across 6 cases (6 correct, 11 wrong) · run time 151s
+fixwitness 0.6.0.dev0 · engine sqlite · 17 fixes across 6 cases (6 correct, 11 wrong) · run time 196s
 
 The wrong fixes are **synthetic**: each models a well-known SQL pitfall, named per fix below. None was produced by an AI agent.
 

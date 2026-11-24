@@ -15,4 +15,4 @@ Q05-exists-to-join,refactor,inner_join.sql,wrong,join fan-out: a customer with t
 Q05-exists-to-join,refactor,reference.sql,correct,semi-join written as IN (no fan-out),True,True,True,True,99,-,-
 Q06-incident-duplicate-customers,incident,dedupe_left_join.sql,wrong,de-duplicates customers but also switches to a LEFT JOIN,True,True,False,False,0,the fix changes output on 27 valid inputs,"empty, file-structure, null-column, numeric-format, whitespace"
 Q06-incident-duplicate-customers,incident,distinct_orders.sql,wrong,de-duplicates the wrong table: orders instead of customers,True,True,True,False,0,"the fix processes customers_incident.csv but its output differs from the expected output (row 1, revenue: '318.5' -> '631.75'; row 1, orders: '3' -> '5')",-
-Q06-incident-duplicate-customers,incident,reference.sql,correct,one row per customer before the join,True,True,True,True,69,-,-
+Q06-incident-duplicate-customers,incident,reference.sql,correct,one row per customer before the join,True,True,True,True,99,-,-
