@@ -326,15 +326,25 @@ def focus(plan: Plan, columns: list[str]) -> list[str]:
     found = focus_columns(_source(plan.before), _source(plan.after), columns)
     changed = (plan.inputs.get("dbt") or {}).get("changed_models") or []
     if changed:
-        texts = []
-        for side in (plan.before, plan.after):
-            root = side.script if side.script is not None and Path(side.script).is_dir() else None
-            for name in changed:
+        import difflib
+        tables = set((plan.inputs.get("dbt") or {}).get("changed_tables") or [])
+        edited, texts = [], []
+        for name in changed:
+            pair = []
+            for side in (plan.before, plan.after):
+                root = side.script if side.script is not None and Path(side.script).is_dir() else None
                 f = Path(root) / f"{name}.sql" if root is not None else None
-                if f is not None and f.is_file():
-                    texts.append(f.read_text(encoding="utf-8", errors="replace"))
-        words = set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", "\n".join(texts)))
-        found += [c for c in columns if c.rsplit(".", 1)[-1] in words and c not in found]
+                pair.append(f.read_text(encoding="utf-8", errors="replace") if f is not None and f.is_file() else "")
+            texts += pair
+            for line in difflib.unified_diff(pair[0].splitlines(), pair[1].splitlines(), lineterm="", n=0):
+                if line[:1] in "+-" and line[:3] not in ("+++", "---"):
+                    edited.append(line[1:])
+        in_scope = [c for c in columns if not tables or c.split(".", 1)[0] in tables]
+        # Columns named on the lines the change edited come first; then every column the changed
+        # models name (a filter the change moved around sits on a line it did not touch).
+        for words in (set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", "\n".join(edited))),
+                      set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", "\n".join(texts)))):
+            found += [c for c in in_scope if c.rsplit(".", 1)[-1] in words and c not in found]
     return found
 
 

@@ -550,6 +550,10 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
     from fixwitness.dbtmode import upstream
     texts = [sql for g in (g0, g1) for m, sql in _bare_models(g).items() if m in upstream(g, outputs)]
     reads = lambda t: any(f'"{t}"' in sql for sql in texts)  # noqa: E731
+    # The tables the changed models read, directly or through the models they build on: the change
+    # can only matter to data that reaches it, so these are the tables whose columns get focus.
+    changed_texts = [sql for g in (g0, g1) for m, sql in _bare_models(g).items() if m in upstream(g, changed)]
+    reads_changed = lambda t: any(f'"{t}"' in sql for sql in changed_texts)  # noqa: E731
     spec: dict[str, str] = {}
     from fixwitness.dbtmode import seed_table, seed_types
     stored_types = {**seed_types(manifests[0])[1], **seed_types(manifests[1])[1]}
@@ -596,7 +600,8 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
         dialect = g0.adapter  # compiled for the warehouse: translated with sqlglot
     sub = dataclasses.replace(cfg, tables=spec, sql_outputs=outputs, dbt="off", engine=engine, dialect=dialect)
     plan = _build_tables(sub, work, canary_dir, mode, Side("original", None, d0), Side("fix", None, d1),
-                         inputs | {"dbt": {"changed_models": changed, "compared": outputs, "adapter": g0.adapter}},
+                         inputs | {"dbt": {"changed_models": changed, "compared": outputs, "adapter": g0.adapter,
+                                           "changed_tables": sorted(t for t in spec if reads_changed(t))}},
                          replay, notes, d0, search_roots)
     plan.sql["contracts"] = g0.contracts  # the original project's tests, as rules on the inputs
     plan.replay.pop("tables", None)  # the tables are rebuilt from the project on replay

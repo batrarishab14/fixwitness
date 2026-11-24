@@ -989,6 +989,22 @@ class FocusUnderCapTests(unittest.TestCase):
         self.assertEqual(len(cases), 60)
 
 
+    def test_many_focused_columns_share_the_cap_and_rank_decides(self):
+        """Dozens of focused columns, few cases: every kind of input still gets a turn, and the column
+        the change edited (ranked first) keeps its cases although its table comes last."""
+        from fixwitness.sql import generate_sql_cases, table_types
+        tables = {f"t{i:02d}": ("id," + ",".join(f"c{j}" for j in range(8)) + "\n"
+                                + "\n".join(f"{r}," + ",".join(f"{r}{j}" for j in range(8)) for r in range(1, 4))
+                                + "\n").encode() for i in range(12)}
+        tables["zz_line_item"] = b"id,amount,quantity\n1,10.5,2\n2,3.0,1\n3,8.25,4\n"
+        types = {t: table_types(v) for t, v in tables.items()}
+        focus = ["zz_line_item.quantity"] + [f"t{i:02d}.c{j}" for i in range(12) for j in range(8)]
+        cases = generate_sql_cases(tables, types, max_cases=60, focus=focus)
+        mine = [c for c in cases if c.column == "zz_line_item.quantity"]
+        self.assertTrue(any(c.value == "0" for c in mine), [c.value for c in mine])
+        self.assertTrue(any(c.category == "null-column" for c in mine))
+        self.assertEqual(len(cases), 60)
+
 class ColumnOrderTests(TempDirTest):
     def test_sql_columns_compared_by_name(self):
         from fixwitness.compare import CompareOptions, compare

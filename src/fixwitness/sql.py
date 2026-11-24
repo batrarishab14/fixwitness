@@ -849,7 +849,20 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
             else:
                 (first if key not in seen else rest).append(i)
             seen.add(key)
-        order = first_f + more_f[: max_cases // 3] + first + more_f[max_cases // 3:]
+        # Within each group the categories take turns, so no kind of input is starved by the tables
+        # that happen to come first (a divide-by-zero on `quantity` needs the numeric case, not a
+        # tenth case of upper/lower on a table that came earlier).
+        rank = {c: n for n, c in enumerate(focus or [])}  # the focus list is in order of relevance
+
+        def interleave(indexes: list[int]) -> list[int]:
+            by_cat: dict[str, list[int]] = {}
+            for i in sorted(indexes, key=lambda i: rank.get(cases[i].column, len(rank))):  # stable
+                by_cat.setdefault(cases[i].category, []).append(i)
+            out, lanes = [], [by_cat[k] for k in sorted(by_cat)]
+            for n in range(max((len(x) for x in lanes), default=0)):
+                out += [x[n] for x in lanes if n < len(x)]
+            return out
+        order = interleave(first_f) + more_f[: max_cases // 3] + interleave(first) + more_f[max_cases // 3:]
         chosen = set(order[:max_cases])
         budget = max_cases - len(chosen)
         rest.sort()
