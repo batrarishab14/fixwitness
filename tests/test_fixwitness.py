@@ -845,6 +845,24 @@ class DbtContractTests(TempDirTest):
         self.assertEqual(proof["verdict"], "FAIL")
 
 
+class DoctorTests(TempDirTest):
+    def test_doctor_lists_what_would_be_checked_and_what_is_missing(self):
+        from fixwitness.doctor import checks, render
+        repo = self.repo({"etl/clean.py": "import sys\nprint(open(sys.argv[1]).read(), end='')\n",
+                          "etl/data.csv": "id,amount\n1,2\n"})
+        os.chdir(repo)
+        write(repo / "etl/clean.py", "import sys\nprint(open(sys.argv[1]).read().upper(), end='')\n")
+        items = checks(repo)
+        text, ready = render(items)
+        self.assertIn("will check etl/clean.py as script", text)
+        self.assertIn("git base HEAD", text)
+        self.assertEqual(ready, not any(i["status"] == "missing" for i in items))
+        os.chdir(self.tmp)
+        text, ready = render(checks(self.tmp))  # not a repository
+        self.assertFalse(ready)
+        self.assertIn("a git repository", text)
+
+
 class ExpectChangeTests(TempDirTest):
     """A bug fix names the output columns it should change; anything else changing is a finding."""
 

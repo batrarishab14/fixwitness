@@ -245,6 +245,7 @@ Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects wit
 | Mark a difference as intended | `fixwitness accept --category case --column orders.status --target models/revenue.sql` |
 | Connect it to your tools | `fixwitness setup claude` (or `cursor`, `vscode`, `github`, `pre-commit`); `--instructions` also tells coding agents to use it |
 | See what would run | add `--dry-run` |
+| Is this repository ready? What's missing? | `fixwitness doctor` (add `--warehouse URL` to test the connection) |
 | Save the detected settings | `fixwitness init etl/clean.py`, then just `fixwitness check` |
 
 **Detected for you:**

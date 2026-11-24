@@ -202,6 +202,19 @@ def cmd_setup(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_doctor(args: argparse.Namespace) -> int:
+    from fixwitness.doctor import checks, render
+    from fixwitness.plan import repo_root
+    try:
+        root = repo_root(Path.cwd())
+    except Exception:
+        root = Path.cwd()
+    warehouse = args.warehouse or os.environ.get("FIXWITNESS_WAREHOUSE")
+    text, ready = render(checks(root, args.base, warehouse, connect=bool(warehouse) and not args.no_connect))
+    print(text, end="")
+    return 0 if ready else 1
+
+
 def cmd_ui(args: argparse.Namespace) -> int:
     from fixwitness.ui import serve
     return serve(port=args.port, open_browser=not args.no_browser)
@@ -447,6 +460,11 @@ def build_parser() -> argparse.ArgumentParser:
     st.add_argument("--instructions", action="store_true",
                     help="also tell coding agents (CLAUDE.md or AGENTS.md) to call prove_change before finishing")
     st.set_defaults(func=cmd_setup)
+    dr = sub.add_parser("doctor", help="say whether this repository is ready to check, and what to install")
+    dr.add_argument("--base", help="git revision to compare with (default HEAD)")
+    dr.add_argument("--warehouse", help="also check this warehouse (postgres://USER@HOST/DB, ...)")
+    dr.add_argument("--no-connect", action="store_true", help="don't connect to the warehouse")
+    dr.set_defaults(func=cmd_doctor)
     ui = sub.add_parser("ui", help="open the local web app: run checks, read reports, mark differences as intended")
     ui.add_argument("--port", type=int, default=0, help="port on 127.0.0.1 (default: any free port)")
     ui.add_argument("--no-browser", action="store_true", help="don't open a browser window")
