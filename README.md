@@ -37,14 +37,16 @@ $ fixwitness check --no-attacks
 
 | Changed | Checked as | Result | Why |
 |---|---|---|---|
-| `etl/revenue.py: revenue()` | dataframe | PASS 99/100 | - |
-| `jobs/events.py` | script | **FAIL** | the fix changes output on 1 valid inputs |
-| `models/revenue.sql` | sql | **FAIL** | the fix changes output on 2 valid inputs |
+| `etl/revenue.py: revenue()` | dataframe | PASS 99/100 | 282 inputs gave the same output |
+| `jobs/events.py` | script | **FAIL** | If a record has no `status` key, the fix fails (KeyError: 'status') while the original runs. |
+| `models/revenue.sql` | sql | **FAIL** | If an `orders` row has an empty `amount`, `orders` for 'east' changes from 1 to 0. |
 
 Not checked: `README.md` (not code)
 ```
 
-Here `jobs/events.py` changed `e.get("status")` to `e["status"]`, which fails on an event without that key, and `models/revenue.sql` changed `count(*)` to `count(o.amount)`. Neither shows on today's data. For each difference, `.fixwitness/<check>/repro/<case>/` holds the input, both outputs and the commands to re-run each side, so you can confirm it yourself.
+Here `jobs/events.py` changed `e.get("status")` to `e["status"]`, and `models/revenue.sql` changed `count(*)` to `count(o.amount)`. Neither shows on today's data.
+
+**Every finding comes with its evidence.** fixwitness shrinks each difference to the fewest rows that still show it, explains it in a sentence, and writes a runnable reproduction (`.fixwitness/<check>/repro/<case>/`: the input, both outputs and the commands to re-run each side). `report.html` puts it together for everyone who decides on the change: the decision first, then what could go wrong, then the evidence and how it was checked. If a difference is intended, mark it (`fixwitness accept`, or the button in `fixwitness ui`) and the next run reports it as reviewed.
 
 One file or a pair of files also works:
 
@@ -391,6 +393,15 @@ fixwitness replay .fixwitness/proof.json
 
 Replay refuses to run if any input changed. Otherwise it re-runs everything and compares the evidence hash.
 
+The format is published as a JSON Schema in [`docs/proof.schema.json`](docs/proof.schema.json), and every `proof.json` links to it, so other tools can read proofs. New versions add keys; they don't rename or remove them.
+
+## Extending it
+
+- **Your warehouse:** `--warehouse postgres://ci@db:5432/analytics` (or `snowflake://`, `bigquery://`) runs both versions in a temporary schema of your warehouse, as written. Passwords come from the driver's own settings, never the URL.
+- **A new kind of code:** an [adapter](docs/ADAPTERS.md) (three members: `name`, `claims`, `settings`) teaches the whole-change check Go jobs, Airflow tasks or your own runner.
+- **Your editor and CI:** `fixwitness setup claude|cursor|vscode|github|pre-commit`.
+- **Contributing:** see [CONTRIBUTING.md](CONTRIBUTING.md). A change fixwitness judged wrongly is the most useful report.
+
 ## Examples
 
 `src/fixwitness/examples/` has three cases. Each includes the original, the obvious fix and a correct fix:
@@ -407,17 +418,16 @@ Replay refuses to run if any input changed. Otherwise it re-runs everything and 
 - **Not a scanner and not an agent.** It checks fixes made by Claude Code, Copilot, Snyk, a self-healing system or a person.
 - **Not a sandbox.** Scripts run as your user. Use `--no-network`, a container or CI for untrusted code.
 - **Inputs are CSV, JSON, JSON Lines or Parquet** for scripts. Any program in any language works, as long as it reads a file or stdin.
-- **One value changes at a time.** A difference that needs two unusual values together (two records of the same key, each with a sub-cent amount) can be missed.
-- **SQL runs on DuckDB or SQLite,** not on your warehouse. Warehouse SQL is translated with sqlglot; a function it can't translate fails to run. Results are evidence for the logic, not for warehouse-specific behaviour.
-- **dbt support covers models** with `ref()`, `source()` and `config()`, one at a time or as a folder. For macros and other Jinja, check the compiled SQL. Incremental models are run as full builds.
+- **Mostly one value changes at a time.** Pairs of rows of the same group are covered for numbers and text (sub-cent amounts, precision edges, another case), but other combinations of two unusual values can be missed.
+- **SQL runs on DuckDB or SQLite** unless you pass `--warehouse`. Warehouse SQL is translated with sqlglot; a function it can't translate fails to run, and warehouse-specific behaviour (collation, NULL ordering, time zones) is only checked in warehouse mode. Warehouse mode is tested on Postgres; the Snowflake and BigQuery connections follow their documented APIs and are untested.
+- **dbt** projects are compiled by dbt with `dbt-duckdb` (or read from your manifests). Without dbt installed, only `ref()`, `source()` and `config()` are rendered. Incremental models are run as full builds.
 - **PySpark is slow:** pandas and polars runs fork from a process that has the library loaded (a pandas check of about 300 cases takes about 13 s in CI), but PySpark starts a local session for every run. Keep `--max-cases` modest for PySpark.
 - **Four attack families** only. SQL injection, deserialization and SSRF are not tested yet.
 
 ## Roadmap
 
-- dbt projects through dbt itself (macros, seeds, incremental models).
-- Faster DataFrame runs (one import, a forked process per run).
-- SQL-injection payloads.
+- dbt projects in warehouse mode (compiled with the warehouse's own adapter).
+- Signed proofs and SQL-injection payloads.
 - Reading the finding from SARIF.
 - A container runner.
 - Signed proofs.

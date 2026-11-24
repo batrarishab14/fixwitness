@@ -198,7 +198,8 @@ def _prove_fix(args: dict) -> dict:
         "valid_inputs_changed": proof["behavior"]["changed"],
         "reasons": proof["reasons"],
         "differences": [
-            {"category": d["category"], "column": d["column"], "value": d["value"], "status": d["status"],
+            {"explanation": d.get("explanation"), "impact": d.get("impact"),
+             "category": d["category"], "column": d["column"], "value": d["value"], "status": d["status"],
              "details": d["details"][:3]}
             for d in proof["differences"] if d["kind"] != "review"
         ][:10],

@@ -764,6 +764,31 @@ class ReportTests(TempDirTest):
         self.assertFalse(view["rows"][0]["cells"][1]["changed"])
 
 
+class PairsAndFocusTests(unittest.TestCase):
+    def test_pairs_put_two_rows_of_one_group_together(self):
+        cases = generate_cases(ORDERS.encode(), attacks=False)
+        pairs = [c for c in cases if c.category == "pairs" and c.column == "amount"]
+        self.assertEqual({c.value for c in pairs}, {"0.005 | 0.005", "2.675 | 1.005", "0.1 | 0.2", "-0.5 | 0.5",
+                                                    "9007199254740993 | 1"})
+        rows = [r.split(",") for r in pairs[1].content.decode().strip().splitlines()[1:]]
+        self.assertEqual(len(rows), 4)  # the twin sits next to its row, with the same group columns
+        self.assertEqual(rows[1][:2], rows[2][:2])
+        reviewed = generate_cases(ORDERS.encode(), attacks=False, review=["duplicate-row"])
+        kinds = {c.value: c.kind for c in reviewed if c.category == "pairs" and c.column == "amount"}
+        self.assertEqual((kinds["0.005 | 0.005"], kinds["2.675 | 1.005"]), ("review", "valid"))
+
+    def test_focus_keeps_the_touched_columns_under_the_cap(self):
+        from fixwitness.cases import focus_columns
+        before, after = "select count(*) from orders", "select count(amount) from orders"
+        self.assertEqual(focus_columns(before, after, ["order_id", "amount", "status"]), ["amount"])
+        self.assertEqual(focus_columns(before, after, ["orders.amount", "orders.status"]), ["orders.amount"])
+        full = sum(c.column == "amount" for c in generate_cases(ORDERS.encode(), attacks=False))
+        focused = generate_cases(ORDERS.encode(), max_cases=120, attacks=False, focus=["amount"])
+        plain = generate_cases(ORDERS.encode(), max_cases=120, attacks=False)
+        self.assertEqual(sum(c.column == "amount" for c in focused), full)  # every case of the touched column
+        self.assertLess(sum(c.column == "amount" for c in plain), full)
+
+
 class PipelineUnitTests(unittest.TestCase):
     def test_run_order_and_dependencies(self):
         from fixwitness.sql import SqlError, dependencies, run_order

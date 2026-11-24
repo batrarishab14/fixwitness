@@ -347,7 +347,10 @@ def generate_json_cases(sample: bytes, columns: list[str] | None = None, rows: i
             recs = [copy.deepcopy(r) for r in base]
             _set(recs[target], paths[col], value)
             content = write(recs)
-        cases.append(Case(id=f"{i:03d}", category=category, kind=kinds[category], column=col, value=value,
+        kind = kinds[category]
+        if category == "pairs" and value is not None and len(set(value.split(" | "))) == 1:
+            kind = kinds["duplicate-row"]  # two equal values make the twin an exact repeat of the record
+        cases.append(Case(id=f"{i:03d}", category=category, kind=kind, column=col, value=value,
                           content=content, family=family, oracle=oracle, canary=canary))
     return cases
 
