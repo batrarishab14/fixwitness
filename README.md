@@ -405,7 +405,7 @@ Replay refuses to run if any input changed. Otherwise it re-runs everything and 
 - **One value changes at a time.** A difference that needs two unusual values together (two records of the same key, each with a sub-cent amount) can be missed.
 - **SQL runs on DuckDB or SQLite,** not on your warehouse. Warehouse SQL is translated with sqlglot; a function it can't translate fails to run. Results are evidence for the logic, not for warehouse-specific behaviour.
 - **dbt support covers models** with `ref()`, `source()` and `config()`, one at a time or as a folder. For macros and other Jinja, check the compiled SQL. Incremental models are run as full builds.
-- **DataFrame functions take about half a second per run** (the library is imported each time, so every run is isolated). Keep `--max-cases` modest for PySpark, which starts a local session per run.
+- **PySpark is slow:** pandas and polars runs fork from a process that has the library loaded (a pandas check of about 300 cases takes about 13 s in CI), but PySpark starts a local session for every run. Keep `--max-cases` modest for PySpark.
 - **Four attack families** only. SQL injection, deserialization and SSRF are not tested yet.
 
 ## Roadmap
