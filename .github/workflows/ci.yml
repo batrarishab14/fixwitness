@@ -36,6 +36,7 @@ jobs:
       - id: fw
         uses: ./
         with:
+          base: HEAD   # only the wrong change above, not everything this pull request changes
           args: --no-attacks --max-cases 60
           install: ""
         continue-on-error: true
