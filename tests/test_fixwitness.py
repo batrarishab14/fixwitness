@@ -684,6 +684,41 @@ class LinkedKeysTests(TempDirTest):
         self.assertEqual(proof["cases"][0]["status"], "identical")  # the tables as given: nothing joins
 
 
+class DbtWarehouseUnitTests(TempDirTest):
+    def test_profile_keeps_secrets_out(self):
+        from fixwitness.dbtmode import _warehouse_profile
+        path = self.tmp / "profiles.yml"
+        kind = _warehouse_profile(path, "shop", "postgres://ci@db.internal:5433/analytics", "fw_0123456789")
+        text = path.read_text()
+        self.assertEqual(kind, "postgres")
+        for want in ("type: postgres", 'host: "db.internal"', "port: 5433", 'dbname: "analytics"',
+                     'schema: "fw_0123456789"', "env_var('PGPASSWORD'"):
+            self.assertIn(want, text)
+        from fixwitness.warehouse import WarehouseError
+        with self.assertRaises(WarehouseError):
+            _warehouse_profile(path, "shop", "postgres://ci:secret@db/analytics", "fw_0123456789")
+
+    def test_schema_variable(self):
+        from fixwitness.dbtmode import schema_variable
+        write(self.tmp / "dbt_project.yml", "name: z\nvars:\n  zendesk_schema: zendesk_integration_tests\n"
+                                            "  zendesk:\n    zendesk_ticket_identifier: \"ticket_data\"\n")
+        self.assertEqual(schema_variable(self.tmp, "zendesk_integration_tests"), "zendesk_schema")
+        self.assertIsNone(schema_variable(self.tmp, "other"))
+
+    def test_private_schemas_only(self):
+        from fixwitness.warehouse import WarehouseError, _schemas
+        with self.assertRaises(WarehouseError):
+            _schemas("postgres://ci@localhost/test", "analytics")
+
+    def test_kinds_of_warehouse_types(self):
+        from fixwitness.sql import kind_of
+        for sql_type, kind in [("double precision", "number"), ("timestamp without time zone", "timestamp"),
+                               ("character varying", "text"), ("NUMBER(38,0)", "integer"), ("NUMBER(18,2)", "number"),
+                               ("INT64", "integer"), ("FLOAT64", "number"), ("BOOL", "boolean"),
+                               ("TIMESTAMP_NTZ", "timestamp"), ("STRING", "text"), ("BIGNUMERIC", "number")]:
+            self.assertEqual(kind_of(sql_type), kind, sql_type)
+
+
 class ExpectChangeTests(TempDirTest):
     """A bug fix names the output columns it should change; anything else changing is a finding."""
 
@@ -763,7 +798,8 @@ class TypedColumnTests(TempDirTest):
         models = self.tmp / "models"
         write(models / "live.sql", 'select id from "forms" where not coalesce(is_deleted, false)\n')
         write(models / "fixwitness_order.txt", "live\n")
-        (models / TYPES_FILE).write_text(json.dumps({"forms": {"id": "BIGINT", "is_deleted": "BOOLEAN"}}))
+        (models / TYPES_FILE).write_text(json.dumps({"adapter": "duckdb",
+                                                     "types": {"forms": {"id": "BIGINT", "is_deleted": "BOOLEAN"}}}))
         tables = {"forms": b"id,is_deleted\n1,FALSE\n2,TRUE\n3,\n"}
         types = {"forms": {"id": "integer", "is_deleted": kind_of("BOOLEAN")}}
         out = read_outputs(run_pipeline(models, make_bundle(tables, types), engine="sqlite"))
@@ -1668,6 +1704,30 @@ class DbtProjectTests(TempDirTest):
         customers.write_text(original.replace("final", "result"))
         ok = self.check(path="models", max_cases=120)
         self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+
+    @unittest.skipUnless(os.environ.get("FIXWITNESS_TEST_POSTGRES") and importlib.util.find_spec("dbt.adapters.postgres"),
+                         "needs a Postgres server and dbt-postgres (CI)")
+    def test_compiled_and_run_in_postgres(self):
+        """--warehouse: dbt compiles with the warehouse's own adapter, in a private schema that is
+        dropped afterwards, and both versions run there."""
+        import psycopg
+        from fixwitness.warehouse import parse_url
+        url = os.environ["FIXWITNESS_TEST_POSTGRES"]
+        repo = self._project()
+        customers = repo / "models" / "customers.sql"
+        original = customers.read_text()
+        customers.write_text(original.replace("count(order_id)", "count(*)"))
+        bad = self.check(path="models", max_cases=40, warehouse=url)
+        self.assertEqual(bad["verdict"], "FAIL", bad["reasons"])
+        self.assertTrue(any("dbt-postgres adapter" in n for n in bad["notes"]), bad["notes"])
+        self.assertEqual(bad["inputs"]["dbt"]["adapter"], "postgres")
+        customers.write_text(original.replace("final", "result"))
+        ok = self.check(path="models", max_cases=40, warehouse=url)
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+        i = parse_url(url)
+        with psycopg.connect(host=i["host"], port=i["port"], user=i["user"], dbname=i["path"]) as con:
+            left = con.execute("select count(*) from information_schema.schemata where schema_name like 'fw_%'").fetchone()[0]
+        self.assertEqual(left, 0)
 
 
 @unittest.skipUnless(os.environ.get("FIXWITNESS_TEST_POSTGRES"),

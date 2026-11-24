@@ -256,11 +256,14 @@ def table_types(sample: bytes) -> dict[str, str]:
 
 
 def kind_of(sql_type: str) -> str:
-    """The kind of a column from the SQL type a database gave it (DuckDB's names)."""
+    """The kind of a column from the SQL type a database gave it (DuckDB, Postgres, Snowflake and
+    BigQuery names)."""
     t = sql_type.upper().strip()
-    if re.match(r"(U?(BIG|SMALL|TINY|HUGE)?INT(EGER)?\d*|U?HUGEINT|LONG|SHORT)$", t):
+    if re.match(r"(U?(BIG|SMALL|TINY|HUGE)?INT(EGER)?\d*|U?HUGEINT|LONG|SHORT|SERIAL|BIGSERIAL)$", t):
         return "integer"
-    if re.match(r"(DOUBLE|FLOAT\d*|REAL|DECIMAL|NUMERIC)", t):
+    if re.match(r"(NUMBER|NUMERIC|DECIMAL)\s*\(\s*\d+\s*,\s*0\s*\)$", t):  # Snowflake's integers: NUMBER(38,0)
+        return "integer"
+    if re.match(r"(DOUBLE|FLOAT\d*|REAL|DECIMAL|NUMERIC|BIGNUMERIC|NUMBER)", t):
         return "number"
     if t in ("BOOLEAN", "BOOL", "LOGICAL"):
         return "boolean"
@@ -450,7 +453,10 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
     wanted = outputs or sorted(models)
     order_file = root / "fixwitness_order.txt"  # written for dbt projects, from dbt's own graph
     types_file = root / TYPES_FILE
-    exact = json.loads(types_file.read_text(encoding="utf-8")) if types_file.is_file() else None
+    exact, exact_adapter = None, None
+    if types_file.is_file():  # the types dbt gave the seeds, in the database it compiled with
+        data = json.loads(types_file.read_text(encoding="utf-8"))
+        exact, exact_adapter = (data["types"], data["adapter"]) if "adapter" in data else (data, "duckdb")
     deps_file = root / "fixwitness_deps.json"
     needed = None
     if deps_file.is_file():  # dbt: only the models the compared outputs read are built
@@ -465,7 +471,7 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
         from fixwitness.warehouse import Session, ident, url_from_env
         results = {}
         with Session(url_from_env()) as wh:
-            wh.load(tables, types)
+            wh.load(tables, types, exact if exact_adapter == wh.kind else None)
             names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
             for name in names:
                 if needed is not None and name not in needed:
@@ -478,7 +484,7 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
     con = _connect(engine)
     results: dict[str, bytes] = {}
     try:
-        load_tables(con, engine, tables, types, exact)
+        load_tables(con, engine, tables, types, exact if exact_adapter == engine else None)
         names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
         for name in names:
             if needed is not None and name not in needed:

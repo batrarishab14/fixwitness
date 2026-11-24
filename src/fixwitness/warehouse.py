@@ -164,14 +164,18 @@ class Session:
         from google.cloud import bigquery
         return bigquery.QueryJobConfig(default_dataset=f"{self.client.project}.{self.schema}")
 
-    def load(self, tables: dict[str, str], types: dict) -> None:
+    def load(self, tables: dict[str, str], types: dict, exact: dict | None = None) -> None:
+        """Create and fill each table. `exact`: the SQL type dbt gave a column in this warehouse,
+        used in place of the kind's default type."""
         from fixwitness.sql import typed_rows
         for name, text in tables.items():
             header, kinds, rows = typed_rows(name, text, types)
-            cols = ", ".join(f"{ident(c, self.kind)} {TYPES[self.kind][k]}" for c, k in zip(header, kinds))
+            given = {c.lower(): t for c, t in ((exact or {}).get(name) or {}).items()}
+            sql_types = [given.get(c.lower()) or TYPES[self.kind][k] for c, k in zip(header, kinds)]
+            cols = ", ".join(f"{ident(c, self.kind)} {t}" for c, t in zip(header, sql_types))
             if self.kind == "bigquery":
                 from google.cloud import bigquery
-                schema = [bigquery.SchemaField(c, TYPES["bigquery"][k]) for c, k in zip(header, kinds)]
+                schema = [bigquery.SchemaField(c, t) for c, t in zip(header, sql_types)]
                 table = f"{self.client.project}.{self.schema}.{name}"
                 self.client.create_table(bigquery.Table(table, schema=schema))
                 if rows:
@@ -194,6 +198,96 @@ class Session:
 
     def create_as(self, name: str, sql: str) -> None:
         self.query(f"CREATE TABLE {ident(name, self.kind)} AS {sql}")
+
+
+def _connect(url: str):
+    """A plain connection (no private schema) for housekeeping: listing and dropping schemas."""
+    i = parse_url(url)
+    if i["kind"] == "postgres":
+        try:
+            import psycopg
+            return psycopg.connect(host=i["host"], port=i["port"] or 5432, user=i["user"],
+                                   dbname=i["path"] or None, autocommit=True)
+        except ImportError:
+            import psycopg2
+            con = psycopg2.connect(host=i["host"], port=i["port"] or 5432, user=i["user"], dbname=i["path"] or None)
+            con.autocommit = True
+            return con
+    if i["kind"] == "snowflake":
+        import snowflake.connector
+        args = {"user": i["user"], "account": i["host"], "database": i["path"] or None,
+                "warehouse": i["query"].get("warehouse"), "role": i["query"].get("role"),
+                "password": os.environ.get("SNOWFLAKE_PASSWORD"),
+                "authenticator": os.environ.get("SNOWFLAKE_AUTHENTICATOR"),
+                "private_key_file": os.environ.get("SNOWFLAKE_PRIVATE_KEY_PATH"),
+                "private_key_file_pwd": os.environ.get("SNOWFLAKE_PRIVATE_KEY_PASSPHRASE"),
+                "token": os.environ.get("SNOWFLAKE_TOKEN")}
+        return snowflake.connector.connect(**{a: v for a, v in args.items() if v})
+    raise WarehouseError("bigquery uses its client")
+
+
+def _schemas(url: str, prefix: str) -> list[str]:
+    """The schemas (BigQuery: datasets) whose name starts with prefix: a private schema and the
+    custom schemas dbt made from it (prefix_staging, ...)."""
+    if not re.fullmatch(r"fw_[0-9a-f]{6,32}", prefix):
+        raise WarehouseError(f"refusing to touch schemas named {prefix}*: not a fixwitness private schema")
+    i = parse_url(url)
+    if i["kind"] == "bigquery":
+        from google.cloud import bigquery
+        client = bigquery.Client(project=i["host"] or None, location=i["query"].get("location"))
+        return [d.dataset_id for d in client.list_datasets() if d.dataset_id.lower().startswith(prefix)]
+    con = _connect(url)
+    try:
+        cur = con.cursor()
+        cur.execute("select schema_name from information_schema.schemata")
+        return [r[0] for r in cur.fetchall() if str(r[0]).lower().startswith(prefix)]
+    finally:
+        con.close()
+
+
+def columns(url: str, prefix: str) -> list[tuple[str, str, str, str]]:
+    """(schema, table, column, type) of every table in the private schemas."""
+    i = parse_url(url)
+    names = _schemas(url, prefix)
+    out = []
+    if i["kind"] == "bigquery":
+        from google.cloud import bigquery
+        client = bigquery.Client(project=i["host"] or None, location=i["query"].get("location"))
+        for ds in names:
+            q = (f"select table_schema, table_name, column_name, data_type from "
+                 f"`{client.project}.{ds}`.INFORMATION_SCHEMA.COLUMNS order by table_name, ordinal_position")
+            out += [tuple(r.values()) for r in client.query(q).result()]
+        return out
+    con = _connect(url)
+    try:
+        cur = con.cursor()
+        for name in names:
+            cur.execute("select table_schema, table_name, column_name, data_type from information_schema.columns "
+                        "where table_schema = %s order by table_name, ordinal_position", (name,))
+            out += [tuple(r) for r in cur.fetchall()]
+    finally:
+        con.close()
+    return out
+
+
+def drop_schemas(url: str, prefix: str) -> list[str]:
+    """Drop the private schemas (and what dbt built in them)."""
+    i = parse_url(url)
+    names = _schemas(url, prefix)
+    if i["kind"] == "bigquery":
+        from google.cloud import bigquery
+        client = bigquery.Client(project=i["host"] or None, location=i["query"].get("location"))
+        for ds in names:
+            client.delete_dataset(f"{client.project}.{ds}", delete_contents=True, not_found_ok=True)
+        return names
+    con = _connect(url)
+    try:
+        cur = con.cursor()
+        for name in names:
+            cur.execute(f"DROP SCHEMA IF EXISTS {ident(name, i['kind'])} CASCADE")
+    finally:
+        con.close()
+    return names
 
 
 def url_from_env() -> str:

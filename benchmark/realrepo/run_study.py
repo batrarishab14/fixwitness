@@ -50,7 +50,7 @@ def outcome(summary: dict | None, code: int) -> tuple[str, list[str]]:
     return ("not checked", verdicts)
 
 
-def run_one(row: dict, clones: Path, out: Path, limit: int) -> dict:
+def run_one(row: dict, clones: Path, out: Path, limit: int, warehouse: str | None = None) -> dict:
     res = {k: row.get(k, "") for k in ("id", "set", "label", "package", "release", "commit", "parent")}
     dest = out / "runs" / row["id"].replace("/", "_")
     if dest.exists():
@@ -65,7 +65,7 @@ def run_one(row: dict, clones: Path, out: Path, limit: int) -> dict:
         return {**res, "outcome": "not checked", "detail": f"checkout failed: {exc.stderr.strip()[:200]}",
                 "seconds": round(time.time() - start)}
     cmd = [sys.executable, "-m", "fixwitness", "check", "--base", row["parent"], "--no-attacks",
-           "--out-dir", str(dest / "out")]
+           "--out-dir", str(dest / "out")] + (["--warehouse", warehouse] if warehouse else [])
     try:
         proc = subprocess.run(cmd, cwd=repo, capture_output=True, text=True, timeout=limit)
         code, log = proc.returncode, proc.stdout + proc.stderr
@@ -81,6 +81,8 @@ def run_one(row: dict, clones: Path, out: Path, limit: int) -> dict:
         proof_path = c.get("proof")
         if c.get("reason"):
             detail = (detail + " | " if detail else "") + str(c["reason"])[:300]
+        if c.get("detail"):
+            (dest / "error.txt").write_text(str(c["detail"]), encoding="utf-8")
         if proof_path and Path(proof_path).is_file():
             proof = json.loads(Path(proof_path).read_text(encoding="utf-8"))
             for d in proof.get("differences", []):
@@ -117,7 +119,7 @@ def run_issue(name: str, clones: Path, out: Path) -> dict:
         git(repo, "checkout", "-q", "-f", meta["base"])
         git(repo, "clean", "-qfdx")
         db.unlink(missing_ok=True)
-        cmd = step["run"].format(patch=str((folder / "fix.patch").resolve()), out=str(dest))
+        cmd = step["run"].replace("{patch}", str((folder / "fix.patch").resolve())).replace("{out}", str(dest))
         start = time.time()
         try:
             proc = subprocess.run(cmd, shell=True, cwd=repo, env=env, capture_output=True, text=True, timeout=1800)
@@ -164,6 +166,8 @@ def main() -> None:
     ap.add_argument("--only", default="", help="comma-separated candidate ids")
     ap.add_argument("--all", action="store_true", help="also run the out-of-scope candidates")
     ap.add_argument("--limit", type=int, default=1500, help="seconds per candidate")
+    ap.add_argument("--warehouse", default=os.environ.get("FIXWITNESS_STUDY_WAREHOUSE"),
+                    help="compile and run in this warehouse (postgres://...) instead of DuckDB")
     args = ap.parse_args()
     args.clones, args.out = args.clones.resolve(), args.out.resolve()  # fixwitness runs inside each clone
     rows = list(csv.DictReader((HERE / "candidates.csv").open(encoding="utf-8")))
@@ -184,7 +188,7 @@ def main() -> None:
         w = csv.DictWriter(fh, fieldnames=FIELDS, lineterminator="\n")
         w.writeheader()
         for r in mine:
-            res = run_one(r, args.clones, args.out, args.limit)
+            res = run_one(r, args.clones, args.out, args.limit, args.warehouse)
             w.writerow(res)
             fh.flush()
             print(f"{res['id']:40} {res['set']:9} {res['outcome']:12} {res.get('differences', '')!s:>4} "

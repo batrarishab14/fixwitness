@@ -37,13 +37,13 @@ jobs:
           java-version: "17"
       - name: Install the optional libraries
         run: |
-          python -m pip install --quiet duckdb sqlglot pyarrow pandas polars pyspark dbt-core dbt-duckdb "psycopg[binary]"
+          python -m pip install --quiet duckdb sqlglot pyarrow pandas polars pyspark dbt-core dbt-duckdb dbt-postgres "psycopg[binary]"
           python - <<'EOF' | tee versions.log
           import importlib, importlib.metadata as md, platform
           print("python", platform.python_version())
           for m in ("duckdb", "sqlglot", "pyarrow", "pandas", "polars", "pyspark"):
               print(m, importlib.import_module(m).__version__)
-          for d in ("dbt-core", "dbt-duckdb"):
+          for d in ("dbt-core", "dbt-duckdb", "dbt-postgres"):
               print(d, md.version(d))
           EOF
       - name: Get dbt-labs/jaffle_shop (a public dbt project with seeds and Jinja)

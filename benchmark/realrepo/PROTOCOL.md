@@ -96,3 +96,22 @@ time; their versions are recorded.
   the integration-test project, sources that read seeds) were made before the first run and are
   listed in RESULTS.md. If anything that changes a verdict is changed after a run, the numbers
   before and after are both reported.
+
+## Amendments (all made before the first counted run)
+
+**2026-11-24, warehouse.** The candidates are compiled and run on **Postgres 16 with dbt-postgres**
+(`fixwitness check --base <parent> --no-attacks --warehouse postgres://...`), not on DuckDB.
+Reason: Fivetran added DuckDB to these packages' integration tests only recently, and in the
+pilots older commits failed to load their seeds on DuckDB (`dbt seed` errors), while Postgres has
+been a supported warehouse of every package throughout. Each shard has its own Postgres server;
+each compile uses a private schema that is dropped afterwards. What the protocol measures is
+unchanged.
+
+**2026-11-24, changes to fixwitness made from the pilots.** Three pilot runs, on 8 of the
+candidates plus Fivetran's 2026-11-24 fix of dbt_lever#43, were used only to make the study run;
+their verdicts are not counted and were not used to tune case generation. Changes since the list
+was frozen (commit 0c44e21): seeds are loaded with the column types dbt gave them (booleans and
+timestamps were text, so models using them failed on every input); keys are linked across tables
+when the sample's tables share no key values; true/false and time-boundary cases for typed
+columns; dbt errors are reported with dbt's own explanation; dbt compiles with the warehouse's
+own adapter when a warehouse is given. fixwitness's verdict rules are unchanged.

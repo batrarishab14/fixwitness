@@ -378,6 +378,7 @@ def _build_tables(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: 
     exact_file = folder / TYPES_FILE if folder is not None else None
     if exact_file is not None and exact_file.is_file():  # dbt: the types dbt gave the seeds
         exact = json.loads(exact_file.read_text(encoding="utf-8"))
+        exact = exact.get("types", {}) if "adapter" in exact else exact
         for name, cols in exact.items():
             by_lower = {c.lower(): t for c, t in cols.items()}
             for col in types.get(name, {}):
@@ -575,11 +576,12 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
     write_models(g1, d1)
     # The column types dbt gave the seeds, so every case is loaded exactly as dbt loads the seeds.
     from fixwitness.dbtmode import seed_types
-    exact = {**seed_types(manifests[1]), **seed_types(manifests[0])}
-    exact = {t: cols for t, cols in exact.items() if t in spec}
+    (a1, t1), (a0, t0) = seed_types(manifests[1]), seed_types(manifests[0])
+    exact = {t: cols for t, cols in {**t1, **t0}.items() if t in spec}
     if exact:
+        body = json.dumps({"adapter": a0 or a1, "types": exact}, indent=1, sort_keys=True) + "\n"
         for d in (d0, d1):
-            (d / TYPES_FILE).write_text(json.dumps(exact, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+            (d / TYPES_FILE).write_text(body, encoding="utf-8")
         notes.append(f"dbt: seeds loaded with the column types dbt gave them ({len(exact)} tables)")
     engine, dialect = cfg.engine, cfg.dialect
     if g0.adapter != "duckdb" and not dialect:
@@ -600,16 +602,31 @@ def _bare_models(g) -> dict[str, str]:
     return {m: bare_sql(g, m) for m in g.models}
 
 
-def _compile_both(t0_project: Path, t1_project: Path, work: Path, notes: list[str]) -> tuple[Path, Path]:
-    from fixwitness.dbtmode import DbtError, compile_project
+def _dbt_adapter(cfg: Config) -> str:
+    """The dbt adapter fixwitness compiles with: your warehouse's (with --warehouse), else DuckDB."""
+    if not cfg.warehouse:
+        return "duckdb"
+    from fixwitness.warehouse import WarehouseError, parse_url
     try:
-        m0 = compile_project(t0_project, work / "dbt" / "build0", notes=notes)
-        m1 = compile_project(t1_project, work / "dbt" / "build1", notes=notes)
+        return parse_url(cfg.warehouse)["kind"]
+    except WarehouseError as exc:
+        raise PlanError(str(exc)) from exc
+
+
+def _compile_both(t0_project: Path, t1_project: Path, work: Path, notes: list[str],
+                  warehouse: str | None = None) -> tuple[Path, Path]:
+    from fixwitness.dbtmode import ADAPTER_PIP, DbtError, compile_project
+    try:
+        m0 = compile_project(t0_project, work / "dbt" / "build0", notes=notes, warehouse=warehouse)
+        m1 = compile_project(t1_project, work / "dbt" / "build1", notes=notes, warehouse=warehouse)
     except DbtError as exc:
         raise PlanError(str(exc)) from exc
-    notes.append("dbt: both versions built on the seeds and compiled by dbt (dbt-duckdb adapter), so macros and "
-                 "packages are rendered by dbt" + (f" (through the test project {t1_project.name}/)"
-                                                   if (t1_project.parent / "dbt_project.yml").is_file() else ""))
+    from fixwitness.warehouse import parse_url
+    adapter = ADAPTER_PIP[parse_url(warehouse)["kind"] if warehouse else "duckdb"]
+    where = "in a private schema of your warehouse, dropped afterwards" if warehouse else "in a private DuckDB file"
+    notes.append(f"dbt: both versions built on the seeds and compiled by dbt ({adapter} adapter, {where}), so "
+                 "macros and packages are rendered by dbt" + (f" (through the test project {t1_project.name}/)"
+                                                             if (t1_project.parent / "dbt_project.yml").is_file() else ""))
     return m0, m1
 
 
@@ -814,12 +831,14 @@ def _build_git(cfg: Config, work: Path, canary_dir: Path) -> Plan:
         prel = project.resolve().relative_to(root.resolve()).as_posix()
         if cfg.manifest and cfg.base_manifest:
             m0, m1 = cfg.resolve(cfg.base_manifest), cfg.resolve(cfg.manifest)
-        elif dbt_available():
-            m0, m1 = _compile_both(t0 / prel, t1 / prel, work, notes)
+        elif dbt_available(_dbt_adapter(cfg)):
+            m0, m1 = _compile_both(t0 / prel, t1 / prel, work, notes, cfg.warehouse)
         else:
             m0 = m1 = None
-            notes.append("dbt: dbt-core and dbt-duckdb are not installed, so models are rendered by fixwitness "
-                         "(ref, source and config only); install them to check projects that use macros")
+            from fixwitness.dbtmode import ADAPTER_PIP
+            pip = ADAPTER_PIP[_dbt_adapter(cfg)]
+            notes.append(f"dbt: dbt-core and {pip} are not installed, so models are rendered by fixwitness "
+                         f"(ref, source and config only); pip install dbt-core {pip} to check projects that use macros")
         if m0 is not None:
             changed = [{"path": p, "status": st, "sha256": sha256_file(root / p) if (root / p).is_file() else None}
                        for st, p in changes]
@@ -829,7 +848,9 @@ def _build_git(cfg: Config, work: Path, canary_dir: Path) -> Plan:
                                "path": str(project.resolve()), "command": None}, notes,
                               [project, *(project / d for d in ("seeds", "data", "tests/fixtures")), root])
         if target_abs.is_file() and target_abs.suffix.lower() != ".sql":
-            raise PlanError(f"{rel} is part of a dbt project; install dbt-core and dbt-duckdb to check changes to it")
+            from fixwitness.dbtmode import ADAPTER_PIP
+            pip = ADAPTER_PIP[_dbt_adapter(cfg)]
+            raise PlanError(f"{rel} is part of a dbt project; pip install dbt-core {pip} to check changes to it")
     if rel is not None and not (t0 / rel).exists():
         raise PlanError(f"{rel} does not exist in {cfg.base}; there is no original to compare against")
     if rel is not None and target_abs.is_dir() and not is_model_folder(t0 / rel):

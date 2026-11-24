@@ -141,7 +141,8 @@ def run_items(cfg: Config, items: list[Item], out_dir: Path | None = None) -> di
             proof = run_check(sub)
         except (PlanError, ConfigError) as exc:
             results.append({"target": item.target, "kind": item.kind, "verdict": "NOT CHECKED",
-                            "reason": str(exc).splitlines()[0][:300], "proof": None})
+                            "reason": str(exc).splitlines()[0][:300], "proof": None,
+                            "detail": "\n".join(str(exc).splitlines()[1:])[-4000:] or None})
             continue
         first = next((d.get("explanation") for d in proof["differences"]
                       if d["kind"] != "review" and d.get("explanation")), None)

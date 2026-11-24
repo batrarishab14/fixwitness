@@ -26,6 +26,7 @@ import os
 import re
 import shutil
 import subprocess
+import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -76,9 +77,13 @@ def project_settings(project: Path) -> dict:
     return data
 
 
-def dbt_available() -> bool:
+ADAPTER_PIP = {"duckdb": "dbt-duckdb", "postgres": "dbt-postgres", "snowflake": "dbt-snowflake",
+               "bigquery": "dbt-bigquery"}
+
+
+def dbt_available(adapter: str = "duckdb") -> bool:
     try:
-        found = importlib.util.find_spec("dbt.adapters.duckdb") is not None
+        found = importlib.util.find_spec(f"dbt.adapters.{adapter}") is not None
     except ModuleNotFoundError:
         found = False
     return shutil.which("dbt") is not None and found
@@ -116,9 +121,15 @@ def _clean(line: str) -> str:
 
 
 def error_lines(output: str, limit: int = 4) -> list[str]:
-    """dbt's own explanation of a failure: the first error line and the lines after it."""
+    """dbt's own explanation of a failure: what follows "Completed with N errors" (the summary dbt
+    prints at the end), else the first error line and the lines after it."""
     lines = [_clean(l) for l in output.splitlines()]
     lines = [l for l in lines if l.strip()]
+    for i, l in enumerate(lines):
+        if re.search(r"Completed with \d+ errors?", l):
+            after = [x.strip() for x in lines[i + 1:] if not x.lstrip().startswith("Done.")]
+            if after:
+                return after[:limit]
     for i, l in enumerate(lines):
         if re.search(r"\b(Error|error|ERROR|Failure|exception)\b", l) and "ERROR=" not in l \
                 and not l.lstrip().startswith(("Finished running", "Done.")):
@@ -145,6 +156,53 @@ def _profile(path: Path, name: str, db: Path, schema: str) -> None:
         encoding="utf-8")
 
 
+def _warehouse_profile(path: Path, name: str, url: str, schema: str) -> str:
+    """A dbt profile for your warehouse, with a private schema. Secrets come from the environment
+    variables the drivers read (never from the URL, which is recorded in the proof)."""
+    from fixwitness.warehouse import parse_url
+    i = parse_url(url)
+    k, q = i["kind"], i["query"]
+    env = lambda var: "\"{{ env_var('" + var + "', '') }}\""  # noqa: E731
+    if k == "postgres":
+        lines = ["type: postgres", f"host: {json.dumps(i['host'] or 'localhost')}", f"port: {i['port'] or 5432}",
+                 f"user: {json.dumps(i['user'] or '')}", f"password: {env('PGPASSWORD')}",
+                 f"dbname: {json.dumps(i['path'] or 'postgres')}", f"schema: {json.dumps(schema)}", "threads: 4"]
+    elif k == "snowflake":
+        lines = ["type: snowflake", f"account: {json.dumps(i['host'] or '')}", f"user: {json.dumps(i['user'] or '')}",
+                 f"database: {json.dumps(i['path'] or '')}", f"warehouse: {json.dumps(q.get('warehouse') or '')}",
+                 f"schema: {json.dumps(schema)}", "threads: 4"]
+        if q.get("role"):
+            lines.append(f"role: {json.dumps(q['role'])}")
+        if os.environ.get("SNOWFLAKE_PRIVATE_KEY_PATH"):
+            lines += [f"private_key_path: {env('SNOWFLAKE_PRIVATE_KEY_PATH')}",
+                      f"private_key_passphrase: {env('SNOWFLAKE_PRIVATE_KEY_PASSPHRASE')}"]
+        elif os.environ.get("SNOWFLAKE_AUTHENTICATOR"):
+            lines.append(f"authenticator: {env('SNOWFLAKE_AUTHENTICATOR')}")
+        else:
+            lines.append(f"password: {env('SNOWFLAKE_PASSWORD')}")
+    else:
+        keyfile = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+        lines = ["type: bigquery", f"method: {'service-account' if keyfile else 'oauth'}",
+                 f"project: {json.dumps(i['host'] or os.environ.get('GOOGLE_CLOUD_PROJECT', ''))}",
+                 f"dataset: {json.dumps(schema)}", "threads: 4"]
+        if keyfile:
+            lines.append(f"keyfile: {env('GOOGLE_APPLICATION_CREDENTIALS')}")
+        if q.get("location"):
+            lines.append(f"location: {json.dumps(q['location'])}")
+    body = "".join(f"      {l}\n" for l in lines)
+    path.write_text(f"{name}:\n  target: fixwitness\n  outputs:\n    fixwitness:\n{body}", encoding="utf-8")
+    return k
+
+
+def schema_variable(project: Path, schema: str) -> str | None:
+    """The variable in dbt_project.yml whose value is the schema the sources read (zendesk_schema:
+    zendesk_integration_tests), so a private schema can be put in its place."""
+    text = (project / "dbt_project.yml").read_text(encoding="utf-8")
+    hits = re.findall(rf"^\s*([A-Za-z_][\w]*)\s*:\s*['\"]?{re.escape(schema)}['\"]?\s*(?:#.*)?$", text, re.M)
+    hits = [h for h in hits if h not in ("schema", "+schema", "name", "profile")]
+    return hits[0] if len(set(hits)) == 1 else None
+
+
 def source_schema(manifest: Path) -> str | None:
     """The one schema that the sources reading seeds point at (a package's integration tests set it
     with a variable), when it is not the default; None otherwise."""
@@ -161,48 +219,83 @@ def source_schema(manifest: Path) -> str | None:
     return schemas.pop() if len(schemas) == 1 and schemas != {"main"} else None
 
 
-def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[str] | None = None) -> Path:
-    """dbt seed, dbt run and dbt compile in a private DuckDB file; return the manifest path."""
-    if not dbt_available():
-        raise DbtError("compiling a dbt project needs dbt-core and the dbt-duckdb adapter: "
-                       "pip install dbt-core dbt-duckdb (or pass --manifest and --base-manifest)")
+def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[str] | None = None,
+                    warehouse: str | None = None) -> Path:
+    """dbt seed, dbt run and dbt compile, in a private DuckDB file or, with a warehouse URL, in a
+    private schema of your warehouse with its own dbt adapter (dropped afterwards); return the
+    manifest path."""
+    adapter = "duckdb"
+    if warehouse:
+        from fixwitness.warehouse import parse_url
+        adapter = parse_url(warehouse)["kind"]
+    if not dbt_available(adapter):
+        raise DbtError(f"compiling a dbt project needs dbt-core and the {ADAPTER_PIP[adapter]} adapter: "
+                       f"pip install dbt-core {ADAPTER_PIP[adapter]} (or pass --manifest and --base-manifest)")
     settings = project_settings(project)
     profile = settings.get("profile") or settings.get("name") or "default"
     out.mkdir(parents=True, exist_ok=True)
     profiles = out / "profiles"
     profiles.mkdir(exist_ok=True)
     db = out / "fixwitness.duckdb"
-    _profile(profiles / "profiles.yml", profile, db, "main")
+    schema = "fw_" + uuid.uuid4().hex[:10]
+    if warehouse:
+        _warehouse_profile(profiles / "profiles.yml", profile, warehouse, schema)
+    else:
+        _profile(profiles / "profiles.yml", profile, db, "main")
     env = dict(os.environ, DBT_PROFILES_DIR=str(profiles), DBT_SEND_ANONYMOUS_USAGE_STATS="false",
                DBT_TARGET_PATH=str(out / "target"), DBT_LOG_PATH=str(out / "logs"))
     common = ["--project-dir", str(project), "--profiles-dir", str(profiles), "--target", "fixwitness"]
     if ((project / "packages.yml").exists() or (project / "dependencies.yml").exists()) \
             and not (project / "dbt_packages").exists():
         _run(["dbt", "deps", *common], project, env, timeout)
-    seeds = _has_seeds(project)
-    if seeds:
-        # Sources that read the seeds through a schema variable: the target schema is set to it, so
-        # the seeds load where the sources look for them.
-        _run(["dbt", "parse", *common], project, env, timeout)
-        schema = source_schema(out / "target" / "manifest.json")
-        if schema:
-            _profile(profiles / "profiles.yml", profile, db, schema)
-        _run(["dbt", "seed", *common], project, env, timeout)
-        write_seed_types(db, out / "target" / "manifest.json", out / "target" / SEED_TYPES_FILE)
-        # Built once on the seeds, so macros that read a model's columns or query a model while
-        # compiling see the real tables. A model that fails to build here is still compiled.
-        try:
-            _run(["dbt", "run", *common], project, env, timeout)
-        except DbtError as exc:
-            if notes is not None:
-                first = str(exc).splitlines()[0].split(": ", 1)[-1]
-                notes.append(f"dbt: `dbt run` on the seeds failed in {project.name} ({first.strip()[:200]}); "
-                             f"models were still compiled, but macros that read a model's columns may "
-                             f"not have seen them")
-    _run(["dbt", "compile", *common], project, env, timeout)
     manifest = out / "target" / "manifest.json"
+    try:
+        if _has_seeds(project):
+            # Sources that read the seeds through a schema variable: in DuckDB the target schema is
+            # set to it; in a warehouse the variable is set to the private schema instead.
+            _run(["dbt", "parse", *common], project, env, timeout)
+            src = source_schema(manifest)
+            if src and src != schema:
+                if warehouse:
+                    var = schema_variable(project, src)
+                    if var is None:
+                        raise DbtError(f"the sources read the seeds from schema {src}, which no variable in "
+                                       f"{project.name}/dbt_project.yml sets, so they can't be pointed at a "
+                                       f"private schema in your warehouse")
+                    common += ["--vars", json.dumps({var: schema})]
+                else:
+                    _profile(profiles / "profiles.yml", profile, db, src)
+            _run(["dbt", "seed", *common], project, env, timeout)
+            if warehouse:
+                write_warehouse_seed_types(warehouse, schema, manifest, out / "target" / SEED_TYPES_FILE)
+            else:
+                write_seed_types(db, manifest, out / "target" / SEED_TYPES_FILE)
+            # Built once on the seeds, so macros that read a model's columns or query a model while
+            # compiling see the real tables. A model that fails to build here is still compiled.
+            try:
+                _run(["dbt", "run", *common], project, env, timeout)
+            except DbtError as exc:
+                if notes is not None:
+                    first = str(exc).splitlines()[0].split(": ", 1)[-1]
+                    notes.append(f"dbt: `dbt run` on the seeds failed in {project.name} ({first.strip()[:200]}); "
+                                 f"models were still compiled, but macros that read a model's columns may "
+                                 f"not have seen them")
+        _run(["dbt", "compile", *common], project, env, timeout)
+    finally:
+        if warehouse:
+            from fixwitness.warehouse import drop_schemas
+            try:
+                drop_schemas(warehouse, schema)
+            except Exception as exc:  # reported, never hidden: the schemas would be left behind
+                if notes is not None:
+                    notes.append(f"dbt: could not drop the private schemas {schema}*: {exc}")
     if not manifest.is_file():
         raise DbtError(f"dbt compile wrote no manifest for {project.name}")
+    meta = out / "target" / SEED_TYPES_FILE
+    if meta.is_file():  # the adapter the types come from, so they are used only in that database
+        data = json.loads(meta.read_text(encoding="utf-8"))
+        meta.write_text(json.dumps({"adapter": adapter, "types": data}, indent=1, sort_keys=True) + "\n",
+                        encoding="utf-8")
     return manifest
 
 
@@ -238,12 +331,38 @@ def write_seed_types(db: Path, manifest: Path, dest: Path) -> None:
         dest.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def seed_types(manifest: Path) -> dict[str, dict[str, str]]:
+def write_warehouse_seed_types(url: str, schema: str, manifest: Path, dest: Path) -> None:
+    """The column types your warehouse gave each seed (in the private schemas)."""
+    from fixwitness.warehouse import columns
+    try:
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+        rows = columns(url, schema)
+    except Exception:
+        return
+    seeds = {}
+    for n in (data.get("nodes") or {}).values():
+        if n.get("resource_type") == "seed":
+            seeds[str(n.get("alias") or n["name"]).lower()] = n["name"]
+    out: dict[str, dict[str, str]] = {}
+    for _schema, table, column, data_type in rows:
+        name = seeds.get(str(table).lower())
+        if name is not None:
+            out.setdefault(name, {})[column] = data_type
+    if out:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def seed_types(manifest: Path) -> tuple[str | None, dict[str, dict[str, str]]]:
+    """(adapter, {seed: {column: type}}) written beside a manifest fixwitness compiled."""
     f = manifest.parent / SEED_TYPES_FILE
     try:
-        return json.loads(f.read_text(encoding="utf-8")) if f.is_file() else {}
+        data = json.loads(f.read_text(encoding="utf-8")) if f.is_file() else {}
     except (OSError, ValueError):
-        return {}
+        return None, {}
+    if "types" in data and "adapter" in data:
+        return data["adapter"], data["types"]
+    return "duckdb", data
 
 
 def read_manifest(manifest_path: Path, project: Path | None) -> Graph:
