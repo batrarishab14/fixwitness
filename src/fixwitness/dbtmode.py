@@ -279,8 +279,9 @@ def tree_key(tree: Path, project: Path, warehouse: str | None, enable: dict | No
     return h.hexdigest()[:32]
 
 
-_ENABLED = re.compile(r"enabled\s*=\s*([^\n]*)")
-_VAR = re.compile(r"""var\(\s*['"]([A-Za-z0-9_]+)['"]""")
+_CONFIG = re.compile(r"\{\{-?\s*config\s*\(.*?\)\s*-?\}\}", re.S)
+_ENABLED = re.compile(r"\benabled\s*=\s*([^\n]*)")
+_FLAG = re.compile(r"""var\(\s*['"]([A-Za-z0-9_]+)['"]\s*(?:,\s*(?:false|False)\s*)?\)""")
 
 
 def gated_vars(tree0: Path, tree1: Path) -> dict:
@@ -290,7 +291,7 @@ def gated_vars(tree0: Path, tree1: Path) -> dict:
     out: dict = {}
     for a in sorted(tree1.rglob("*.sql")):
         rel = a.relative_to(tree1)
-        if any(part in _SKIP_DIRS for part in rel.parts):
+        if any(part in _SKIP_DIRS for part in rel.parts) or {"tests", "integration_tests", "analyses"} & set(rel.parts):
             continue
         b = tree0 / rel
         try:
@@ -301,10 +302,14 @@ def gated_vars(tree0: Path, tree1: Path) -> dict:
         if old == new:
             continue
         for text in (new, old or ""):
-            m = _ENABLED.search(text[:1500])
+            block = _CONFIG.search(text[:3000])  # only the model's own config(...) call
+            m = _ENABLED.search(block.group(0)) if block else None
             if m:
-                for name in _VAR.findall(m.group(1)):
-                    out[name] = True
+                expr = m.group(1)
+                # only plain on/off switches: var('x') or var('x', false), not a list or a comparison
+                if not any(tok in expr for tok in ("!=", "==", "[", "{", " not ", "<", ">")):
+                    for name in _FLAG.findall(expr):
+                        out[name] = True
     return out
 
 

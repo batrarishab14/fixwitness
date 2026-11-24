@@ -1011,6 +1011,10 @@ class GatedModelTests(TempDirTest):
         for side, body in (("t0", "select cast(a as int) as a from x"), ("t1", "select nullif(a, '')::int as a from x")):
             write(self.tmp / side / "models" / "stg_chat.sql", "{{ config(enabled=var('using_chat', False)) }}\n" + body)
             write(self.tmp / side / "models" / "same.sql", "{{ config(enabled=var('other', False)) }}\nselect 1")
+        for side, body in (("t0", "select 1"), ("t1", "select 2")):  # a list-valued variable is not a switch
+            write(self.tmp / side / "models" / "u.sql", "{{ config(enabled=var('sources', []) != []) }}\n" + body)
+            write(self.tmp / side / "integration_tests" / "tests" / "t.sql",
+                  "{{ config(enabled=var('validation', false)) }}\n" + body)
         self.assertEqual(gated_vars(self.tmp / "t0", self.tmp / "t1"), {"using_chat": True})
 
     def test_seed_column_order_is_kept_for_headers_with_an_empty_name(self):
