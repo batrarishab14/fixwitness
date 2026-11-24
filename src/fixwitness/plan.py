@@ -590,6 +590,7 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
     plan = _build_tables(sub, work, canary_dir, mode, Side("original", None, d0), Side("fix", None, d1),
                          inputs | {"dbt": {"changed_models": changed, "compared": outputs, "adapter": g0.adapter}},
                          replay, notes, d0, search_roots)
+    plan.sql["contracts"] = g0.contracts  # the original project's tests, as rules on the inputs
     plan.replay.pop("tables", None)  # the tables are rebuilt from the project on replay
     plan.replay.pop("incident_tables", None) if not cfg.incident_tables else None
     plan.replay["dbt_project"] = True

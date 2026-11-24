@@ -538,8 +538,42 @@ def _names_for(table: str) -> set[str]:
     return forms
 
 
+def contract_breaks(tables: dict[str, str | bytes], contracts: list[dict]) -> set[int]:
+    """Which of the project's own tests (see dbtmode.Graph.contracts) these tables break: the
+    indexes of the contracts broken. NULLs are allowed by unique and accepted_values, as in dbt."""
+    broken = set()
+    parsed: dict[str, tuple[list[str], list[list[str]]]] = {}
+    for i, c in enumerate(contracts):
+        t = c["table"]
+        if t not in tables:
+            continue
+        if t not in parsed:
+            text = tables[t].decode("utf-8-sig") if isinstance(tables[t], bytes) else tables[t]
+            rows = list(csv.reader(io.StringIO(text, newline="")))
+            parsed[t] = (rows[0], rows[1:]) if rows else ([], [])
+        header, data = parsed[t]
+        lower = {h.lower(): j for j, h in enumerate(header)}
+        idx = [lower.get(col.lower()) for col in c["columns"]]
+        if None in idx:
+            continue
+        cells = [tuple(r[j] if j < len(r) else "" for j in idx) for r in data]
+        if c["test"] == "not_null":
+            bad = any(v[0] == "" for v in cells)
+        elif c["test"] == "unique":
+            keys = [v for v in cells if len(idx) > 1 or v[0] != ""]
+            bad = len(keys) != len(set(keys))
+        elif c["test"] == "accepted_values":
+            allowed = set(c.get("values") or [])
+            bad = any(v[0] != "" and v[0] not in allowed for v in cells)
+        else:
+            bad = False
+        if bad:
+            broken.add(i)
+    return broken
+
+
 def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
-                rows: int = 3) -> tuple[dict[str, bytes], list[str]]:
+                rows: int = 3, unique: set[tuple[str, str]] | None = None) -> tuple[dict[str, bytes], list[str]]:
     """Make the samples' keys join when they don't.
 
     Tables sampled one by one rarely share key values (200 orders and 200 customers taken
@@ -582,6 +616,10 @@ def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
             if not keys or not mine or mine & set(keys):
                 continue
             first = keys[: max(1, min(rows, len(keys)))]
+            if (b, col.lower()) in (unique or set()):  # declared unique: one row per key, never repeated
+                if len([r for r in changed if r[j] != ""]) > len(keys):
+                    continue
+                first = keys
             for i, r in enumerate(changed):
                 if r[j] != "":
                     r[j] = first[i % len(first)]

@@ -49,6 +49,10 @@ class Graph:
     seeds: dict[str, Path] = field(default_factory=dict)          # seed name -> CSV file
     sources: dict[str, tuple[str, str]] = field(default_factory=dict)  # table name -> (source, table)
     skipped: list[str] = field(default_factory=list)
+    # The project's own dbt tests, as rules on the input tables: {"table", "columns", "test", "values",
+    # "from"}. A generated input that breaks one is reviewed instead of failed: the project says such
+    # data does not occur.
+    contracts: list[dict] = field(default_factory=list)
 
 
 def find_project(path: Path, stop: Path) -> Path | None:
@@ -489,7 +493,106 @@ def read_manifest(manifest_path: Path, project: Path | None) -> Graph:
     for uid, n in nodes.items():
         if n.get("resource_type") == "model" and n.get("name") in g.models:
             g.depends[n["name"]] = resolve(list((n.get("depends_on") or {}).get("nodes", [])), set())
+    g.contracts = _contracts(nodes, by_id, g)
     return g
+
+
+_TESTS = {"unique", "not_null", "accepted_values", "unique_combination_of_columns"}
+# A model that does any of these can make a test true of its output and false of its input.
+_CHANGES_ROWS = re.compile(r"\b(where|group\s+by|distinct|qualify|join|union|having|limit|row_number|rank|"
+                           r"dense_rank|unnest|lateral|pivot|intersect|except)\b", re.I)
+_SQL_COMMENT = re.compile(r"--[^\n]*|/\*.*?\*/", re.S)
+
+
+def _renamed_from(sql: str, column: str) -> str | None:
+    """The column a model's SQL renames to `column` (`id as ticket_id`, `cast(id as bigint) as
+    ticket_id`), or None."""
+    col = re.escape(column)
+    m = re.search(rf'(?:cast\s*\(\s*)?"?([A-Za-z_]\w*)"?(?:\s*(?:as|::)\s*[\w ]+?(?:\([\d,\s]*\))?\s*\)?)?'
+                  rf'\s+as\s+"?{col}"?(?![\w"])', sql, re.I)
+    return m.group(1) if m else None
+
+
+def _contracts(nodes: dict, by_id: dict, g: Graph) -> list[dict]:
+    """The project's unique, not_null, accepted_values and dbt_utils.unique_combination_of_columns
+    tests, traced back to the input table column they are about: directly (a test on a seed or a
+    source), or through a chain of models that each read one other model or table and rename the
+    column at most (Fivetran-style staging: stg_x <- stg_x_tmp <- source)."""
+    parents: dict[str, list[str]] = {}
+    for uid, n in nodes.items():
+        if n.get("resource_type") == "model" and uid in by_id:
+            parents[by_id[uid]] = [by_id[d] for d in (n.get("depends_on") or {}).get("nodes", []) if d in by_id]
+    headers: dict[str, list[str]] = {}
+
+    def header(table: str) -> list[str]:
+        if table not in headers:
+            path = g.seeds.get(table)
+            try:
+                with path.open(encoding="utf-8-sig") as fh:
+                    headers[table] = [c.strip() for c in fh.readline().strip().split(",")]
+            except (OSError, AttributeError):
+                headers[table] = []
+        return headers[table]
+
+    def passed_through(sql: str, col: str) -> str | None:
+        """The parent's column that this model passes through unchanged as `col`, or None."""
+        found = _renamed_from(sql, col)
+        if found:
+            return found
+        q = re.escape(col)
+        if re.search(rf'(?:\bselect\b|,)\s*(?:\w+\.)?"?{q}"?\s*(?=,|\bfrom\b)', sql, re.I) \
+                or re.search(r"\bselect\s+\*\s+from\b", sql, re.I) and not re.search(rf"\bas\s+\"?{q}\"?(?![\w\"])", sql, re.I):
+            return col
+        return None
+
+    def trace(name: str, cols: list[str]) -> tuple[str, list[str]] | None:
+        for _ in range(6):
+            if name in g.seeds or name in g.sources:
+                have = {c.lower(): c for c in header(name)}
+                if not have:
+                    return None
+                got = [have.get(c.lower()) for c in cols]
+                return (name, got) if all(got) else None
+            if name not in g.models or len(parents.get(name, [])) != 1:
+                return None
+            sql = _SQL_COMMENT.sub(" ", g.models[name])
+            if _CHANGES_ROWS.search(sql):  # filters, joins, dedup: the test says nothing about the input
+                return None
+            cols = [passed_through(sql, c) for c in cols]
+            if None in cols:
+                return None
+            name = parents[name][0]
+        return None
+
+    out, seen = [], set()
+    for n in nodes.values():
+        if n.get("resource_type") != "test":
+            continue
+        meta = n.get("test_metadata") or {}
+        test, kwargs, config = meta.get("name"), meta.get("kwargs") or {}, n.get("config") or {}
+        if test not in _TESTS or config.get("where") or config.get("enabled") is False:
+            continue
+        if test == "unique_combination_of_columns":
+            cols = list(kwargs.get("combination_of_columns") or [])
+        else:
+            cols = [kwargs.get("column_name") or n.get("column_name")]
+        if not cols or not all(isinstance(c, str) and re.fullmatch(r"[A-Za-z_]\w*", c) for c in cols):
+            continue  # an expression, not a column
+        attached = n.get("attached_node") or next(iter((n.get("depends_on") or {}).get("nodes", [])), None)
+        if attached not in by_id:
+            continue
+        found = trace(by_id[attached], cols)
+        if found is None:
+            continue
+        table, columns = found
+        values = [str(v) for v in kwargs.get("values") or []] if test == "accepted_values" else None
+        key = (table, tuple(columns), test, tuple(values or ()))
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append({"table": table, "columns": columns, "test": "unique" if test.startswith("unique") else test,
+                    "values": values, "from": f"{by_id[attached]}: {test}({', '.join(cols)})"})
+    return out
 
 
 def bare_sql(g: Graph, name: str) -> str:

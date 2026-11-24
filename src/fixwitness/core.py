@@ -324,10 +324,46 @@ def focus(plan: Plan, columns: list[str]) -> list[str]:
     return focus_columns(_source(plan.before), _source(plan.after), columns)
 
 
+def _apply_contracts(plan: Plan, cases: list[Case], contracts: list[dict], base: dict[str, bytes]) -> None:
+    """Inputs that break the project's own dbt tests (a duplicate in a column tested unique, a NULL
+    in a column tested not_null, a value outside accepted_values) are reviewed, not failed: the
+    project declares that such data does not occur. A test the sample itself breaks is not used."""
+    from fixwitness.sql import contract_breaks, read_bundle
+    broken_by_sample = contract_breaks(base, contracts)
+    used = [i for i in range(len(contracts)) if i not in broken_by_sample]
+    if broken_by_sample:
+        plan.notes.append("dbt tests not used as rules, because the sample itself breaks them: "
+                          + "; ".join(contracts[i]["from"] for i in sorted(broken_by_sample)))
+    if not used:
+        return
+    rules = [contracts[i] for i in used]
+    moved: dict[str, int] = {}
+    for c in cases:
+        if c.kind != "valid":
+            continue
+        try:
+            tables, _ = read_bundle(c.content)
+        except Exception:
+            continue
+        hit = contract_breaks(tables, rules)
+        if hit:
+            c.kind = "review"
+            for i in hit:
+                moved[rules[i]["from"]] = moved.get(rules[i]["from"], 0) + 1
+    plan.notes.append(f"the project's dbt tests are used as rules on the input tables ({len(rules)}: "
+                      + ", ".join(f"{r['table']}.{'+'.join(r['columns'])} {r['test']}" for r in rules[:12])
+                      + (", ..." if len(rules) > 12 else "") + ")"
+                      + (f"; {sum(1 for c in cases if c.kind == 'review')} inputs break one and are reviewed, not "
+                         f"failed" if moved else "; no generated input breaks them"))
+    plan.sql["contracts_moved"] = moved
+
+
 def _cases(plan: Plan, cfg: Config) -> list[Case]:
     if plan.sql is not None:
         cols = [f"{t}.{c}" for t, kinds in plan.sql["types"].items() for c in kinds]
-        tables, links = link_tables(plan.sql["tables"], plan.sql["types"], cfg.rows)
+        contracts = list(plan.sql.get("contracts") or [])
+        unique = {(c["table"], c["columns"][0].lower()) for c in contracts if c["test"] == "unique" and len(c["columns"]) == 1}
+        tables, links = link_tables(plan.sql["tables"], plan.sql["types"], cfg.rows, unique)
         if links and not any(n.startswith("the sample's tables did not join") for n in plan.notes):
             plan.notes.append("the sample's tables did not join on these keys, so the cases use matching keys "
                               "(the tables as given are case 000): " + ", ".join(links))
@@ -343,6 +379,8 @@ def _cases(plan: Plan, cfg: Config) -> list[Case]:
             cases = [given] + cases[: max(0, cfg.max_cases - 1)]
             for i, c in enumerate(cases):
                 c.id = f"{i:03d}"
+        if contracts:
+            _apply_contracts(plan, cases, contracts, tables)
         return cases
     try:
         if plan.sample_format == "json":
@@ -408,6 +446,13 @@ def _run(plan: Plan, cfg: Config) -> dict:
         case_dir = plan.work / "cases" / case.id
         b = run_side(inv_b, plan.before, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
         a = run_side(inv_a, plan.after, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
+        again = None
+        if case.kind != "attack" and b.ok and a.ok and b.output is not None and a.output is not None \
+                and compare(b.output, a.output, opts)[0] == "changed":
+            # A difference counts only if the original gives the same output when run again on this
+            # input: ties in ORDER BY or row_number(), or set order, can make it differ by itself.
+            again = run_side(inv_b, plan.before, case_dir / "again", case.content, case.canary, case.oracle,
+                             plan.canary_dir)
         shutil.rmtree(case_dir, ignore_errors=True)
         rows = None
         if case.kind == "valid" and b.ok and b.output is not None and plan.output == "csv" and plan.sql is None \
@@ -416,6 +461,12 @@ def _run(plan: Plan, cfg: Config) -> dict:
             if n_in is not None and n_out is not None:
                 rows = (n_in, n_out)
         entry, details = _evaluate(case, b, a, opts, expected_opts)
+        if again is not None and entry["status"] == "changed" and again.ok and again.output is not None:
+            st, det = compare(b.output, again.output, opts)
+            if st == "changed":
+                entry["status"] = "unstable"
+                details = ["the original gave a different output when run again on this input, so the "
+                           "difference is not the change's: " + "; ".join(det[:2])]
         if entry["status"] in ("changed", "after-failed") and entry["kind"] != "attack":
             kept[case.id] = {"case": case, "original": b, "fix": a}
         return (entry, details), rows
@@ -448,6 +499,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
     expected = [e for e in valid + review if e["status"] == "expected-change"]
     identical += [e for e in valid if e["status"] == "expected-change"]  # nothing but the expected change
     not_comparable = [e for e in valid if e["status"] == "not-comparable"]
+    unstable_cases = [e for e in valid + review if e["status"] == "unstable"]
     review_diffs = [e for e in review if e["status"] in ("changed", "after-failed")]
 
     reasons = []
@@ -488,6 +540,10 @@ def _run(plan: Plan, cfg: Config) -> dict:
     claims = ([reproduced] if cfg.attacks else []) + ([incident["status"] == "resolved"] if incident else [])
     if not_comparable:
         warnings.append(f"{len(not_comparable)} valid inputs could not be compared because the original failed on them")
+    if unstable_cases:
+        warnings.append(f"{len(unstable_cases)} inputs were left out: on them the original's own output changes from "
+                        f"run to run (for example ties in ORDER BY or row_number()), so a difference there is not "
+                        f"the change's (cases {', '.join(e['id'] for e in unstable_cases[:8])})")
 
     score = confidence(verdict, len(identical), all(claims))
     families = sorted({e["family"] for e in attacks if e["before"]["exploited"]})
@@ -505,6 +561,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "attacks": cfg.attacks,
             "ignore_columns": sorted(cfg.ignore_columns),
             "expect_change": sorted(cfg.expect_change) or None,
+            "contracts": sorted(plan.sql["contracts_moved"]) if plan.sql is not None and plan.sql.get("contracts_moved") else None,
             "auto_ignored_columns": sorted(unstable),
             "ignore_patterns": list(cfg.ignore_patterns),
             "tolerance": cfg.tolerance,
@@ -536,6 +593,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "not_comparable": len(not_comparable), "review_inputs": len(review),
             "review_differences": len(review_diffs),
             "expected_change": len(expected),
+            "unstable": len(unstable_cases),
         },
         "cases": [
             {k: e[k] for k in ("id", "category", "kind", "column", "family", "status")}

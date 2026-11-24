@@ -749,6 +749,86 @@ class DbtWarehouseUnitTests(TempDirTest):
             self.assertEqual(kind_of(sql_type), kind, sql_type)
 
 
+class DbtContractTests(TempDirTest):
+    """The project's own dbt tests (unique, not_null, accepted_values) are rules on the inputs: a
+    difference only on data that breaks them is reviewed, not failed."""
+    R = staticmethod(lambda n: f'"memory"."main"."{n}"')
+
+    def _manifest(self, stg_sql, mart_sql, tests=True):
+        R = self.R
+
+        def node(kind, name, code=None, deps=()):
+            return {"resource_type": kind, "name": name, "package_name": "shop", "language": "sql",
+                    "original_file_path": f"seeds/{name}.csv" if kind == "seed" else f"models/{name}.sql",
+                    "relation_name": R(name), "config": {"materialized": "table"},
+                    "depends_on": {"nodes": list(deps)}, **({"compiled_code": code} if code else {})}
+
+        def test(name, test_name, model, column, **kw):
+            return {"resource_type": "test", "name": name, "package_name": "shop", "config": {"enabled": True},
+                    "attached_node": f"model.shop.{model}", "column_name": column,
+                    "test_metadata": {"name": test_name, "kwargs": {"column_name": column, **kw}},
+                    "depends_on": {"nodes": [f"model.shop.{model}"]}}
+
+        nodes = {"seed.shop.raw_orders": node("seed", "raw_orders"),
+                 "model.shop.stg_orders_tmp": node("model", "stg_orders_tmp", f"select * from {R('raw_orders')}",
+                                                   ["seed.shop.raw_orders"]),
+                 "model.shop.stg_orders": node("model", "stg_orders", stg_sql, ["model.shop.stg_orders_tmp"]),
+                 "model.shop.revenue": node("model", "revenue", mart_sql, ["model.shop.stg_orders"])}
+        if tests:
+            nodes["test.shop.unique_stg_orders_order_id"] = test("unique_stg_orders_order_id", "unique", "stg_orders", "order_id")
+            nodes["test.shop.not_null_stg_orders_order_id"] = test("not_null_stg_orders_order_id", "not_null", "stg_orders", "order_id")
+            nodes["test.shop.accepted_values_stg_orders_status"] = test(
+                "accepted_values_stg_orders_status", "accepted_values", "stg_orders", "status", values=["paid", "refunded"])
+        return {"metadata": {"adapter_type": "duckdb", "project_name": "shop"}, "sources": {}, "nodes": nodes}
+
+    STG = 'with base as (select * from {t}) select order_id as order_id, "amount", status from base'
+
+    def _setup(self, tests=True):
+        R = self.R
+        write(self.tmp / "dbt_project.yml", "name: shop\nprofile: shop\n")
+        write(self.tmp / "seeds/raw_orders.csv", "order_id,amount,status\n1,10,paid\n2,20,paid\n3,5,refunded\n")
+        stg = self.STG.format(t=R("stg_orders_tmp"))
+        sum_by_order = f"select status, sum(amount) as total, count(*) as n from {R('stg_orders')} group by status"
+        # The refactor counts distinct orders: the same as count(*) unless an order_id repeats.
+        changed = sum_by_order.replace("count(*)", "count(distinct order_id)")
+        for name, mart in {"base": sum_by_order, "fix": changed}.items():
+            (self.tmp / f"{name}.json").write_text(json.dumps(self._manifest(stg, mart, tests)))
+        os.chdir(self.tmp)
+
+    def test_contracts_traced_to_the_seed(self):
+        from fixwitness.dbtmode import read_manifest
+        self._setup()
+        g = read_manifest(self.tmp / "base.json", self.tmp)
+        got = sorted((c["table"], tuple(c["columns"]), c["test"]) for c in g.contracts)
+        self.assertEqual(got, [("raw_orders", ("order_id",), "not_null"), ("raw_orders", ("order_id",), "unique"),
+                               ("raw_orders", ("status",), "accepted_values")])
+
+    def test_no_contract_through_a_filter(self):
+        from fixwitness.dbtmode import read_manifest
+        self._setup()
+        data = json.loads((self.tmp / "base.json").read_text())
+        data["nodes"]["model.shop.stg_orders"]["compiled_code"] += " where status <> 'void'"
+        (self.tmp / "base.json").write_text(json.dumps(data))
+        self.assertEqual(read_manifest(self.tmp / "base.json", self.tmp).contracts, [])
+
+    def test_contract_breaks(self):
+        from fixwitness.sql import contract_breaks
+        rules = [{"table": "t", "columns": ["id"], "test": "unique"}, {"table": "t", "columns": ["id"], "test": "not_null"},
+                 {"table": "t", "columns": ["s"], "test": "accepted_values", "values": ["a"]}]
+        self.assertEqual(contract_breaks({"t": "id,s\n1,a\n2,\n"}, rules), set())
+        self.assertEqual(contract_breaks({"t": "id,s\n1,a\n1,a\n,b\n"}, rules), {0, 1, 2})
+
+    def test_difference_only_on_broken_contract_is_reviewed(self):
+        self._setup(tests=True)
+        proof = self.check(manifest="fix.json", base_manifest="base.json", engine="sqlite")
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertGreater(proof["behavior"]["review_differences"], 0)
+        self.assertTrue(any("dbt tests are used as rules" in n for n in proof["notes"]), proof["notes"])
+        self._setup(tests=False)
+        proof = self.check(manifest="fix.json", base_manifest="base.json", engine="sqlite")
+        self.assertEqual(proof["verdict"], "FAIL")
+
+
 class ExpectChangeTests(TempDirTest):
     """A bug fix names the output columns it should change; anything else changing is a finding."""
 
@@ -781,6 +861,29 @@ class ExpectChangeTests(TempDirTest):
         proof = self._check(REVENUE.replace("count(*)", "count(1)"), ["orders"])
         self.assertEqual(proof["verdict"], "INCONCLUSIVE")
         self.assertTrue(any("did not show" in r for r in proof["reasons"]), proof["reasons"])
+
+
+class UnstableOriginalTests(TempDirTest):
+    """A difference on an input where the original's own output changes from run to run is not the
+    change's: it is left out and reported, never failed."""
+    SCRIPT = (
+        "import csv, random, sys\n"
+        "rows = list(csv.reader(open(sys.argv[1], newline='')))\n"
+        "w = csv.writer(open(sys.argv[2], 'w', newline=''))\n"
+        "w.writerow(rows[0] + ['pick'])\n"
+        "for r in rows[1:]:\n"
+        "    w.writerow(r + [random.random() if any(v == '' for v in r) else 0])  # a tie broken at random\n"
+    )
+
+    def test_original_unstable_on_some_inputs(self):
+        write(self.tmp / "before.py", self.SCRIPT)
+        write(self.tmp / "after.py", self.SCRIPT.replace("# a tie broken at random", "# same logic"))
+        write(self.tmp / "sample.csv", "id,amount\n1,10\n2,20\n")
+        proof = self.check(before=str(self.tmp / "before.py"), after=str(self.tmp / "after.py"),
+                           sample=str(self.tmp / "sample.csv"), attacks=False, max_cases=80)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertGreater(proof["behavior"]["unstable"], 0)
+        self.assertTrue(any("run to run" in w for w in proof["warnings"]))
 
 
 class TypedColumnTests(TempDirTest):

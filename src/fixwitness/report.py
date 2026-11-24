@@ -93,7 +93,9 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
     if beh["review_inputs"]:
         acc = proof["config"].get("accepted") or []
         what = ", ".join(proof["config"]["review"] + [f"{a['category']}" + (f" in {a['column']}" if a.get("column") else "")
-                                                     + " (marked as intended)" for a in acc])
+                                                     + " (marked as intended)" for a in acc]
+                         + ([f"inputs that break your dbt tests ({'; '.join(proof['config']['contracts'][:4])})"]
+                            if proof["config"].get("contracts") else []))
         lines.append(f"| Needs review | {beh['review_differences']} of {beh['review_inputs']} inputs in review "
                      f"categories ({what}) differ |")
     lines.append("")
