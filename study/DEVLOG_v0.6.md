@@ -55,3 +55,20 @@ The last change affects SQL mode too. It only changes which cases are kept when 
 - **DataFrame runs** go through a server that imports pandas or polars once and forks a fresh process for each run (not for PySpark or `--no-network`). On the pandas test with 60 cases, the same 58 identical / 2 changed results in 5 s instead of about 30 s here; in CI, each pandas fix in `benchmark/complex/` took about 13 s instead of about 107 s, and each polars fix about 11 s instead of about 111 s, with the same verdicts.
 
 Three CI failures on the first run with every library installed were in the tests, not in fixwitness. The polars and PySpark rewrites written as "correct" in two tests were not faithful to pandas: polars and Spark keep a group for a null key that pandas drops, Spark sums an all-NULL column to NULL where pandas gives 0, and neither matches null keys in a join. fixwitness reported the difference. The tests now use faithful rewrites, and one more test checks that the null-group rewrite fails. The third test expected a Parquet case that adds a column to keep the sample's exact schema.
+
+## Findings people can act on, pairs of rows, and the columns a change touches
+
+Added on 24 November 2026, still before the freeze:
+
+- **Explanations and the smallest input.** Each difference is explained in a sentence with an impact label, and shrunk (delta debugging over rows) to the fewest rows that still show it. Neither changes a verdict.
+- **Marking a difference as intended** (`[[accept]]` in `fixwitness.toml`): matching inputs become "review". This changes a verdict only when a user marks something; no benchmark uses it.
+- **Pairs** (a new input category, valid by default): two rows of the same group, each with an unusual value. For numbers: 0.005 + 0.005, 2.675 + 1.005, 0.1 + 0.2, -0.5 + 0.5, and 9007199254740993 + 1 (beyond float precision). For text: the row's own value and its other-case or padded form. Made for a miss seen in development: `round_each` in `benchmark/complex/C05`, which rounds each amount before summing.
+- **Diff-aware priority.** When there are more cases than `max_cases`, the cases of the columns named in the changed lines are kept before the seeded random sample. With fewer cases than the cap, nothing changes.
+
+Benchmarks re-run after these changes (SQLite here):
+
+| Benchmark | Fixes | Verdicts that changed |
+|---|---|---|
+| `benchmark/` (CSV scripts, including the 36 assistant fixes) | 92 | 0 |
+| `benchmark/sql/` | 17 | see below |
+| `benchmark/complex/` (pipeline, pandas, JSON Lines here) | 16 | see below |

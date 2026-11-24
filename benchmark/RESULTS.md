@@ -1,6 +1,6 @@
 # fixwitness benchmark results
 
-fixwitness 0.5.0 · 92 fixes across 20 cases (21 correct, 35 wrong, plus 36 assistant fixes) · run time 330s
+fixwitness 0.6.0.dev0 · 92 fixes across 20 cases (21 correct, 35 wrong, plus 36 assistant fixes) · run time 430s
 
 The wrong fixes are **synthetic**. Each models a documented failure pattern (named per fix below); none were produced by an AI agent. Fixes written by AI assistants are listed separately at the end.
 
@@ -43,10 +43,10 @@ False alarms on correct fixes:
 | Case | Fix | Label | Failure pattern | Job runs | Sample test | fixwitness | +exp | Score |
 |---|---|---|---|---|---|---|---|---|
 | I01-thousands-separator | default_zero.py | wrong | silent wrong value: unparseable amounts become 0 | accept | accept | accept | **reject** | 0 |
-| I01-thousands-separator | reference.py | correct | accept thousands separators only; everything else parsed as before | accept | accept | accept | accept | 96 |
+| I01-thousands-separator | reference.py | correct | accept thousands separators only; everything else parsed as before | accept | accept | accept | accept | 97 |
 | I01-thousands-separator | skip_bad_rows.py | wrong | silent data loss: rows that fail to parse are skipped | accept | accept | **reject** | **reject** | 0 |
 | I01-thousands-separator | strip_non_digits.py | wrong | over-broad normalisation: keeping only digits and dots drops minus signs | accept | accept | **reject** | **reject** | 0 |
-| I02-accounting-negatives | reference.py | correct | (x) means -x; everything else parsed as before | accept | accept | accept | accept | 96 |
+| I02-accounting-negatives | reference.py | correct | (x) means -x; everything else parsed as before | accept | accept | accept | accept | 97 |
 | I02-accounting-negatives | regex_clean.py | wrong | over-broad normalisation: regex clean-up changes 1e3 and drops the refund sign | accept | accept | **reject** | **reject** | 0 |
 | I02-accounting-negatives | strip_parens.py | wrong | sign lost: parentheses removed, refund becomes a charge | accept | accept | accept | **reject** | 0 |
 | I03-date-format-drift | fromisoformat.py | wrong | stricter parser: fromisoformat rejects unpadded dates the job accepted | accept | accept | **reject** | **reject** | 0 |
@@ -59,32 +59,32 @@ False alarms on correct fixes:
 | I04-null-markers | skip_bad_rows.py | wrong | silent data loss: rows with N/A are skipped | accept | accept | **reject** | **reject** | 0 |
 | I05-renamed-column | default_zero.py | wrong | silent wrong value: a missing column becomes 0 | accept | accept | accept | **reject** | 0 |
 | I05-renamed-column | positional.py | wrong | fragile: reads the third column by position, which is now 'currency' | **reject** | **reject** | **reject** | **reject** | 0 |
-| I05-renamed-column | reference.py | correct | read 'amount' or, when absent, 'amount_usd' | accept | accept | accept | accept | 96 |
+| I05-renamed-column | reference.py | correct | read 'amount' or, when absent, 'amount_usd' | accept | accept | accept | accept | 97 |
 | I06-utf8-bom | ascii_ignore.py | wrong | data loss: decoding as ASCII with errors ignored deletes accented letters | accept | accept | **reject** | **reject** | 0 |
 | I06-utf8-bom | reference.py | correct | read with utf-8-sig, which drops a leading BOM | accept | accept | accept | accept | 98 |
 | I06-utf8-bom | strip_keys.py | wrong | ineffective: str.strip() does not remove a BOM | **reject** | **reject** | **reject** | **reject** | 0 |
 | I07-semicolon-delimiter | always_semicolon.py | wrong | regression: hard-coding ';' breaks every existing comma file | **reject** | **reject** | **reject** | **reject** | 0 |
 | I07-semicolon-delimiter | reference.py | correct | read the file exactly as before; only if that fails, read it again with ';' | accept | accept | accept | accept | 98 |
 | I07-semicolon-delimiter | replace_text.py | wrong | data corruption: replacing ';' everywhere also splits values that contain ';' | accept | accept | **reject** | **reject** | 0 |
-| I08-decimal-comma | reference.py | correct | a single comma followed by 1-2 digits is a decimal comma | accept | accept | accept | accept | 96 |
+| I08-decimal-comma | reference.py | correct | a single comma followed by 1-2 digits is a decimal comma | accept | accept | accept | accept | 97 |
 | I08-decimal-comma | remove_commas.py | wrong | wrong interpretation: treating the comma as a thousands separator makes 125,50 into 12550 | accept | accept | accept | **reject** | 0 |
-| I09-percent-rates | reference.py | correct | '12%' means 0.12; everything else as before | accept | accept | accept | accept | 96 |
+| I09-percent-rates | reference.py | correct | '12%' means 0.12; everything else as before | accept | accept | accept | accept | 97 |
 | I09-percent-rates | regex_clean.py | wrong | over-broad normalisation: regex clean-up drops minus signs and exponents | accept | accept | **reject** | **reject** | 0 |
 | I09-percent-rates | strip_percent.py | wrong | unit error: stripping % without dividing by 100 makes the fee 100x | accept | accept | accept | **reject** | 0 |
 | R01-rounding | builtin_round.py | wrong | rounding change: float round() is not half-up (2.675 -> 2.67, 0.125 -> 0.12) | accept | accept | **reject** | **reject** | 0 |
-| R01-rounding | reference.py | correct | same Decimal half-up rounding, moved into a helper | accept | accept | accept | accept | 96 |
-| R02-sort-order | reference.py | correct | same key, named function | accept | accept | accept | accept | 96 |
+| R01-rounding | reference.py | correct | same Decimal half-up rounding, moved into a helper | accept | accept | accept | accept | 97 |
+| R02-sort-order | reference.py | correct | same key, named function | accept | accept | accept | accept | 97 |
 | R02-sort-order | string_sort.py | wrong | ordering change: amounts compared as text ('9.5' > '10.0') | accept | **reject** | **reject** | **reject** | 0 |
 | R03-dedupe | dict_comprehension.py | wrong | semantics change: a dict comprehension keeps the last duplicate, not the first | accept | accept | **reject** | **reject** | 0 |
 | R03-dedupe | reference.py | correct | keep the first row per id, via dict.setdefault | accept | accept | accept | accept | 97 |
-| R04-number-format | reference.py | correct | format() with the same spec | accept | accept | accept | accept | 96 |
+| R04-number-format | reference.py | correct | format() with the same spec | accept | accept | accept | accept | 97 |
 | R04-number-format | str_round.py | wrong | formatting change: str(round()) drops trailing zeros (7.50 -> 7.5) | accept | **reject** | **reject** | **reject** | 0 |
 | R05-case-folding | casefold.py | wrong | key change: casefold() turns 'Straße' into 'strasse', breaking joins on existing keys | accept | accept | **reject** | **reject** | 0 |
 | R05-case-folding | reference.py | correct | same lower(), moved into a helper | accept | accept | accept | accept | 97 |
 | R06-integer-division | floor_division.py | wrong | rounding change: // floors, so negative totals (refunds) round the other way | accept | accept | **reject** | **reject** | 0 |
 | R06-integer-division | reference.py | correct | math.trunc keeps truncation towards zero | accept | accept | accept | accept | 95 |
 | S01-eval-amount | float.py | wrong | type change: whole numbers become floats (1200 -> 1200.0) | accept | accept | **reject** | **reject** | 0 |
-| S01-eval-amount | reference.py | correct | parse numeric literals without executing code; integers stay integers | accept | accept | accept | accept | 96 |
+| S01-eval-amount | reference.py | correct | parse numeric literals without executing code; integers stay integers | accept | accept | accept | accept | 97 |
 | S01-eval-amount | strict_allowlist.py | wrong | allowlist too strict: valid formats such as 1e3 or +7 are rejected | accept | accept | **reject** | **reject** | 0 |
 | S01-eval-amount | use_decimal.py | wrong | formatting change: Decimal keeps trailing zeros (12.5 -> 12.50) | accept | **reject** | **reject** | **reject** | 0 |
 | S02-shell-eval | quote_inside_eval.sh | wrong | incomplete fix: quoting inside eval still runs $(...) | accept | accept | **reject** | **reject** | 0 |
@@ -105,14 +105,14 @@ Labels come from `study/labels.csv` (code review; see `study/README.md`). They a
 
 | Agent | Case | Label | Job runs | Sample test | fixwitness | +exp | Score | Reason |
 |---|---|---|---|---|---|---|---|---|
-| chatgpt-r1 | I01-thousands-separator | correct | accept | accept | accept | accept | 96 | - |
-| claude-r1 | I01-thousands-separator | correct | accept | accept | accept | accept | 96 | - |
-| copilot-r1 | I01-thousands-separator | correct | accept | accept | accept | accept | 96 | - |
-| gemini-r1 | I01-thousands-separator | correct | accept | accept | accept | accept | 96 | - |
-| chatgpt-r1 | I02-accounting-negatives | correct | accept | accept | accept | accept | 96 | - |
-| claude-r1 | I02-accounting-negatives | correct | accept | accept | accept | accept | 96 | - |
-| copilot-r1 | I02-accounting-negatives | correct | accept | accept | accept | accept | 96 | - |
-| gemini-r1 | I02-accounting-negatives | correct | accept | accept | accept | accept | 96 | - |
+| chatgpt-r1 | I01-thousands-separator | correct | accept | accept | accept | accept | 97 | - |
+| claude-r1 | I01-thousands-separator | correct | accept | accept | accept | accept | 97 | - |
+| copilot-r1 | I01-thousands-separator | correct | accept | accept | accept | accept | 97 | - |
+| gemini-r1 | I01-thousands-separator | correct | accept | accept | accept | accept | 97 | - |
+| chatgpt-r1 | I02-accounting-negatives | correct | accept | accept | accept | accept | 97 | - |
+| claude-r1 | I02-accounting-negatives | correct | accept | accept | accept | accept | 97 | - |
+| copilot-r1 | I02-accounting-negatives | correct | accept | accept | accept | accept | 97 | - |
+| gemini-r1 | I02-accounting-negatives | correct | accept | accept | accept | accept | 97 | - |
 | chatgpt-r1 | I03-date-format-drift | correct | accept | accept | accept | accept | 95 | - |
 | claude-r1 | I03-date-format-drift | correct | accept | accept | accept | accept | 95 | - |
 | copilot-r1 | I03-date-format-drift | correct | accept | accept | accept | accept | 95 | - |
@@ -123,7 +123,7 @@ Labels come from `study/labels.csv` (code review; see `study/README.md`). They a
 | gemini-r1 | I04-null-markers | correct | accept | accept | accept | accept | 95 | - |
 | chatgpt-r1 | I05-renamed-column | wrong | accept | accept | **reject** | **reject** | 0 | the fix changes output on 2 valid inputs |
 | claude-r1 | I05-renamed-column | wrong | accept | accept | **reject** | **reject** | 0 | the fix changes output on 2 valid inputs |
-| copilot-r1 | I05-renamed-column | correct | accept | accept | accept | accept | 96 | - |
+| copilot-r1 | I05-renamed-column | correct | accept | accept | accept | accept | 97 | - |
 | gemini-r1 | I05-renamed-column | wrong | accept | accept | **reject** | **reject** | 0 | the fix changes output on 2 valid inputs |
 | chatgpt-r1 | I06-utf8-bom | correct | accept | accept | accept | accept | 98 | - |
 | claude-r1 | I06-utf8-bom | correct | accept | accept | accept | accept | 98 | - |
@@ -133,11 +133,11 @@ Labels come from `study/labels.csv` (code review; see `study/README.md`). They a
 | claude-r1 | I07-semicolon-delimiter | wrong | accept | accept | **reject** | **reject** | 0 | the fix changes output on 3 valid inputs |
 | copilot-r1 | I07-semicolon-delimiter | wrong | accept | accept | **reject** | **reject** | 0 | the fix changes output on 1 valid inputs |
 | gemini-r1 | I07-semicolon-delimiter | wrong | accept | accept | **reject** | **reject** | 0 | the fix changes output on 3 valid inputs |
-| chatgpt-r1 | I08-decimal-comma | correct | accept | accept | accept | accept | 96 | - |
-| claude-r1 | I08-decimal-comma | correct | accept | accept | accept | accept | 96 | - |
-| copilot-r1 | I08-decimal-comma | correct | accept | accept | accept | accept | 96 | - |
-| gemini-r1 | I08-decimal-comma | correct | accept | accept | accept | accept | 96 | - |
-| chatgpt-r1 | I09-percent-rates | correct | accept | accept | accept | accept | 96 | - |
-| claude-r1 | I09-percent-rates | correct | accept | accept | accept | accept | 96 | - |
-| copilot-r1 | I09-percent-rates | correct | accept | accept | accept | accept | 96 | - |
-| gemini-r1 | I09-percent-rates | correct | accept | accept | accept | accept | 96 | - |
+| chatgpt-r1 | I08-decimal-comma | correct | accept | accept | accept | accept | 97 | - |
+| claude-r1 | I08-decimal-comma | correct | accept | accept | accept | accept | 97 | - |
+| copilot-r1 | I08-decimal-comma | correct | accept | accept | accept | accept | 97 | - |
+| gemini-r1 | I08-decimal-comma | correct | accept | accept | accept | accept | 97 | - |
+| chatgpt-r1 | I09-percent-rates | correct | accept | accept | accept | accept | 97 | - |
+| claude-r1 | I09-percent-rates | correct | accept | accept | accept | accept | 97 | - |
+| copilot-r1 | I09-percent-rates | correct | accept | accept | accept | accept | 97 | - |
+| gemini-r1 | I09-percent-rates | correct | accept | accept | accept | accept | 97 | - |
