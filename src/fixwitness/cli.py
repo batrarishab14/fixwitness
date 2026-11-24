@@ -46,7 +46,7 @@ def _overrides(args: argparse.Namespace) -> dict:
         "engine": args.engine, "sql_ordered": True if args.sql_ordered else None,
         "dialect": args.dialect, "sql_outputs": _csv_list(args.sql_outputs),
         "function": args.function, "library": args.library,
-        "manifest": args.manifest, "base_manifest": args.base_manifest,
+        "manifest": args.manifest, "base_manifest": args.base_manifest, "warehouse": args.warehouse,
         "path": args.path, "base": args.base, "command": args.command, "incident": args.incident,
         "incident_expected": args.incident_expected,
         "attacks": False if args.no_attacks else None,
@@ -369,6 +369,10 @@ def _selection_args(p: argparse.ArgumentParser) -> None:
                    help="SQL/dbt: query engine (default: DuckDB if installed, else SQLite)")
     p.add_argument("--sql-ordered", "--ordered", dest="sql_ordered", action="store_true",
                    help="SQL/dbt and DataFrames: compare result rows in order (default: as a set of rows)")
+    p.add_argument("--warehouse", metavar="URL",
+                   help="SQL/dbt: run both versions in your warehouse (postgres://USER@HOST/DB, "
+                        "snowflake://USER@ACCOUNT/DB?warehouse=WH, bigquery://PROJECT); password from the driver's "
+                        "own setting, never the URL")
     p.add_argument("--manifest", metavar="FILE", help="dbt: the fix's target/manifest.json (from dbt compile)")
     p.add_argument("--base-manifest", metavar="FILE", help="dbt: the original's manifest.json")
     p.add_argument("--function", metavar="NAME",

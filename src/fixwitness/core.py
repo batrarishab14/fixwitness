@@ -544,7 +544,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
                 "auto_ignore_unstable": cfg.auto_ignore_unstable, "timeout": cfg.timeout,
                 "pass_env": cfg.pass_env, "allow_any_command": cfg.allow_any_command,
                 "no_network": cfg.no_network,
-                "engine": cfg.engine, "dbt": cfg.dbt, "sql_ordered": cfg.sql_ordered,
+                "engine": cfg.engine, "dbt": cfg.dbt, "sql_ordered": cfg.sql_ordered, "warehouse": cfg.warehouse,
                 "dialect": cfg.dialect, "sql_outputs": cfg.sql_outputs,
                 "function": cfg.function, "library": cfg.library,
             },
@@ -567,7 +567,7 @@ def replay(proof: dict, allow_any_command: bool | None = None) -> dict:
                 p = Path(path)
                 if not p.is_file() or sha256_file(p) != inputs[group][name]["sha256"]:
                     problems.append(f"{label} {name} is missing or has changed ({p.name})")
-        if settings.get("engine") == "auto" and inputs.get("engine"):
+        if settings.get("engine") == "auto" and inputs.get("engine") in ("duckdb", "sqlite"):
             settings["engine"] = inputs["engine"]  # replay with the engine the proof used
     dbt_project = bool(rp.get("dbt_project"))
     if rp.get("mode") == "files" and dbt_project:

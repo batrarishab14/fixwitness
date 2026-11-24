@@ -13,6 +13,19 @@ jobs:
     timeout-minutes: 90
     permissions:
       contents: write   # only to save the logs to the ci-results branch on pushes
+    services:
+      postgres:   # warehouse mode is tested against a real Postgres server
+        image: postgres:16
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      FIXWITNESS_TEST_POSTGRES: postgres://ci@localhost:5432/test
+      PGPASSWORD: ci
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +37,7 @@ jobs:
           java-version: "17"
       - name: Install the optional libraries
         run: |
-          python -m pip install --quiet duckdb sqlglot pyarrow pandas polars pyspark dbt-core dbt-duckdb
+          python -m pip install --quiet duckdb sqlglot pyarrow pandas polars pyspark dbt-core dbt-duckdb "psycopg[binary]"
           python - <<'EOF' | tee versions.log
           import importlib, importlib.metadata as md, platform
           print("python", platform.python_version())
@@ -49,7 +62,9 @@ jobs:
             tests.test_fixwitness.JsonUnitTests tests.test_fixwitness.JsonModeTests \
             tests.test_fixwitness.ParquetTests \
             tests.test_fixwitness.WholeChangeTests tests.test_fixwitness.DbtManifestTests \
-            tests.test_fixwitness.DbtProjectTests 2>&1 | tee tests.log
+            tests.test_fixwitness.DbtProjectTests \
+            tests.test_fixwitness.WarehouseTests tests.test_fixwitness.WarehouseUnitTests \
+            tests.test_fixwitness.ReportTests 2>&1 | tee tests.log
       - name: SQL benchmark on DuckDB
         if: always()
         run: |

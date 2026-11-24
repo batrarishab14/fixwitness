@@ -376,13 +376,25 @@ def _build_tables(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: 
     types = {name: table_types(raw) for name, raw in tables.items()}
     if cfg.function:
         return _finish_frame(cfg, work, canary_dir, mode, side_b, side_a, inputs, replay, notes, paths, tables, types)
-    try:
-        engine = choose_engine(cfg.engine)
-    except SqlError as exc:
-        raise PlanError(str(exc)) from exc
-    notes.append(f"SQL engine: {engine}" + ("" if engine == "duckdb" or cfg.dialect else
-                                             " (install duckdb to check with DuckDB's SQL dialect)"))
-    if cfg.dialect:
+    wh_env, wh_pass = {}, []
+    if cfg.warehouse:
+        from fixwitness.warehouse import SECRET_ENV, URL_ENV, WarehouseError, check_url
+        try:
+            kind = check_url(cfg.warehouse)
+        except WarehouseError as exc:
+            raise PlanError(str(exc)) from exc
+        engine = "warehouse"
+        wh_env, wh_pass = {URL_ENV: cfg.warehouse}, SECRET_ENV[kind]
+        notes.append(f"SQL runs in your {kind} warehouse ({cfg.warehouse}): each run gets its own schema, "
+                     f"dropped after it; the SQL runs as written")
+    else:
+        try:
+            engine = choose_engine(cfg.engine)
+        except SqlError as exc:
+            raise PlanError(str(exc)) from exc
+        notes.append(f"SQL engine: {engine}" + ("" if engine == "duckdb" or cfg.dialect else
+                                                 " (install duckdb to check with DuckDB's SQL dialect)"))
+    if cfg.dialect and engine != "warehouse":
         try:
             import sqlglot  # noqa: F401
         except ImportError:
@@ -400,10 +412,11 @@ def _build_tables(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: 
                 + (f" --dialect {cfg.dialect}" if cfg.dialect else "")
                 + (f" --outputs {','.join(outputs)}" if outputs else "")
                 + (" --ordered" if cfg.sql_ordered else "") + " {script} {input} {output}")
-    inv = Invocation(template=template, timeout=cfg.timeout, allow_any=cfg.allow_any_command,
-                     pass_env=cfg.pass_env, no_network=cfg.no_network, input_suffix=".json",
+    inv = Invocation(template=template, timeout=max(cfg.timeout, 120) if wh_env else cfg.timeout,
+                     allow_any=cfg.allow_any_command, pass_env=list(cfg.pass_env) + wh_pass,
+                     no_network=cfg.no_network and not wh_env, input_suffix=".json",
                      output_suffix=".csv", require_script=True,
-                     env={"PYTHONPATH": str(Path(__file__).resolve().parent.parent)})
+                     env={"PYTHONPATH": str(Path(__file__).resolve().parent.parent), **wh_env})
     first = next(iter(paths.values()))
     plan = Plan(mode=mode, before=side_b, after=side_a, invocation=inv, sample_path=first,
                 sample=make_bundle(tables, types), output="csv", work=work, canary_dir=canary_dir, notes=notes,

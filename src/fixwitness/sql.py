@@ -128,7 +128,7 @@ def translate(sql: str, dialect: str | None, engine: str, tables: set[str] | Non
     Names qualified with a database or schema (analytics.raw.orders, `project.dataset.orders`)
     are reduced to the table name when that name is one of the loaded tables or models.
     """
-    if not dialect:
+    if not dialect or engine == "warehouse":  # in the warehouse, the SQL runs as written
         return sql
     try:
         import sqlglot
@@ -217,6 +217,8 @@ def have_duckdb() -> bool:
 
 
 def choose_engine(engine: str) -> str:
+    if engine == "warehouse":
+        return engine  # the SQL runs in the warehouse named by FIXWITNESS_WAREHOUSE (see warehouse.py)
     if engine in ("auto", None, ""):
         return "duckdb" if have_duckdb() else "sqlite"
     if engine == "duckdb" and not have_duckdb():
@@ -352,6 +354,11 @@ def run_query(sql: str, bundle: bytes, engine: str = "auto", dbt: str = "auto", 
     tables, types = read_bundle(bundle)
     engine = choose_engine(engine)
     sql = prepare(sql, dbt, dialect, engine, set(tables))
+    if engine == "warehouse":
+        from fixwitness.warehouse import Session, url_from_env
+        with Session(url_from_env()) as wh:
+            wh.load(tables, types)
+            return _result_csv(wh.query(sql), ordered)
     con = _connect(engine)
     try:
         load_tables(con, engine, tables, types)
@@ -370,11 +377,23 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
     if clash:
         raise SqlError(f"model(s) {', '.join(clash)} have the same name as an input table")
     wanted = outputs or sorted(models)
+    order_file = root / "fixwitness_order.txt"  # written for dbt projects, from dbt's own graph
+    if engine == "warehouse":
+        from fixwitness.warehouse import Session, ident, url_from_env
+        results = {}
+        with Session(url_from_env()) as wh:
+            wh.load(tables, types)
+            names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
+            for name in names:
+                wh.create_as(name, prepare(models[name], dbt, dialect, engine, set(tables) | set(models)))
+            for name in wanted:
+                if name in models:
+                    results[name] = _result_csv(wh.query(f"SELECT * FROM {ident(name, wh.kind)}"), ordered)
+        return make_outputs(results)
     con = _connect(engine)
     results: dict[str, bytes] = {}
     try:
         load_tables(con, engine, tables, types)
-        order_file = root / "fixwitness_order.txt"  # written for dbt projects, from dbt's own graph
         names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
         for name in names:
             sql = prepare(models[name], dbt, dialect, engine, set(tables) | set(models))

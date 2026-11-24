@@ -61,6 +61,9 @@ class Config:
     # Differences someone marked as intended ([[accept]] in fixwitness.toml): inputs of that category
     # (and column) for that target are reported as "reviewed", not failed.
     accept: list[dict] | None = None
+    # SQL/dbt: run both versions in your warehouse instead of DuckDB/SQLite (postgres://, snowflake://,
+    # bigquery://); no password in the URL
+    warehouse: str | None = None
     # Runtime
     timeout: float = 10.0
     workers: int = 0
@@ -100,6 +103,12 @@ class Config:
             raise ConfigError("tolerance must be 0 or positive")
         if self.timeout <= 0:
             raise ConfigError("timeout must be positive")
+        if self.warehouse is not None:
+            from fixwitness.warehouse import WarehouseError, parse_url
+            try:
+                parse_url(self.warehouse)
+            except WarehouseError as exc:
+                raise ConfigError(str(exc)) from None
         if self.engine not in ("auto", "duckdb", "sqlite"):
             raise ConfigError("engine must be auto, duckdb or sqlite")
         if self.dbt not in ("auto", "on", "off"):

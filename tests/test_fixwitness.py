@@ -1429,6 +1429,55 @@ class DbtProjectTests(TempDirTest):
         self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
 
 
+@unittest.skipUnless(os.environ.get("FIXWITNESS_TEST_POSTGRES"),
+                     "needs a Postgres server: FIXWITNESS_TEST_POSTGRES=postgres://USER@HOST:PORT/DB (CI)")
+class WarehouseTests(TempDirTest):
+    """Both versions run in a real Postgres server, each run in its own schema."""
+    _sql_check = SqlModeTests._check
+
+    def _check(self, after_sql, **extra):
+        return self._sql_check(after_sql, warehouse=os.environ["FIXWITNESS_TEST_POSTGRES"], max_cases=40, **extra)
+
+    def test_wrong_and_correct_changes_in_postgres(self):
+        ok = self._check(REVENUE.replace("count(*) as orders", "count(1) as orders"))
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+        self.assertEqual(ok["inputs"]["engine"], "warehouse")
+        bad = self._check(REVENUE.replace("count(*)", "count(o.amount)"))
+        self.assertEqual(bad["verdict"], "FAIL")
+        self.assertIn("null-column", {d["category"] for d in bad["differences"]})
+
+    def test_postgres_semantics(self):
+        # DISTINCT ON exists in Postgres (not SQLite), and Postgres sorts NULLs first in DESC order:
+        # the original picks an empty amount where max() skips it. Only the warehouse shows this.
+        before = "select distinct on (customer_id) customer_id, amount from orders order by customer_id, amount desc"
+        after = "select customer_id, max(amount) as amount from orders group by customer_id"
+        proof = self._sql_check(after, before_sql=before, warehouse=os.environ["FIXWITNESS_TEST_POSTGRES"],
+                                max_cases=40)
+        self.assertEqual(proof["verdict"], "FAIL", proof["reasons"])
+
+    def test_leftover_schemas_are_dropped(self):
+        import psycopg
+        from fixwitness.warehouse import parse_url
+        self._check(REVENUE)
+        i = parse_url(os.environ["FIXWITNESS_TEST_POSTGRES"])
+        with psycopg.connect(host=i["host"], port=i["port"], user=i["user"], dbname=i["path"]) as con:
+            left = con.execute("select count(*) from information_schema.schemata where schema_name like 'fw_%'").fetchone()[0]
+        self.assertEqual(left, 0)
+
+
+
+class WarehouseUnitTests(unittest.TestCase):
+    def test_urls(self):
+        from fixwitness.warehouse import ident, parse_url
+        with self.assertRaises(ConfigError):
+            load_config(None, {"warehouse": "postgres://u:secret@localhost/db"})  # recorded in the proof
+        with self.assertRaises(ConfigError):
+            load_config(None, {"warehouse": "mysql://u@localhost/db"})
+        sf = parse_url("snowflake://me@xy12345/ANALYTICS?warehouse=WH&role=DEV")
+        self.assertEqual((sf["host"], sf["path"], sf["query"]["warehouse"]), ("xy12345", "ANALYTICS", "WH"))
+        self.assertEqual((ident("order_id", "snowflake"), ident("Order ID", "postgres")), ("order_id", '"Order ID"'))
+
+
 class SetupTests(TempDirTest):
     def test_setup_merges_and_never_overwrites(self):
         from fixwitness.setup import setup
