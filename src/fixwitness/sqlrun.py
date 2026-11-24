@@ -1,6 +1,9 @@
 """Command-line entry used by fixwitness to run one SQL query on one table bundle.
 
-    python -m fixwitness.sqlrun [--engine auto|duckdb|sqlite] [--dbt auto|on|off] [--ordered] QUERY INPUT OUTPUT
+    python -m fixwitness.sqlrun [--engine E] [--dbt auto|on|off] [--dialect D] [--outputs a,b] [--ordered]
+                                QUERY INPUT OUTPUT
+
+QUERY is a .sql file, or a folder of .sql models (a pipeline).
 
 Exit codes: 0 success, 1 the query failed, 2 the input could not be loaded or the model could not be rendered.
 """
@@ -11,7 +14,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from fixwitness.sql import SqlError, run_query
+from fixwitness.sql import SqlError, run_pipeline, run_query
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -19,13 +22,19 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--engine", default="auto")
     ap.add_argument("--dbt", default="auto", choices=["auto", "on", "off"])
     ap.add_argument("--ordered", action="store_true")
+    ap.add_argument("--dialect", default=None)
+    ap.add_argument("--outputs", default=None)
     ap.add_argument("query")
     ap.add_argument("input")
     ap.add_argument("output")
     a = ap.parse_args(argv)
     try:
-        sql = Path(a.query).read_text(encoding="utf-8")
-        out = run_query(sql, Path(a.input).read_bytes(), a.engine, a.dbt, a.ordered)
+        data = Path(a.input).read_bytes()
+        outputs = [o.strip() for o in a.outputs.split(",") if o.strip()] if a.outputs else None
+        if Path(a.query).is_dir():
+            out = run_pipeline(Path(a.query), data, a.engine, a.dbt, a.ordered, a.dialect, outputs)
+        else:
+            out = run_query(Path(a.query).read_text(encoding="utf-8"), data, a.engine, a.dbt, a.ordered, a.dialect)
     except SqlError as exc:
         print(f"fixwitness.sqlrun: {exc}", file=sys.stderr)
         return 2

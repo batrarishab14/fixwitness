@@ -26,7 +26,8 @@ from pathlib import Path
 from fixwitness.cases import SampleError, parse_sample
 from fixwitness.config import Config, ConfigError
 from fixwitness.runner import Invocation, RunConfigError, Side, no_network_available, run_side
-from fixwitness.sql import SqlError, choose_engine, make_bundle, table_types
+from fixwitness.sql import (SqlError, choose_engine, dependencies, find_models, make_bundle, make_outputs,
+                            table_types)
 
 INTERPRETERS = {
     ".py": "python3", ".sh": "bash", ".bash": "bash", ".js": "node", ".mjs": "node", ".cjs": "node",
@@ -60,6 +61,7 @@ class Plan:
     incident_expected: bytes | None = None
     after_invocation: Invocation | None = None   # set when the fix is run differently from the original
     sql: dict | None = None                       # SQL mode: tables, types, engine
+    sample_format: str = "csv"                    # csv, json (JSON or JSON Lines) or parquet
     notes: list[str] = field(default_factory=list)
     inputs: dict = field(default_factory=dict)      # what the proof hashes
     replay: dict = field(default_factory=dict)      # what replay needs
@@ -86,6 +88,13 @@ def sha256_bytes(data: bytes) -> str:
 
 
 def sha256_file(path: Path) -> str:
+    """Hash a file, or a folder (every file's relative path and contents, in sorted order)."""
+    if path.is_dir():
+        h = hashlib.sha256()
+        for f in sorted(p for p in path.rglob("*") if p.is_file()):
+            name, data = f.relative_to(path).as_posix().encode(), f.read_bytes()
+            h.update(len(name).to_bytes(8, "big") + name + len(data).to_bytes(8, "big") + data)
+        return h.hexdigest()
     h = hashlib.sha256()
     with path.open("rb") as fh:
         for chunk in iter(lambda: fh.read(1 << 20), b""):
@@ -186,6 +195,13 @@ def discover_sample(near: Path, extra_roots: list[Path]) -> Path:
             d = root / sub if sub else root
             if d.is_dir():
                 found += sorted(p for p in d.glob("*.csv") if p.is_file())
+    if not found:  # no CSV: JSON Lines or Parquet data (a .json file may be configuration, so not that)
+        for root in [near, *extra_roots]:
+            for sub in SAMPLE_DIRS:
+                d = root / sub if sub else root
+                if d.is_dir():
+                    found += sorted(p for pat in ("*.jsonl", "*.ndjson", "*.parquet") for p in d.glob(pat)
+                                    if p.is_file())
     unique = list(dict.fromkeys(p.resolve() for p in found))
     if len(unique) == 1:
         return unique[0]
@@ -221,11 +237,49 @@ def detect_run(work: Path, side: Side, prog: str, sample: bytes, base_inv: Invoc
 _TABLE_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
 
+def is_model_folder(p: Path | None) -> bool:
+    return p is not None and p.is_dir() and any(p.rglob("*.sql"))
+
+
 def is_sql(cfg: Config, *scripts: Path | None) -> bool:
-    """SQL mode: the scripts are .sql files (or tables are given) and no run command overrides it."""
-    if cfg.run or cfg.command:
+    """SQL mode: the scripts are .sql files or folders of models (or tables are given), and no run
+    command overrides it."""
+    if cfg.run or cfg.command or cfg.function:
         return False
-    return bool(cfg.tables) or any(p is not None and p.suffix.lower() == ".sql" for p in scripts)
+    return bool(cfg.tables) or any(p is not None and (p.suffix.lower() == ".sql" or is_model_folder(p))
+                                   for p in scripts)
+
+
+def is_frame(cfg: Config, *scripts: Path | None) -> bool:
+    """DataFrame mode: a function to call is named, the scripts are Python, and no run command overrides it."""
+    return bool(cfg.function) and not (cfg.run or cfg.command) and all(
+        p is None or p.suffix.lower() == ".py" for p in scripts)
+
+
+def _pipeline_outputs(cfg: Config, folder: Path, tables: set[str], notes: list[str]) -> list[str]:
+    """The models to compare: those named, or the original's final models (no other model reads them)."""
+    try:
+        models = {name: p.read_text(encoding="utf-8") for name, p in find_models(folder).items()}
+    except SqlError as exc:
+        raise PlanError(str(exc)) from exc
+    if not models:
+        raise PlanError(f"no .sql models in {folder}")
+    if cfg.sql_outputs and cfg.sql_outputs != ["all"]:
+        unknown = [o for o in cfg.sql_outputs if o not in models]
+        if unknown:
+            raise PlanError(f"output model(s) {', '.join(unknown)} are not in the original's models "
+                            f"({', '.join(sorted(models))})")
+        return list(cfg.sql_outputs)
+    if cfg.sql_outputs == ["all"]:
+        notes.append(f"comparing every model: {', '.join(sorted(models))}")
+        return sorted(models)
+    read = set()
+    for name, raw in models.items():
+        read |= dependencies(raw, set(models) | tables, name)
+    final = sorted(set(models) - read)
+    notes.append(f"pipeline: {len(models)} models; comparing the final one{'s' if len(final) != 1 else ''} "
+                 f"({', '.join(final)}), which no other model reads (set sql_outputs to compare others)")
+    return final
 
 
 def _read_tables(cfg: Config, spec: dict[str, str], what: str) -> tuple[dict[str, Path], dict[str, bytes]]:
@@ -245,8 +299,8 @@ def _read_tables(cfg: Config, spec: dict[str, str], what: str) -> tuple[dict[str
     return paths, data
 
 
-def _build_sql(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: Side, side_a: Side,
-               inputs: dict, replay: dict, notes: list[str]) -> Plan:
+def _build_tables(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: Side, side_a: Side,
+               inputs: dict, replay: dict, notes: list[str], folder: Path | None = None) -> Plan:
     if cfg.tables:
         spec = dict(cfg.tables)
     elif cfg.sample:
@@ -254,17 +308,37 @@ def _build_sql(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: Sid
         spec = {stem: cfg.sample}
         notes.append(f"table: {stem} (named after the sample file)")
     else:
-        raise PlanError("a SQL check needs the tables the query reads: pass --table NAME=FILE.csv for each "
-                        "(or --sample FILE.csv for a single table named after the file)")
+        raise PlanError(("a DataFrame check needs the tables the function takes: pass --table PARAM=FILE.csv for "
+                         "each parameter" if cfg.function else
+                         "a SQL check needs the tables the query reads: pass --table NAME=FILE.csv for each")
+                        + " (or --sample FILE.csv for a single table named after the file)")
     paths, tables = _read_tables(cfg, spec, "table")
     types = {name: table_types(raw) for name, raw in tables.items()}
+    if cfg.function:
+        return _finish_frame(cfg, work, canary_dir, mode, side_b, side_a, inputs, replay, notes, paths, tables, types)
     try:
         engine = choose_engine(cfg.engine)
     except SqlError as exc:
         raise PlanError(str(exc)) from exc
-    notes.append(f"SQL engine: {engine}" + ("" if engine == "duckdb" else
+    notes.append(f"SQL engine: {engine}" + ("" if engine == "duckdb" or cfg.dialect else
                                              " (install duckdb to check with DuckDB's SQL dialect)"))
+    if cfg.dialect:
+        try:
+            import sqlglot  # noqa: F401
+        except ImportError:
+            raise PlanError(f"dialect = {cfg.dialect} needs sqlglot to translate the SQL: pip install sqlglot") from None
+        from sqlglot.dialects.dialect import Dialect
+        try:
+            Dialect.get_or_raise(cfg.dialect)
+        except ValueError as exc:
+            raise PlanError(f"unknown SQL dialect {cfg.dialect!r}: {exc}") from None
+        notes.append(f"SQL written for {cfg.dialect}, translated to {engine} with sqlglot")
+    outputs = None
+    if folder is not None:
+        outputs = _pipeline_outputs(cfg, folder, set(spec), notes)
     template = (f"{shlex.quote(sys.executable)} -m fixwitness.sqlrun --engine {engine} --dbt {cfg.dbt}"
+                + (f" --dialect {cfg.dialect}" if cfg.dialect else "")
+                + (f" --outputs {','.join(outputs)}" if outputs else "")
                 + (" --ordered" if cfg.sql_ordered else "") + " {script} {input} {output}")
     inv = Invocation(template=template, timeout=cfg.timeout, allow_any=cfg.allow_any_command,
                      pass_env=cfg.pass_env, no_network=cfg.no_network, input_suffix=".json",
@@ -276,7 +350,46 @@ def _build_sql(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: Sid
                 inputs=inputs | {"tables": {n: {"name": p.name, "sha256": sha256_bytes(tables[n])}
                                             for n, p in paths.items()}, "engine": engine},
                 replay=replay | {"tables": {n: str(p) for n, p in paths.items()}, "run": template})
-    plan.sql = {"tables": tables, "types": types, "engine": engine, "incident_tables": {}}
+    plan.sql = {"tables": tables, "types": types, "engine": engine, "incident_tables": {}, "outputs": outputs}
+    return _with_tables_incident(cfg, plan, tables, types, outputs)
+
+
+def _finish_frame(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: Side, side_a: Side,
+                  inputs: dict, replay: dict, notes: list[str], paths: dict[str, Path],
+                  tables: dict[str, bytes], types: dict) -> Plan:
+    """A Python function over DataFrames: the same generated tables as SQL mode, called through pyrun."""
+    from fixwitness.pyrun import detect_library
+    libs = []
+    for side in (side_b, side_a):
+        src = (side.root / side.script) if side.root is not None else side.script
+        lib = detect_library(src.read_text(encoding="utf-8")) if cfg.library == "auto" else cfg.library
+        try:
+            __import__(lib)
+        except ImportError:
+            raise PlanError(f"the {side.label} uses {lib}, which is not installed here (pip install {lib})") from None
+        libs.append(lib)
+    notes.append(f"DataFrame function {cfg.function}(): "
+                 + (f"{libs[0]}" if libs[0] == libs[1] else f"original uses {libs[0]}, fix uses {libs[1]}")
+                 + "; tables loaded with the sample's column types")
+    engine = libs[0] if libs[0] == libs[1] else f"{libs[0]} -> {libs[1]}"
+    template = (f"{shlex.quote(sys.executable)} -m fixwitness.pyrun --function {cfg.function} --library {cfg.library}"
+                + (" --ordered" if cfg.sql_ordered else "") + " {script} {input} {output}")
+    inv = Invocation(template=template, timeout=cfg.timeout, allow_any=cfg.allow_any_command,
+                     pass_env=cfg.pass_env, no_network=cfg.no_network, input_suffix=".json",
+                     output_suffix=".csv", require_script=True,
+                     env={"PYTHONPATH": str(Path(__file__).resolve().parent.parent)})
+    plan = Plan(mode=mode, before=side_b, after=side_a, invocation=inv, sample_path=next(iter(paths.values())),
+                sample=make_bundle(tables, types), output="csv", work=work, canary_dir=canary_dir, notes=notes,
+                inputs=inputs | {"tables": {n: {"name": p.name, "sha256": sha256_bytes(tables[n])}
+                                            for n, p in paths.items()}, "engine": engine},
+                replay=replay | {"tables": {n: str(p) for n, p in paths.items()}, "run": template})
+    plan.sql = {"tables": tables, "types": types, "engine": engine, "incident_tables": {}, "outputs": None,
+                "function": cfg.function, "libraries": libs}
+    return _with_tables_incident(cfg, plan, tables, types, None)
+
+
+def _with_tables_incident(cfg: Config, plan: Plan, tables: dict[str, bytes], types: dict,
+                          outputs: list[str] | None) -> Plan:
 
     inc_spec = dict(cfg.incident_tables or {})
     if not inc_spec and cfg.incident:
@@ -304,6 +417,11 @@ def _build_sql(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: Sid
         plan.incident_expected = p.read_bytes()
         plan.inputs["incident_expected"] = {"name": p.name, "sha256": sha256_bytes(plan.incident_expected)}
         plan.replay["incident_expected"] = str(p.resolve())
+        if outputs is not None:
+            if len(outputs) != 1:
+                raise PlanError(f"the expected output is one CSV, but {len(outputs)} models are compared "
+                                f"({', '.join(outputs)}); name the model it is for with sql_outputs")
+            plan.incident_expected = make_outputs({outputs[0]: plan.incident_expected})
     return plan
 
 
@@ -352,6 +470,13 @@ def _with_incident(plan: "Plan", path: Path | None, data: bytes | None, cfg: Con
     return plan
 
 
+def _output_suffix(output: str, fmt: str, cfg: Config, input_suffix: str) -> str:
+    """The name of the output file the program is given: what a program of this kind writes."""
+    if fmt in ("parquet", "json") and not cfg.output:
+        return input_suffix  # JSON Lines in, JSON Lines out; Parquet in, Parquet out
+    return {"csv": ".csv", "json": ".json"}.get(output, ".txt")
+
+
 def _base_invocation(cfg: Config, sample_path: Path, template: str | None, require_script: bool) -> Invocation:
     output = cfg.output or "csv"
     return Invocation(template=template or "", timeout=cfg.timeout, allow_any=cfg.allow_any_command,
@@ -360,10 +485,33 @@ def _base_invocation(cfg: Config, sample_path: Path, template: str | None, requi
                       output_suffix=".csv" if output == "csv" else ".txt", require_script=require_script)
 
 
-def _finish(cfg: Config, inv: Invocation, plan_notes: list[str]) -> str:
+def sample_format(path: Path, data: bytes) -> str:
+    """csv, json or parquet; the sample is checked so a bad one fails here, not on every case."""
+    from fixwitness.formats import is_json_name, is_parquet, parse_json_sample, parquet_table
+    try:
+        if is_parquet(data):
+            parquet_table(data)
+            return "parquet"
+        if is_json_name(path.name) or data.lstrip()[:1] in (b"[", b"{"):
+            parse_json_sample(data)
+            return "json"
+    except SampleError as exc:
+        raise PlanError(f"sample {path.name}: {exc}") from exc
+    except Exception as exc:  # pyarrow could not read it
+        raise PlanError(f"sample {path.name} is not a readable Parquet file: {exc}") from exc
+    return "csv"
+
+
+def _finish(cfg: Config, inv: Invocation, plan_notes: list[str], fmt: str = "csv") -> str:
     """Pick the comparison mode once the run command is known."""
     if cfg.output:
         return cfg.output
+    if fmt == "json":
+        plan_notes.append("outputs are compared as JSON when they parse as JSON (or JSON Lines), else as CSV")
+        return "json"
+    if fmt == "parquet":
+        plan_notes.append("Parquet outputs are compared by value (read with pyarrow); other outputs as CSV")
+        return "csv"
     if "{output}" in inv.template and inv.input_suffix.lower() == ".csv":
         return "csv"
     if inv.input_suffix.lower() == ".csv":
@@ -375,15 +523,20 @@ def _finish(cfg: Config, inv: Invocation, plan_notes: list[str]) -> str:
 def _build_files(cfg: Config, work: Path, canary_dir: Path) -> Plan:
     before, after = cfg.resolve(cfg.before), cfg.resolve(cfg.after)
     for label, p in (("before", before), ("after", after)):
-        if not p.is_file():
+        if not p.exists():
             raise PlanError(f"{label} file not found: {p}")
+    if before.is_dir() != after.is_dir():
+        raise PlanError("compare a file with a file, or a folder of models with a folder of models")
+    if before.is_dir() and not (is_model_folder(before) and is_sql(cfg, before)):
+        raise PlanError(f"{before} is a folder; folders are compared as SQL/dbt models and it has no .sql files")
     notes: list[str] = []
-    if is_sql(cfg, before, after):
-        return _build_sql(
+    if is_sql(cfg, before, after) or is_frame(cfg, before, after):
+        return _build_tables(
             cfg, work, canary_dir, "files", Side("original", None, before.resolve()), Side("fix", None, after.resolve()),
             {"mode": "files", "before": {"name": before.name, "sha256": sha256_file(before)},
              "after": {"name": after.name, "sha256": sha256_file(after)}},
-            {"mode": "files", "before": str(before.resolve()), "after": str(after.resolve())}, notes)
+            {"mode": "files", "before": str(before.resolve()), "after": str(after.resolve())}, notes,
+            before.resolve() if before.is_dir() else None)
     if cfg.sample:
         sample_path = cfg.resolve(cfg.sample)
     else:
@@ -392,6 +545,7 @@ def _build_files(cfg: Config, work: Path, canary_dir: Path) -> Plan:
     if not sample_path.is_file():
         raise PlanError(f"sample file not found: {sample_path}")
     sample = sample_path.read_bytes()
+    fmt = sample_format(sample_path, sample)
     side_b = Side("original", None, before.resolve())
     side_a = Side("fix", None, after.resolve())
     inv = _base_invocation(cfg, sample_path, cfg.run, True)
@@ -408,8 +562,8 @@ def _build_files(cfg: Config, work: Path, canary_dir: Path) -> Plan:
         if not cfg.run_after:  # e.g. a shell script rewritten in Python
             inv_a.template, _ = detect_run(work, side_a, prog_a, sample, inv_a)
             notes.append(f"fix run command: detected '{inv_a.template}'")
-    output = _finish(cfg, inv, notes)
-    inv.output_suffix = ".csv" if output == "csv" else ".txt"
+    output = _finish(cfg, inv, notes, fmt)
+    inv.output_suffix = _output_suffix(output, fmt, cfg, inv.input_suffix)
     if inv_a is not None:
         inv_a.output_suffix = inv.output_suffix
     plan = _with_incident(Plan(
@@ -424,14 +578,18 @@ def _build_files(cfg: Config, work: Path, canary_dir: Path) -> Plan:
                 "run_after": inv_a.template if inv_a else None},
     ), *_load_incident(cfg), cfg)
     plan.after_invocation = inv_a
+    plan.sample_format = fmt
     return plan
 
 
 def _build_git(cfg: Config, work: Path, canary_dir: Path) -> Plan:
     target_abs = cfg.resolve(cfg.path) if cfg.path else None
-    if target_abs is not None and not target_abs.is_file():
+    if target_abs is not None and not target_abs.exists():
         raise PlanError(f"file not found: {target_abs}")
-    anchor = target_abs.parent if target_abs is not None else cfg.base_dir
+    if target_abs is not None and target_abs.is_dir() and not is_model_folder(target_abs):
+        raise PlanError(f"{target_abs} is a folder; folders are compared as SQL/dbt models and it has no .sql files")
+    anchor = target_abs if target_abs is not None and target_abs.is_dir() else (
+        target_abs.parent if target_abs is not None else cfg.base_dir)
     root = repo_root(anchor)
     commit = _git(["rev-parse", "--verify", f"{cfg.base}^{{commit}}"], root).strip()
     changes = changed_files(root, commit)
@@ -442,22 +600,26 @@ def _build_git(cfg: Config, work: Path, canary_dir: Path) -> Plan:
     rel = None
     if target_abs is not None:
         rel = target_abs.resolve().relative_to(root.resolve()).as_posix()
-        if rel not in {p for _, p in changes}:
+        inside = (lambda p: True) if rel == "." else (lambda p: p == rel or p.startswith(rel + "/"))
+        if not any(inside(p) for _, p in changes):
             notes.append(f"{rel} itself is unchanged; comparing because other files changed")
 
     t0, t1 = work / "trees" / "t0", work / "trees" / "t1"
     export_commit(root, commit, t0)
     snapshot_worktree(root, t1)
-    if rel is not None and not (t0 / rel).is_file():
+    if rel is not None and not (t0 / rel).exists():
         raise PlanError(f"{rel} does not exist in {cfg.base}; there is no original to compare against")
-    if rel is not None and is_sql(cfg, Path(rel)):
+    if rel is not None and target_abs.is_dir() and not is_model_folder(t0 / rel):
+        raise PlanError(f"{rel} has no .sql models in {cfg.base}; there is no original to compare against")
+    if rel is not None and (is_sql(cfg, t0 / rel, t1 / rel) or is_frame(cfg, Path(rel))):
         changed = [{"path": p, "status": st, "sha256": sha256_file(root / p) if (root / p).is_file() else None}
                    for st, p in changes]
-        return _build_sql(
+        return _build_tables(
             cfg, work, canary_dir, "git", Side("original", t0, Path(rel)), Side("fix", t1, Path(rel)),
             {"mode": "git", "base_commit": commit, "target": rel, "changed": changed},
             {"mode": "git", "repo": str(root), "base": cfg.base, "base_commit": commit,
-             "path": str(target_abs.resolve()), "command": None}, notes)
+             "path": str(target_abs.resolve()), "command": None}, notes,
+            (t0 / rel) if (t0 / rel).is_dir() else None)
 
     if cfg.sample:
         sample_path = cfg.resolve(cfg.sample)
@@ -467,6 +629,7 @@ def _build_git(cfg: Config, work: Path, canary_dir: Path) -> Plan:
     if not sample_path.is_file():
         raise PlanError(f"sample file not found: {sample_path}")
     sample = sample_path.read_bytes()
+    fmt = sample_format(sample_path, sample)
 
     script = Path(rel) if rel else None
     side_b, side_a = Side("original", t0, script), Side("fix", t1, script)
@@ -480,8 +643,8 @@ def _build_git(cfg: Config, work: Path, canary_dir: Path) -> Plan:
             raise PlanError(f"cannot tell how to run {rel}; pass --run, e.g. --run 'python3 {{script}} {{input}}'")
         inv.template, _ = detect_run(work, side_b, prog, sample, inv)
         notes.append(f"run command: detected '{inv.template}'")
-    output = _finish(cfg, inv, notes)
-    inv.output_suffix = ".csv" if output == "csv" else ".txt"
+    output = _finish(cfg, inv, notes, fmt)
+    inv.output_suffix = _output_suffix(output, fmt, cfg, inv.input_suffix)
 
     changed = []
     for status, p in changes:
@@ -490,7 +653,7 @@ def _build_git(cfg: Config, work: Path, canary_dir: Path) -> Plan:
                         "sha256": sha256_file(f) if f.is_file() else None})
     return _with_incident(Plan(
         mode="git", before=side_b, after=side_a, invocation=inv, sample_path=sample_path.resolve(),
-        sample=sample, output=output, work=work, canary_dir=canary_dir, notes=notes,
+        sample=sample, output=output, work=work, canary_dir=canary_dir, notes=notes, sample_format=fmt,
         inputs={"mode": "git", "base_commit": commit, "target": rel, "changed": changed,
                 "sample": {"name": sample_path.name, "sha256": sha256_bytes(sample)}},
         replay={"mode": "git", "repo": str(root), "base": cfg.base, "base_commit": commit,

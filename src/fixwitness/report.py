@@ -40,7 +40,16 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
     inp = proof["inputs"]
     if "tables" in inp:
         tables = ", ".join(f"`{n}` ({t['name']})" for n, t in inp["tables"].items())
-        lines.append(f"{_what(proof)}, SQL on {inp.get('engine', 'sqlite')}, tables {tables}")
+        sql = proof["config"].get("sql") or {}
+        extra = (f", written for {sql['dialect']}" if sql.get("dialect") else "") + \
+                (f", outputs {', '.join(f'`{o}`' for o in sql['outputs'])}" if sql.get("outputs") else "")
+        frame = proof["config"].get("frame")
+        if frame:
+            libs = frame["libraries"]
+            lib = libs[0] if libs[0] == libs[1] else f"{libs[0]} (original) and {libs[1]} (fix)"
+            lines.append(f"{_what(proof)}, Python function `{frame['function']}()` on {lib} DataFrames, tables {tables}")
+        else:
+            lines.append(f"{_what(proof)}, SQL on {inp.get('engine', 'sqlite')}{extra}, tables {tables}")
     else:
         lines.append(f"{_what(proof)}, sample `{inp['sample']['name']}`, run `{proof['config']['run']}`"
                      + (f" (fix: `{run_after}`)" if run_after else ""))
@@ -50,7 +59,8 @@ def markdown(proof: dict, proof_file: str | None = None) -> str:
         det = proof.get("incident_details") or {}
         if inc["status"] == "resolved":
             text = (f"PASS: the original failed on `{inc['file']}` ({_clip(det.get('original'))}); "
-                    "the fix processes it")
+                    + ("the fix gives the expected output" if "expected output" in inc.get("checks", [])
+                       else "the fix processes it"))
         elif inc["status"] == "still-failing":
             text = f"FAIL: the fix still fails on `{inc['file']}` ({_clip(det.get('fix'))})"
         elif inc["status"] == "resolved-incorrectly":

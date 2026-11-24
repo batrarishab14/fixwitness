@@ -44,6 +44,8 @@ def _overrides(args: argparse.Namespace) -> dict:
         "tables": _table_map(args.table, "--table"),
         "incident_tables": _table_map(args.incident_table, "--incident-table"),
         "engine": args.engine, "sql_ordered": True if args.sql_ordered else None,
+        "dialect": args.dialect, "sql_outputs": _csv_list(args.sql_outputs),
+        "function": args.function, "library": args.library,
         "path": args.path, "base": args.base, "command": args.command, "incident": args.incident,
         "incident_expected": args.incident_expected,
         "attacks": False if args.no_attacks else None,
@@ -131,7 +133,8 @@ def cmd_init(args: argparse.Namespace) -> int:
         fix["incident"] = rel(str(cfg.resolve(cfg.incident)))
     if cfg.incident_expected:
         fix["incident_expected"] = rel(str(cfg.resolve(cfg.incident_expected)))
-    if not cfg.command and not cfg.tables and summary["output"] and "fixwitness.sqlrun" not in summary["run"]:
+    if not cfg.command and not cfg.tables and summary["output"] and "fixwitness.sqlrun" not in summary["run"] \
+            and "fixwitness.pyrun" not in summary["run"]:
         fix["run"] = summary["run"]
     cases = {"attacks": cfg.attacks, "columns": cfg.columns or [], "review": cfg.review,
              "max_cases": cfg.max_cases, "seed": cfg.seed}
@@ -139,8 +142,16 @@ def cmd_init(args: argparse.Namespace) -> int:
                "ignore_patterns": cfg.ignore_patterns, "tolerance": cfg.tolerance, "unordered": cfg.unordered,
                "timeout_seconds": cfg.timeout}
     sections = [("fix", fix), ("cases", cases), ("compare", compare)]
-    if "fixwitness.sqlrun" in summary["run"]:
+    if "fixwitness.sqlrun" in summary["run"] or "fixwitness.pyrun" in summary["run"]:
         sql = {"engine": cfg.engine, "sql_ordered": cfg.sql_ordered}
+        if cfg.dialect:
+            sql["dialect"] = cfg.dialect
+        if cfg.function:
+            sql["function"] = cfg.function
+            sql["library"] = cfg.library
+            sql.pop("engine")
+        if cfg.sql_outputs:
+            sql["sql_outputs"] = cfg.sql_outputs
         if cfg.tables:
             sql["tables"] = {k: rel(v) for k, v in cfg.tables.items()}
         if cfg.incident_tables:
@@ -216,8 +227,11 @@ def cmd_demo(args: argparse.Namespace) -> int:
 
 
 def cmd_categories(args: argparse.Namespace) -> int:
+    from fixwitness.formats import JSON_CATEGORY_DESCRIPTIONS
     for name, desc in CATEGORY_DESCRIPTIONS.items():
         print(f"{name:15} {DEFAULT_KIND[name]:7} {desc}")
+    for name, desc in JSON_CATEGORY_DESCRIPTIONS.items():
+        print(f"{name:15} {'valid':7} {desc} (JSON inputs)")
     return 0
 
 
@@ -245,11 +259,21 @@ def _selection_args(p: argparse.ArgumentParser) -> None:
                    help="SQL/dbt: a table's contents when the original broke (repeatable)")
     p.add_argument("--engine", choices=["auto", "duckdb", "sqlite"],
                    help="SQL/dbt: query engine (default: DuckDB if installed, else SQLite)")
-    p.add_argument("--sql-ordered", action="store_true", help="SQL/dbt: compare result rows in order")
+    p.add_argument("--sql-ordered", "--ordered", dest="sql_ordered", action="store_true",
+                   help="SQL/dbt and DataFrames: compare result rows in order (default: as a set of rows)")
+    p.add_argument("--function", metavar="NAME",
+                   help="Python DataFrame code: the function to call with the tables (pandas, polars or PySpark)")
+    p.add_argument("--library", choices=["auto", "pandas", "polars", "pyspark"],
+                   help="DataFrame library (default: from the script's imports)")
+    p.add_argument("--dialect", help="SQL/dbt: the warehouse the SQL is written for (snowflake, bigquery, "
+                                     "postgres, tsql, ...); translated with sqlglot to the engine")
+    p.add_argument("--sql-outputs", metavar="MODEL,...",
+                   help="SQL/dbt folder of models: the models to compare (default: the final ones; 'all' for every model)")
     p.add_argument("--run-after", help="run command for the fix when it differs (e.g. a rewrite in another language)")
     p.add_argument("--columns", help="comma-separated columns to probe (default: all)")
     p.add_argument("--review", help="comma-separated categories where differences are expected")
-    p.add_argument("--output", choices=["csv", "text"], help="how to compare outputs (default: detected)")
+    p.add_argument("--output", choices=["csv", "json", "text"],
+                   help="how to compare outputs (default: json for JSON inputs, else csv)")
     p.add_argument("--ignore-columns", help="comma-separated output columns to leave out of the comparison")
     p.add_argument("--ignore-pattern", action="append", help="regex masked out of every compared value (repeatable)")
     p.add_argument("--tolerance", type=float, help="relative tolerance for numeric values, e.g. 1e-9")

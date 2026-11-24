@@ -60,6 +60,22 @@ These are development results on SQLite: the SQL input classes were refined on t
 - **dbt models:** `{{ ref('x') }}` and `{{ source('s', 'x') }}` become table `x`, and `{{ config(...) }}` is removed. A model that uses macros or other Jinja is refused with a message; check its compiled SQL from `dbt compile` instead.
 - **Incidents:** `--incident-table customers=customers_bad.csv` gives a table's contents when the original broke, and `--incident-expected` gives the correct result.
 
+## Pipelines, warehouse SQL, DataFrames, JSON and Parquet
+
+The same check works on the other places an agent changes data code:
+
+| What changed | How fixwitness runs it | Example |
+|---|---|---|
+| **A dbt project or a folder of SQL models** | Every model, in dependency order (from `ref()` and the tables after `FROM`/`JOIN`). The final models, which no other model reads, are compared, so a change to a staging model is judged by what it does to the mart | `fixwitness check models/ --table orders=seeds/orders.csv` |
+| **SQL written for a warehouse** | Translated with [sqlglot](https://github.com/tobymao/sqlglot) to DuckDB or SQLite; `analytics.raw.orders` becomes the loaded table `orders` | `--dialect snowflake` (or `bigquery`, `postgres`, `tsql`, ...) |
+| **A pandas, polars or PySpark function** | Called with DataFrames built from your tables, with the sample's column types. Each side uses the library it imports, so a **pandas → polars migration** is checked too | `fixwitness check etl/revenue.py --function revenue --table orders=orders.csv` |
+| **A script that reads JSON or JSON Lines** | Cases change one value at a path such as `user.country` or `items[].sku`: a missing key, `null`, a number written as a string, number spellings (`1e3`, `-0`, 30 digits), escapes, empty arrays and objects, an extra key, reversed key order | `--sample events.jsonl` |
+| **A script that reads Parquet** | The typed-table cases, written back with the sample's Parquet schema. Parquet and JSON outputs are compared by value | `--sample orders.parquet` |
+
+A polars rewrite of a pandas function, for example, can match it on today's data and still differ when a value is missing: pandas `size()` counts rows, but `pl.col("amount").count()` counts non-null values; and polars `group_by` keeps the group for a null key, which pandas `groupby` drops.
+
+<!-- complex-benchmark -->
+
 ## What it catches
 
 A payments job started failing when the upstream system began sending amounts like `"1,250.00"`. A self-healing agent repaired it by stripping every character that isn't a digit or a dot. The job went green.
@@ -159,6 +175,8 @@ fixwitness demo
 
 Python 3.11+, no dependencies. git is needed for the one-line mode. For SQL, DuckDB is used if installed (`pip install duckdb`), otherwise SQLite.
 
+Optional, only for what you check: `sqlglot` (warehouse dialects), `pandas`, `polars` or `pyspark` (DataFrame functions), `pyarrow` (Parquet). `pip install "fixwitness[all] @ git+https://github.com/batrarishab14/fixwitness"` installs all but PySpark.
+
 ## Usage
 
 | Situation | Command |
@@ -171,6 +189,10 @@ Python 3.11+, no dependencies. git is needed for the one-line mode. For SQL, Duc
 | A rewrite in another language | `fixwitness check --before legacy.sh --after new.py --no-attacks` (each side's run command is detected) |
 | A SQL query or dbt model (git) | `fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv` |
 | Two SQL files | `fixwitness check --before old.sql --after new.sql --table orders=orders.csv` |
+| A dbt project (git) | `fixwitness check models/ --table orders=seeds/orders.csv --table customers=seeds/customers.csv` |
+| Snowflake or BigQuery SQL | add `--dialect snowflake` (needs `pip install sqlglot`) |
+| A pandas / polars / PySpark function | `fixwitness check etl/revenue.py --function revenue --table orders=data/orders.csv` |
+| A job that reads JSON Lines or Parquet | `fixwitness check etl/events.py --sample data/events.jsonl --no-attacks` |
 | See what would run | add `--dry-run` |
 | Save the detected settings | `fixwitness init etl/clean.py`, then just `fixwitness check` |
 
@@ -202,7 +224,12 @@ Python 3.11+, no dependencies. git is needed for the one-line mode. For SQL, Duc
 | `--table NAME=FILE.csv` | SQL/dbt: a table the query reads and its sample data (repeat for each table) |
 | `--incident-table NAME=FILE.csv` | SQL/dbt: a table's contents when the original broke |
 | `--engine duckdb` | SQL/dbt: the engine (default: DuckDB if installed, else SQLite) |
-| `--sql-ordered` | SQL/dbt: compare result rows in order |
+| `--sql-ordered` | SQL/dbt and DataFrames: compare result rows in order |
+| `--sql-outputs revenue,churn` | A folder of models: the models to compare (default: the final ones; `all` for every model) |
+| `--dialect snowflake` | SQL/dbt: the warehouse the SQL is written for; translated with sqlglot |
+| `--function NAME` | Python: the DataFrame function to call; name the tables after its parameters |
+| `--library polars` | Python: the DataFrame library (default: from the script's imports) |
+| `--output json` | Compare outputs as JSON (the default when the input is JSON) |
 
 Columns that change between two runs of the original on the same input, such as IDs or timestamps, are detected and ignored automatically, and listed in the report.
 
@@ -332,16 +359,17 @@ Replay refuses to run if any input changed. Otherwise it re-runs everything and 
 - **Not a formal proof.** It is differential testing: evidence on the input categories it generates.
 - **Not a scanner and not an agent.** It checks fixes made by Claude Code, Copilot, Snyk, a self-healing system or a person.
 - **Not a sandbox.** Scripts run as your user. Use `--no-network`, a container or CI for untrusted code.
-- **Inputs are CSV** for scripts. Any program in any language works, as long as it reads a file or stdin.
-- **SQL runs on DuckDB or SQLite,** not on your warehouse. Functions that only your warehouse has will fail to run. Results are evidence for the logic, not for warehouse-specific behaviour.
-- **dbt support covers single models** with `ref()`, `source()` and `config()`. For macros and other Jinja, check the compiled SQL.
+- **Inputs are CSV, JSON, JSON Lines or Parquet** for scripts. Any program in any language works, as long as it reads a file or stdin.
+- **One value changes at a time.** A difference that needs two unusual values together (two records of the same key, each with a sub-cent amount) can be missed.
+- **SQL runs on DuckDB or SQLite,** not on your warehouse. Warehouse SQL is translated with sqlglot; a function it can't translate fails to run. Results are evidence for the logic, not for warehouse-specific behaviour.
+- **dbt support covers models** with `ref()`, `source()` and `config()`, one at a time or as a folder. For macros and other Jinja, check the compiled SQL. Incremental models are run as full builds.
+- **DataFrame functions take about half a second per run** (the library is imported each time, so every run is isolated). Keep `--max-cases` modest for PySpark, which starts a local session per run.
 - **Four attack families** only. SQL injection, deserialization and SSRF are not tested yet.
 
 ## Roadmap
 
 - dbt projects through dbt itself (macros, seeds, incremental models).
-- Warehouse dialects (Snowflake, BigQuery) through SQL translation.
-- JSON Lines and Parquet inputs.
+- Faster DataFrame runs (one import, a forked process per run).
 - SQL-injection payloads.
 - Reading the finding from SARIF.
 - A container runner.

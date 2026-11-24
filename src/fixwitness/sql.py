@@ -20,7 +20,16 @@ dbt models: `{{ ref('x') }}` and `{{ source('s', 'x') }}` become table `x`, and 
 is removed. Models that use other Jinja (macros, `{% if %}`, `{{ this }}`) are refused with a
 clear message; compile them with `dbt compile` and check the compiled SQL instead.
 
-Run as: python -m fixwitness.sqlrun [--engine auto|duckdb|sqlite] [--ordered] QUERY INPUT OUTPUT
+Pipelines: when QUERY is a folder, every .sql file in it is a model named after the file. Models
+run in dependency order (from ref() and from the tables named after FROM and JOIN), each as
+CREATE TABLE <model> AS <query>, and every model's result is written to one "outputs" bundle:
+
+    {"fixwitness_outputs": 1, "outputs": {"stg_orders": "<csv>", "revenue": "<csv>"}}
+
+Warehouse dialects: with a dialect (snowflake, bigquery, databricks, ...), each query is
+translated to the local engine's SQL with sqlglot (pip install sqlglot) before it runs.
+
+Run as: python -m fixwitness.sqlrun [--engine auto|duckdb|sqlite] [--dialect D] [--outputs a,b] [--ordered] QUERY INPUT OUTPUT
 """
 
 from __future__ import annotations
@@ -31,8 +40,10 @@ import decimal
 import io
 import json
 import re
+from pathlib import Path
 
 BUNDLE_KEY = "fixwitness_tables"
+OUTPUTS_KEY = "fixwitness_outputs"
 _NUMBER = re.compile(r"\s*[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?\s*")
 _INTEGER = re.compile(r"\s*[+-]?\d+\s*")
 _DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
@@ -70,6 +81,24 @@ def is_bundle(data: bytes | None) -> bool:
     return bool(data) and data.lstrip()[:1] == b"{" and BUNDLE_KEY.encode() in data[:200]
 
 
+def make_outputs(outputs: dict[str, bytes]) -> bytes:
+    body = {OUTPUTS_KEY: 1, "outputs": {k: v.decode("utf-8") for k, v in outputs.items()}}
+    return json.dumps(body, ensure_ascii=False, sort_keys=True).encode("utf-8")
+
+
+def read_outputs(data: bytes | None) -> dict[str, bytes] | None:
+    """The named outputs of a pipeline run, or None if `data` is a single output."""
+    if not data or data.lstrip()[:1] != b"{" or OUTPUTS_KEY.encode() not in data[:200]:
+        return None
+    try:
+        body = json.loads(data.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return None
+    if not isinstance(body, dict) or body.get(OUTPUTS_KEY) != 1:
+        return None
+    return {k: v.encode("utf-8") for k, v in body.get("outputs", {}).items()}
+
+
 # ---------------------------------------------------------------- dbt
 
 def render_dbt(sql: str) -> str:
@@ -91,6 +120,90 @@ def strip_sql(sql: str) -> str:
     while sql.endswith(";"):
         sql = sql[:-1].rstrip()
     return sql
+
+
+def translate(sql: str, dialect: str | None, engine: str, tables: set[str] | None = None) -> str:
+    """Translate one statement from a warehouse dialect to the local engine's SQL.
+
+    Names qualified with a database or schema (analytics.raw.orders, `project.dataset.orders`)
+    are reduced to the table name when that name is one of the loaded tables or models.
+    """
+    if not dialect:
+        return sql
+    try:
+        import sqlglot
+        from sqlglot import exp
+    except ImportError as exc:
+        raise SqlError("--dialect needs sqlglot (pip install sqlglot)") from exc
+    try:
+        trees = [t for t in sqlglot.parse(sql, read=dialect) if t is not None]
+    except Exception as exc:
+        raise SqlError(f"could not parse the query as {dialect} SQL: {exc}") from exc
+    if len(trees) != 1:
+        raise SqlError(f"expected one SQL statement, found {len(trees)}")
+    tree = trees[0]
+    known = {t.lower(): t for t in (tables or ())}
+    ctes = {c.alias_or_name.lower() for c in tree.find_all(exp.CTE)}
+    for table in tree.find_all(exp.Table):
+        name = table.name.lower()
+        if name in known and name not in ctes:
+            table.set("catalog", None)
+            table.set("db", None)
+            table.set("this", exp.to_identifier(known[name]))
+    try:
+        return tree.sql(dialect=engine)
+    except Exception as exc:
+        raise SqlError(f"could not translate the query from {dialect} to {engine} SQL: {exc}") from exc
+
+
+def prepare(sql: str, dbt: str, dialect: str | None, engine: str, tables: set[str] | None = None) -> str:
+    if dbt == "on" or (dbt == "auto" and "{{" in sql):
+        sql = render_dbt(sql)
+    return translate(strip_sql(sql), dialect, engine, tables)
+
+
+# ---------------------------------------------------------------- pipelines
+
+_COMMENTS = re.compile(r"--[^\n]*|/\*.*?\*/", re.DOTALL)
+_STRINGS = re.compile(r"'(?:[^']|'')*'")
+_FROM_JOIN = re.compile(r"\b(?:from|join)\s+((?:\"[^\"]+\"|[A-Za-z_][\w$]*)(?:\s*\.\s*(?:\"[^\"]+\"|[A-Za-z_][\w$]*))*)",
+                        re.IGNORECASE)
+
+
+def find_models(root: Path) -> dict[str, Path]:
+    models: dict[str, Path] = {}
+    for p in sorted(root.rglob("*.sql")):
+        if p.stem in models:
+            raise SqlError(f"two models are named {p.stem}: {models[p.stem]} and {p}")
+        models[p.stem] = p
+    if not models:
+        raise SqlError(f"no .sql models in {root}")
+    return models
+
+
+def dependencies(raw: str, names: set[str], own: str) -> set[str]:
+    """Models a model reads: its ref() calls and the tables named after FROM and JOIN."""
+    refs = {m.group(4) or m.group(2) for m in _REF.finditer(raw)}
+    text = _STRINGS.sub("''", _COMMENTS.sub(" ", _CONFIG.sub("", _REF.sub(" ", raw))))
+    tables = set()
+    for m in _FROM_JOIN.finditer(text):
+        last = re.split(r"\s*\.\s*", m.group(1))[-1].strip('"')
+        tables.add(last)
+    return (refs | tables) & names - {own}
+
+
+def run_order(models: dict[str, str]) -> list[str]:
+    names = set(models)
+    deps = {n: dependencies(sql, names, n) for n, sql in models.items()}
+    order, done = [], set()
+    while len(order) < len(models):
+        ready = sorted(n for n in models if n not in done and deps[n] <= done)
+        if not ready:
+            stuck = sorted(n for n in models if n not in done)
+            raise SqlError("the models depend on each other in a cycle: " + ", ".join(stuck))
+        order += ready
+        done |= set(ready)
+    return order
 
 
 # ---------------------------------------------------------------- engines
@@ -166,25 +279,32 @@ def _convert(value: str, sql_type: str, table: str, column: str):
     return value
 
 
+def typed_rows(name: str, text: str, types: dict[str, dict[str, str]],
+               engine: str = "duckdb") -> tuple[list[str], list[str], list[list]]:
+    """One table's header, column kinds and rows of typed values (empty cells are None)."""
+    rows = list(csv.reader(io.StringIO(text, newline="")))
+    if not rows:
+        raise SqlError(f"table {name} has no header row")
+    header, data = rows[0], rows[1:]
+    if any(c == "" for c in header) or len(set(header)) != len(header):
+        raise SqlError(f"table {name} has an empty or repeated column name")
+    width = len(header)
+    data = [r + [""] * (width - len(r)) if len(r) < width else r for r in data]
+    if any(len(r) > width for r in data):
+        raise SqlError(f"table {name} has a row with more cells than columns")
+    kinds = [types.get(name, {}).get(c, "text") for c in header]  # columns not in the sample: text
+    sql_types = [_column_type(k, engine) for k in kinds]
+    values = [[_convert(v, t, name, c) for v, t, c in zip(r, sql_types, header)] for r in data]
+    return header, kinds, values
+
+
 def load_tables(con, engine: str, tables: dict[str, str], types: dict[str, dict[str, str]]) -> None:
     for name, text in tables.items():
-        rows = list(csv.reader(io.StringIO(text, newline="")))
-        if not rows:
-            raise SqlError(f"table {name} has no header row")
-        header, data = rows[0], rows[1:]
-        if any(c == "" for c in header) or len(set(header)) != len(header):
-            raise SqlError(f"table {name} has an empty or repeated column name")
-        width = len(header)
-        data = [r + [""] * (width - len(r)) if len(r) < width else r for r in data]
-        if any(len(r) > width for r in data):
-            raise SqlError(f"table {name} has a row with more cells than columns")
-        kinds = types.get(name, {})
-        sql_types = [_column_type(kinds.get(c, "text"), engine) for c in header]  # columns not in the sample: text
-        cols = ", ".join(f"{_quote(c)} {t}" for c, t in zip(header, sql_types))
+        header, kinds, values = typed_rows(name, text, types, engine)
+        cols = ", ".join(f"{_quote(c)} {_column_type(k, engine)}" for c, k in zip(header, kinds))
         con.execute(f"CREATE TABLE {_quote(name)} ({cols})")
-        if data:
-            values = [[_convert(v, t, name, c) for v, t, c in zip(r, sql_types, header)] for r in data]
-            marks = ", ".join(["?"] * width)
+        if values:
+            marks = ", ".join(["?"] * len(header))
             con.executemany(f"INSERT INTO {_quote(name)} VALUES ({marks})", values)
 
 
@@ -206,26 +326,17 @@ def _cell(v) -> str:
     return str(v)
 
 
-def run_query(sql: str, bundle: bytes, engine: str = "auto", dbt: str = "auto", ordered: bool = False) -> bytes:
-    """Load the bundle's tables, run the query and return the result as CSV bytes."""
-    tables, types = read_bundle(bundle)
-    if dbt == "on" or (dbt == "auto" and "{{" in sql):
-        sql = render_dbt(sql)
-    sql = strip_sql(sql)
-    engine = choose_engine(engine)
+def _connect(engine: str):
     if engine == "duckdb":
         import duckdb
-        con = duckdb.connect(":memory:")
-    else:
-        import sqlite3
-        con = sqlite3.connect(":memory:")
-    try:
-        load_tables(con, engine, tables, types)
-        cur = con.execute(sql)
-        header = [d[0] for d in (cur.description or [])]
-        rows = [[_cell(v) for v in r] for r in cur.fetchall()]
-    finally:
-        con.close()
+        return duckdb.connect(":memory:")
+    import sqlite3
+    return sqlite3.connect(":memory:")
+
+
+def _result_csv(cur, ordered: bool) -> bytes:
+    header = [d[0] for d in (cur.description or [])]
+    rows = [[_cell(v) for v in r] for r in cur.fetchall()]
     if not ordered:
         rows.sort()
     buf = io.StringIO()
@@ -233,6 +344,45 @@ def run_query(sql: str, bundle: bytes, engine: str = "auto", dbt: str = "auto", 
     w.writerow(header)
     w.writerows(rows)
     return buf.getvalue().encode("utf-8")
+
+
+def run_query(sql: str, bundle: bytes, engine: str = "auto", dbt: str = "auto", ordered: bool = False,
+              dialect: str | None = None) -> bytes:
+    """Load the bundle's tables, run the query and return the result as CSV bytes."""
+    tables, types = read_bundle(bundle)
+    engine = choose_engine(engine)
+    sql = prepare(sql, dbt, dialect, engine, set(tables))
+    con = _connect(engine)
+    try:
+        load_tables(con, engine, tables, types)
+        return _result_csv(con.execute(sql), ordered)
+    finally:
+        con.close()
+
+
+def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "auto", ordered: bool = False,
+                 dialect: str | None = None, outputs: list[str] | None = None) -> bytes:
+    """Run every model in a folder in dependency order; return each model's result."""
+    tables, types = read_bundle(bundle)
+    engine = choose_engine(engine)
+    models = {name: p.read_text(encoding="utf-8") for name, p in find_models(root).items()}
+    clash = sorted(set(models) & set(tables))
+    if clash:
+        raise SqlError(f"model(s) {', '.join(clash)} have the same name as an input table")
+    wanted = outputs or sorted(models)
+    con = _connect(engine)
+    results: dict[str, bytes] = {}
+    try:
+        load_tables(con, engine, tables, types)
+        for name in run_order(models):
+            sql = prepare(models[name], dbt, dialect, engine, set(tables) | set(models))
+            con.execute(f"CREATE TABLE {_quote(name)} AS {sql}")
+        for name in wanted:
+            if name in models:
+                results[name] = _result_csv(con.execute(f"SELECT * FROM {_quote(name)}"), ordered)
+    finally:
+        con.close()
+    return make_outputs(results)  # a wanted model this side does not have is left out, and reported
 
 
 # ---------------------------------------------------------------- cases
@@ -293,6 +443,7 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
 
     names = [t for t in tables if not columns or t in wanted]
     cases = []
+    own_values = set()  # cases made from the sample's own value (PAID for paid): kept first under the cap
     for t in names:
         sub = generate_cases(tables[t], wanted.get(t), rows, 5000, seed, review, None, False,
                              (incident_tables or {}).get(t))
@@ -344,16 +495,20 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
             if not loadable(t, content):
                 continue
             kind = "review" if category in (review or []) else "valid"
+            if category in ("case", "whitespace"):
+                own_values.add(len(cases))
             cases.append(Case(id=f"{len(cases):03d}", category=category, kind=kind, column=column, value=value,
                               content=make_bundle({**tables, t: content}, types)))
     if len(cases) > max_cases:
         seen, first, rest = set(), [], []
-        for i, c in enumerate(cases):
+        for i in sorted(range(len(cases)), key=lambda i: (i not in own_values, i)):
+            c = cases[i]
             key = (c.column, c.category)
             (rest if key in seen else first).append(i)
             seen.add(key)
         chosen = set(first[:max_cases])
         budget = max_cases - len(chosen)
+        rest.sort()
         chosen |= set(random.Random(seed).sample(rest, min(max(0, budget), len(rest))))
         cases = [c for i, c in enumerate(cases) if i in chosen]
     for i, c in enumerate(cases):

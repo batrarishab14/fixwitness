@@ -14,9 +14,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from fixwitness import __version__
-from fixwitness.cases import CATEGORY_DESCRIPTIONS, Case, column_types, generate_cases
+from fixwitness.cases import CATEGORY_DESCRIPTIONS, Case, SampleError, column_types, generate_cases
+from fixwitness.formats import (JSON_CATEGORY_DESCRIPTIONS, generate_json_cases, generate_parquet_cases,
+                                json_paths, parse_json_sample, parquet_to_csv, unstable_json_paths)
 from fixwitness.sql import generate_sql_cases
-from fixwitness.compare import CompareOptions, compare, parse_rows, unstable_columns
+from fixwitness.compare import CompareOptions, compare, output_headers, parse_rows, unstable_columns
 from fixwitness.config import Config, ConfigError
 from fixwitness.plan import Plan, PlanError, build_plan, sha256_file
 from fixwitness.runner import RunResult, run_side
@@ -92,6 +94,12 @@ def _baseline(plan: Plan, opts: CompareOptions, detect: bool) -> tuple[set[str],
         return set(), warnings, None
     if first.output == second.output:
         return set(), warnings, first.output
+    found = unstable_json_paths(first.output, second.output) if opts.mode == "json" else None
+    if found is not None:
+        cols, problem = found
+        if problem:
+            warnings.append(f"{problem}; use --unordered or --ignore-pattern")
+        return cols, warnings, first.output
     if opts.mode == "csv" and parse_rows(first.output) is not None:
         cols, problem = unstable_columns(first.output, second.output)
         if problem:
@@ -123,14 +131,20 @@ def _check_incident(plan: Plan, opts: CompareOptions, baseline: bytes | None,
     a = run_side(plan.fix_invocation, plan.after, d, plan.incident)
     shutil.rmtree(d, ignore_errors=True)
     b_ok, a_ok = b.ok and b.output is not None, a.ok and a.output is not None
-    status = "still-failing" if not a_ok else ("resolved" if not b_ok else "not-reproduced")
+    wrong = None  # the original ran, but its output is not the expected one: that is the incident too
+    if b_ok and plan.incident_expected is not None:
+        st, det = compare(plan.incident_expected, b.output, opts)
+        if st == "changed":
+            wrong = "wrong output: " + "; ".join(det[:2])
+    status = "still-failing" if not a_ok else ("resolved" if (not b_ok or wrong) else "not-reproduced")
 
     problems: list[str] = []
     if a_ok and plan.output == "csv":
-        fix_rows, base_rows = parse_rows(a.output), parse_rows(baseline) if baseline else None
-        if fix_rows is not None and base_rows is not None and fix_rows[:1] != base_rows[:1]:
-            problems.append(f"its output columns {fix_rows[0] if fix_rows else []} differ from the original's "
-                            f"{base_rows[0] if base_rows else []}")
+        fix_h, base_h = output_headers(a.output), output_headers(baseline) if baseline else None
+        if fix_h is not None and base_h is not None and fix_h != base_h:
+            show = (lambda h: h.get("", h)) if set(fix_h) == {""} else (lambda h: h)
+            problems.append(f"its output columns {show(fix_h)} differ from the original's {show(base_h)}")
+        fix_rows = parse_rows(a.output)
         n_in, n_out = _data_rows(plan.incident), (len(fix_rows) - 1 if fix_rows else None)
         if preserves_rows and n_in is not None and n_out is not None and n_in != n_out:
             problems.append(f"it wrote {n_out} rows for {n_in} input rows, while the original always writes "
@@ -145,11 +159,19 @@ def _check_incident(plan: Plan, opts: CompareOptions, baseline: bytes | None,
     def why(r: RunResult) -> str:
         return r.error or ("timed out" if r.timed_out else _tail(r.stderr, 200)) or "no output"
 
-    details = {"original": None if b_ok else why(b), "fix": None if a_ok else why(a), "problems": problems}
+    details = {"original": wrong if b_ok else why(b), "fix": None if a_ok else why(a), "problems": problems}
     checks = ["processes it"] + (["same columns"] if baseline and plan.output == "csv" else []) \
         + (["one row per input row"] if preserves_rows else []) \
         + (["expected output"] if plan.incident_expected is not None else [])
     return {"file": plan.incident_path.name, "status": status, "checks": checks}, details
+
+
+def _sample_types(plan: Plan) -> dict:
+    if plan.sample_format == "json":
+        return json_paths(parse_json_sample(plan.sample)[1])
+    if plan.sample_format == "parquet":
+        return parquet_to_csv(plan.sample, with_types=True)[1]
+    return column_types(plan.sample)
 
 
 def _plan_summary(plan: Plan, cfg: Config, cases: list[Case], unstable: set[str], ignored: list[str]) -> dict:
@@ -159,7 +181,7 @@ def _plan_summary(plan: Plan, cfg: Config, cases: list[Case], unstable: set[str]
         "output": plan.output,
         "sample": str(plan.sample_path),
         "columns": cfg.columns or "all",
-        "column_types": plan.sql["types"] if plan.sql is not None else column_types(plan.sample),
+        "column_types": plan.sql["types"] if plan.sql is not None else _sample_types(plan),
         "auto_ignored_columns": sorted(unstable),
         "ignored_columns": ignored,
         "cases": dict(Counter(c.category for c in cases)),
@@ -177,6 +199,15 @@ def _cases(plan: Plan, cfg: Config) -> list[Case]:
                                       cfg.seed, cfg.review, plan.sql["incident_tables"])
         except ValueError as exc:
             raise PlanError(str(exc)) from exc
+    try:
+        if plan.sample_format == "json":
+            return generate_json_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
+                                       str(plan.canary_dir), cfg.attacks, plan.incident)
+        if plan.sample_format == "parquet":
+            return generate_parquet_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
+                                          plan.incident)
+    except SampleError as exc:
+        raise PlanError(str(exc)) from exc
     return generate_cases(plan.sample, cfg.columns, cfg.rows, cfg.max_cases, cfg.seed, cfg.review,
                           str(plan.canary_dir), cfg.attacks, plan.incident)
 
@@ -221,7 +252,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
         a = run_side(plan.fix_invocation, plan.after, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
         shutil.rmtree(case_dir, ignore_errors=True)
         rows = None
-        if case.kind == "valid" and b.ok and b.output is not None and plan.output == "csv" and plan.sql is None:
+        if case.kind == "valid" and b.ok and b.output is not None and plan.output == "csv" and plan.sql is None \
+                and plan.sample_format == "csv":
             n_in, n_out = _data_rows(case.content), _data_rows(b.output)
             if n_in is not None and n_out is not None:
                 rows = (n_in, n_out)
@@ -290,8 +322,11 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "ignore_patterns": list(cfg.ignore_patterns),
             "tolerance": cfg.tolerance,
             "unordered": cfg.unordered,
-            "sql": {"engine": plan.sql["engine"], "dbt": cfg.dbt, "ordered": cfg.sql_ordered}
-                   if plan.sql is not None else None,
+            "sql": {"engine": plan.sql["engine"], "dbt": cfg.dbt, "ordered": cfg.sql_ordered,
+                    "dialect": cfg.dialect, "outputs": plan.sql["outputs"]}
+                   if plan.sql is not None and not cfg.function else None,
+            "frame": {"function": cfg.function, "libraries": plan.sql["libraries"], "ordered": cfg.sql_ordered}
+                     if plan.sql is not None and cfg.function else None,
             "max_cases": cfg.max_cases,
             "rows": cfg.rows,
             "seed": cfg.seed,
@@ -333,7 +368,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
              "details": detail_map.get(e["id"], [])}
             for e in entries if e["status"] in ("changed", "after-failed", "still-exploitable")
         ][:50],
-        "categories": {k: CATEGORY_DESCRIPTIONS[k] for k in sorted({e["category"] for e in entries})},
+        "categories": {k: (CATEGORY_DESCRIPTIONS | JSON_CATEGORY_DESCRIPTIONS).get(k, k)
+                       for k in sorted({e["category"] for e in entries})},
         "limitations": LIMITATIONS,
         "created_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "replay": plan.replay | {
@@ -346,6 +382,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
                 "pass_env": cfg.pass_env, "allow_any_command": cfg.allow_any_command,
                 "no_network": cfg.no_network,
                 "engine": cfg.engine, "dbt": cfg.dbt, "sql_ordered": cfg.sql_ordered,
+                "dialect": cfg.dialect, "sql_outputs": cfg.sql_outputs,
+                "function": cfg.function, "library": cfg.library,
             },
         },
     }
@@ -371,7 +409,7 @@ def replay(proof: dict, allow_any_command: bool | None = None) -> dict:
     if rp.get("mode") == "files":
         for label in ("before", "after") + (() if sql_tables is not None else ("sample",)):
             p = Path(rp.get(label, ""))
-            if not p.is_file():
+            if not p.exists():
                 problems.append(f"{label} file not found at {p}")
             elif sha256_file(p) != inputs[label]["sha256"]:
                 problems.append(f"{label} file has changed since the proof was made ({p.name})")

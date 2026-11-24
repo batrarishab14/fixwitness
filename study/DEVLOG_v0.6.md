@@ -24,3 +24,25 @@ All runs below use SQLite. DuckDB runs in CI (`.github/workflows/sql.yml`).
 | 3 | A value that repeats another row's value counts as a duplicate key (follows the `duplicate` review setting); text columns also get their own value in other cases and with padding (`PAID`, `Paid`, ` paid`) | **10/11** | **11/11** | **0/6** | `distinct_orders` (de-duplicating the wrong table) is caught only with the expected result: on every non-incident input it behaves like the original, because duplicates are under review in that case |
 
 Run 3 is the version described in the README. Each change is a general rule that applies to every table and column. None names a benchmark query or fix.
+
+## Pipelines, warehouse dialects, DataFrames, JSON and Parquet
+
+Added after the SQL runs above, in the same session, so that a change is checked wherever an agent makes it, not only in one dbt model. Like the rest of this log, everything here is development.
+
+What was added:
+- **A folder of models** (a dbt project): every model runs in dependency order, found from `ref()` and the tables after `FROM`/`JOIN`. The original's final models (no other model reads them) are compared, unless `sql_outputs` names others.
+- **Warehouse dialects:** `dialect = "snowflake"` (or any sqlglot dialect) translates each query to the local engine. Names qualified with a database or schema are reduced to the loaded table.
+- **DataFrame functions:** `function = "revenue"` calls the function with pandas, polars or PySpark DataFrames built from the tables, with the sample's column types. Each side uses the library it imports.
+- **JSON and JSON Lines inputs:** cases change one value at a path. They add five JSON categories: `missing-key`, `null`, `json-type`, `json-escape`, `array`. Outputs that parse as JSON are compared by value.
+- **Parquet inputs:** the typed-table cases, written back with the sample's schema. Parquet outputs are compared by value.
+
+Changes made after seeing a result, each a general rule:
+
+| Seen | Change |
+|---|---|
+| A pipeline test where the fix removed a model: the comparison reported a placeholder row instead of the missing model | A model one side does not have is left out of its output and reported as "only in the original's output" |
+| An incident whose original runs but gives a wrong result (a SQL filter that misses `PAID`): the incident was reported as "not reproduced" although the expected result showed the original was wrong | When an expected output is given and the original's output differs from it, the original counts as failing on the incident |
+| A JSON key that changes between runs (`run_at`) was ignored only when the output had several records: one JSON Lines record parses as an object, several as a list | Ignored keys match with or without array markers (`[].run_at` and `run_at` are the same key) |
+| A pandas test capped at 80 cases missed `str.lower()`: the cap kept the catalogue value `UPPER` for the `case` category of `status`, not `PAID` | Under the cap, the one case kept for each (column, category) pair is the variant made from the sample's own value, when there is one |
+
+The last change affects SQL mode too. It only changes which cases are kept when there are more than `max_cases`.

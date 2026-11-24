@@ -710,6 +710,454 @@ class SqlModeTests(TempDirTest):
         self.assertEqual(bad["verdict"], "FAIL")
 
 
+STG_ORDERS = "select order_id, customer_id, amount from {{ ref('orders') }} where status = 'paid'\n"
+STG_CUSTOMERS = "select customer_id, region from customers\n"
+PIPE_REVENUE = """
+    -- final model: revenue per region
+    select c.region, sum(o.amount) as revenue, count(*) as orders
+    from {{ ref('stg_orders') }} o
+    join stg_customers c on c.customer_id = o.customer_id
+    group by c.region
+"""
+
+
+class PipelineUnitTests(unittest.TestCase):
+    def test_run_order_and_dependencies(self):
+        from fixwitness.sql import SqlError, dependencies, run_order
+        models = {"revenue": PIPE_REVENUE, "stg_orders": STG_ORDERS, "stg_customers": STG_CUSTOMERS}
+        names = set(models) | {"orders", "customers"}
+        self.assertEqual(dependencies(PIPE_REVENUE, names, "revenue"), {"stg_orders", "stg_customers"})
+        self.assertEqual(dependencies("select 'from stg_orders' as x -- join revenue\nfrom orders", names, "x"),
+                         {"orders"})
+        self.assertEqual(run_order(models)[-1], "revenue")
+        with self.assertRaises(SqlError):
+            run_order({"a": "select * from b", "b": "select * from a"})
+
+    def test_named_outputs_compare_per_model(self):
+        from fixwitness.compare import CompareOptions, compare, unstable_columns
+        from fixwitness.sql import make_outputs
+        a = make_outputs({"m1": b"x,y\n1,2\n", "m2": b"k\n1\n"})
+        b = make_outputs({"m1": b"x,y\n1,3\n", "m2": b"k\n1\n"})
+        st, det = compare(a, b, CompareOptions())
+        self.assertEqual(st, "changed")
+        self.assertTrue(det and all(d.startswith("m1: ") for d in det), det)
+        self.assertEqual(compare(a, b, CompareOptions(ignore_columns={"m1.y"}))[0], "same-data")
+        self.assertEqual(compare(a, make_outputs({"m1": b"x,y\n1,2\n"}), CompareOptions())[1],
+                         ["m2: only in the original's output"])
+        self.assertEqual(unstable_columns(a, b), ({"m1.y"}, None))
+
+
+class PipelineModeTests(TempDirTest):
+    def _models(self, name: str, models: dict[str, str]) -> Path:
+        for model, sql in models.items():
+            write(self.tmp / name / model, sql)
+        return self.tmp / name
+
+    def _check(self, after: dict[str, str], **extra):
+        write(self.tmp / "orders.csv", ORDERS)
+        write(self.tmp / "customers.csv", CUSTOMERS)
+        before = self._models("before", {"staging/stg_orders.sql": STG_ORDERS,
+                                         "staging/stg_customers.sql": STG_CUSTOMERS,
+                                         "marts/revenue.sql": PIPE_REVENUE})
+        settings = dict(before=str(before), after=str(self._models("after", after)), engine="sqlite",
+                        tables={"orders": str(self.tmp / "orders.csv"), "customers": str(self.tmp / "customers.csv")})
+        settings.update(extra)
+        return self.check(**settings)
+
+    def test_refactor_that_splits_a_model_passes(self):
+        proof = self._check({"staging/stg_orders.sql": STG_ORDERS.replace("amount from", "amount, status from")
+                                                                 .replace("where status = 'paid'", ""),
+                             "staging/paid_orders.sql": "select order_id, customer_id, amount from stg_orders "
+                                                        "where status = 'paid'\n",
+                             "staging/stg_customers.sql": STG_CUSTOMERS,
+                             "marts/revenue.sql": PIPE_REVENUE.replace("ref('stg_orders')", "ref('paid_orders')")})
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertEqual(proof["config"]["sql"]["outputs"], ["revenue"])
+
+    def test_staging_change_is_caught_in_the_final_model(self):
+        proof = self._check({"staging/stg_orders.sql": STG_ORDERS.replace("status = 'paid'", "status <> 'refunded'"),
+                             "staging/stg_customers.sql": STG_CUSTOMERS, "marts/revenue.sql": PIPE_REVENUE})
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertTrue(all(d.startswith("revenue: ") for x in proof["differences"] for d in x["details"]),
+                        proof["differences"][:2])
+
+    def test_all_outputs_reports_a_removed_model(self):
+        proof = self._check({"staging/orders_paid.sql": STG_ORDERS,
+                             "staging/stg_customers.sql": STG_CUSTOMERS,
+                             "marts/revenue.sql": PIPE_REVENUE.replace("ref('stg_orders')", "ref('orders_paid')")},
+                            sql_outputs=["all"])
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("stg_orders: only in the original's output", proof["differences"][0]["details"])
+
+    def test_git_mode_on_a_models_folder_and_replay(self):
+        repo = self.repo({"models/stg_orders.sql": STG_ORDERS, "models/stg_customers.sql": STG_CUSTOMERS,
+                          "models/revenue.sql": PIPE_REVENUE, "data/orders.csv": ORDERS,
+                          "data/customers.csv": CUSTOMERS})
+        write(repo / "models/stg_orders.sql", STG_ORDERS.replace("select order_id,", "select distinct order_id,"))
+        os.chdir(repo)
+        proof = self.check(path="models", engine="sqlite",
+                           tables={"orders": "data/orders.csv", "customers": "data/customers.csv"})
+        self.assertEqual(proof["verdict"], "FAIL")  # DISTINCT drops a repeated order row
+        self.assertIn("duplicate-row", {d["category"] for d in proof["differences"]})
+        from fixwitness.report import write_outputs
+        result = replay(json.loads(write_outputs(proof, self.tmp / "out").read_text()))
+        self.assertTrue(result["reproduced"], result["problems"])
+
+    def test_expected_output_for_one_final_model(self):
+        write(self.tmp / "orders_new.csv", ORDERS.replace("paid", "PAID"))
+        write(self.tmp / "expected.csv", "region,revenue,orders\neast,318.5,3\n")
+        proof = self._check({"staging/stg_orders.sql": STG_ORDERS.replace("status = 'paid'", "lower(status) = 'paid'"),
+                             "staging/stg_customers.sql": STG_CUSTOMERS, "marts/revenue.sql": PIPE_REVENUE},
+                            incident_tables={"orders": str(self.tmp / "orders_new.csv")},
+                            incident_expected=str(self.tmp / "expected.csv"), review=["case"])
+        self.assertEqual(proof["incident"]["status"], "resolved", proof.get("incident_details"))
+        self.assertIn("expected output", proof["incident"]["checks"])
+
+
+PD_REVENUE = """
+    import pandas as pd
+
+    def revenue(orders, customers):
+        paid = orders[orders["status"] == "paid"]
+        joined = paid.merge(customers, on="customer_id")
+        return joined.groupby("region").agg(revenue=("amount", "sum"), orders=("order_id", "size"))
+"""
+HAS = {m: __import__("importlib").util.find_spec(m) is not None for m in ("pandas", "polars", "pyspark")}
+
+
+@unittest.skipUnless(HAS["pandas"], "pandas not installed")
+class FrameUnitTests(unittest.TestCase):
+    def test_results_become_csv(self):
+        import pandas as pd
+        from fixwitness.pyrun import to_csv
+        from fixwitness.sql import read_outputs
+        df = pd.DataFrame({"region": ["west", "east"], "n": [1, None]})
+        self.assertEqual(to_csv(df, False), b"region,n\neast,\nwest,1.0\n")      # unnamed index dropped
+        self.assertEqual(to_csv(df.set_index("region")["n"], True), b"region,n\nwest,1.0\neast,\n")
+        self.assertEqual(to_csv(3, False), b"value\n3\n")
+        named = read_outputs(to_csv({"a": df, "b": df.head(1)}, False))
+        self.assertEqual(sorted(named), ["a", "b"])
+        self.assertEqual(to_csv(pd.DataFrame({"d": pd.to_datetime(["2024-01-02"])}), False), b"d\n2024-01-02\n")
+
+    def test_library_and_arguments(self):
+        from fixwitness.pyrun import FrameError, arguments, detect_library
+        self.assertEqual(detect_library("import polars as pl\n"), "polars")
+        self.assertEqual(detect_library("from pyspark.sql import functions as F\n"), "pyspark")
+        self.assertEqual(detect_library("# import polars\nimport pandas\n"), "pandas")
+        self.assertEqual(arguments(lambda orders, customers, top=3: 0, ["customers", "orders"]),
+                         ([], ["orders", "customers"]))
+        self.assertEqual(arguments(lambda df: 0, ["orders"]), (["orders"], []))
+        with self.assertRaises(FrameError):
+            arguments(lambda a, b: 0, ["orders", "customers"])
+
+
+@unittest.skipUnless(HAS["pandas"], "pandas not installed")
+class FrameModeTests(TempDirTest):
+    def _check(self, after: str, before: str = PD_REVENUE, **extra):
+        write(self.tmp / "orders.csv", ORDERS)
+        write(self.tmp / "customers.csv", CUSTOMERS)
+        write(self.tmp / "before.py", before)
+        write(self.tmp / "after.py", after)
+        settings = dict(before=str(self.tmp / "before.py"), after=str(self.tmp / "after.py"), function="revenue",
+                        tables={"orders": str(self.tmp / "orders.csv"), "customers": str(self.tmp / "customers.csv")},
+                        max_cases=80)  # about half a second per run: keep the suite quick
+        settings.update(extra)
+        return self.check(**settings)
+
+    def test_equivalent_refactor_passes(self):
+        proof = self._check("""
+            def revenue(orders, customers):
+                joined = customers.merge(orders.query("status == 'paid'"), on="customer_id", how="inner")
+                out = joined.groupby("region")[["amount"]].sum().rename(columns={"amount": "revenue"})
+                out["orders"] = joined.groupby("region").size()
+                return out
+        """)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertEqual(proof["config"]["frame"]["libraries"], ["pandas", "pandas"])
+        self.assertFalse(proof["security"]["checked"])
+
+    def test_count_of_a_column_with_missing_values_fails(self):
+        proof = self._check(PD_REVENUE.replace('("order_id", "size")', '("amount", "count")'))
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("empty", {d["category"] for d in proof["differences"]})
+
+    def test_drop_duplicates_fails_on_a_repeated_row(self):
+        proof = self._check(PD_REVENUE.replace('orders["status"] == "paid"]', 'orders["status"] == "paid"].drop_duplicates()'))
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("duplicate-row", {d["category"] for d in proof["differences"]})
+
+    def test_case_insensitive_match_fails(self):
+        proof = self._check(PD_REVENUE.replace('orders["status"] == "paid"', 'orders["status"].str.lower() == "paid"'))
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("case", {d["category"] for d in proof["differences"]})
+
+    def test_git_mode_and_replay(self):
+        repo = self.repo({"etl/revenue.py": PD_REVENUE, "data/orders.csv": ORDERS, "data/customers.csv": CUSTOMERS})
+        write(repo / "etl/revenue.py", PD_REVENUE.replace('paid.merge(customers, on="customer_id")',
+                                                          'pd.merge(paid, customers, on="customer_id")'))
+        os.chdir(repo)
+        proof = self.check(path="etl/revenue.py", function="revenue", max_cases=40,
+                           tables={"orders": "data/orders.csv", "customers": "data/customers.csv"})
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        from fixwitness.report import write_outputs
+        result = replay(json.loads(write_outputs(proof, self.tmp / "out").read_text()))
+        self.assertTrue(result["reproduced"], result["problems"])
+
+    @unittest.skipUnless(HAS["polars"], "polars not installed")
+    def test_pandas_to_polars_migration(self):
+        polars_ok = """
+            import polars as pl
+
+            def revenue(orders, customers):
+                return (orders.filter(pl.col("status") == "paid").join(customers, on="customer_id")
+                        .group_by("region").agg(pl.col("amount").sum().alias("revenue"), pl.len().alias("orders")))
+        """
+        proof = self._check(polars_ok)
+        self.assertEqual(proof["config"]["frame"]["libraries"], ["pandas", "polars"])
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        bad = self._check(polars_ok.replace('pl.len()', 'pl.col("amount").count()'))
+        self.assertEqual(bad["verdict"], "FAIL")
+
+    @unittest.skipUnless(HAS["pyspark"], "pyspark not installed")
+    def test_pyspark_function(self):
+        spark = """
+            from pyspark.sql import functions as F
+
+            def revenue(orders, customers):
+                return (orders.where(F.col("status") == "paid").join(customers, "customer_id")
+                        .groupBy("region").agg(F.sum("amount").alias("revenue"), F.count("*").alias("orders")))
+        """
+        proof = self._check(spark, max_cases=40, timeout=120)
+        self.assertEqual(proof["config"]["frame"]["libraries"], ["pandas", "pyspark"])
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+
+
+EVENTS = (
+    '{"id": 1, "user": {"id": "u1", "country": "US"}, "amount": 12.5, "status": "paid", "tags": ["a", "b"]}\n'
+    '{"id": 2, "user": {"id": "u2", "country": "DE"}, "amount": 300.75, "status": "paid", "tags": []}\n'
+    '{"id": 3, "user": {"id": "u3", "country": "US"}, "amount": 99.99, "status": "refunded", "tags": ["c"]}\n'
+)
+EVENTS_TOTALS = """
+    import json, sys
+    totals = {}
+    with open(sys.argv[1]) as f:
+        for line in f:
+            if not line.strip():
+                continue
+            e = json.loads(line)
+            if e.get("status") != "paid":
+                continue
+            c = e["user"]["country"]
+            totals[c] = totals.get(c, 0) + e["amount"]
+    with open(sys.argv[2], "w") as out:
+        for c in sorted(totals):
+            out.write(json.dumps({"country": c, "revenue": round(totals[c], 2)}) + "\\n")
+"""
+
+
+class JsonUnitTests(unittest.TestCase):
+    def test_cases_cover_json_paths_and_literals(self):
+        from fixwitness.formats import generate_json_cases
+        cases = generate_json_cases(EVENTS.encode(), attacks=False)
+        by_col = {}
+        for c in cases:
+            by_col.setdefault(c.column, set()).add(c.category)
+        self.assertTrue({"missing-key", "null", "numeric-format", "json-type"} <= by_col["amount"])
+        self.assertTrue({"missing-key", "case", "unicode"} <= by_col["user.country"])
+        self.assertIn("array", by_col["tags"])
+        self.assertIn("schema", by_col[None])
+        literal = next(c for c in cases if c.column == "amount" and c.value == "1e3")
+        self.assertIn(b'"amount": 1e3', literal.content)
+        missing = next(c for c in cases if c.column == "user.country" and c.category == "missing-key")
+        self.assertIn(b'"user": {"id": "u2"}', missing.content)
+
+    def test_wrapped_array_keeps_its_wrapper(self):
+        from fixwitness.formats import generate_json_cases, parse_json_sample
+        sample = json.dumps({"meta": {"page": 1}, "data": [{"a": 1}, {"a": 2}]}).encode()
+        for c in generate_json_cases(sample, attacks=False):
+            if c.value == "<no records>":
+                self.assertEqual(json.loads(c.content), {"meta": {"page": 1}, "data": []})
+            elif c.category not in ("file-structure",):
+                self.assertEqual(json.loads(c.content)["meta"], {"page": 1})
+        from fixwitness.cases import SampleError
+        with self.assertRaises(SampleError):
+            parse_json_sample(b'{"a": [{"x": 1}], "b": [{"y": 2}]}')
+
+    def test_json_outputs_compare_by_value(self):
+        from fixwitness.compare import CompareOptions, compare
+        opts = CompareOptions(mode="json")
+        self.assertEqual(compare(b'{"a": 1, "b": [1, 2]}', b'{"b": [1, 2], "a": 1.0}', opts)[0], "same-data")
+        st, det = compare(b'{"a": 1, "b": {"c": "x"}}\n', b'{"a": 1, "b": {"c": "y"}}\n', opts)
+        self.assertEqual((st, det), ("changed", ['b.c: "x" -> "y"']))
+        self.assertEqual(compare(b'{"a": true}', b'{"a": 1}', opts)[0], "changed")
+        self.assertEqual(compare(b'[{"a": 1}, {"a": 2}]', b'[{"a": 2}, {"a": 1}]',
+                                 CompareOptions(mode="json", unordered=True))[0], "same-data")
+        self.assertEqual(compare(b'{"t": 1, "v": 2}', b'{"t": 5, "v": 2}',
+                                 CompareOptions(mode="json", ignore_columns={"t"}))[0], "same-data")
+
+
+class JsonModeTests(TempDirTest):
+    def _check(self, after: str, before: str = EVENTS_TOTALS, **extra):
+        write(self.tmp / "events.jsonl", EVENTS)
+        write(self.tmp / "before.py", before)
+        write(self.tmp / "after.py", after)
+        settings = dict(before=str(self.tmp / "before.py"), after=str(self.tmp / "after.py"),
+                        sample=str(self.tmp / "events.jsonl"), attacks=False)
+        settings.update(extra)
+        return self.check(**settings)
+
+    def test_equivalent_refactor_passes(self):
+        proof = self._check("""
+            import json, sys
+            from collections import defaultdict
+
+            def main(src, dst):
+                totals = defaultdict(int)
+                with open(src) as f:
+                    for e in (json.loads(l) for l in f if l.strip()):
+                        if e.get("status") == "paid":
+                            totals[e["user"]["country"]] += e["amount"]
+                with open(dst, "w") as out:
+                    out.writelines(json.dumps({"country": c, "revenue": round(v, 2)}) + "\\n"
+                                   for c, v in sorted(totals.items()))
+
+            main(*sys.argv[1:3])
+        """)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertEqual(proof["config"]["output"], "json")
+
+    def test_strict_key_access_fails_on_a_missing_key(self):
+        proof = self._check(EVENTS_TOTALS.replace('e.get("status")', 'e["status"]'))
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn(("missing-key", "status"), {(d["category"], d["column"]) for d in proof["differences"]})
+
+    def test_float_conversion_fails_on_a_large_integer(self):
+        proof = self._check(EVENTS_TOTALS.replace('+ e["amount"]', '+ float(e["amount"])'))
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("numeric-format", {d["category"] for d in proof["differences"]})
+
+    def test_a_changing_timestamp_key_is_ignored(self):
+        stamped = EVENTS_TOTALS.replace('"revenue": round(totals[c], 2)}',
+                                        '"revenue": round(totals[c], 2), "run_at": __import__("time").time_ns()}')
+        proof = self._check(stamped, before=stamped)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertIn("run_at", proof["config"]["auto_ignored_columns"])
+
+
+SNOWFLAKE_REVENUE = """
+    select c.region, sum(iff(o.status = 'paid', o.amount, 0)) as revenue, count(*) as orders
+    from analytics.raw.orders o
+    join analytics.raw.customers c on c.customer_id = o.customer_id
+    group by c.region
+"""
+
+
+@unittest.skipUnless(__import__("importlib").util.find_spec("sqlglot"), "sqlglot not installed")
+class DialectTests(TempDirTest):
+    _check = SqlModeTests._check
+
+    def test_translate_reduces_qualified_names(self):
+        from fixwitness.sql import translate
+        out = translate("select * from analytics.raw.ORDERS o join `p.d.customers` c using (customer_id)",
+                        "bigquery", "duckdb", {"orders", "customers"})
+        self.assertNotIn("analytics", out)
+        self.assertNotIn("p.d", out)
+        self.assertIn("orders", out.lower())
+
+    def test_snowflake_refactor_passes_and_ilike_fails(self):
+        ok = self._check("""
+            select c.region,
+                   sum(case when o.status = 'paid' then o.amount else 0 end) as revenue,
+                   count(*) as orders
+            from raw.orders as o
+            inner join raw.customers as c on o.customer_id = c.customer_id
+            group by 1
+        """, before_sql=SNOWFLAKE_REVENUE, dialect="snowflake")
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+        self.assertEqual(ok["config"]["sql"]["dialect"], "snowflake")
+        bad = self._check(SNOWFLAKE_REVENUE.replace("o.status = 'paid'", "o.status ilike 'paid'"),
+                          before_sql=SNOWFLAKE_REVENUE, dialect="snowflake")
+        self.assertEqual(bad["verdict"], "FAIL")
+        self.assertIn("case", {d["category"] for d in bad["differences"]})
+
+    def test_bigquery_safe_divide(self):
+        before = """
+            select c.region, safe_divide(sum(o.amount), countif(o.status = 'paid')) as avg_paid
+            from `shop.sales.orders` o join `shop.sales.customers` c using (customer_id)
+            group by c.region
+        """
+        ok = self._check(before.replace("safe_divide(sum(o.amount), countif(o.status = 'paid'))",
+                                        "sum(o.amount) / nullif(countif(o.status = 'paid'), 0)"),
+                         before_sql=before, dialect="bigquery")
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+
+    def test_unknown_dialect_is_refused(self):
+        with self.assertRaises(PlanError):
+            self._check(REVENUE, dialect="nosuchsql")
+
+
+PARQUET_FILTER = """
+    import sys
+    import pyarrow.compute as pc
+    import pyarrow.parquet as pq
+
+    t = pq.read_table(sys.argv[1])
+    paid = t.filter(pc.equal(t["status"], "paid"))
+    pq.write_table(paid.select(["order_id", "amount"]), sys.argv[2])
+"""
+
+
+@unittest.skipUnless(__import__("importlib").util.find_spec("pyarrow"), "pyarrow not installed")
+class ParquetTests(TempDirTest):
+    def _check(self, after: str, **extra):
+        import datetime
+        import pyarrow as pa
+        import pyarrow.parquet as pq
+        table = pa.table({"order_id": pa.array([1, 2, 3, 4], pa.int64()),
+                          "amount": pa.array([12.5, 300.75, 99.99, 5.25], pa.float64()),
+                          "status": pa.array(["paid", "paid", "refunded", "paid"], pa.string()),
+                          "day": pa.array([datetime.date(2026, 1, d) for d in (3, 4, 5, 6)], pa.date32())})
+        pq.write_table(table, self.tmp / "orders.parquet")
+        write(self.tmp / "before.py", PARQUET_FILTER)
+        write(self.tmp / "after.py", after)
+        settings = dict(before=str(self.tmp / "before.py"), after=str(self.tmp / "after.py"),
+                        sample=str(self.tmp / "orders.parquet"), attacks=False)
+        settings.update(extra)
+        return self.check(**settings)
+
+    def test_cases_keep_the_schema(self):
+        import pyarrow as pa
+        import pyarrow.parquet as pq
+        from fixwitness.formats import generate_parquet_cases
+        self._check(PARQUET_FILTER)  # writes the sample
+        sample = (self.tmp / "orders.parquet").read_bytes()
+        cases = generate_parquet_cases(sample)
+        self.assertGreater(len(cases), 20)
+        schema = pq.read_table(pa.BufferReader(sample)).schema
+        for c in cases:
+            self.assertEqual(pq.read_table(pa.BufferReader(c.content)).schema.types, schema.types, c.value)
+        self.assertIn("null-column", {c.category for c in cases})
+
+    def test_rewrite_in_python_passes(self):
+        proof = self._check("""
+            import sys
+            import pyarrow as pa
+            import pyarrow.parquet as pq
+
+            rows = [r for r in pq.read_table(sys.argv[1]).to_pylist() if r["status"] == "paid"]
+            out = pa.Table.from_pylist([{"order_id": r["order_id"], "amount": r["amount"]} for r in rows],
+                                       schema=pa.schema([("order_id", pa.int64()), ("amount", pa.float64())]))
+            pq.write_table(out, sys.argv[2])
+        """)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+
+    def test_case_insensitive_filter_fails(self):
+        proof = self._check(PARQUET_FILTER.replace('pc.equal(t["status"], "paid")',
+                                                   'pc.equal(pc.utf8_lower(t["status"]), "paid")'))
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertIn("case", {d["category"] for d in proof["differences"]})
+
+
 class CliAndMcpTests(TempDirTest):
     def run_cli(self, *args, cwd=None, stdin=None):
         env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
