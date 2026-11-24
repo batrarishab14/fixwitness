@@ -72,5 +72,7 @@ Benchmarks re-run after these changes (SQLite here):
 | `benchmark/` (CSV scripts, including the 36 assistant fixes) | 92 | 0 |
 | `benchmark/sql/` | 17 | 0 (after the fix below) |
 | `benchmark/complex/` (pipeline, pandas, JSON Lines here) | 16 | 1: `round_each` is now caught (16 of 16 as labelled) |
+| `benchmark/complex/` in CI (DuckDB, every library; commit a1da8fe) | 28 | 1: `round_each` is now caught (20 of 20 wrong caught, 0 of 8 correct rejected) |
+| `benchmark/sql/` in CI (DuckDB; commit a1da8fe) | 17 | 0 (10 of 11, 11 of 11 with the expected result, 0 of 6) |
 
 One false alarm appeared on the way and was fixed by a general rule. Q06's correct fix (one row per customer before the join) was rejected on pairs in `customers.name` and `customers.region`: the twin row repeats the customer's key, which is a duplicate key, and Q06 puts duplicates under review. Pairs now follow the `duplicate` review setting (and `duplicate-row` when the two values are equal), the way `delimiter-mix` follows the categories it combines. With that rule the SQL benchmark is back to 10/11, 11/11 with the expected result, and 0/6 correct fixes rejected. The CSV and complex results can't change under this rule: no CSV verdict depended on pairs, and the complex cases put nothing under review.

@@ -118,9 +118,9 @@ A polars rewrite of a pandas function, for example, can match it on today's data
 |---|---|---|
 | The job runs | 0/20 | 0/8 |
 | Same output on the sample | 1/20 | 0/8 |
-| **fixwitness** | **19/20** | **0/8** |
+| **fixwitness** | **20/20** | **0/8** |
 
-The miss is `round_each`: it rounds each amount before summing. That only shows when two records of the same country both have sub-cent amounts, and fixwitness changes one value at a time. The CI logs are on the [`ci-results`](../../tree/ci-results) branch. These are development results ([development log](study/DEVLOG_v0.6.md)).
+`round_each`, which rounds each amount before summing, was missed until paired cases were added (two rows of the same group, each with an unusual value such as 0.005 + 0.005); fixwitness used to change one value at a time. The CI logs are on the [`ci-results`](../../tree/ci-results) branch. These are development results ([development log](study/DEVLOG_v0.6.md)): every fix above was written by us.
 
 ## What it catches
 

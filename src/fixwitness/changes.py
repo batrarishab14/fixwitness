@@ -75,6 +75,8 @@ def plan_items(cfg: Config) -> tuple[list[Item], list[tuple[str, str]]]:
             if Path(rel).suffix.lower() in (".md",):
                 skipped.append((rel, "documentation"))
                 continue
+            from fixwitness.dbtmode import runnable_project
+            project = runnable_project(project)  # a package: compiled through its integration tests
             projects.setdefault(project.relative_to(root).as_posix() or ".", project)
             continue
         if status.startswith("D"):

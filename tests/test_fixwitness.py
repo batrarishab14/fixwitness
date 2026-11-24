@@ -1471,6 +1471,49 @@ class DbtManifestTests(TempDirTest):
         with self.assertRaises(PlanError):
             self.check(manifest="base.json", base_manifest="base.json", engine="sqlite")
 
+    def test_package_through_its_integration_tests(self):
+        """A dbt package's sources read the integration tests' seeds; only what the outputs read runs."""
+        from fixwitness.dbtmode import runnable_project, source_schema
+        R = lambda n: f'"fixwitness"."pkg_tests"."{n}"'  # noqa: E731
+
+        def manifest(stg):
+            seed = lambda n: {"resource_type": "seed", "name": n, "package_name": "pkg_tests",  # noqa: E731
+                              "original_file_path": f"seeds/{n}.csv", "relation_name": R(n), "schema": "pkg_tests"}
+            model = lambda n, code, deps: {"resource_type": "model", "name": n, "package_name": "pkg",  # noqa: E731
+                                           "language": "sql", "relation_name": R(n), "compiled_code": code,
+                                           "config": {"materialized": "table"}, "depends_on": {"nodes": deps}}
+            return {"metadata": {"adapter_type": "duckdb", "project_name": "pkg_tests"},
+                    "sources": {"source.pkg.raw.orders": {"source_name": "raw", "name": "orders",
+                                                          "identifier": "orders", "schema": "pkg_tests",
+                                                          "relation_name": R("orders")}},
+                    "nodes": {"seed.pkg_tests.orders": seed("orders"), "seed.pkg_tests.unused": seed("unused"),
+                              "model.pkg.stg": model("stg", stg, ["source.pkg.raw.orders"]),
+                              "model.pkg.rev": model("rev", f"select status, sum(amount) as total from {R('stg')} "
+                                                            f"group by status", ["model.pkg.stg"]),
+                              # Not read by the compared model: never built (it would fail if it were).
+                              "model.pkg.broken": model("broken", "select * from no_such_table", [])}}
+
+        write(self.tmp / "pkg/dbt_project.yml", "name: pkg\n")
+        write(self.tmp / "pkg/models/stg.sql", "select 1\n")
+        write(self.tmp / "pkg/integration_tests/dbt_project.yml", "name: pkg_tests\nprofile: x\n")
+        write(self.tmp / "pkg/integration_tests/packages.yml", "packages:\n  - local: ../\n")
+        write(self.tmp / "pkg/integration_tests/seeds/orders.csv", ORDERS)
+        write(self.tmp / "pkg/integration_tests/seeds/unused.csv", "a,b\n1,2\n")
+        tests = self.tmp / "pkg/integration_tests"
+        self.assertEqual(runnable_project(self.tmp / "pkg"), tests)
+        self.assertEqual(runnable_project(tests), tests)
+        stg = f"select order_id, amount, status from {R('orders')}"
+        for name, sql in {"base": stg, "ok": stg.replace("select order_id", "select  order_id "),
+                          "bad": stg.replace("status from", "lower(status) as status from")}.items():
+            (tests / f"{name}.json").write_text(json.dumps(manifest(sql)))
+        self.assertEqual(source_schema(tests / "base.json"), "pkg_tests")
+        os.chdir(tests)
+        bad = self.check(manifest="bad.json", base_manifest="base.json", engine="sqlite")
+        self.assertEqual(bad["verdict"], "FAIL")
+        self.assertEqual(sorted(bad["inputs"]["tables"]), ["orders"])  # the unused seed is left out
+        ok = self.check(manifest="ok.json", base_manifest="base.json", engine="sqlite")
+        self.assertEqual(ok["verdict"], "PASS", ok["reasons"])
+
 
 @unittest.skipUnless(os.environ.get("FIXWITNESS_DBT_PROJECT") and shutil.which("dbt"),
                      "needs dbt-core + dbt-duckdb and FIXWITNESS_DBT_PROJECT (a jaffle_shop checkout)")

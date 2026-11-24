@@ -258,7 +258,7 @@ _TABLE_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
 
 def is_model_folder(p: Path | None) -> bool:
-    return p is not None and p.is_dir() and any(p.rglob("*.sql"))
+    return p is not None and p.is_dir() and ((p / "dbt_project.yml").is_file() or any(p.rglob("*.sql")))
 
 
 def is_sql(cfg: Config, *scripts: Path | None) -> bool:
@@ -507,7 +507,9 @@ def dbt_project_for(cfg: Config, target: Path | None, root: Path) -> Path | None
         return None
     if target.is_file() and target.suffix.lower() not in (".sql", ".yml", ".yaml", ".csv"):
         return None
-    return find_project(target, root)
+    from fixwitness.dbtmode import runnable_project
+    project = find_project(target, root)
+    return runnable_project(project) if project is not None else None
 
 
 def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: tuple[Path, Path],
@@ -530,14 +532,18 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
                  f"{', '.join(outputs)} (the final models downstream of the change)")
     for skipped in sorted(set(g0.skipped) | set(g1.skipped)):
         notes.append(f"dbt: not run: {skipped}")
-    # Tables: the seeds (cut to their first rows), and a sample for each source.
+    # Tables: the seeds (cut to their first rows) and a sample for each source, of those the compared
+    # models read, directly or through other models.
+    from fixwitness.dbtmode import upstream
+    texts = [sql for g in (g0, g1) for m, sql in _bare_models(g).items() if m in upstream(g, outputs)]
+    reads = lambda t: any(f'"{t}"' in sql for sql in texts)  # noqa: E731
     spec: dict[str, str] = {}
     for name, path in {**g0.seeds, **g1.seeds}.items():
-        if path.is_file():
+        if path.is_file() and reads(name):
             spec[name] = str(seed_sample(path, work / "dbt" / "seeds" / f"{name}.csv"))
     sources = {**g0.sources, **g1.sources}
     given = dict(cfg.tables or {})
-    wanted = sorted({t for g in (g0, g1) for m in g.models for t in sources if f'"{t}"' in _bare_models(g)[m]})
+    wanted = sorted(t for t in sources if reads(t))
     missing = []
     for table in wanted:
         src, name = sources[table]
@@ -580,11 +586,13 @@ def _bare_models(g) -> dict[str, str]:
 def _compile_both(t0_project: Path, t1_project: Path, work: Path, notes: list[str]) -> tuple[Path, Path]:
     from fixwitness.dbtmode import DbtError, compile_project
     try:
-        m0 = compile_project(t0_project, work / "dbt" / "build0")
-        m1 = compile_project(t1_project, work / "dbt" / "build1")
+        m0 = compile_project(t0_project, work / "dbt" / "build0", notes=notes)
+        m1 = compile_project(t1_project, work / "dbt" / "build1", notes=notes)
     except DbtError as exc:
         raise PlanError(str(exc)) from exc
-    notes.append("dbt: both versions compiled by dbt (dbt-duckdb adapter), so macros and packages are rendered by dbt")
+    notes.append("dbt: both versions built on the seeds and compiled by dbt (dbt-duckdb adapter), so macros and "
+                 "packages are rendered by dbt" + (f" (through the test project {t1_project.name}/)"
+                                                   if (t1_project.parent / "dbt_project.yml").is_file() else ""))
     return m0, m1
 
 

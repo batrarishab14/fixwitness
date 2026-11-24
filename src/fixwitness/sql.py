@@ -378,6 +378,16 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
         raise SqlError(f"model(s) {', '.join(clash)} have the same name as an input table")
     wanted = outputs or sorted(models)
     order_file = root / "fixwitness_order.txt"  # written for dbt projects, from dbt's own graph
+    deps_file = root / "fixwitness_deps.json"
+    needed = None
+    if deps_file.is_file():  # dbt: only the models the compared outputs read are built
+        deps = json.loads(deps_file.read_text(encoding="utf-8"))
+        needed, todo = set(), [w for w in wanted if w in models]
+        while todo:
+            m = todo.pop()
+            if m not in needed:
+                needed.add(m)
+                todo += [d for d in deps.get(m, ()) if d in models]
     if engine == "warehouse":
         from fixwitness.warehouse import Session, ident, url_from_env
         results = {}
@@ -385,6 +395,8 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
             wh.load(tables, types)
             names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
             for name in names:
+                if needed is not None and name not in needed:
+                    continue
                 wh.create_as(name, prepare(models[name], dbt, dialect, engine, set(tables) | set(models)))
             for name in wanted:
                 if name in models:
@@ -396,6 +408,8 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
         load_tables(con, engine, tables, types)
         names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
         for name in names:
+            if needed is not None and name not in needed:
+                continue
             sql = prepare(models[name], dbt, dialect, engine, set(tables) | set(models))
             con.execute(f"CREATE TABLE {_quote(name)} AS {sql}")
         for name in wanted:
