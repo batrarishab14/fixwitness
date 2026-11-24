@@ -31,6 +31,7 @@ from pathlib import Path
 
 SEED_ROWS = 200      # seeds are samples: the first rows are enough, and keep every case small
 ORDER_FILE = "fixwitness_order.txt"
+SEED_TYPES_FILE = "fixwitness_seed_types.json"  # beside manifest.json: the column types dbt gave each seed
 DEPS_FILE = "fixwitness_deps.json"    # each model's models, from dbt's graph: only what an output needs runs
 
 
@@ -106,14 +107,35 @@ def runnable_project(project: Path) -> Path:
     return project
 
 
+_ANSI = re.compile(r"\x1b\[[0-9;]*m")
+_CLOCK = re.compile(r"^\d{2}:\d{2}:\d{2}(\.\d+)?\s+")
+
+
+def _clean(line: str) -> str:
+    return _CLOCK.sub("", _ANSI.sub("", line)).rstrip()
+
+
+def error_lines(output: str, limit: int = 4) -> list[str]:
+    """dbt's own explanation of a failure: the first error line and the lines after it."""
+    lines = [_clean(l) for l in output.splitlines()]
+    lines = [l for l in lines if l.strip()]
+    for i, l in enumerate(lines):
+        if re.search(r"\b(Error|error|ERROR|Failure|exception)\b", l) and "ERROR=" not in l \
+                and not l.lstrip().startswith(("Finished running", "Done.")):
+            return [x.strip() for x in lines[i:i + limit]]
+    return [x.strip() for x in lines[-limit:]]
+
+
 def _run(args: list[str], project: Path, env: dict, timeout: int) -> None:
     try:
         proc = subprocess.run(args, cwd=project, env=env, capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
         raise DbtError(f"`{' '.join(args[:2])}` took longer than {timeout}s") from None
     if proc.returncode != 0:
-        tail = "\n".join((proc.stdout + proc.stderr).strip().splitlines()[-12:])
-        raise DbtError(f"`{' '.join(args[:2])}` failed in {project.name}:\n{tail}")
+        out = proc.stdout + proc.stderr
+        why = " / ".join(error_lines(out)) or f"exit code {proc.returncode}"
+        tail = "\n".join(_clean(l) for l in out.strip().splitlines()[-30:])
+        raise DbtError(f"`{' '.join(args[:2])}` failed in {project.name}: {why}\n{tail}")
 
 
 def _profile(path: Path, name: str, db: Path, schema: str) -> None:
@@ -166,14 +188,15 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
         if schema:
             _profile(profiles / "profiles.yml", profile, db, schema)
         _run(["dbt", "seed", *common], project, env, timeout)
+        write_seed_types(db, out / "target" / "manifest.json", out / "target" / SEED_TYPES_FILE)
         # Built once on the seeds, so macros that read a model's columns or query a model while
         # compiling see the real tables. A model that fails to build here is still compiled.
         try:
             _run(["dbt", "run", *common], project, env, timeout)
         except DbtError as exc:
             if notes is not None:
-                first = next((l for l in str(exc).splitlines()[1:] if "rror" in l), "")
-                notes.append(f"dbt: `dbt run` on the seeds failed in {project.name} ({first.strip()[:160]}); "
+                first = str(exc).splitlines()[0].split(": ", 1)[-1]
+                notes.append(f"dbt: `dbt run` on the seeds failed in {project.name} ({first.strip()[:200]}); "
                              f"models were still compiled, but macros that read a model's columns may "
                              f"not have seen them")
     _run(["dbt", "compile", *common], project, env, timeout)
@@ -181,6 +204,46 @@ def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[st
     if not manifest.is_file():
         raise DbtError(f"dbt compile wrote no manifest for {project.name}")
     return manifest
+
+
+def write_seed_types(db: Path, manifest: Path, dest: Path) -> None:
+    """The column types dbt gave each seed in the DuckDB file (from column_types, or inferred by
+    dbt), so the generated tables are loaded with the same types. Nothing is written if DuckDB's
+    Python module is missing; the types are then inferred from the values."""
+    try:
+        import duckdb
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+    except (ImportError, OSError, ValueError):
+        return
+    seeds = {}
+    for n in (data.get("nodes") or {}).values():
+        if n.get("resource_type") == "seed":
+            seeds[(str(n.get("schema") or "").lower(), str(n.get("alias") or n["name"]).lower())] = n["name"]
+    try:
+        con = duckdb.connect(str(db), read_only=True)
+        try:
+            rows = con.execute("select table_schema, table_name, column_name, data_type from information_schema.columns "
+                               "order by table_schema, table_name, ordinal_position").fetchall()
+        finally:
+            con.close()
+    except Exception:
+        return
+    out: dict[str, dict[str, str]] = {}
+    for schema, table, column, data_type in rows:
+        name = seeds.get((str(schema).lower(), str(table).lower()))
+        if name is not None:
+            out.setdefault(name, {})[column] = data_type
+    if out:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def seed_types(manifest: Path) -> dict[str, dict[str, str]]:
+    f = manifest.parent / SEED_TYPES_FILE
+    try:
+        return json.loads(f.read_text(encoding="utf-8")) if f.is_file() else {}
+    except (OSError, ValueError):
+        return {}
 
 
 def read_manifest(manifest_path: Path, project: Path | None) -> Graph:

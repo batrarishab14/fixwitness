@@ -40,9 +40,12 @@ SECRET_ENV = {
 }
 DRIVER = {"postgres": "psycopg", "snowflake": "snowflake.connector", "bigquery": "google.cloud.bigquery"}
 TYPES = {
-    "postgres": {"integer": "BIGINT", "number": "DOUBLE PRECISION", "date": "DATE", "text": "TEXT"},
-    "snowflake": {"integer": "NUMBER(38,0)", "number": "FLOAT", "date": "DATE", "text": "VARCHAR"},
-    "bigquery": {"integer": "INT64", "number": "FLOAT64", "date": "DATE", "text": "STRING"},
+    "postgres": {"integer": "BIGINT", "number": "DOUBLE PRECISION", "date": "DATE", "text": "TEXT",
+                 "boolean": "BOOLEAN", "timestamp": "TIMESTAMP"},
+    "snowflake": {"integer": "NUMBER(38,0)", "number": "FLOAT", "date": "DATE", "text": "VARCHAR",
+                  "boolean": "BOOLEAN", "timestamp": "TIMESTAMP_NTZ"},
+    "bigquery": {"integer": "INT64", "number": "FLOAT64", "date": "DATE", "text": "STRING",
+                 "boolean": "BOOL", "timestamp": "DATETIME"},
 }
 _SIMPLE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 

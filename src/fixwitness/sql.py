@@ -47,6 +47,11 @@ OUTPUTS_KEY = "fixwitness_outputs"
 _NUMBER = re.compile(r"\s*[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?\s*")
 _INTEGER = re.compile(r"\s*[+-]?\d+\s*")
 _DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
+# A timestamp as warehouses and dbt seeds write it: 2020-06-23 03:58:57, 2020-06-23T3:58:57.426Z, ...
+_TIMESTAMP = re.compile(r"(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{1,2}):(\d{2})(?::(\d{2})(?:\.(\d{1,9}))?)?)?"
+                        r"\s*(Z|UTC|[+-]\d{2}(?::?\d{2})?)?", re.I)
+_BOOLEANS = {"true": True, "t": True, "1": True, "false": False, "f": False, "0": False}
+TYPES_FILE = "fixwitness_types.json"  # dbt: the exact column types dbt gave each seed
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
 _REF = re.compile(r"\{\{\s*ref\(\s*(['\"])([^'\"]+)\1\s*(?:,\s*(['\"])([^'\"]+)\3\s*)?(?:,\s*v(?:ersion)?\s*=\s*[^)]*)?\)\s*\}\}")
@@ -233,7 +238,10 @@ def _quote(name: str) -> str:
 
 
 def table_types(sample: bytes) -> dict[str, str]:
-    """Column kinds of one sample table: integer, number, date or text."""
+    """Column kinds of one sample table: integer, number, date or text.
+
+    (Two more kinds, boolean and timestamp, come only from types a warehouse or dbt gave the table;
+    see kind_of.)"""
     from fixwitness.cases import parse_sample, _type
     header, data = parse_sample(sample)
     kinds = {}
@@ -247,7 +255,27 @@ def table_types(sample: bytes) -> dict[str, str]:
     return kinds
 
 
+def kind_of(sql_type: str) -> str:
+    """The kind of a column from the SQL type a database gave it (DuckDB's names)."""
+    t = sql_type.upper().strip()
+    if re.match(r"(U?(BIG|SMALL|TINY|HUGE)?INT(EGER)?\d*|U?HUGEINT|LONG|SHORT)$", t):
+        return "integer"
+    if re.match(r"(DOUBLE|FLOAT\d*|REAL|DECIMAL|NUMERIC)", t):
+        return "number"
+    if t in ("BOOLEAN", "BOOL", "LOGICAL"):
+        return "boolean"
+    if t == "DATE":
+        return "date"
+    if t.startswith(("TIMESTAMP", "DATETIME")):
+        return "timestamp"
+    return "text"
+
+
 def _column_type(kind: str, engine: str) -> str:
+    if kind == "boolean":
+        return "BOOLEAN" if engine == "duckdb" else "INTEGER"  # SQLite: true and false are 1 and 0
+    if kind == "timestamp":
+        return "TIMESTAMP" if engine == "duckdb" else "TEXT"
     if kind == "integer":
         return "BIGINT" if engine == "duckdb" else "INTEGER"
     if kind == "number":
@@ -278,7 +306,34 @@ def _convert(value: str, sql_type: str, table: str, column: str):
             return _dt.date.fromisoformat(value)
         except ValueError as exc:
             raise SqlError(f"value {value!r} in {table}.{column} is not a valid date") from exc
+    if sql_type == "BOOLEAN":
+        b = _BOOLEANS.get(value.strip().lower())
+        if b is None:
+            raise SqlError(f"value {value!r} in {table}.{column} is not true or false")
+        return b
+    if sql_type == "TIMESTAMP":
+        return parse_timestamp(value, table, column)
     return value
+
+
+def parse_timestamp(value: str, table: str = "?", column: str = "?") -> _dt.datetime:
+    """A timestamp written the ways warehouses and dbt seeds write them. A zone is converted to UTC
+    and dropped (the column holds times without a zone)."""
+    m = _TIMESTAMP.fullmatch(value.strip()) if value.strip() == value else None
+    if m is None:
+        raise SqlError(f"value {value!r} in {table}.{column} is not a timestamp (YYYY-MM-DD HH:MM:SS)")
+    y, mo, d, h, mi, sec, frac, zone = m.groups()
+    try:
+        out = _dt.datetime(int(y), int(mo), int(d), int(h or 0), int(mi or 0), int(sec or 0),
+                           int((frac or "0")[:6].ljust(6, "0")))
+    except ValueError as exc:
+        raise SqlError(f"value {value!r} in {table}.{column} is not a valid timestamp") from exc
+    if zone and zone.upper() not in ("Z", "UTC"):
+        sign = -1 if zone[0] == "-" else 1
+        digits = zone[1:].replace(":", "")
+        offset = _dt.timedelta(hours=int(digits[:2]), minutes=int(digits[2:4] or 0))
+        out = out - sign * offset
+    return out
 
 
 def typed_rows(name: str, text: str, types: dict[str, dict[str, str]],
@@ -295,16 +350,32 @@ def typed_rows(name: str, text: str, types: dict[str, dict[str, str]],
     if any(len(r) > width for r in data):
         raise SqlError(f"table {name} has a row with more cells than columns")
     kinds = [types.get(name, {}).get(c, "text") for c in header]  # columns not in the sample: text
-    sql_types = [_column_type(k, engine) for k in kinds]
+    # Booleans and timestamps are read the same way on every engine; SQLite keeps timestamps as text.
+    sql_types = [{"boolean": "BOOLEAN", "timestamp": "TIMESTAMP"}.get(k) or _column_type(k, engine) for k in kinds]
     values = [[_convert(v, t, name, c) for v, t, c in zip(r, sql_types, header)] for r in data]
+    if engine == "sqlite":
+        values = [[x.isoformat(" ") if isinstance(x, _dt.datetime) else x for x in r] for r in values]
     return header, kinds, values
 
 
-def load_tables(con, engine: str, tables: dict[str, str], types: dict[str, dict[str, str]]) -> None:
+def load_tables(con, engine: str, tables: dict[str, str], types: dict[str, dict[str, str]],
+                exact: dict[str, dict[str, str]] | None = None) -> None:
+    """Create and fill each table. `exact`: the SQL type dbt gave a column (DuckDB only), used in
+    place of the kind's default type so the models see the column exactly as dbt built it."""
     for name, text in tables.items():
         header, kinds, values = typed_rows(name, text, types, engine)
-        cols = ", ".join(f"{_quote(c)} {_column_type(k, engine)}" for c, k in zip(header, kinds))
+        given = {c.lower(): t for c, t in ((exact or {}).get(name) or {}).items()} if engine == "duckdb" else {}
+        cols = ", ".join(f"{_quote(c)} {given.get(c.lower()) or _column_type(k, engine)}"
+                         for c, k in zip(header, kinds))
         con.execute(f"CREATE TABLE {_quote(name)} ({cols})")
+        exact_text = [i for i, c in enumerate(header)
+                      if re.match(r"(DECIMAL|NUMERIC|HUGEINT|UHUGEINT)", given.get(c.lower(), ""), re.I)]
+        if exact_text and values:  # exact numbers go in as written: no float on the way
+            raw = list(csv.reader(io.StringIO(text, newline="")))[1:]
+            for r, v in zip(raw, values):
+                for i in exact_text:
+                    if v[i] is not None:
+                        v[i] = r[i].strip()
         if values:
             marks = ", ".join(["?"] * len(header))
             con.executemany(f"INSERT INTO {_quote(name)} VALUES ({marks})", values)
@@ -378,6 +449,8 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
         raise SqlError(f"model(s) {', '.join(clash)} have the same name as an input table")
     wanted = outputs or sorted(models)
     order_file = root / "fixwitness_order.txt"  # written for dbt projects, from dbt's own graph
+    types_file = root / TYPES_FILE
+    exact = json.loads(types_file.read_text(encoding="utf-8")) if types_file.is_file() else None
     deps_file = root / "fixwitness_deps.json"
     needed = None
     if deps_file.is_file():  # dbt: only the models the compared outputs read are built
@@ -405,7 +478,7 @@ def run_pipeline(root: Path, bundle: bytes, engine: str = "auto", dbt: str = "au
     con = _connect(engine)
     results: dict[str, bytes] = {}
     try:
-        load_tables(con, engine, tables, types)
+        load_tables(con, engine, tables, types, exact)
         names = order_file.read_text(encoding="utf-8").split() if order_file.is_file() else run_order(models)
         for name in names:
             if needed is not None and name not in needed:
@@ -437,6 +510,83 @@ def _repeats_a_key(content: bytes, column: str | None, value: str | None) -> boo
 # itself, so these would only repeat other cases.
 SQL_SKIP_CATEGORIES = {"header-names"}
 SQL_SKIP_VALUES = ("<CRLF line endings>",)
+
+
+_KEY = re.compile(r"(?:^|_)id$", re.I)
+
+
+def _names_for(table: str) -> set[str]:
+    """What a key column may call a table's rows: orders -> order; shopify_order_data -> order."""
+    t = re.sub(r"_(data|history|tmp|raw|table)$", "", table.lower())
+    words = t.split("_")
+    forms = {t, words[-1]}
+    if len(words) > 1:
+        forms.add("_".join(words[1:]))  # without a prefix such as the package name
+    for f in list(forms):
+        if f.endswith("ies"):
+            forms.add(f[:-3] + "y")
+        elif f.endswith("es") and f[:-2].endswith(("s", "x", "ch", "sh")):
+            forms.add(f[:-2])
+        elif f.endswith("s") and not f.endswith("ss"):
+            forms.add(f[:-1])
+    return forms
+
+
+def link_tables(tables: dict[str, bytes], types: dict[str, dict[str, str]],
+                rows: int = 3) -> tuple[dict[str, bytes], list[str]]:
+    """Make the samples' keys join when they don't.
+
+    Tables sampled one by one rarely share key values (200 orders and 200 customers taken
+    separately seldom match), so joins match nothing and a change to join logic can't show. A
+    column named after another table (`customer_id`, with a table `customers` keyed by `id` or
+    `customer_id`) whose values match none of that table's keys gets that table's keys instead:
+    row i takes the key of row i modulo the first `rows` rows, so the rows of every case still
+    join, and several rows point at one key. Columns whose values already match some key, or that
+    could name several tables, are left as they are. Returns the tables and the links made.
+    """
+    from fixwitness.cases import parse_sample
+    parsed = {}
+    for t, data in tables.items():
+        try:
+            parsed[t] = parse_sample(data)
+        except Exception:
+            continue
+    out, links = dict(tables), []
+    for b, (hb, rb) in parsed.items():
+        changed = [list(r) for r in rb]
+        for j, col in enumerate(hb):
+            if not _KEY.search(col) or col.lower() == "id":
+                continue
+            ref = col[:-3].lower()
+            found = []
+            for a, (ha, ra) in parsed.items():
+                if a == b or ref not in _names_for(a):
+                    continue
+                key = col if col in ha else ("id" if "id" in ha else None)
+                if key is not None:
+                    found.append((a, key))
+            if len(found) != 1:
+                continue
+            a, key = found[0]
+            ha, ra = parsed[a]
+            if types.get(a, {}).get(key) != types.get(b, {}).get(col):
+                continue
+            keys = list(dict.fromkeys(r[ha.index(key)] for r in ra if r[ha.index(key)] != ""))
+            mine = {r[j] for r in rb if r[j] != ""}
+            if not keys or not mine or mine & set(keys):
+                continue
+            first = keys[: max(1, min(rows, len(keys)))]
+            for i, r in enumerate(changed):
+                if r[j] != "":
+                    r[j] = first[i % len(first)]
+            links.append(f"{b}.{col} -> {a}.{key}")
+        if changed != [list(r) for r in rb]:
+            buf = io.StringIO()
+            w = csv.writer(buf, lineterminator="\n")
+            w.writerow(hb)
+            w.writerows(changed)
+            out[b] = buf.getvalue().encode("utf-8")
+    return out, links
 
 
 def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]],
@@ -521,6 +671,32 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
                 body = [list(r) for r in base]
                 body[target][i] = x
                 extra.append((category, f"{t}.{col}", x, body))
+        # Booleans and timestamps (types dbt or a warehouse gave the table): the other truth value,
+        # and the times where day, month and year logic and clock changes go wrong.
+        for col in wanted.get(t) or header:
+            kind = types.get(t, {}).get(col)
+            i = header.index(col)
+            v = base[target][i].strip()
+            if kind == "boolean":
+                b = _BOOLEANS.get(v.lower())
+                for x in (["false" if b else "true"] if b is not None else ["true", "false"]):
+                    body = [list(r) for r in base]
+                    body[target][i] = x
+                    extra.append(("flip", f"{t}.{col}", x, body))
+            elif kind == "timestamp":
+                try:
+                    when = parse_timestamp(v) if v else _dt.datetime(2026, 1, 15, 9, 30)
+                except SqlError:
+                    continue
+                day = when.date()
+                for x in (f"{day} 00:00:00", f"{day} 23:59:59.999999", f"{day + _dt.timedelta(days=1)} 00:00:00",
+                          f"{day.year}-12-31 23:59:59", "2024-02-29 12:00:00", "1970-01-01 00:00:00",
+                          "2026-03-08 02:30:00", "2026-11-01 01:30:00"):
+                    if x == v:
+                        continue
+                    body = [list(r) for r in base]
+                    body[target][i] = x
+                    extra.append(("time-edge", f"{t}.{col}", x, body))
         for category, column, value, body in extra:
             buf = io.StringIO()
             w = csv.writer(buf, lineterminator="\n")

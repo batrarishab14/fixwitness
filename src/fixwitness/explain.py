@@ -199,6 +199,10 @@ def input_phrase(category: str, column: str | None, value, tables: bool) -> str:
         return f"{c} repeats the value of another row ({v})"
     if category == "case":
         return f"{c} is written in another case ({v})"
+    if category == "time-edge":
+        return f"{row} has {c} = {v}"
+    if category == "flip":
+        return f"{row} has {c} set to {v}"
     if category == "whitespace":
         return f"{c} has extra spaces ({v})"
     if category == "numeric-format":

@@ -118,6 +118,9 @@ CATEGORY_DESCRIPTIONS = {
     "duplicate-row": "a whole row repeated",
     "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, "
              "another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, "
+                 "the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
     "attack": "command/code injection, path traversal and template injection payloads",
 }
 

@@ -18,7 +18,7 @@ from fixwitness import __version__
 from fixwitness.cases import CATEGORY_DESCRIPTIONS, Case, SampleError, column_types, generate_cases
 from fixwitness.formats import (JSON_CATEGORY_DESCRIPTIONS, generate_json_cases, generate_parquet_cases,
                                 json_paths, parse_json_sample, parquet_to_csv, unstable_json_paths)
-from fixwitness.sql import generate_sql_cases
+from fixwitness.sql import generate_sql_cases, link_tables
 from fixwitness.compare import CompareOptions, compare, output_headers, parse_rows, unstable_columns
 from fixwitness.config import Config, ConfigError
 from fixwitness.plan import Plan, PlanError, build_plan, sha256_file
@@ -323,11 +323,23 @@ def focus(plan: Plan, columns: list[str]) -> list[str]:
 def _cases(plan: Plan, cfg: Config) -> list[Case]:
     if plan.sql is not None:
         cols = [f"{t}.{c}" for t, kinds in plan.sql["types"].items() for c in kinds]
+        tables, links = link_tables(plan.sql["tables"], plan.sql["types"], cfg.rows)
+        if links and not any(n.startswith("the sample's tables did not join") for n in plan.notes):
+            plan.notes.append("the sample's tables did not join on these keys, so the cases use matching keys "
+                              "(the tables as given are case 000): " + ", ".join(links))
         try:
-            return generate_sql_cases(plan.sql["tables"], plan.sql["types"], cfg.columns, cfg.rows, cfg.max_cases,
-                                      cfg.seed, cfg.review, plan.sql["incident_tables"], focus(plan, cols))
+            cases = generate_sql_cases(tables, plan.sql["types"], cfg.columns, cfg.rows, cfg.max_cases,
+                                       cfg.seed, cfg.review, plan.sql["incident_tables"], focus(plan, cols))
         except ValueError as exc:
             raise PlanError(str(exc)) from exc
+        if links:  # the tables exactly as given still run, first
+            from fixwitness.sql import make_bundle
+            given = Case(id="000", category="file-structure", kind="valid", column=None,
+                         value="<tables as given>", content=make_bundle(plan.sql["tables"], plan.sql["types"]))
+            cases = [given] + cases[: max(0, cfg.max_cases - 1)]
+            for i, c in enumerate(cases):
+                c.id = f"{i:03d}"
+        return cases
     try:
         if plan.sample_format == "json":
             paths = list(json_paths(parse_json_sample(plan.sample)[1]))

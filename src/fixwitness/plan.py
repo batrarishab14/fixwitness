@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import dataclasses
 import hashlib
+import json
 import os
 import re
 import shlex
@@ -27,7 +28,7 @@ from fixwitness.cases import SampleError, parse_sample
 from fixwitness.discover import table_bytes
 from fixwitness.config import Config, ConfigError
 from fixwitness.runner import Invocation, RunConfigError, Side, no_network_available, run_side
-from fixwitness.sql import (SqlError, choose_engine, dependencies, find_models, make_bundle, make_outputs,
+from fixwitness.sql import (TYPES_FILE, SqlError, choose_engine, kind_of, dependencies, find_models, make_bundle, make_outputs,
                             table_types)
 
 INTERPRETERS = {
@@ -374,6 +375,14 @@ def _build_tables(cfg: Config, work: Path, canary_dir: Path, mode: str, side_b: 
         spec = _discover_tables(cfg, side_b, search_roots or [cfg.base_dir], notes)
     paths, tables = _read_tables(cfg, spec, "table")
     types = {name: table_types(raw) for name, raw in tables.items()}
+    exact_file = folder / TYPES_FILE if folder is not None else None
+    if exact_file is not None and exact_file.is_file():  # dbt: the types dbt gave the seeds
+        exact = json.loads(exact_file.read_text(encoding="utf-8"))
+        for name, cols in exact.items():
+            by_lower = {c.lower(): t for c, t in cols.items()}
+            for col in types.get(name, {}):
+                if col.lower() in by_lower:
+                    types[name][col] = kind_of(by_lower[col.lower()])
     if cfg.function:
         return _finish_frame(cfg, work, canary_dir, mode, side_b, side_a, inputs, replay, notes, paths, tables, types)
     wh_env, wh_pass = {}, []
@@ -564,6 +573,14 @@ def _build_dbt(cfg: Config, work: Path, canary_dir: Path, mode: str, manifests: 
     d0, d1 = work / "dbt" / "original", work / "dbt" / "fix"
     write_models(g0, d0)
     write_models(g1, d1)
+    # The column types dbt gave the seeds, so every case is loaded exactly as dbt loads the seeds.
+    from fixwitness.dbtmode import seed_types
+    exact = {**seed_types(manifests[1]), **seed_types(manifests[0])}
+    exact = {t: cols for t, cols in exact.items() if t in spec}
+    if exact:
+        for d in (d0, d1):
+            (d / TYPES_FILE).write_text(json.dumps(exact, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+        notes.append(f"dbt: seeds loaded with the column types dbt gave them ({len(exact)} tables)")
     engine, dialect = cfg.engine, cfg.dialect
     if g0.adapter != "duckdb" and not dialect:
         dialect = g0.adapter  # compiled for the warehouse: translated with sqlglot

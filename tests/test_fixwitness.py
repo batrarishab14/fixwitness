@@ -654,6 +654,99 @@ class SqlUnitTests(unittest.TestCase):
             generate_sql_cases(tables, types, columns=["customer_id"])  # in both tables: ambiguous
 
 
+class LinkedKeysTests(TempDirTest):
+    """Samples taken table by table rarely join; their keys are linked so join logic is exercised."""
+    ORD = "order_id,customer_id,amount\n1,90,10\n2,91,20\n3,92,30\n4,93,40\n"
+    CUS = "id,region\n1,EU\n2,US\n3,EU\n"
+
+    def test_link_tables(self):
+        from fixwitness.sql import link_tables, table_types
+        tables = {"orders": self.ORD.encode(), "customers": self.CUS.encode()}
+        types = {t: table_types(v) for t, v in tables.items()}
+        linked, links = link_tables(tables, types)
+        self.assertEqual(links, ["orders.customer_id -> customers.id"])
+        self.assertIn(b"1,1,10\n2,2,20\n3,3,30\n4,1,40", linked["orders"])  # cycles over the first 3 keys
+        self.assertEqual(linked["customers"], tables["customers"])
+        self.assertEqual(link_tables(linked, types)[1], [])  # keys that already join are left alone
+        both = {"orders": self.ORD.encode(), "customers": self.CUS.encode(), "customer": self.CUS.encode()}
+        self.assertEqual(link_tables(both, {t: table_types(v) for t, v in both.items()})[1], [])  # ambiguous
+
+    def test_join_logic_change_is_seen_only_with_linked_keys(self):
+        write(self.tmp / "orders.csv", self.ORD)
+        write(self.tmp / "customers.csv", self.CUS)
+        before = "select c.region, sum(o.amount) as total from orders o join customers c on c.id = o.customer_id group by c.region"
+        write(self.tmp / "before.sql", before)
+        write(self.tmp / "after.sql", before.replace("group by", "where c.region <> 'US' group by"))
+        proof = self.check(before=str(self.tmp / "before.sql"), after=str(self.tmp / "after.sql"), engine="sqlite",
+                           tables={"orders": str(self.tmp / "orders.csv"), "customers": str(self.tmp / "customers.csv")})
+        self.assertEqual(proof["verdict"], "FAIL")
+        self.assertTrue(any("did not join" in n and "orders.customer_id -> customers.id" in n for n in proof["notes"]))
+        self.assertEqual(proof["cases"][0]["status"], "identical")  # the tables as given: nothing joins
+
+
+class TypedColumnTests(TempDirTest):
+    """Booleans and timestamps typed by dbt (or a warehouse) are loaded and varied as such."""
+
+    def test_kinds_from_sql_types(self):
+        from fixwitness.sql import kind_of
+        for sql_type, kind in [("BIGINT", "integer"), ("INTEGER", "integer"), ("HUGEINT", "integer"),
+                               ("DOUBLE", "number"), ("DECIMAL(18,3)", "number"), ("BOOLEAN", "boolean"),
+                               ("DATE", "date"), ("TIMESTAMP", "timestamp"), ("TIMESTAMP WITH TIME ZONE", "timestamp"),
+                               ("VARCHAR", "text"), ("JSON", "text")]:
+            self.assertEqual(kind_of(sql_type), kind, sql_type)
+
+    def test_timestamps_as_seeds_write_them(self):
+        import datetime as dt
+        from fixwitness.sql import SqlError, parse_timestamp
+        self.assertEqual(parse_timestamp("2020-06-23 3:58:57"), dt.datetime(2020, 6, 23, 3, 58, 57))
+        self.assertEqual(parse_timestamp("2020-03-20 02:32:49.426"), dt.datetime(2020, 3, 20, 2, 32, 49, 426000))
+        self.assertEqual(parse_timestamp("2020-03-20T02:32:49Z"), dt.datetime(2020, 3, 20, 2, 32, 49))
+        self.assertEqual(parse_timestamp("2020-03-20 02:00:00+02:00"), dt.datetime(2020, 3, 20, 0, 0))
+        self.assertEqual(parse_timestamp("2020-03-20"), dt.datetime(2020, 3, 20))
+        for bad in ("2020-02-30 00:00:00", " 2020-03-20", "yesterday", "2020-03-20 25:00:00"):
+            with self.assertRaises(SqlError):
+                parse_timestamp(bad)
+
+    def test_boolean_and_timestamp_cases(self):
+        from fixwitness.sql import generate_sql_cases, read_bundle
+        t = {"forms": b"id,is_deleted,deleted_at\n1,FALSE,\n2,FALSE,2020-06-23 3:58:57\n"}
+        types = {"forms": {"id": "integer", "is_deleted": "boolean", "deleted_at": "timestamp"}}
+        cases = generate_sql_cases(t, types, rows=2, max_cases=500)
+        flips = [c for c in cases if c.category == "flip"]
+        self.assertEqual([c.value for c in flips], ["true"])  # the other value of the row's FALSE
+        edges = {c.value for c in cases if c.category == "time-edge"}
+        self.assertTrue({"2020-06-23 00:00:00", "2020-06-23 23:59:59.999999", "2020-06-24 00:00:00",
+                         "1970-01-01 00:00:00"} <= edges, edges)
+        for c in cases:  # every case can be loaded with the columns' types
+            tables, _ = read_bundle(c.content)
+            for line in tables["forms"].splitlines()[1:]:
+                self.assertNotIn(line.split(",")[1].strip().lower(), ("padded", "ünïcødé"))
+
+    def test_seed_types_from_dbt_are_used(self):
+        """A model that needs a real boolean (NOT coalesce(flag, false)) runs, because the seed is
+        loaded with the type dbt gave it (on SQLite, as 1 and 0)."""
+        from fixwitness.sql import TYPES_FILE, kind_of, run_pipeline, make_bundle, read_outputs
+        models = self.tmp / "models"
+        write(models / "live.sql", 'select id from "forms" where not coalesce(is_deleted, false)\n')
+        write(models / "fixwitness_order.txt", "live\n")
+        (models / TYPES_FILE).write_text(json.dumps({"forms": {"id": "BIGINT", "is_deleted": "BOOLEAN"}}))
+        tables = {"forms": b"id,is_deleted\n1,FALSE\n2,TRUE\n3,\n"}
+        types = {"forms": {"id": "integer", "is_deleted": kind_of("BOOLEAN")}}
+        out = read_outputs(run_pipeline(models, make_bundle(tables, types), engine="sqlite"))
+        self.assertEqual(out["live"].decode().split(), ["id", "1", "3"])
+        if importlib.util.find_spec("duckdb") is not None:
+            out = read_outputs(run_pipeline(models, make_bundle(tables, types), engine="duckdb"))
+            self.assertEqual(out["live"].decode().split(), ["id", "1", "3"])
+
+    def test_dbt_errors_say_why(self):
+        from fixwitness.dbtmode import error_lines
+        log = ("\x1b[0m06:24:50  Running with dbt=1.10.1\n\x1b[0m06:24:51  Encountered an error:\n"
+               "Runtime Error\n  Could not convert string 'abc' to INT32 in seed order_data\n"
+               "06:24:51  Done. PASS=0 WARN=0 ERROR=1 SKIP=0 TOTAL=1\n")
+        self.assertEqual(error_lines(log)[:3], ["Encountered an error:", "Runtime Error",
+                                                "Could not convert string 'abc' to INT32 in seed order_data"])
+
+
 class SqlModeTests(TempDirTest):
     def _check(self, after_sql: str, before_sql: str = REVENUE, **extra):
         write(self.tmp / "orders.csv", ORDERS)
