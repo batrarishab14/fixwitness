@@ -219,6 +219,71 @@ def source_schema(manifest: Path) -> str | None:
     return schemas.pop() if len(schemas) == 1 and schemas != {"main"} else None
 
 
+CACHE_ENV = "FIXWITNESS_CACHE_DIR"     # where compiled manifests are kept; "off" turns the cache off
+_SKIP_DIRS = {".git", "target", "logs", "dbt_packages", "dbt_modules", "__pycache__", ".venv", "venv",
+              "node_modules", ".fixwitness"}
+
+
+def cache_dir() -> Path | None:
+    where = os.environ.get(CACHE_ENV)
+    if where and where.lower() in ("off", "0", "no", "false"):
+        return None
+    base = Path(where) if where else Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "fixwitness"
+    return base / "dbt"
+
+
+def tree_key(tree: Path, project: Path, warehouse: str | None) -> str:
+    """What a compile depends on: every file of the tree (the project and the package it installs
+    from ../), the project's place in it, the adapter, the warehouse and the dbt version."""
+    import hashlib
+    from importlib.metadata import PackageNotFoundError, version
+    h = hashlib.sha256()
+    for path in sorted(tree.rglob("*")):
+        rel = path.relative_to(tree)
+        if any(part in _SKIP_DIRS for part in rel.parts) or not path.is_file():
+            continue
+        h.update(rel.as_posix().encode() + b"\0")
+        h.update(hashlib.sha256(path.read_bytes()).digest())
+    try:
+        dbt_version = version("dbt-core")
+    except PackageNotFoundError:
+        dbt_version = "?"
+    h.update(f"\0{project.relative_to(tree).as_posix()}\0{warehouse or 'duckdb'}\0{dbt_version}".encode())
+    for name in sorted(os.environ):  # env_var() in the project can read these (only their hash is kept)
+        if name.startswith("DBT_") and name not in ("DBT_PROFILES_DIR", "DBT_TARGET_PATH", "DBT_LOG_PATH"):
+            h.update(f"\0{name}={os.environ[name]}".encode())
+    return h.hexdigest()[:32]
+
+
+def compile_cached(tree: Path, project: Path, out: Path, notes: list[str] | None = None,
+                   warehouse: str | None = None, timeout: int = 900) -> Path:
+    """compile_project, reusing the manifest of an identical earlier compile (same files, adapter,
+    warehouse and dbt version), so checking again after a small change rebuilds only what changed."""
+    root = cache_dir()
+    key = tree_key(tree, project, warehouse) if root is not None else None
+    hit = root / key if root is not None else None
+    if hit is not None and (hit / "manifest.json").is_file():
+        (out / "target").mkdir(parents=True, exist_ok=True)
+        for f in hit.iterdir():
+            shutil.copy2(f, out / "target" / f.name)
+        if notes is not None:
+            notes.append(f"dbt: reused an identical earlier compile of {project.name} (cache {key[:12]}; "
+                         f"set {CACHE_ENV}=off to rebuild)")
+        return out / "target" / "manifest.json"
+    manifest = compile_project(project, out, timeout, notes, warehouse)
+    if hit is not None:
+        try:
+            tmp = hit.with_name(hit.name + f".tmp{os.getpid()}")
+            tmp.mkdir(parents=True, exist_ok=True)
+            for name in ("manifest.json", SEED_TYPES_FILE):
+                if (manifest.parent / name).is_file():
+                    shutil.copy2(manifest.parent / name, tmp / name)
+            os.replace(tmp, hit)
+        except OSError:
+            shutil.rmtree(tmp, ignore_errors=True)  # another check stored it first, or the disk is full
+    return manifest
+
+
 def compile_project(project: Path, out: Path, timeout: int = 900, notes: list[str] | None = None,
                     warehouse: str | None = None) -> Path:
     """dbt seed, dbt run and dbt compile, in a private DuckDB file or, with a warehouse URL, in a

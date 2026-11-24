@@ -710,6 +710,36 @@ class DbtWarehouseUnitTests(TempDirTest):
         with self.assertRaises(WarehouseError):
             _schemas("postgres://ci@localhost/test", "analytics")
 
+    def test_compile_cache(self):
+        from fixwitness import dbtmode
+        tree = self.tmp / "tree"
+        write(tree / "proj/dbt_project.yml", "name: p\n")
+        write(tree / "proj/models/a.sql", "select 1 as x\n")
+        write(tree / "proj/target/manifest.json", "{}")  # build output: not part of the key
+        k1 = dbtmode.tree_key(tree, tree / "proj", None)
+        write(tree / "proj/target/run_results.json", "{}")
+        self.assertEqual(dbtmode.tree_key(tree, tree / "proj", None), k1)
+        self.assertNotEqual(dbtmode.tree_key(tree, tree / "proj", "postgres://ci@h/db"), k1)
+        write(tree / "proj/models/a.sql", "select 2 as x\n")
+        self.assertNotEqual(dbtmode.tree_key(tree, tree / "proj", None), k1)
+        cache = self.tmp / "cache"
+        old = os.environ.get(dbtmode.CACHE_ENV)
+        os.environ[dbtmode.CACHE_ENV] = str(cache)
+        try:
+            key = dbtmode.tree_key(tree, tree / "proj", None)
+            write(cache / "dbt" / key / "manifest.json", '{"cached": true}')
+            notes = []
+            got = dbtmode.compile_cached(tree, tree / "proj", self.tmp / "out", notes)
+            self.assertEqual(json.loads(got.read_text()), {"cached": True})
+            self.assertTrue(any("reused an identical earlier compile" in n for n in notes))
+            os.environ[dbtmode.CACHE_ENV] = "off"
+            self.assertIsNone(dbtmode.cache_dir())
+        finally:
+            if old is None:
+                os.environ.pop(dbtmode.CACHE_ENV, None)
+            else:
+                os.environ[dbtmode.CACHE_ENV] = old
+
     def test_kinds_of_warehouse_types(self):
         from fixwitness.sql import kind_of
         for sql_type, kind in [("double precision", "number"), ("timestamp without time zone", "timestamp"),

@@ -615,10 +615,16 @@ def _dbt_adapter(cfg: Config) -> str:
 
 def _compile_both(t0_project: Path, t1_project: Path, work: Path, notes: list[str],
                   warehouse: str | None = None) -> tuple[Path, Path]:
-    from fixwitness.dbtmode import ADAPTER_PIP, DbtError, compile_project
+    from fixwitness.dbtmode import ADAPTER_PIP, DbtError, compile_cached
+    t0_tree, t1_tree = work / "trees" / "t0", work / "trees" / "t1"
     try:
-        m0 = compile_project(t0_project, work / "dbt" / "build0", notes=notes, warehouse=warehouse)
-        m1 = compile_project(t1_project, work / "dbt" / "build1", notes=notes, warehouse=warehouse)
+        if t0_project.is_relative_to(t0_tree) and t1_project.is_relative_to(t1_tree):
+            m0 = compile_cached(t0_tree, t0_project, work / "dbt" / "build0", notes, warehouse)
+            m1 = compile_cached(t1_tree, t1_project, work / "dbt" / "build1", notes, warehouse)
+        else:
+            from fixwitness.dbtmode import compile_project
+            m0 = compile_project(t0_project, work / "dbt" / "build0", notes=notes, warehouse=warehouse)
+            m1 = compile_project(t1_project, work / "dbt" / "build1", notes=notes, warehouse=warehouse)
     except DbtError as exc:
         raise PlanError(str(exc)) from exc
     from fixwitness.warehouse import parse_url

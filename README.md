@@ -25,7 +25,7 @@ Each changed file is checked the way that fits it. The sample data is found by n
 
 | Changed | Checked as |
 |---|---|
-| A file in a **dbt project** | The project compiled by dbt itself (with `dbt-duckdb`), so macros and packages work; seeds are the sample tables; the final models downstream of the change are compared |
+| A file in a **dbt project** | The project built and compiled by dbt itself (with `dbt-duckdb`, or your warehouse's adapter with `--warehouse`), so macros and packages work; seeds are the sample tables, with the column types dbt gave them; a dbt package is built through its `integration_tests/` project; the final models downstream of the change are compared |
 | A **`.sql`** query | Its tables are the data files named after them (`orders.csv` for `orders`) |
 | A **pandas, polars or PySpark** function that changed | Called with the data files named after its parameters; each side uses the library it imports |
 | A **script** that reads CSV, JSON, JSON Lines or Parquet | Run on the sample next to it |
@@ -235,7 +235,9 @@ Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects wit
 | A rewrite in another language | `fixwitness check --before legacy.sh --after new.py --no-attacks` (each side's run command is detected) |
 | A SQL query or dbt model (git) | `fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv` |
 | Two SQL files | `fixwitness check --before old.sql --after new.sql --table orders=orders.csv` |
-| A dbt project (git) | `fixwitness check models/ --table orders=seeds/orders.csv --table customers=seeds/customers.csv` |
+| A dbt project (git) | `fixwitness check` (compiled by dbt on its seeds; a package through its `integration_tests/` project) |
+| A dbt project on your warehouse's adapter | `fixwitness check --warehouse postgres://ci@db/analytics` |
+| A bug fix that should change one number | `fixwitness check --expect-change zendesk__ticket_summary.unreplied_ticket_count` |
 | Snowflake or BigQuery SQL | add `--dialect snowflake` (needs `pip install sqlglot`) |
 | A pandas / polars / PySpark function | `fixwitness check etl/revenue.py --function revenue --table orders=data/orders.csv` |
 | A job that reads JSON Lines or Parquet | `fixwitness check etl/events.py --sample data/events.jsonl --no-attacks` |
@@ -265,6 +267,7 @@ Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects wit
 | `--columns amount` | Probe only the columns the problem is about |
 | `--review shell-metachar,quotes` | Report differences in these categories without failing |
 | `--ignore-columns run_id` | Leave these output columns out of the comparison |
+| `--expect-change revenue.total` | For a bug fix: the output columns it should change (`model.column` or `column`). PASS means only these changed, and the report shows on which inputs and how |
 | `--ignore-pattern '\d{4}-\d\d-\d\d'` | Mask volatile text such as timestamps |
 | `--tolerance 1e-9` | Allow tiny floating-point differences |
 | `--unordered` | Ignore row order |
@@ -276,6 +279,7 @@ Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects wit
 | `--sql-ordered` | SQL/dbt and DataFrames: compare result rows in order |
 | `--sql-outputs revenue,churn` | A folder of models: the models to compare (default: the final ones; `all` for every model) |
 | `--dialect snowflake` | SQL/dbt: the warehouse the SQL is written for; translated with sqlglot |
+| `--warehouse postgres://USER@HOST/DB` | SQL/dbt: run both versions in your warehouse, each run in a private schema that is dropped afterwards. A dbt project is also compiled there, with your warehouse's own dbt adapter. No password in the URL: the driver's own settings (`PGPASSWORD`, ...) are used |
 | `--function NAME` | Python: the DataFrame function to call; name the tables after its parameters |
 | `--library polars` | Python: the DataFrame library (default: from the script's imports) |
 | `--output json` | Compare outputs as JSON (the default when the input is JSON) |
@@ -420,13 +424,12 @@ The format is published as a JSON Schema in [`docs/proof.schema.json`](docs/proo
 - **Inputs are CSV, JSON, JSON Lines or Parquet** for scripts. Any program in any language works, as long as it reads a file or stdin.
 - **Mostly one value changes at a time.** Pairs of rows of the same group are covered for numbers and text (sub-cent amounts, precision edges, another case), but other combinations of two unusual values can be missed.
 - **SQL runs on DuckDB or SQLite** unless you pass `--warehouse`. Warehouse SQL is translated with sqlglot; a function it can't translate fails to run, and warehouse-specific behaviour (collation, NULL ordering, time zones) is only checked in warehouse mode. Warehouse mode is tested on Postgres; the Snowflake and BigQuery connections follow their documented APIs and are untested.
-- **dbt** projects are compiled by dbt with `dbt-duckdb` (or read from your manifests). Without dbt installed, only `ref()`, `source()` and `config()` are rendered. Incremental models are run as full builds.
+- **dbt** projects are compiled by dbt with `dbt-duckdb`, or with your warehouse's adapter when you pass `--warehouse` (or read from your manifests). Without dbt installed, only `ref()`, `source()` and `config()` are rendered. Incremental models are run as full builds. A compile is reused when the same files are compiled again (`FIXWITNESS_CACHE_DIR=off` turns this off).
 - **PySpark is slow:** pandas and polars runs fork from a process that has the library loaded (a pandas check of about 300 cases takes about 13 s in CI), but PySpark starts a local session for every run. Keep `--max-cases` modest for PySpark.
 - **Four attack families** only. SQL injection, deserialization and SSRF are not tested yet.
 
 ## Roadmap
 
-- dbt projects in warehouse mode (compiled with the warehouse's own adapter).
 - Signed proofs and SQL-injection payloads.
 - Reading the finding from SARIF.
 - A container runner.
