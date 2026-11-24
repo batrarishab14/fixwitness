@@ -28,3 +28,22 @@ See `DEVLOG_v0.5.md` and `DEVLOG_v0.6.md`.
 5. **Score:** run the four checks (runs, same result on the sample, fixwitness, fixwitness + expected) with `pip install "git+https://github.com/batrarishab14/fixwitness@v0.6.0"`, and report every miss and every false alarm.
 
 The tool is not changed between steps 1 and 5. A later change is a new version, evaluated on new held-out tasks.
+
+## Amendment, 24 November 2026 (still before any held-out task exists)
+
+0.6 now also checks dbt projects built by dbt itself (including dbt packages, through their
+integration tests, and on a warehouse's own adapter), pandas/polars/PySpark functions, and jobs
+that read JSON, JSON Lines or Parquet. The held-out evaluation covers them too:
+
+- **5 dbt tasks** on a public dbt package's integration-test project (models, seeds and tests as
+  published), refactors or bug fixes, none reusing a pitfall from Q01–Q06 or C01;
+- **3 DataFrame tasks** (pandas or polars), none reusing a pitfall from C03–C04;
+- **2 JSON Lines or Parquet tasks**, none reusing a pitfall from C05–C06.
+
+These are added to the 10 CSV and 10 SQL tasks of step 2, written and committed after `v0.6.0` is
+tagged and before any assistant sees them, with the same labelling rule and the same four checks.
+
+A second, independent evaluation now exists: the real-repository study
+(`benchmark/realrepo/PROTOCOL.md`), on real fixes and refactors from Fivetran's public dbt packages,
+whose candidates and labels were frozen before fixwitness ran on any of them. It is reported on its
+own; its results are not pooled with the assistant study.
