@@ -2012,10 +2012,16 @@ class DbtProjectTests(TempDirTest):
         return repo
 
     def test_wrong_and_correct_changes(self):
+        """min -> max on order_date: jaffle_shop's own schema.yml declares order_id not_null, so a
+        wrong change that only shows through a NULL order_id (count(order_id) vs count(*)) is exactly
+        the input the project's contract excludes, and fixwitness correctly reviews it instead of
+        failing (DbtContractTests covers that). min/max differs on the sample data itself, with no
+        contract in the way: jaffle_shop has repeat customers with orders on different dates."""
         repo = self._project()
         customers = repo / "models" / "customers.sql"
         original = customers.read_text()
-        customers.write_text(original.replace("count(order_id)", "count(*)"))
+        self.assertIn("min(order_date) as first_order", original)
+        customers.write_text(original.replace("min(order_date) as first_order", "max(order_date) as first_order"))
         bad = self.check(path="models", max_cases=120)
         self.assertEqual(bad["verdict"], "FAIL", bad["reasons"])
         self.assertIn("customers", bad["inputs"]["dbt"]["changed_models"])
@@ -2034,7 +2040,7 @@ class DbtProjectTests(TempDirTest):
         repo = self._project()
         customers = repo / "models" / "customers.sql"
         original = customers.read_text()
-        customers.write_text(original.replace("count(order_id)", "count(*)"))
+        customers.write_text(original.replace("min(order_date) as first_order", "max(order_date) as first_order"))
         bad = self.check(path="models", max_cases=40, warehouse=url)
         self.assertEqual(bad["verdict"], "FAIL", bad["reasons"])
         self.assertTrue(any("dbt-postgres adapter" in n for n in bad["notes"]), bad["notes"])
