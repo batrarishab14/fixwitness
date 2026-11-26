@@ -1005,6 +1005,19 @@ class FocusUnderCapTests(unittest.TestCase):
         self.assertTrue(any(c.category == "null-column" for c in mine))
         self.assertEqual(len(cases), 60)
 
+class StructuralFirstTests(TempDirTest):
+    def test_null_and_empty_reach_every_column_before_text_variants(self):
+        """A column outside the focus (an id renamed in staging) still gets NULL and empty under a small cap:
+        count(order_id) vs count(*) differs only when order_id is NULL."""
+        from fixwitness.sql import generate_sql_cases, table_types
+        tables = {"raw_customers": b"id,first_name,last_name\n1,Ann,Lee\n2,Bo,Kim\n",
+                  "raw_orders": b"id,user_id,order_date,status\n1,1,2018-01-01,returned\n2,2,2018-01-02,completed\n",
+                  "raw_payments": b"id,order_id,payment_method,amount\n1,1,credit_card,1000\n2,2,coupon,500\n"}
+        types = {t: table_types(v) for t, v in tables.items()}
+        cases = generate_sql_cases(tables, types, max_cases=40, focus=["raw_customers.first_name"])
+        kinds = {c.category for c in cases if c.column == "raw_orders.id"}
+        self.assertTrue({"null-column", "empty"} <= kinds, kinds)
+
 class GatedModelTests(TempDirTest):
     def test_variable_that_enables_an_edited_model_is_switched_on(self):
         from fixwitness.dbtmode import gated_vars

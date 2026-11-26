@@ -340,13 +340,39 @@ def focus(plan: Plan, columns: list[str]) -> list[str]:
                 if line[:1] in "+-" and line[:3] not in ("+++", "---"):
                     edited.append(line[1:])
         in_scope = [c for c in columns if not tables or c.split(".", 1)[0] in tables]
+        renames = _renames(plan)
         # Columns named on the lines the change edited come first; then every column the changed
-        # models name (a filter the change moved around sits on a line it did not touch).
-        for words in (set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", "\n".join(edited))),
-                      set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", "\n".join(texts)))):
-            found += [c for c in in_scope if c.rsplit(".", 1)[-1] in words and c not in found]
+        # models name (a filter the change moved around sits on a line it did not touch). A name the
+        # models upstream gave a column (`id as order_id` in staging) leads back to the seed column.
+        for text in ("\n".join(edited), "\n".join(texts)):
+            words = set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", text))
+            for _ in range(3):  # a column renamed more than once on the way
+                words |= {src for w in list(words) for src in renames.get(w.lower(), ())}
+            found += [c for c in in_scope if c.rsplit(".", 1)[-1].lower() in {w.lower() for w in words}
+                      and c not in found]
     return found
 
+
+
+_RENAME = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)"?\s+as\s+"?([A-Za-z_][A-Za-z0-9_]*)', re.I)
+
+
+def _renames(plan: Plan) -> dict[str, set[str]]:
+    """New name -> the column names it came from, from `x as y` in every compiled model of both versions."""
+    out: dict[str, set[str]] = {}
+    for side in (plan.before, plan.after):
+        root = side.script if side is not None and side.script is not None and Path(side.script).is_dir() else None
+        if root is None:
+            continue
+        for f in Path(root).glob("*.sql"):
+            try:
+                text = f.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            for src, new in _RENAME.findall(text):
+                if src.lower() != new.lower():
+                    out.setdefault(new.lower(), set()).add(src.lower())
+    return out
 
 def _exact_types(plan: Plan) -> dict | None:
     """The exact column types dbt gave the seeds (written beside the compiled models), if any."""

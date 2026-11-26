@@ -854,14 +854,23 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
         # tenth case of upper/lower on a table that came earlier).
         rank = {c: n for n, c in enumerate(focus or [])}  # the focus list is in order of relevance
 
+        # Kinds that change which rows exist or which values are NULL, zero or flipped come before the
+        # text variants (case, whitespace, quotes ...): they decide joins, counts and divisions.
+        structural = {"null-column", "empty", "duplicate-row", "duplicate", "numeric-format", "flip",
+                      "time-edge", "pairs"}
+
         def interleave(indexes: list[int]) -> list[int]:
             by_cat: dict[str, list[int]] = {}
             for i in sorted(indexes, key=lambda i: rank.get(cases[i].column, len(rank))):  # stable
                 by_cat.setdefault(cases[i].category, []).append(i)
-            out, lanes = [], [by_cat[k] for k in sorted(by_cat)]
-            for n in range(max((len(x) for x in lanes), default=0)):
-                out += [x[n] for x in lanes if n < len(x)]
+            out: list[int] = []
+            for group in (sorted(k for k in by_cat if k in structural),
+                          sorted(k for k in by_cat if k not in structural)):
+                lanes = [by_cat[k] for k in group]
+                for n in range(max((len(x) for x in lanes), default=0)):
+                    out += [x[n] for x in lanes if n < len(x)]
             return out
+
         order = interleave(first_f) + more_f[: max_cases // 3] + interleave(first) + more_f[max_cases // 3:]
         chosen = set(order[:max_cases])
         budget = max_cases - len(chosen)
