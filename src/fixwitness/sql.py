@@ -859,19 +859,25 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
         structural = {"null-column", "empty", "duplicate-row", "duplicate", "numeric-format", "flip",
                       "time-edge", "pairs"}
 
-        def interleave(indexes: list[int]) -> list[int]:
+        def interleave(indexes: list[int]) -> tuple[list[int], list[int]]:
+            """(structural cases, text cases), each with the kinds taking turns."""
             by_cat: dict[str, list[int]] = {}
             for i in sorted(indexes, key=lambda i: rank.get(cases[i].column, len(rank))):  # stable
                 by_cat.setdefault(cases[i].category, []).append(i)
-            out: list[int] = []
+            parts = []
             for group in (sorted(k for k in by_cat if k in structural),
                           sorted(k for k in by_cat if k not in structural)):
-                lanes = [by_cat[k] for k in group]
+                lanes, out = [by_cat[k] for k in group], []
                 for n in range(max((len(x) for x in lanes), default=0)):
                     out += [x[n] for x in lanes if n < len(x)]
-            return out
+                parts.append(out)
+            return parts[0], parts[1]
 
-        order = interleave(first_f) + more_f[: max_cases // 3] + interleave(first) + more_f[max_cases // 3:]
+        # A NULL or empty value in every column is cheap and decides joins and counts, so every column's
+        # structural cases come before the focus columns' extra variants.
+        fs, ft = interleave(first_f)
+        os_, ot = interleave(first)
+        order = fs + ft + os_ + more_f[: max_cases // 3] + ot + more_f[max_cases // 3:]
         chosen = set(order[:max_cases])
         budget = max_cases - len(chosen)
         rest.sort()
