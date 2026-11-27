@@ -139,3 +139,22 @@ Run 5, hand-read against the release notes: 22 of the 31 flagged bug fixes are t
 the model the note names, 4 are unclear, 2 are not the bug. Confirmed 22 of 63 checked (35%), upper bound 49%.
 The 32 misses were not yet analysed. Run 1's counted 22 were not read against the notes. "Flagged" means fixwitness
 found a difference; a bug fix always changes behaviour, so a flag is not by itself proof it found the bug.
+
+## 27 Nov: memory runaway on dbt_jira (study shard 5) fixed
+
+Study shard 5 killed its runner on every run; jira@v1.10.3 alone reproduced it. Cause, found with
+py-spy on a local reproduction (Postgres, same command as study.yml): every SQL case held its own
+JSON bundle of *every* table, built before the 300-case cap. dbt_jira's `comment.csv` seed is 16.8 MB,
+so each of thousands of candidate cases carried ~17 MB, and fixwitness passed 2.5 GB within 10 s of
+starting case generation (5 GB cap reached in CI). Any user project with one large seed hits this.
+
+Fix: a case's input may be a function that builds it when read (`cases._Content`); SQL cases share
+one `tables` dict and keep only the small table they changed (`sql.lazy_bundle`). Verified locally:
+jira@v1.10.3 now completes, peak fixwitness RSS ~783 MB (sampled every 5 s), PASS, 288 valid inputs,
+0 changed (66 identical, 234 unstable: the original's own output varied between runs; not looked into).
+Regression test `test_cases_do_not_each_hold_every_table`: old code 176 MB for 90 cases over a 2 MB
+table (fails), new code under 40 MB (passes).
+
+Guard: `run_study.py --memory-gb` (default 8) caps each candidate's address space, so a candidate that
+runs out of memory is recorded "not checked: could not run: out of memory" instead of ending the shard.
+Verified against the old code with `--memory-gb 3`: recorded in 13 s, shard continued.

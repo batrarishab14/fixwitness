@@ -653,6 +653,29 @@ class SqlUnitTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             generate_sql_cases(tables, types, columns=["customer_id"])  # in both tables: ambiguous
 
+    def test_cases_do_not_each_hold_every_table(self):
+        """dbt_jira's 17 MB comment seed: every case held a copy of every table and fixwitness grew
+        past 5 GB before the cap. The cases now share the tables and build their input when read."""
+        import tracemalloc
+        from fixwitness.sql import generate_sql_cases, make_bundle, read_bundle, table_types
+        big = "id,body\n" + "".join(f"{i},{'x' * 20_000}\n" for i in range(100))  # 2 MB, unchanged
+        tables = {"orders": ORDERS.encode(), "customers": CUSTOMERS.encode(), "comments": big.encode()}
+        types = {k: table_types(v) for k, v in tables.items()}
+        tracemalloc.start()
+        try:
+            cases = generate_sql_cases(tables, types, columns=["orders.amount", "customers.customer_id"],
+                                       rows=3, max_cases=300)
+            _, peak = tracemalloc.get_traced_memory()
+        finally:
+            tracemalloc.stop()
+        self.assertGreater(len(cases), 20)
+        self.assertLess(peak, 40 * 2**20, f"{len(cases)} cases took {peak / 2**20:.0f} MB")  # a copy each: 40+ MB
+        got, _ = read_bundle(cases[0].content)
+        self.assertEqual(got["comments"], big)  # the whole table still reaches the run
+        self.assertEqual(cases[0].content, cases[0].content)
+        self.assertIn("comments", read_bundle(make_bundle(tables, types))[0])
+        self.assertNotIn("x" * 100, repr(cases[0]))
+
 
 class LinkedKeysTests(TempDirTest):
     """Samples taken table by table rarely join; their keys are linked so join logic is exercised."""

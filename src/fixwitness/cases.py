@@ -133,6 +133,21 @@ DEFAULT_KIND = {name: "valid" for name in CATEGORY_DESCRIPTIONS}
 DEFAULT_KIND["attack"] = "attack"
 
 
+class _Content:
+    """A case's input. It may be given as a function that builds it, called each time it is read, so
+    a case need not hold its whole input: a SQL case's input is every table, and a project with a
+    17 MB seed would otherwise keep 17 MB per case (thousands of cases before the cap)."""
+
+    def __get__(self, obj, owner=None):
+        if obj is None:
+            raise AttributeError("content")  # dataclass: the field has no default
+        value = obj.__dict__["_content"]
+        return value() if callable(value) else value
+
+    def __set__(self, obj, value):
+        obj.__dict__["_content"] = value
+
+
 @dataclass
 class Case:
     id: str
@@ -140,10 +155,13 @@ class Case:
     kind: str
     column: str | None
     value: str | None
-    content: bytes = field(repr=False)
+    content: bytes = _Content()   # bytes, or a function that returns them
     family: str | None = None
     oracle: str | None = None      # "file" or "output" for attacks
     canary: str | None = None      # marker file name for file oracles
+
+    def __repr__(self) -> str:  # never builds the content
+        return f"Case(id={self.id!r}, category={self.category!r}, kind={self.kind!r}, column={self.column!r})"
 
 
 class SampleError(ValueError):
