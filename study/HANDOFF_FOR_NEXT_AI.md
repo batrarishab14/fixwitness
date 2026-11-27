@@ -57,7 +57,7 @@ skipped locally for lack of libraries). The committed benchmark result files are
 - Competitors: Datafold data-diff archived May 2024; Recce (dbt PR validation, Apache-2.0, ~484 stars).
 
 ## 6. Known fixwitness weaknesses (VERIFIED, not yet fixed)
-1. Cases vary only the FIRST 3 ROWS. Rolling-window code (default window 30, most finance/time-series code) gets almost no useful cases: at window 5, 1 of 208 inputs showed the change; at window 2, 170.
+1. [PARTLY FIXED 27 Nov, PR #2: CSV script mode only, `core._widen`; verified on the OpenBB case at window 30: 207 of 208 inputs; suite 139 passed, 10 skipped (pandas installed, so more ran than before). NOT fixed for SQL/JSON/Parquet/DataFrame-function mode.] Cases vary only the FIRST 3 ROWS. Rolling-window code (default window 30, most finance/time-series code) gets almost no useful cases: at window 5, 1 of 208 inputs showed the change; at window 2, 170.
    Fix idea: use more rows when the code needs them, and report "not enough rows to exercise this" instead of PASS.
 2. Report wording says "rows added or lost" when only values changed.
 3. Skill install fallback `pip install git+https://github.com/batrarishab14/fixwitness.git` is UNVERIFIED on a normal-network machine (the sandbox cannot reach PyPI for build deps; CI job `install-from-github` on exercise-synthesis tests it in a clean venv).

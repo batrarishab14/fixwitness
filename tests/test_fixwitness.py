@@ -2077,6 +2077,37 @@ class DbtProjectTests(TempDirTest):
         self.assertEqual(left, 0)
 
 
+class RollingWindowRowsTests(TempDirTest):
+    """Code that needs N rows writes nothing for fewer, so a 3-row case compared empty with empty."""
+    SCRIPT = """
+        import csv, sys
+        rows = list(csv.reader(open(sys.argv[1], newline="")))
+        head, data = rows[0], [float(r[0]) for r in rows[1:]]
+        w = csv.writer(open(sys.argv[2], "w", newline=""))
+        w.writerow(["rolling"])
+        for i in range(4, len(data)):          # a rolling sum over 5 rows: nothing for fewer
+            w.writerow([sum(data[i - 4:i + 1]) * %s])
+    """
+
+    def run_pair(self, factor):
+        write(self.tmp / "before.py", self.SCRIPT % "1")
+        write(self.tmp / "after.py", self.SCRIPT % factor)
+        write(self.tmp / "sample.csv", "price\n" + "".join(f"{100 + i}\n" for i in range(20)))
+        os.chdir(self.tmp)
+        return self.check(before="before.py", after="after.py", sample="sample.csv", attacks=False)
+
+    def test_a_change_is_seen_when_the_window_needs_more_than_three_rows(self):
+        result = self.run_pair("1.01")
+        self.assertEqual(result["verdict"], "FAIL")
+        self.assertGreater(result["behavior"]["changed"], 10)
+        self.assertTrue(any("first 5 rows" in w for w in result["warnings"]), result["warnings"])
+
+    def test_an_unchanged_rolling_function_still_passes(self):
+        result = self.run_pair("1")
+        self.assertEqual(result["verdict"], "PASS")
+        self.assertEqual(result["behavior"]["changed"], 0)
+
+
 @unittest.skipUnless(os.environ.get("FIXWITNESS_TEST_POSTGRES"),
                      "needs a Postgres server: FIXWITNESS_TEST_POSTGRES=postgres://USER@HOST:PORT/DB (CI)")
 class WarehouseTests(TempDirTest):

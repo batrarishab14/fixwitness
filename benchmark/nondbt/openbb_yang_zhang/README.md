@@ -9,11 +9,12 @@ Run (this is the fix direction, original = buggy, change = fix; `build.py` rebui
 | Window | Result (verified, 27 Nov, fixwitness at PR #2 head) |
 |---|---|
 | 2 | FAIL: the fix changes output on 170 of 208 comparable inputs (38 identical, 48 not comparable) |
+| 30 (OpenBB's default), 80-row sample | before the row fix: almost nothing tested. After it (branch of PR #2): FAIL, the fix changes output on 207 of 208 comparable inputs (the original's first 3 rows write no output, so fixwitness used 40 rows) |
 | 5 | FAIL, but only on the sample as given (1 of 208): fixwitness varies the first 3 rows, so a window of 5 leaves almost every case with no output |
 
 On the 20-row sample the fix lowers the first value from 0.2782 to 0.2774 (0.3%): small, but on every row.
 
 **Limits, stated plainly.** (1) This is a retrospective run on an already-fixed bug; no one found this bug with fixwitness.
-(2) A rolling-window function must be run with a small window, because cases use the first 3 rows; the default
-window of 30 would give no output. That is a fixwitness limitation for time-series code and needs a fix.
+(2) Cases used to be built from only the first 3 rows, so a rolling-window function gave no output at all. Fixed for CSV scripts in
+PR #2 (`core._widen`: if the first 3 rows write nothing but the whole sample does, use 5, 10, 20 ... rows). Not done for SQL, JSON, Parquet or DataFrame-function mode.
 (3) The "Rows added or lost" wording in the report is misleading here: the row count is the same and only values changed.
