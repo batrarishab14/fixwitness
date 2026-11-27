@@ -32,6 +32,10 @@ commit/push continuously and append here after every step.
 - v0.9.1 flagged on `credit` is probably a seeds-only artifact; confirm with a real CI run.
 - Git-install fallback of the skill is untested on a normal-network machine.
 
+## Plan corrections (27 Nov)
+- Item 3 (PR/CI Action comment) already exists: action.yml posts/updates a PR comment, tested in ci.yml (`uses: ./`).
+- Item 6 started: study/EVIDENCE.md (verified vs from-records marked per row; row 8 waits for the study run).
+
 ## Next (in order)
 1. Check CI `data` on exercise-check; if green and the user agrees, merge to main. If red, diagnose first.
 2. Generic seed synthesis (keep FKs/constraints, add missing precondition rows); re-run the 63-candidate study;
