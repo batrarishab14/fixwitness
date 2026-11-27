@@ -1104,6 +1104,19 @@ class ExerciseCheckTests(TempDirTest):
         self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
         self.assertEqual(proof["exercise"]["findings"], [])
 
+    def test_a_value_no_row_has_is_given_to_the_column_so_the_change_is_reached(self):
+        after = "select id, balance from accounts where account_type = 'Bank' or account_type = 'Voided'\n"
+        proof = self.run_sql(self.ACCOUNTS, after=after)
+        self.assertEqual(proof["verdict"], "FAIL", proof["reasons"])
+        hit = [d for d in proof["differences"] if d["category"] == "precondition"]
+        self.assertTrue(hit, proof["differences"])
+        self.assertEqual(hit[0]["value"], "Voided")
+        self.assertEqual(hit[0]["column"], "accounts.account_type")
+        self.assertTrue(any("give it to the column" in n for n in proof["notes"]), proof["notes"])
+        self.assertTrue(proof["exercise"]["exercisable"])
+        off = self.run_sql(self.ACCOUNTS, after=after, exercise_check=False)
+        self.assertEqual(off["verdict"], "PASS")  # what the check was for: nothing reached the change
+
     def test_the_check_can_be_turned_off(self):
         proof = self.run_sql(self.ACCOUNTS, exercise_check=False)
         self.assertEqual(proof["verdict"], "PASS", proof["reasons"])

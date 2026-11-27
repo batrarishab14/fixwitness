@@ -13,6 +13,13 @@ commit/push continuously and append here after every step.
   user agrees.
 - Real-data check, dbt_quickbooks, seeds only: see benchmark/realrepo/exercise_validation/README.md.
 
+- Branch `exercise-synthesis` (on top of exercise-check): item 2 phase 1. When the check finds a value the change tests
+  that no input has, up to 12 `precondition` cases give that value to the column it is compared with (SQL mode,
+  honouring dbt contracts), so the change gets a row to run on. Local suite 156 passed, 16 skipped. Demonstrated in
+  tests on SQLite only (silent PASS with the check off, FAIL with it on). NOT yet run on real dbt projects or the study.
+  Not covered yet: values hidden in functions (`coalesce(col, '') <> 'x'`), non-text columns, multi-table
+  preconditions (a second linked row, a true flag on that row), null-only numeric columns.
+
 ## Known caveats
 - Not measured: other packages, the full-case run, the 63-candidate catch rate and false-alarm rate (that is item 2).
 - Not detected by design: join multiplicity, broken foreign keys, rows that never repeat. Silence is not a claim.

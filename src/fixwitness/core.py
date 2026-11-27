@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import csv
 import dataclasses
 import hashlib
+import io
 import json
 import os
 import re
@@ -39,6 +41,7 @@ LIMITATIONS = [
 # of their own) so that write_outputs can save a runnable reproduction of each one.
 REPRO: dict[str, dict] = {}
 MAX_REPROS = 25
+MAX_PRECONDITION_CASES = 12   # cases added to give a tested value to the column it is compared with
 
 
 def _canonical(obj) -> bytes:
@@ -371,6 +374,46 @@ def _changed_code(plan: Plan) -> tuple[str | None, str | None, str]:
     return "\n".join(texts[0]), "\n".join(texts[1]), whole
 
 
+def _precondition_cases(plan: Plan, cases: list[Case], found: dict, renames: dict) -> list[Case]:
+    """For a value the change tests that no input has: cases that give it to the column it is compared
+    with, in a row of each table that has that column, so the changed code has a row to run on."""
+    from fixwitness import exercise
+    from fixwitness.cases import parse_sample
+    from fixwitness.sql import make_bundle, seed_column_key
+    types = plan.sql["types"]
+    read = set((plan.inputs.get("dbt") or {}).get("changed_tables") or []) or set(types)
+    tables, _ = link_tables(plan.sql["tables"], types, 3, set(), _exact_types(plan))
+    extra: list[Case] = []
+    for f in found["findings"]:
+        if f["kind"] not in ("literal-absent", "guard-absent") or not f.get("value"):
+            continue
+        for col in f.get("columns") or []:
+            names = {seed_column_key(n) for n in exercise._expand(col, renames)}
+            for t in sorted(read & set(tables)):
+                for c, kind in types.get(t, {}).items():
+                    if kind != "text" or seed_column_key(c) not in names:
+                        continue
+                    try:
+                        header, data = parse_sample(tables[t])
+                    except Exception:
+                        continue
+                    for row in dict.fromkeys((min(1, len(data) - 1), 0)):
+                        if row < 0 or len(extra) >= MAX_PRECONDITION_CASES:
+                            continue
+                        rows = [list(r) for r in data]
+                        rows[row][header.index(c)] = f["value"]
+                        buf = io.StringIO()
+                        w = csv.writer(buf, lineterminator="\n")
+                        w.writerow(header)
+                        w.writerows(rows)
+                        extra.append(Case(id=f"{len(cases) + len(extra):03d}", category="precondition",
+                                          kind="valid", column=f"{t}.{c}", value=f["value"],
+                                          content=make_bundle({**tables, t: buf.getvalue().encode("utf-8")}, types)))
+    if extra and plan.sql.get("contracts"):
+        _apply_contracts(plan, extra, list(plan.sql["contracts"]), tables)
+    return extra
+
+
 def _exercise(plan: Plan, cases: list[Case]) -> dict:
     """Did any input reach the code the change touched? (see exercise.py)"""
     from fixwitness import exercise
@@ -533,6 +576,14 @@ def _run(plan: Plan, cfg: Config) -> dict:
     if accepted:
         cases = [dataclasses.replace(c, kind="review") if c.kind == "valid" and _is_accepted(c, accepted) else c
                  for c in cases]
+
+    if cfg.exercise_check and plan.sql is not None and not cfg.function:
+        found = _exercise(plan, cases)
+        extra = _precondition_cases(plan, cases, found, _renames(plan)) if found["findings"] else []
+        if extra:
+            cases = cases + extra
+            plan.notes.append(f"no input had the value(s) the change tests, so {len(extra)} cases give it to the "
+                              "column it is compared with: " + ", ".join(sorted({c.value for c in extra})[:5]))
 
     inv_b, inv_a, server = plan.invocation, plan.fix_invocation, _frame_server(plan, cfg, warnings)
     if server is not None:

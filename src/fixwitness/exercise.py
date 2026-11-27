@@ -103,6 +103,26 @@ def _names(text: str, python: bool) -> Counter:
     return Counter(w.lower() for w in _IDENT.findall(blanked))
 
 
+_COL_CMP = re.compile(r"([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)?)\s*(?:==|!=|<>|(?<![<>!:=])=|\blike\b|\bilike\b)\s*" + _SQ, re.I)
+_COL_IN = re.compile(r"([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)?)\s+(?:not\s+)?in\s*\(([^()]*)\)", re.I)
+
+
+def predicate_columns(text: str) -> dict[str, set[str]]:
+    """SQL: the column (without its table alias) each compared value is compared with."""
+    out: dict[str, set[str]] = {}
+    for m in _COL_CMP.finditer(text):
+        out.setdefault(_literal(m.group(2)), set()).add(m.group(1).rsplit(".", 1)[-1].lower())
+    for m in _COL_IN.finditer(text):
+        for q in _ANY_SQ.finditer(m.group(2)):
+            out.setdefault(_literal(q.group(1)), set()).add(m.group(1).rsplit(".", 1)[-1].lower())
+    return out
+
+
+def _originals(text: str) -> dict[str, str]:
+    """Each literal as written (its case), by its folded form."""
+    return {_literal(m.group(1)): m.group(1).replace("''", "'") for m in _ANY_SQ.finditer(text)}
+
+
 # ------------------------------------------------------------------ what the inputs contain
 
 @dataclass
@@ -286,9 +306,12 @@ def assess(before: str | None, after: str | None, everything: str, profile: Prof
         if not any(needle in v for v in profile.values):
             what = ("the change tests a value against" if kind == "literal-absent"
                     else "the change sits under a filter that keeps only rows equal to")
-            findings.append({"kind": kind, "name": lit,
-                             "detail": f"{what} {lit!r}, but no cell of any of the {profile.inputs} inputs "
-                                       "contains it"})
+            finding = {"kind": kind, "name": lit,
+                       "detail": f"{what} {lit!r}, but no cell of any of the {profile.inputs} inputs contains it"}
+            if not python:  # what a case needs to give the column: the value as written, and the column
+                finding["value"] = _originals(before + "\n" + after + "\n" + everything).get(lit, lit).strip("%_ ")
+                finding["columns"] = sorted(predicate_columns(b + "\n" + a + "\n" + whole).get(lit, ()))
+            findings.append(finding)
 
     nb, na = _names(b, python), _names(a, python)
     renames = renames or {}
