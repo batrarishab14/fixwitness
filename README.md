@@ -464,6 +464,17 @@ The format is published as a JSON Schema in [`docs/proof.schema.json`](docs/proo
 | `python_eval` | `eval()` on a CSV amount (CWE-95) | `float()` | Whole numbers become `1200.0` |
 | `shell_eval` | `eval echo $region` (CWE-78) | Remove `eval` | Spaces are no longer trimmed |
 
+### A PASS on code no input reaches (`not exercisable with this data`)
+
+When the change tests a value no input has (`= 'Accounts Payable'`, or a filter above the change that keeps only
+such rows) or uses a column that is empty in every input, identical output proves nothing, so the verdict is
+`INCONCLUSIVE` ("not exercisable with this data") instead of a PASS. Checked against the real
+`dbt_quickbooks` v0.5.3 fix and seeds (no Accounts Payable, Accounts Receivable or UndepositedFunds row):
+flagged for exactly that. On the same package's other 5 silent-PASS bug fixes it flagged 1 (v0.9.1, on
+a column that the full run may not confirm) and missed 4 (two of them diagnosed earlier as a broken foreign key in the seeds, two not
+diagnosed); it did not flag the one refactor. Measured on the seeds only; the CI run on the full study is pending. It only reports what it can state with certainty, so
+silence is not a claim that the change was exercised. `--no-exercise-check` turns it off.
+
 ## Limits
 
 - **Not a formal proof.** It is differential testing: evidence on the input categories it generates.

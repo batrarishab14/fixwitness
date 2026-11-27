@@ -139,3 +139,14 @@ Run 5, hand-read against the release notes: 22 of the 31 flagged bug fixes are t
 the model the note names, 4 are unclear, 2 are not the bug. Confirmed 22 of 63 checked (35%), upper bound 49%.
 The 32 misses were not yet analysed. Run 1's counted 22 were not read against the notes. "Flagged" means fixwitness
 found a difference; a bug fix always changes behaviour, so a flag is not by itself proof it found the bug.
+
+## 27 Nov 2026: self-diagnosing check ("not exercisable with this data")
+- New `src/fixwitness/exercise.py`; a PASS becomes INCONCLUSIVE when the change tests a value no input has, sits under
+  an OR-free WHERE that keeps only such rows, or uses a column empty in every input (scoped to the tables the changed
+  models read). `--no-exercise-check` / `exercise_check = false` turns it off. Proof field `exercise`; replayable.
+- Local: 155 passed, 16 skipped (DuckDB not installed here). Existing tests exposed 3 false alarms (dbt config(), pandas
+  kwarg, shell-to-Python rewrite); fixed, with regression tests.
+- Real-data check (seeds only, raw model SQL, not the full generated cases) on dbt_quickbooks: v0.5.3 flagged for
+  Accounts Payable/Receivable/UndepositedFunds (verified: no such seed rows); v0.9.1 flagged on `credit` (probably
+  a seeds-only artifact); v0.12.2, v0.14.1, v1.6.2, v1.9.2 not flagged; refactor v1.8.1 not flagged. Other packages
+  and the full-case run are NOT yet measured: CI `data` run and a study re-run are the next verification.

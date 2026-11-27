@@ -949,6 +949,184 @@ class ExpectChangeTests(TempDirTest):
         self.assertTrue(any("did not show" in r for r in proof["reasons"]), proof["reasons"])
 
 
+class ExerciseUnitTests(unittest.TestCase):
+    """Was the changed code reached by any input? Findings only when the fact is certain."""
+
+    def assess(self, before, after, tables, whole=None, renames=None):
+        from fixwitness.exercise import assess, profile_inputs
+        contents = [t.encode() for t in tables]
+        return assess(before, after, whole if whole is not None else before + "\n" + after,
+                      profile_inputs(contents), renames)
+
+    ACCOUNTS = "id,account_type,note\n1,Bank,\n2,Expense,\n"
+
+    def test_value_the_change_tests_that_no_input_has(self):
+        r = self.assess("select id from a where t = 'x'", "select id from a where t = 'x' and k <> 'Accounts Payable'",
+                        [self.ACCOUNTS])
+        self.assertFalse(r["exercisable"])
+        self.assertEqual([(f["kind"], f["name"]) for f in r["findings"]], [("literal-absent", "accounts payable")])
+
+    def test_value_that_some_input_has_is_exercised(self):
+        r = self.assess("select 1 from a", "select 1 from a where t = 'bank'", [self.ACCOUNTS])
+        self.assertTrue(r["exercisable"], r)
+        self.assertEqual(r["literals_checked"], 1)
+
+    def test_any_input_counts_not_only_the_sample(self):
+        r = self.assess("select 1 from a", "select 1 from a where t = 'Gold'", [self.ACCOUNTS, "id,t\n1,Gold\n"])
+        self.assertTrue(r["exercisable"], r)
+
+    def test_ranges_and_dates_are_not_values_to_find(self):
+        r = self.assess("select 1 from a where d >= '2020-01-01'", "select 1 from a where d >= '2021-06-30'",
+                        [self.ACCOUNTS])
+        self.assertTrue(r["exercisable"], r)
+        self.assertEqual(r["literals_checked"], 0)
+
+    def test_value_the_code_produces_itself_is_not_expected_in_the_data(self):
+        whole = "select 'bill' as kind, id from a union all select 'payment', id from p"
+        r = self.assess("select id from x", "select id from x where kind = 'bill'", [self.ACCOUNTS], whole=whole)
+        self.assertTrue(r["exercisable"], r)
+
+    def test_a_line_that_only_moved_is_not_a_change(self):
+        before = "select id from a\nwhere t = 'Accounts Payable'\n  and k = 1"
+        after = "select id from a\nwhere k = 1\n  and t = 'Accounts Payable'"
+        self.assertEqual(self.assess(before, after, [self.ACCOUNTS])["findings"], [])
+
+    def test_in_lists_like_and_case_are_values(self):
+        r = self.assess("select 1 from a", "select 1 from a where t in ('Bank', 'Vault') or t like '%Safe%'",
+                        [self.ACCOUNTS])
+        self.assertEqual({f["name"] for f in r["findings"]}, {"vault", "%safe%"})
+
+    def test_comments_are_not_code(self):
+        r = self.assess("select 1 from a", "select 1 from a -- where t = 'nobody'\n/* and t = 'ghost' */",
+                        [self.ACCOUNTS])
+        self.assertEqual(r["findings"], [])
+
+    def test_column_that_is_empty_everywhere(self):
+        r = self.assess("select id from a", "select id, coalesce(note, 0) from a", [self.ACCOUNTS])
+        self.assertEqual([(f["kind"], f["name"]) for f in r["findings"]], [("column-empty", "note")])
+
+    def test_column_empty_in_one_table_but_not_another_is_exercised(self):
+        r = self.assess("select id from a", "select id, note from a", [self.ACCOUNTS, "id,note\n1,hello\n"])
+        self.assertEqual(r["findings"], [])
+
+    def test_renamed_column_leads_back_to_the_data_column(self):
+        r = self.assess("select id from a", "select id, memo from a", [self.ACCOUNTS], renames={"memo": {"note"}})
+        self.assertEqual([f["name"] for f in r["findings"]], ["memo"])
+
+    def test_a_name_that_is_not_a_data_column_is_ignored(self):
+        r = self.assess("select id from a", "select id, upper(id) as shout from a", [self.ACCOUNTS])
+        self.assertEqual(r["findings"], [])
+
+    def test_python_comparisons(self):
+        before = "import pandas as pd\ndef f(df):\n    return df\n"
+        after = before.replace("return df", "return df[df.kind.isin(['refund', 'bank'])]  # keep")
+        r = self.assess(before, after, ["id,kind\n1,Bank\n"])
+        self.assertEqual([f["name"] for f in r["findings"]], ["refund"])
+
+    def test_not_data_comparisons_are_not_values(self):
+        # a keyword argument, a dbt config() and a rewrite into another language are not predicates on data
+        py = "import pandas as pd\ndef f(a, b):\n    return a.merge(b, on='id'%s)\n"
+        self.assertEqual(self.assess(py % "", py % ", how='inner'", [self.ACCOUNTS])["findings"], [])
+        model = "select id from a%s"
+        self.assertEqual(self.assess(model % "", "{{ config(materialized='table') }}\n" + model % "",
+                                     [self.ACCOUNTS])["findings"], [])
+        shell = "#!/bin/sh\nawk -F, '$2 == \"x\"' \"$1\"\n"
+        r = self.assess(shell, "import sys\ndef main():\n    return [l for l in sys.stdin if l == 'x']\n",
+                        [self.ACCOUNTS])
+        self.assertFalse(r["assessed"])
+
+    def test_filter_above_the_change_that_no_row_satisfies(self):
+        before = "with ap as (\n  select * from a\n\n  where t = 'Accounts Payable'\n    and active\n)\nselect * from ap"
+        after = before.replace("and active", "and active\n    and not is_sub")
+        r = self.assess(before, after, [self.ACCOUNTS])
+        self.assertEqual([(f["kind"], f["name"]) for f in r["findings"]], [("guard-absent", "accounts payable")])
+
+    def test_filter_with_or_or_not_equal_proves_nothing(self):
+        base = "with ap as (\n  select * from a\n  where %s\n    and active\n)\nselect * from ap"
+        for cond in ("t = 'Ghost' or t = 'Bank'", "t <> 'Ghost'", "t not in ('Ghost')"):
+            r = self.assess(base % cond, (base % cond).replace("and active", "and active and k"), [self.ACCOUNTS])
+            self.assertEqual(r["findings"], [], cond)
+
+    def test_filter_in_another_block_is_not_a_guard(self):
+        before = "with x as (select * from a where t = 'Ghost'),\ny as (select * from a where k = 1)\nselect * from y"
+        r = self.assess(before, before.replace("k = 1", "k = 2"), [self.ACCOUNTS])
+        self.assertEqual(r["findings"], [])
+
+    def test_column_empty_only_counts_in_the_tables_the_code_reads(self):
+        other = "id,note\n1,hello\n"
+        from fixwitness.exercise import assess, profile_inputs
+        from fixwitness.sql import make_bundle
+        b = make_bundle({"accts": self.ACCOUNTS.encode(), "other": other.encode()}, {})
+        prof = profile_inputs([b])
+        args = ("select id from accts", "select id, note from accts", "select id from accts", prof)
+        self.assertEqual(assess(*args)["findings"], [])                      # `other` has note
+        self.assertEqual(len(assess(*args, tables={"accts"})["findings"]), 1)  # accts alone: empty
+
+    def test_formats_it_cannot_read_make_no_claim(self):
+        from fixwitness.exercise import assess, profile_inputs
+        self.assertIsNone(profile_inputs([b"\xff\xfe\x00bad"]))
+        r = assess("select 1", "select 1 where t = 'x'", "", None)
+        self.assertFalse(r["assessed"])
+        self.assertIsNone(r["exercisable"])
+
+
+class ExerciseCheckTests(TempDirTest):
+    """A PASS on code no input reaches is INCONCLUSIVE: 'not exercisable with this data'."""
+    ACCOUNTS = "id,name,account_type,balance\n1,Cash,Bank,10\n2,Rent,Expense,20\n3,Fees,Expense,30\n"
+    BEFORE = "select id, balance from accounts where account_type = 'Bank'\n"
+    AFTER = ("select id, balance from accounts where account_type = 'Bank' "
+             "and coalesce(name, '') <> 'Accounts Payable'\n")
+
+    def run_sql(self, accounts, after=None, **extra):
+        write(self.tmp / "accounts.csv", accounts)
+        write(self.tmp / "before.sql", self.BEFORE)
+        write(self.tmp / "after.sql", after or self.AFTER)
+        return self.check(before=str(self.tmp / "before.sql"), after=str(self.tmp / "after.sql"), engine="sqlite",
+                          tables={"accounts": str(self.tmp / "accounts.csv")}, max_cases=80, **extra)
+
+    def test_filter_on_a_value_no_row_has_is_not_exercisable(self):
+        proof = self.run_sql(self.ACCOUNTS)
+        self.assertEqual(proof["behavior"]["changed"], 0)
+        self.assertEqual(proof["verdict"], "INCONCLUSIVE", proof["reasons"])
+        self.assertTrue(any("not exercisable with this data" in r for r in proof["reasons"]), proof["reasons"])
+        self.assertEqual(proof["confidence"]["score"], 0)
+        self.assertEqual([f["kind"] for f in proof["exercise"]["findings"]], ["literal-absent"])
+        from fixwitness.report import markdown
+        self.assertIn("not exercisable with this data", markdown(proof))
+
+    def test_same_change_with_a_row_that_has_the_value_is_caught(self):
+        proof = self.run_sql(self.ACCOUNTS + "4,Accounts Payable,Bank,40\n")
+        self.assertEqual(proof["verdict"], "FAIL", proof["reasons"])
+        self.assertTrue(proof["exercise"]["exercisable"])
+
+    def test_a_change_that_touches_no_value_is_still_a_pass(self):
+        proof = self.run_sql(self.ACCOUNTS, after=self.BEFORE.replace("select id,", "select\n  id,"))
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertEqual(proof["exercise"]["findings"], [])
+
+    def test_the_check_can_be_turned_off(self):
+        proof = self.run_sql(self.ACCOUNTS, exercise_check=False)
+        self.assertEqual(proof["verdict"], "PASS", proof["reasons"])
+        self.assertFalse(proof["config"]["exercise_check"])
+
+    def test_replay_reproduces_it(self):
+        proof = self.run_sql(self.ACCOUNTS)
+        self.assertEqual(replay(proof)["verdict"], "INCONCLUSIVE")
+        self.assertTrue(replay(proof)["reproduced"])
+
+    def test_script_on_a_csv_sample(self):
+        script = ("import csv, sys\nrows = list(csv.reader(open(sys.argv[1], newline='')))\n"
+                  "w = csv.writer(open(sys.argv[2], 'w', newline=''))\nw.writerow(rows[0])\n"
+                  "for r in rows[1:]:\n    if r[1] %s:\n        w.writerow(r)\n")
+        write(self.tmp / "before.py", script % "!= 'void'")
+        write(self.tmp / "after.py", script % "not in ('void', 'voided')")
+        write(self.tmp / "sample.csv", "id,status\n1,paid\n2,open\n")
+        proof = self.check(before=str(self.tmp / "before.py"), after=str(self.tmp / "after.py"),
+                           sample=str(self.tmp / "sample.csv"), attacks=False, max_cases=60)
+        self.assertEqual(proof["verdict"], "INCONCLUSIVE", proof["reasons"])
+        self.assertEqual({f["name"] for f in proof["exercise"]["findings"]}, {"voided"})
+
+
 class UnstableOriginalTests(TempDirTest):
     """A difference on an input where the original's own output changes from run to run is not the
     change's: it is left out and reported, never failed."""

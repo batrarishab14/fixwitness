@@ -23,6 +23,7 @@ from fixwitness.compare import CompareOptions, compare, output_headers, parse_ro
 from fixwitness.config import Config, ConfigError
 from fixwitness.plan import Plan, PlanError, build_plan, sha256_file
 from fixwitness.runner import RunResult, run_side
+from fixwitness.exercise import summary as exercise_summary
 from fixwitness.score import confidence
 
 LIMITATIONS = [
@@ -354,6 +355,35 @@ def focus(plan: Plan, columns: list[str]) -> list[str]:
 
 
 
+def _changed_code(plan: Plan) -> tuple[str | None, str | None, str]:
+    """The code the change touched in each version (the changed models of a dbt project, else the file
+    or folder), and all the code of both versions."""
+    whole = "\n".join(t for t in (_source(plan.before), _source(plan.after)) if t)
+    changed = (plan.inputs.get("dbt") or {}).get("changed_models") or []
+    if not changed:
+        return _source(plan.before), _source(plan.after), whole
+    texts: list[list[str]] = [[], []]
+    for name in changed:
+        for i, side in enumerate((plan.before, plan.after)):
+            root = side.script if side.script is not None and Path(side.script).is_dir() else None
+            f = Path(root) / f"{name}.sql" if root is not None else None
+            texts[i].append(f.read_text(encoding="utf-8", errors="replace") if f is not None and f.is_file() else "")
+    return "\n".join(texts[0]), "\n".join(texts[1]), whole
+
+
+def _exercise(plan: Plan, cases: list[Case]) -> dict:
+    """Did any input reach the code the change touched? (see exercise.py)"""
+    from fixwitness import exercise
+    from fixwitness.sql import make_bundle
+    if plan.sql is None and plan.sample_format != "csv":
+        return exercise.assess(None, None, "", None)  # JSON and Parquet inputs are not read
+    base = make_bundle(plan.sql["tables"], plan.sql["types"]) if plan.sql is not None else plan.sample
+    contents = [base] + [c.content for c in cases if c.kind in ("valid", "review")]
+    before, after, whole = _changed_code(plan)
+    read = set((plan.inputs.get("dbt") or {}).get("changed_tables") or []) or None
+    return exercise.assess(before, after, whole, exercise.profile_inputs(contents), _renames(plan), read)
+
+
 _RENAME = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)"?\s+as\s+"?([A-Za-z_][A-Za-z0-9_]*)', re.I)
 
 
@@ -608,6 +638,13 @@ def _run(plan: Plan, cfg: Config) -> dict:
             notes_extra = []
     else:
         notes_extra = []
+    exercise = _exercise(plan, cases) if cfg.exercise_check else {"assessed": False, "exercisable": None,
+                                                                   "findings": []}
+    proven = bool(expected) or bool(incident and incident["status"] == "resolved") \
+        or (cfg.attacks and reproduced and not still_open)  # a difference that was shown was reached
+    if exercise["findings"] and verdict == "PASS" and not proven:
+        verdict = "INCONCLUSIVE"
+        reasons.append(exercise_summary(exercise))
     if cfg.attacks and not reproduced:
         warnings.append("no built-in payload exploited the original, so 'hole closed' could not be demonstrated")
     if incident and incident["status"] == "not-reproduced":
@@ -650,6 +687,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "max_cases": cfg.max_cases,
             "rows": cfg.rows,
             "seed": cfg.seed,
+            "exercise_check": cfg.exercise_check,
         },
         "verdict": verdict,
         "reasons": reasons,
@@ -671,6 +709,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             "expected_change": len(expected),
             "unstable": len(unstable_cases),
         },
+        "exercise": exercise,
         "cases": [
             {k: e[k] for k in ("id", "category", "kind", "column", "family", "status")}
             | {"before_exploited": e["before"]["exploited"], "after_exploited": e["after"]["exploited"]}
@@ -719,7 +758,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
                 "rows": cfg.rows, "seed": cfg.seed, "ignore_columns": cfg.ignore_columns,
                 "expect_change": cfg.expect_change,
                 "ignore_patterns": cfg.ignore_patterns, "tolerance": cfg.tolerance, "unordered": cfg.unordered,
-                "auto_ignore_unstable": cfg.auto_ignore_unstable, "timeout": cfg.timeout,
+                "auto_ignore_unstable": cfg.auto_ignore_unstable, "exercise_check": cfg.exercise_check,
+                "timeout": cfg.timeout,
                 "pass_env": cfg.pass_env, "allow_any_command": cfg.allow_any_command,
                 "no_network": cfg.no_network,
                 "engine": cfg.engine, "dbt": cfg.dbt, "sql_ordered": cfg.sql_ordered, "warehouse": cfg.warehouse,
