@@ -327,6 +327,15 @@ Columns that change between two runs of the original on the same input, such as 
 
 Exit codes: `0` PASS, `1` FAIL / INCONCLUSIVE / below `--min-confidence`, `2` usage error.
 
+## As a Claude Skill (zero setup)
+
+Copy [`.claude/skills/fixwitness-check/`](.claude/skills/fixwitness-check/) into your own project's
+`.claude/skills/`. Claude Code then reaches for fixwitness on its own, right before finalizing a fix to a
+SQL query, a dbt model, or a data pipeline file -- no MCP config, no CI wiring, nothing to remember to run.
+It installs fixwitness if it isn't already, runs the right check for what changed, and reports the verdict
+(including the honest cases: a suspicious PASS on a claimed bug fix, or an inconclusive result from an
+unrelated crash) before you commit.
+
 ## Inside a coding agent (MCP)
 
 ```bash
