@@ -1,0 +1,28 @@
+case,mutant,operator,truth,sample test,fixwitness
+Q01-revenue-refactor,m00.sql,join -> left join,non-equivalent,accepted,caught
+Q01-revenue-refactor,m01.sql,= -> <>,non-equivalent,caught,caught
+Q01-revenue-refactor,m02.sql,= -> <>,non-equivalent,caught,caught
+Q01-revenue-refactor,m03.sql,SUM -> AVG,non-equivalent,caught,caught
+Q01-revenue-refactor,m04.sql,add DISTINCT,likely equivalent,accepted,accepted
+Q02-not-exists-rewrite,m00.sql,= -> <>,non-equivalent,caught,caught
+Q02-not-exists-rewrite,m01.sql,add DISTINCT,non-equivalent,accepted,caught
+Q02-not-exists-rewrite,m02.sql,add DISTINCT,likely equivalent,accepted,accepted
+Q02-not-exists-rewrite,m03.sql,drop NOT,non-equivalent,caught,caught
+Q02-not-exists-rewrite,m04.sql,literal + 1,likely equivalent,accepted,accepted
+Q03-average-rewrite,m00.sql,AVG -> SUM,non-equivalent,caught,caught
+Q03-average-rewrite,m01.sql,add DISTINCT,likely equivalent,accepted,accepted
+Q04-union-total,m00.sql,SUM -> AVG,non-equivalent,caught,caught
+Q04-union-total,m01.sql,UNION ALL -> UNION,non-equivalent,accepted,caught
+Q04-union-total,m02.sql,add DISTINCT,likely equivalent,accepted,accepted
+Q04-union-total,m03.sql,add DISTINCT,non-equivalent,accepted,caught
+Q04-union-total,m04.sql,add DISTINCT,non-equivalent,accepted,caught
+Q05-exists-to-join,m00.sql,= -> <>,non-equivalent,caught,caught
+Q05-exists-to-join,m01.sql,SUM -> AVG,non-equivalent,caught,caught
+Q05-exists-to-join,m02.sql,add DISTINCT,likely equivalent,accepted,accepted
+Q05-exists-to-join,m03.sql,add DISTINCT,likely equivalent,accepted,accepted
+Q05-exists-to-join,m04.sql,literal + 1,likely equivalent,accepted,accepted
+Q06-incident-duplicate-customers,m00.sql,join -> left join,non-equivalent,accepted,caught
+Q06-incident-duplicate-customers,m01.sql,= -> <>,non-equivalent,caught,caught
+Q06-incident-duplicate-customers,m02.sql,= -> <>,non-equivalent,caught,caught
+Q06-incident-duplicate-customers,m03.sql,SUM -> AVG,non-equivalent,caught,caught
+Q06-incident-duplicate-customers,m04.sql,add DISTINCT,likely equivalent,accepted,accepted
