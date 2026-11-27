@@ -25,6 +25,20 @@ jobs:
         run: |
           python -m pip install .
           fixwitness demo
+  install-from-github:
+    # The install line the README and the Claude Skill give users before fixwitness is on PyPI,
+    # run in a clean virtualenv on a fresh runner.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: pip install git+https://github.com/<repo>@<this commit>, then run the demo
+        run: |
+          python -m venv /tmp/clean && . /tmp/clean/bin/activate
+          pip install --quiet "git+https://github.com/${{ github.repository }}@${{ github.sha }}"
+          fixwitness --version
+          cd "$(mktemp -d)" && fixwitness demo
   action:
     # The GitHub Action itself, on a change made in this checkout: with no path it checks every
     # changed file. A wrong change to the JSON Lines job must come back FAIL.
