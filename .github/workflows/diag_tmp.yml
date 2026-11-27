@@ -30,10 +30,9 @@ jobs:
               for f in $(ls -t study-out/runs/*/log.txt 2>/dev/null | head -1); do echo "MON   log: $(tail -1 $f | cut -c1-150)"; done
               sleep 5; done ) &
           # cap at 5 GB so an out-of-memory error kills the study, not the runner
-          sudo systemd-run --scope -q -p MemoryMax=5G -p MemorySwapMax=0 --uid=$(id -u) --gid=$(id -g) \
-            --setenv=PATH="$PATH" --setenv=FIXWITNESS_STUDY_WAREHOUSE="$FIXWITNESS_STUDY_WAREHOUSE" --setenv=PGPASSWORD=ci \
-            --setenv=HOME="$HOME" -- \
-            python benchmark/realrepo/run_study.py --shard 0 --shards 1 --clones "$RUNNER_TEMP/clones" \
+          sudo systemd-run --scope -q -p MemoryMax=5G -p MemorySwapMax=0 --uid=$(id -u) --gid=$(id -g) -- \
+            env PATH="$PATH" HOME="$HOME" FIXWITNESS_STUDY_WAREHOUSE="$FIXWITNESS_STUDY_WAREHOUSE" PGPASSWORD=ci \
+            "$(which python)" benchmark/realrepo/run_study.py --shard 0 --shards 1 --clones "$RUNNER_TEMP/clones" \
             --out study-out --only jira@v1.10.3 2>&1 | tee jira.log; echo "EXIT ${PIPESTATUS[0]}"
           dmesg 2>/dev/null | grep -i -E "oom|killed process" | tail -5 || sudo dmesg | grep -i -E "oom|killed process" | tail -5
       - name: Show candidate log
