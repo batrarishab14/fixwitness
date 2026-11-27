@@ -653,6 +653,29 @@ class SqlUnitTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             generate_sql_cases(tables, types, columns=["customer_id"])  # in both tables: ambiguous
 
+    def test_cases_do_not_each_hold_every_table(self):
+        """dbt_jira's 17 MB comment seed: every case held a copy of every table and fixwitness grew
+        past 5 GB before the cap. The cases now share the tables and build their input when read."""
+        import tracemalloc
+        from fixwitness.sql import generate_sql_cases, make_bundle, read_bundle, table_types
+        big = "id,body\n" + "".join(f"{i},{'x' * 20_000}\n" for i in range(100))  # 2 MB, unchanged
+        tables = {"orders": ORDERS.encode(), "customers": CUSTOMERS.encode(), "comments": big.encode()}
+        types = {k: table_types(v) for k, v in tables.items()}
+        tracemalloc.start()
+        try:
+            cases = generate_sql_cases(tables, types, columns=["orders.amount", "customers.customer_id"],
+                                       rows=3, max_cases=300)
+            _, peak = tracemalloc.get_traced_memory()
+        finally:
+            tracemalloc.stop()
+        self.assertGreater(len(cases), 20)
+        self.assertLess(peak, 40 * 2**20, f"{len(cases)} cases took {peak / 2**20:.0f} MB")  # a copy each: 40+ MB
+        got, _ = read_bundle(cases[0].content)
+        self.assertEqual(got["comments"], big)  # the whole table still reaches the run
+        self.assertEqual(cases[0].content, cases[0].content)
+        self.assertIn("comments", read_bundle(make_bundle(tables, types))[0])
+        self.assertNotIn("x" * 100, repr(cases[0]))
+
 
 class LinkedKeysTests(TempDirTest):
     """Samples taken table by table rarely join; their keys are linked so join logic is exercised."""
@@ -2052,6 +2075,37 @@ class DbtProjectTests(TempDirTest):
         with psycopg.connect(host=i["host"], port=i["port"], user=i["user"], dbname=i["path"]) as con:
             left = con.execute("select count(*) from information_schema.schemata where schema_name like 'fw_%'").fetchone()[0]
         self.assertEqual(left, 0)
+
+
+class RollingWindowRowsTests(TempDirTest):
+    """Code that needs N rows writes nothing for fewer, so a 3-row case compared empty with empty."""
+    SCRIPT = """
+        import csv, sys
+        rows = list(csv.reader(open(sys.argv[1], newline="")))
+        head, data = rows[0], [float(r[0]) for r in rows[1:]]
+        w = csv.writer(open(sys.argv[2], "w", newline=""))
+        w.writerow(["rolling"])
+        for i in range(4, len(data)):          # a rolling sum over 5 rows: nothing for fewer
+            w.writerow([sum(data[i - 4:i + 1]) * %s])
+    """
+
+    def run_pair(self, factor):
+        write(self.tmp / "before.py", self.SCRIPT % "1")
+        write(self.tmp / "after.py", self.SCRIPT % factor)
+        write(self.tmp / "sample.csv", "price\n" + "".join(f"{100 + i}\n" for i in range(20)))
+        os.chdir(self.tmp)
+        return self.check(before="before.py", after="after.py", sample="sample.csv", attacks=False)
+
+    def test_a_change_is_seen_when_the_window_needs_more_than_three_rows(self):
+        result = self.run_pair("1.01")
+        self.assertEqual(result["verdict"], "FAIL")
+        self.assertGreater(result["behavior"]["changed"], 10)
+        self.assertTrue(any("first 5 rows" in w for w in result["warnings"]), result["warnings"])
+
+    def test_an_unchanged_rolling_function_still_passes(self):
+        result = self.run_pair("1")
+        self.assertEqual(result["verdict"], "PASS")
+        self.assertEqual(result["behavior"]["changed"], 0)
 
 
 @unittest.skipUnless(os.environ.get("FIXWITNESS_TEST_POSTGRES"),

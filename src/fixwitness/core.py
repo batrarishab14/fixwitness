@@ -467,7 +467,8 @@ def dry_run(cfg: Config) -> dict:
     """Resolve everything and run only the probes; no full comparison."""
     with build_plan(cfg) as plan:
         opts = CompareOptions(mode=plan.output, ignore_patterns=_compile_patterns(cfg.ignore_patterns))
-        unstable, warnings, _ = _baseline(plan, opts, cfg.auto_ignore_unstable)
+        unstable, warnings, baseline = _baseline(plan, opts, cfg.auto_ignore_unstable)
+        cfg = _widen(plan, cfg, baseline, warnings)
         cases = _cases(plan, cfg)
         summary = _plan_summary(plan, cfg, cases, unstable, cfg.ignore_columns)
         summary["incident"] = plan.incident_path.name if plan.incident_path else None
@@ -480,6 +481,49 @@ def dry_run(cfg: Config) -> dict:
 def run_check(cfg: Config) -> dict:
     with build_plan(cfg) as plan:
         return _run(plan, cfg)
+
+
+def _enough_rows(plan: Plan, cfg: Config, baseline: bytes | None) -> int | None:
+    """More rows per case, when the first `cfg.rows` give the original nothing to write.
+
+    A rolling window (or any step that needs N rows) writes no output for fewer than N rows, so every
+    case would compare empty with empty and pass. If the whole sample gives output but its first
+    `cfg.rows` rows do not, return the smallest of a few larger row counts that does (None: no change).
+    """
+    if plan.sql is not None or plan.sample_format != "csv" or plan.output != "csv" or cfg.function:
+        return None
+    if baseline is None or not _data_rows(baseline):
+        return None
+    from fixwitness.cases import _write_csv, parse_sample
+    try:
+        header, data = parse_sample(plan.sample)
+    except Exception:
+        return None
+    probe = plan.work / "rows_probe"
+
+    def writes_rows(k: int) -> bool:
+        try:
+            r = run_side(plan.invocation, plan.before, probe / str(k), _write_csv(header, data[:k]))
+        except Exception:
+            return False
+        shutil.rmtree(probe / str(k), ignore_errors=True)
+        return r.ok and bool(_data_rows(r.output))
+
+    if writes_rows(cfg.rows):
+        return None
+    for k in (5, 10, 20, 40, 80, 160):
+        if cfg.rows < k <= len(data) and writes_rows(k):
+            return k
+    return None
+
+
+def _widen(plan: Plan, cfg: Config, baseline: bytes | None, warnings: list[str]) -> Config:
+    k = _enough_rows(plan, cfg, baseline)
+    if k is None:
+        return cfg
+    warnings.append(f"the original writes no output for the first {cfg.rows} rows of the sample (a rolling window "
+                    f"or a step that needs more rows), so the inputs use the first {k} rows instead")
+    return dataclasses.replace(cfg, rows=k)
 
 
 def _run(plan: Plan, cfg: Config) -> dict:
@@ -498,6 +542,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
                         "original on the same input")
     expected_opts = dataclasses.replace(opts, ignore_columns=opts.ignore_columns | set(cfg.expect_change)) \
         if cfg.expect_change else None
+    cfg = _widen(plan, cfg, baseline, warnings)
     cases = _cases(plan, cfg)
     accepted = _accepted(cfg)
     if accepted:

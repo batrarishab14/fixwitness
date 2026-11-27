@@ -50,7 +50,18 @@ def outcome(summary: dict | None, code: int) -> tuple[str, list[str]]:
     return ("not checked", verdicts)
 
 
-def run_one(row: dict, clones: Path, out: Path, limit: int, warehouse: str | None = None) -> dict:
+def _memory_cap(gb: float):
+    """A child's address-space limit, so a candidate that runs out of memory fails on its own
+    (recorded as "could not run") instead of filling the runner and ending the whole shard."""
+    if gb <= 0:
+        return None
+    import resource
+    cap = int(gb * 2**30)
+    return lambda: resource.setrlimit(resource.RLIMIT_AS, (cap, cap))
+
+
+def run_one(row: dict, clones: Path, out: Path, limit: int, warehouse: str | None = None,
+            memory_gb: float = 0) -> dict:
     res = {k: row.get(k, "") for k in ("id", "set", "label", "package", "release", "commit", "parent")}
     dest = out / "runs" / row["id"].replace("/", "_")
     if dest.exists():
@@ -86,7 +97,8 @@ def run_one(row: dict, clones: Path, out: Path, limit: int, warehouse: str | Non
     cmd = [sys.executable, "-m", "fixwitness", "check", "--base", base, "--no-attacks",
            "--out-dir", str(dest / "out")] + (["--warehouse", warehouse] if warehouse else [])
     try:
-        proc = subprocess.run(cmd, cwd=repo, capture_output=True, text=True, timeout=limit)
+        proc = subprocess.run(cmd, cwd=repo, capture_output=True, text=True, timeout=limit,
+                              preexec_fn=_memory_cap(memory_gb))
         code, log = proc.returncode, proc.stdout + proc.stderr
     except subprocess.TimeoutExpired as exc:
         code, log = -1, f"timed out after {limit}s\n" + ((exc.stdout or b"").decode(errors="replace")
@@ -113,6 +125,9 @@ def run_one(row: dict, clones: Path, out: Path, limit: int, warehouse: str | Non
                 detail = "; ".join(proof.get("reasons", []))[:300]
     if summary is None:
         detail = (log.strip().splitlines() or ["no output"])[-1][:300]
+        if memory_gb > 0 and ("MemoryError" in log or "Cannot allocate memory" in log
+                              or "std::bad_alloc" in log or "Out of Memory" in log):
+            kind, detail = "not checked", f"could not run: out of memory (limit {memory_gb:g} GB)"
     return {**res, "outcome": kind, "verdicts": " ".join(v or "?" for v in verdicts), "differences": diffs,
             "categories": " ".join(sorted(cats)), "first_finding": first[:400], "detail": detail,
             "seconds": round(time.time() - start)}
@@ -187,6 +202,8 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=1500, help="seconds per candidate")
     ap.add_argument("--warehouse", default=os.environ.get("FIXWITNESS_STUDY_WAREHOUSE"),
                     help="compile and run in this warehouse (postgres://...) instead of DuckDB")
+    ap.add_argument("--memory-gb", type=float, default=8,
+                    help="address-space limit for each candidate's fixwitness run, in GB (0: none)")
     args = ap.parse_args()
     args.clones, args.out = args.clones.resolve(), args.out.resolve()  # fixwitness runs inside each clone
     rows = list(csv.DictReader((HERE / "candidates.csv").open(encoding="utf-8")))
@@ -207,7 +224,7 @@ def main() -> None:
         w = csv.DictWriter(fh, fieldnames=FIELDS, lineterminator="\n")
         w.writeheader()
         for r in mine:
-            res = run_one(r, args.clones, args.out, args.limit, args.warehouse)
+            res = run_one(r, args.clones, args.out, args.limit, args.warehouse, args.memory_gb)
             w.writerow(res)
             fh.flush()
             print(f"{res['id']:40} {res['set']:9} {res['outcome']:12} {res.get('differences', '')!s:>4} "

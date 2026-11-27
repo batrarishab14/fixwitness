@@ -73,6 +73,12 @@ def make_bundle(tables: dict[str, bytes], types: dict[str, dict[str, str]]) -> b
     return json.dumps(body, ensure_ascii=False, sort_keys=True).encode("utf-8")
 
 
+def lazy_bundle(tables: dict[str, bytes], table: str, data: bytes, types: dict[str, dict[str, str]]):
+    """make_bundle({**tables, table: data}, types), built only when called: the cases share one
+    `tables` and each keeps only the table it changed."""
+    return lambda: make_bundle({**tables, table: data}, types)
+
+
 def read_bundle(data: bytes) -> tuple[dict[str, str], dict[str, dict[str, str]]]:
     try:
         body = json.loads(data.decode("utf-8"))
@@ -765,10 +771,9 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
             kind = c.kind
             if kind == "valid" and "duplicate" in (review or []) and _repeats_a_key(c.content, c.column, c.value):
                 kind = "review"  # the value equals another row's: a duplicate key, which is under review
-            bundle = make_bundle({**tables, t: c.content}, types)
             cases.append(Case(id=f"{len(cases):03d}", category=c.category, kind=kind,
                               column=f"{t}.{c.column}" if c.column else t,
-                              value=c.value, content=bundle))
+                              value=c.value, content=lazy_bundle(tables, t, c.content, types)))
         # SQL-specific: a column that is entirely NULL (aggregates and COALESCE differ), and a whole
         # row repeated (DISTINCT, UNION and join fan-out differ).
         header, data = parse_sample(tables[t])
@@ -833,7 +838,7 @@ def generate_sql_cases(tables: dict[str, bytes], types: dict[str, dict[str, str]
             if category in ("case", "whitespace"):
                 own_values.add(len(cases))
             cases.append(Case(id=f"{len(cases):03d}", category=category, kind=kind, column=column, value=value,
-                              content=make_bundle({**tables, t: content}, types)))
+                              content=lazy_bundle(tables, t, content, types)))
     if len(cases) > max_cases:
         # Under the cap, in this order: one case of every kind for the columns the change touched,
         # then (up to a third of the budget) their other cases, then one case of every kind for every
