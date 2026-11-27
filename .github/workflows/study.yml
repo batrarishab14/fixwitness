@@ -123,6 +123,9 @@ jobs:
           print(len(rows), "rows")
           PY
           echo "${GITHUB_SHA} ${GITHUB_REF_NAME} $(date -u +%FT%TZ) only=${{ needs.plan.outputs.only }}" > commit.txt
-          git init -q && git checkout -q -b study-results && git add -A
+          # A run of named candidates (only=...) must not overwrite the full run's results.
+          dest=study-results
+          if [ -n "${{ needs.plan.outputs.only }}" ]; then dest=study-results-only; fi
+          git init -q && git checkout -q -b "$dest" && git add -A
           git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -q -m "Study results for ${GITHUB_SHA}"
-          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" study-results
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$dest"
