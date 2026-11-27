@@ -23,8 +23,10 @@ a change you have not yet finished writing.
 ## Steps
 
 1. **Check fixwitness is available.** Run `fixwitness --version`. If that fails:
-   - If network/package installs are allowed in this environment: `pip install fixwitness` (or
-     `pip install --break-system-packages fixwitness` if needed), then retry.
+   - If network/package installs are allowed in this environment: try `pip install fixwitness` first (the
+     PyPI package); if that package isn't published yet, fall back to
+     `pip install git+https://github.com/batrarishab14/fixwitness.git`. Add `--break-system-packages` to
+     either if needed, then retry.
    - If installs are not allowed here, say so plainly in one line and skip the rest of this skill rather
      than blocking the task -- do not fail the user's request over a missing optional check.
 
