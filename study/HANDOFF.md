@@ -20,6 +20,12 @@ commit/push continuously and append here after every step.
   Not covered yet: values hidden in functions (`coalesce(col, '') <> 'x'`), non-text columns, multi-table
   preconditions (a second linked row, a true flag on that row), null-only numeric columns.
 
+- STUDY RUN launched 27 Nov 03:07 ET on branch exercise-synthesis (commit 0373f71): workflow `study`, run id
+  45962989074, https://github.com/batrarishab14/fixwitness/actions/runs/45962989074 . Results go to the
+  `study-results` branch (results.csv). Compare with run5 (benchmark/realrepo/runs/run5/results.csv): catch rate AND
+  false alarms (refactors and bug fixes that now say INCONCLUSIVE or FAIL). Do not quote numbers before hand-reading
+  the new INCONCLUSIVE/FAIL rows. Nothing merged to main; merge only on user go-ahead after CI is green.
+
 ## Known caveats
 - Not measured: other packages, the full-case run, the 63-candidate catch rate and false-alarm rate (that is item 2).
 - Not detected by design: join multiplicity, broken foreign keys, rows that never repeat. Silence is not a claim.
