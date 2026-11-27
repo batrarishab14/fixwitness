@@ -1,0 +1,3328 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "dc429ab0136ee39b75f474b3bf2ff486f46e52d62ef4a8357fff5b689e538e2e",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "629b37b25e8ba3fc953fc9604c46998fbf36c088",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "c555991341057bf21a861c5e0073d5a87a30b4bdacc00f79d8322bd23ba57cb2"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "4cf3abd04baef0324fc62628341f2edd5dad63e5ae1145b3e20f83d5afe0f431"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "0a10bcd91401540cb4a677ddc1545e7819573c1d45a48f42c897cbb6edfdb13e"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "7c62c123f5c9c9c469f058ddca9b0ca613b2b20d250d8158e9183730f07b1f79"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "9cd30f7681f73cd59520b55d08df3aaf37feeef66adee2782b6a204985ccef42"
+      },
+      {
+        "path": "models/transaction_lines/int_quickbooks__purchase_transactions.sql",
+        "status": "M",
+        "sha256": "06bea06bc5f0c1e2d7cc50dd4fc78e69ed6bff5978397bdbe8fcdbf8b84c151c"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "quickbooks__expenses_sales_enhanced",
+        "quickbooks__inventory_item_activity"
+      ],
+      "compared": [
+        "quickbooks__expenses_sales_enhanced",
+        "quickbooks__inventory_item_activity"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "account_data",
+        "bill_data",
+        "bill_line_data",
+        "credit_memo_data",
+        "credit_memo_line_data",
+        "customer_data",
+        "customer_type_data",
+        "department_data",
+        "deposit_data",
+        "deposit_line_data",
+        "invoice_data",
+        "invoice_line_data",
+        "item_data",
+        "journal_entry_data",
+        "journal_entry_line_data",
+        "purchase_data",
+        "purchase_line_data",
+        "refund_receipt_data",
+        "refund_receipt_line_data",
+        "sales_receipt_data",
+        "sales_receipt_line_data",
+        "vendor_credit_data",
+        "vendor_credit_line_data",
+        "vendor_data"
+      ]
+    },
+    "tables": {
+      "credit_memo_line_data": {
+        "name": "credit_memo_line_data.csv",
+        "sha256": "58fd68983bff8b3457aca6d4bb0663d96173fa8bb95740f700c91ce02d885e5e"
+      },
+      "account_data": {
+        "name": "account_data.csv",
+        "sha256": "c8e5a89346106dfc029dd5a54a793808f20c0e97e0429aafba888a3c0686e403"
+      },
+      "vendor_credit_data": {
+        "name": "vendor_credit_data.csv",
+        "sha256": "485f847970ff91df325da75b10c49701a8d77934415fa8a7155441019afd85f0"
+      },
+      "sales_receipt_line_data": {
+        "name": "sales_receipt_line_data.csv",
+        "sha256": "2116d57b002ad58331fbe872d9457bdb20ce0ea3459dd05503c3bb9582fb5442"
+      },
+      "deposit_data": {
+        "name": "deposit_data.csv",
+        "sha256": "f859d87290e1742c8017575a6981fb732aa7c1e85ed2cfbade974675c5f71049"
+      },
+      "customer_data": {
+        "name": "customer_data.csv",
+        "sha256": "044cf89e868fd9c04c3a0394cd519a4df9d2edf6ff16440e599c1b689b320c49"
+      },
+      "department_data": {
+        "name": "department_data.csv",
+        "sha256": "4b685bd80376a3ba502a3de5e9f9c1277c744915cca3429d4674f0fad6dcd9f3"
+      },
+      "refund_receipt_data": {
+        "name": "refund_receipt_data.csv",
+        "sha256": "d2ef6fb88b6dfe3e7c72f16732e6fb83260df04930ed7c969d82fac3d2587041"
+      },
+      "bill_data": {
+        "name": "bill_data.csv",
+        "sha256": "d4f90f9c26d47dfca0d7f9f59119da94a4cf6154322a99aca6845320e87b1b77"
+      },
+      "invoice_line_data": {
+        "name": "invoice_line_data.csv",
+        "sha256": "5fb8c6c87d052856ad4fb8d61cd93de42e5cbbb734f829bcd23ba73de7d0c291"
+      },
+      "purchase_line_data": {
+        "name": "purchase_line_data.csv",
+        "sha256": "4c03a1a1dbd1c6c6021afce016d0817106f4349045afc604e52cee232b6aa0eb"
+      },
+      "deposit_line_data": {
+        "name": "deposit_line_data.csv",
+        "sha256": "517604a45ade430ba2d7ff27bc66a20282b516d72d6e492a6cfd30bba94fcffe"
+      },
+      "invoice_data": {
+        "name": "invoice_data.csv",
+        "sha256": "f9461201160c1f9774171c09ec7d1dc65f9f2972bb60e5f62953632dd2bb8ced"
+      },
+      "refund_receipt_line_data": {
+        "name": "refund_receipt_line_data.csv",
+        "sha256": "1b4c0b8a9db16f1580259556aa0f0c9aff0c811a762caabe41603f1c85b0aec8"
+      },
+      "journal_entry_line_data": {
+        "name": "journal_entry_line_data.csv",
+        "sha256": "2b4aee86287581e4b1b1956f6ec618971d197cd39df0ead7ce3fd2e2f856db27"
+      },
+      "vendor_data": {
+        "name": "vendor_data.csv",
+        "sha256": "8f53ba899c73e35950f5bf428c86c0d1ca4ba859addfda2a452c75adb1d7ac09"
+      },
+      "bill_line_data": {
+        "name": "bill_line_data.csv",
+        "sha256": "4954c5d9144e9741a60591877ce7e3ccee3d10dcd1845ba1193150e82ffcf53c"
+      },
+      "purchase_data": {
+        "name": "purchase_data.csv",
+        "sha256": "4f4304f27a4cc77a6ace44b3df958a8b824d23065abcded4f85d64f0bafac187"
+      },
+      "sales_receipt_data": {
+        "name": "sales_receipt_data.csv",
+        "sha256": "1a6bcf49967c0cec0103ec3cde29ee586338ad6e8312619825a00d811719f6d4"
+      },
+      "journal_entry_data": {
+        "name": "journal_entry_data.csv",
+        "sha256": "9d126d759549a3a249104919f0db5c1d9a192a22efb830907b677d4ae9d89662"
+      },
+      "customer_type_data": {
+        "name": "customer_type_data.csv",
+        "sha256": "2e0401878180ee06586e5a089b6f17e99dd699fd270c420b321bce908ffa60bc"
+      },
+      "credit_memo_data": {
+        "name": "credit_memo_data.csv",
+        "sha256": "b115a66b1cdf1609654b84ce9cf5ac65abd3812366bd6b66ddc2de65ff5b4813"
+      },
+      "item_data": {
+        "name": "item_data.csv",
+        "sha256": "313f23893e6e0e0640c781e76e4d065d44ae928531f39005a4ffdd5f27448074"
+      },
+      "vendor_credit_line_data": {
+        "name": "vendor_credit_line_data.csv",
+        "sha256": "bed29c2ce48ad2dbc9beb42782fd7beefeb373e7cc4cbc8e746f1f7c96be6a4f"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs quickbooks__expenses_sales_enhanced,quickbooks__inventory_item_activity {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_quickbooks__credit_memo_line: not_null(credit_memo_id)",
+      "stg_quickbooks__sales_receipt_line: not_null(sales_receipt_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "quickbooks__expenses_sales_enhanced",
+        "quickbooks__inventory_item_activity"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 296,
+      "evidence_strength": 0.99,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 296,
+    "identical": 296,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 4,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 0,
+    "columns_checked": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "empty",
+      "kind": "review",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.bundle_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.bundle_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "credit_memo_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "null-column",
+      "kind": "review",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.bundle_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.balance_with_sub_accounts",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.balance_with_sub_accounts",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.balance_with_sub_accounts",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.classification",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.classification",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.balance_with_sub_accounts",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.classification",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "vendor_credit_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "vendor_credit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.doc_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.doc_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.payable_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.payable_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.payable_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.transaction_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.transaction_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "vendor_credit_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.doc_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.payable_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.transaction_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "vendor_credit_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_receipt_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "empty",
+      "kind": "review",
+      "column": "sales_receipt_line_data.sales_receipt_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_receipt_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.bundle_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.bundle_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.discount_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.discount_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.discount_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.discount_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.discount_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "null-column",
+      "kind": "review",
+      "column": "sales_receipt_line_data.sales_receipt_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.bundle_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.discount_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.discount_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.home_total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "deposit_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "deposit_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "customer_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "customer_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "customer_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "customer_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "customer_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "customer_data.display_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "customer_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "customer_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "customer_data.customer_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "flip",
+      "kind": "valid",
+      "column": "customer_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "customer_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "customer_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "department_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "department_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "department_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "department_data.fully_qualified_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "department_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "department_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "flip",
+      "kind": "valid",
+      "column": "department_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "department_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "department_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "refund_receipt_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "refund_receipt_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "refund_receipt_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "refund_receipt_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "refund_receipt_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "refund_receipt_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "bill_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.invoice_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.bundle_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.discount_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.sales_item_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.sales_item_class_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.sales_item_item_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_data.sales_item_quantity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_data.sales_item_unit_price",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "purchase_line_data.account_expense_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "purchase_line_data.account_expense_billable_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "purchase_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "invoice_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "invoice_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "flip",
+      "kind": "valid",
+      "column": "vendor_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "vendor_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "vendor_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "purchase_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "flip",
+      "kind": "valid",
+      "column": "purchase_data.credit",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "purchase_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sales_receipt_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sales_receipt_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "journal_entry_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "journal_entry_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "flip",
+      "kind": "valid",
+      "column": "customer_type_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "customer_type_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "customer_type_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "credit_memo_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "credit_memo_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "flip",
+      "kind": "valid",
+      "column": "item_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "item_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 629b37b25e8b (629b37b25e8b); fix: your working tree (6 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 94 models; compiled SQL changed in quickbooks__expenses_sales_enhanced, quickbooks__inventory_item_activity; comparing quickbooks__expenses_sales_enhanced, quickbooks__inventory_item_activity (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (24 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): invoice_line_data.item_id -> item_data.id, invoice_data.customer_id -> customer_data.id, credit_memo_data.customer_id -> customer_data.id",
+    "the project's dbt tests are used as rules on the input tables (17: address_data.id not_null, bill_line_data.bill_id not_null, bill_linked_txn_data.bill_id not_null, bill_payment_line_data.bill_payment_id not_null, bundle_item_data.bundle_id not_null, credit_memo_line_data.credit_memo_id not_null, deposit_line_data.deposit_id not_null, estimate_line_data.estimate_id not_null, invoice_linked_txn_data.invoice_id not_null, invoice_line_data.invoice_id not_null, invoice_line_bundle_data.invoice_id not_null, journal_entry_line_data.journal_entry_id not_null, ...); 4 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:26:16Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_quickbooks",
+    "base": "629b37b25e8b",
+    "base_commit": "629b37b25e8ba3fc953fc9604c46998fbf36c088",
+    "path": "/home/runner/work/_temp/clones/dbt_quickbooks/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs quickbooks__expenses_sales_enhanced,quickbooks__inventory_item_activity {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

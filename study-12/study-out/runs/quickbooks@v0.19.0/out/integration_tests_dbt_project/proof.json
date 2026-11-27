@@ -1,0 +1,4384 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "e300f20ce4413f2c54ce10dbddb5c1a706da33d0acbcd0aaeef65280ce54225d",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "dfc8f6836105e5ef55b4e961455eeee71bf5626c",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "95db0b90eb13f3d582cfcaab03b35689ecb57c3aa5dc8f4c1f6f149eaf43c42f"
+      },
+      {
+        "path": "README.md",
+        "status": "M",
+        "sha256": "a38b67ce69d54c076974df0b390fa76f79f9ceb94cd883dfe62f604f7d2cdd92"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "86b0df953cf50fd78464758951324eccd729388bcc8e906b6ec85d926882b601"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "780b1bb6ade21b3e441d4a0b35214ba05362e48b60c96f5fce1824f0956f6633"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "0e475e4cb3d47ab24f978a64825d0dcef1f627c2b33621e0b85d127cc44ada3e"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "7c672625650a1bebac51eabc12e2b36e8c102b828823b6097972869b88605520"
+      },
+      {
+        "path": "models/double_entry_transactions/int_quickbooks__bill_payment_double_entry.sql",
+        "status": "M",
+        "sha256": "fdab10a8096381cbd2e118f7a0fc70ac14e8dc4b854f72673879c039b1a1d36a"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_quickbooks__bill_payment_double_entry"
+      ],
+      "compared": [
+        "quickbooks__balance_sheet",
+        "quickbooks__cash_flow_statement",
+        "quickbooks__general_ledger",
+        "quickbooks__general_ledger_by_period",
+        "quickbooks__profit_and_loss"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "account_data",
+        "bill_data",
+        "bill_linked_txn_data",
+        "bill_payment_data",
+        "bill_payment_line_data"
+      ]
+    },
+    "tables": {
+      "bill_payment_data": {
+        "name": "bill_payment_data.csv",
+        "sha256": "6f48b8de3be3254869d048d83006993509eadae07557a62453af71e3065dfb03"
+      },
+      "credit_memo_line_data": {
+        "name": "credit_memo_line_data.csv",
+        "sha256": "58fd68983bff8b3457aca6d4bb0663d96173fa8bb95740f700c91ce02d885e5e"
+      },
+      "account_data": {
+        "name": "account_data.csv",
+        "sha256": "1ea567f005a3a5891ef5de2b466984d08e404273bbc3a728722244ac0dfbbfae"
+      },
+      "vendor_credit_data": {
+        "name": "vendor_credit_data.csv",
+        "sha256": "485f847970ff91df325da75b10c49701a8d77934415fa8a7155441019afd85f0"
+      },
+      "bill_linked_txn_data": {
+        "name": "bill_linked_txn_data.csv",
+        "sha256": "13657523eb4f5b943b8c6e6c9502b2cb29fb6c823bb7c6409b1c949fddc73e5d"
+      },
+      "sales_receipt_line_data": {
+        "name": "sales_receipt_line_data.csv",
+        "sha256": "2116d57b002ad58331fbe872d9457bdb20ce0ea3459dd05503c3bb9582fb5442"
+      },
+      "deposit_data": {
+        "name": "deposit_data.csv",
+        "sha256": "033e1de216a75688b9a4870adc3bc1ac2a1df7238bdff98e2e6623a1ea83c190"
+      },
+      "payment_data": {
+        "name": "payment_data.csv",
+        "sha256": "02052368b5f10aa81f5d5378014b51fbc78889167447cc5c1e43aa65f45d0393"
+      },
+      "payment_line_data": {
+        "name": "payment_line_data.csv",
+        "sha256": "7bab77d122b48d2cb84520c02c260d7ee18c548fbb5114f03eb7a3886a5d64f1"
+      },
+      "refund_receipt_data": {
+        "name": "refund_receipt_data.csv",
+        "sha256": "d2ef6fb88b6dfe3e7c72f16732e6fb83260df04930ed7c969d82fac3d2587041"
+      },
+      "bill_data": {
+        "name": "bill_data.csv",
+        "sha256": "d4f90f9c26d47dfca0d7f9f59119da94a4cf6154322a99aca6845320e87b1b77"
+      },
+      "invoice_line_bundle_data": {
+        "name": "invoice_line_bundle_data.csv",
+        "sha256": "aaccd6e51401d8b5e55cbf0645518b1e4c8dad6350cf723b14ad59c778747b2d"
+      },
+      "invoice_line_data": {
+        "name": "invoice_line_data.csv",
+        "sha256": "e5e9ac1e5171651cf97987a327f949bc8dc86d59021ee92f57b3d7b684aad5bc"
+      },
+      "bundle_item_data": {
+        "name": "bundle_item_data.csv",
+        "sha256": "30d31caee803165f8dbab84b6e6afa3b6ec9c673473390804783e5fa5e042eac"
+      },
+      "purchase_line_data": {
+        "name": "purchase_line_data.csv",
+        "sha256": "7b3eaf20d79cc619ace837d454e7839dc77ac0705dd3e6dafccb9f4b87458ceb"
+      },
+      "deposit_line_data": {
+        "name": "deposit_line_data.csv",
+        "sha256": "517604a45ade430ba2d7ff27bc66a20282b516d72d6e492a6cfd30bba94fcffe"
+      },
+      "invoice_data": {
+        "name": "invoice_data.csv",
+        "sha256": "65af622ea5ec66c1db498a4cd3a92cf36f9b5b1446dcd19d6da3942761fd32db"
+      },
+      "bill_payment_line_data": {
+        "name": "bill_payment_line_data.csv",
+        "sha256": "22ecd72cb3b5e91e68357e9769a9f92ceb34d71e86a79e9dabab9745ca41166b"
+      },
+      "refund_receipt_line_data": {
+        "name": "refund_receipt_line_data.csv",
+        "sha256": "193aaf781f7417268cbfdec1e8420646c6a20adb6c4e98686c307292c3c7ce6a"
+      },
+      "journal_entry_line_data": {
+        "name": "journal_entry_line_data.csv",
+        "sha256": "2b4aee86287581e4b1b1956f6ec618971d197cd39df0ead7ce3fd2e2f856db27"
+      },
+      "bill_line_data": {
+        "name": "bill_line_data.csv",
+        "sha256": "d0afe6826d395f3641dcba1a27c78518b16a4076f76fca2738c6754a65160abd"
+      },
+      "purchase_data": {
+        "name": "purchase_data.csv",
+        "sha256": "4f4304f27a4cc77a6ace44b3df958a8b824d23065abcded4f85d64f0bafac187"
+      },
+      "bundle_data": {
+        "name": "bundle_data.csv",
+        "sha256": "b025ead70f334cc459e499f5d01970ed272febfd018a7ef468c89d7529f93551"
+      },
+      "sales_receipt_data": {
+        "name": "sales_receipt_data.csv",
+        "sha256": "1a6bcf49967c0cec0103ec3cde29ee586338ad6e8312619825a00d811719f6d4"
+      },
+      "journal_entry_data": {
+        "name": "journal_entry_data.csv",
+        "sha256": "93248eac70bad622770ac5c93be69e3e3aba186deff27e7e20e3c6db4e11ced8"
+      },
+      "credit_memo_data": {
+        "name": "credit_memo_data.csv",
+        "sha256": "b115a66b1cdf1609654b84ce9cf5ac65abd3812366bd6b66ddc2de65ff5b4813"
+      },
+      "item_data": {
+        "name": "item_data.csv",
+        "sha256": "839edc526426fe70c1f61f1c7f00887f185c850a8a74e56c797e2bdbf34df1c3"
+      },
+      "vendor_credit_line_data": {
+        "name": "vendor_credit_line_data.csv",
+        "sha256": "f23d51e89529f664a01e3ebeb971773bdf6cf7a719c086b796b71eb79bc8718f"
+      },
+      "transfer_data": {
+        "name": "transfer_data.csv",
+        "sha256": "0d5d160756dc7d77898b8155a38304c5229f984e112fef56cd962d4bd748530c"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs quickbooks__balance_sheet,quickbooks__cash_flow_statement,quickbooks__general_ledger,quickbooks__general_ledger_by_period,quickbooks__profit_and_loss {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_quickbooks__bill_line: not_null(bill_id)",
+      "stg_quickbooks__bill_linked_txn: not_null(bill_id)",
+      "stg_quickbooks__bill_payment_line: not_null(bill_payment_id)",
+      "stg_quickbooks__journal_entry_line: not_null(journal_entry_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "quickbooks__balance_sheet",
+        "quickbooks__cash_flow_statement",
+        "quickbooks__general_ledger",
+        "quickbooks__general_ledger_by_period",
+        "quickbooks__profit_and_loss"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 222 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 70,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 292,
+    "identical": 70,
+    "changed": 222,
+    "not_comparable": 0,
+    "review_inputs": 8,
+    "review_differences": 6,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 1,
+    "columns_checked": 5
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_payment_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_payment_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_payment_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_payment_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.currency_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.department_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.exchange_rate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "bill_payment_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "bill_payment_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "empty",
+      "kind": "review",
+      "column": "bill_linked_txn_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.bill_payment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.bill_payment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.bill_payment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "null-column",
+      "kind": "review",
+      "column": "bill_linked_txn_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_linked_txn_data.bill_payment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "empty",
+      "kind": "valid",
+      "column": "payment_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "payment_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "empty",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "payment_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "empty",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "empty",
+      "kind": "valid",
+      "column": "payment_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "payment_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "payment_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.currency_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.currency_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_data.currency_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.department_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.department_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.department_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.currency_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.department_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.updated_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "bill_data.created_at",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "empty",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_line_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_line_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_line_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_line_data.bill_payment_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "empty",
+      "kind": "review",
+      "column": "bill_payment_line_data.bill_payment_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_line_data.bill_payment_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_line_data.bill_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_line_data.bill_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_line_data.bill_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_line_data.deposit_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_line_data.deposit_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_line_data.journal_entry_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_line_data.journal_entry_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_line_data.journal_entry_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "null-column",
+      "kind": "review",
+      "column": "bill_payment_line_data.bill_payment_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_line_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_line_data.bill_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_line_data.journal_entry_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "journal_entry_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "empty",
+      "kind": "review",
+      "column": "journal_entry_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "null-column",
+      "kind": "review",
+      "column": "journal_entry_line_data.journal_entry_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_line_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "empty",
+      "kind": "review",
+      "column": "bill_line_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_line_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "null-column",
+      "kind": "review",
+      "column": "bill_line_data.bill_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "purchase_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "empty",
+      "kind": "valid",
+      "column": "purchase_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "purchase_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "purchase_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "empty",
+      "kind": "valid",
+      "column": "purchase_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "purchase_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "purchase_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "purchase_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "journal_entry_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_data.exchange_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "transfer_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "empty",
+      "kind": "valid",
+      "column": "transfer_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "transfer_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: dfc8f6836105 (dfc8f6836105); fix: your working tree (7 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 91 models; compiled SQL changed in int_quickbooks__bill_payment_double_entry; comparing quickbooks__balance_sheet, quickbooks__cash_flow_statement, quickbooks__general_ledger, quickbooks__general_ledger_by_period, quickbooks__profit_and_loss (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (29 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): payment_line_data.invoice_id -> invoice_data.id, invoice_line_bundle_data.account_id -> account_data.id, invoice_line_data.bundle_id -> bundle_data.id, bundle_item_data.item_id -> item_data.id",
+    "the project's dbt tests are used as rules on the input tables (17: address_data.id not_null, bill_line_data.bill_id not_null, bill_linked_txn_data.bill_id not_null, bill_payment_line_data.bill_payment_id not_null, bundle_item_data.bundle_id not_null, credit_memo_line_data.credit_memo_id not_null, deposit_line_data.deposit_id not_null, estimate_line_data.estimate_id not_null, invoice_linked_txn_data.invoice_id not_null, invoice_line_data.invoice_id not_null, invoice_line_bundle_data.invoice_id not_null, journal_entry_line_data.journal_entry_id not_null, ...); 8 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "value": "<tables as given>",
+      "status": "changed",
+      "explanation": "If the file is tables as given, in `quickbooks__balance_sheet`, `converted_amount` changes from -349998 to -255762 (and 145 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "051",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `amount` is the number 0, in `quickbooks__general_ledger`, `adjusted_converted_amount` for '719ecd73cc8df8f1671421eec0b2d0c0' changes from -96136 to -50000 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "052",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `amount`, in `quickbooks__balance_sheet`, `converted_amount` changes from -531680 to -439408 (and 221 more cells).",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "053",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `amount` repeats the value of another row (0), in `quickbooks__balance_sheet`, `converted_amount` changes from -349998 to -255762 (and 145 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "054",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `amount` in `credit_memo_line_data` is empty (NULL), in `quickbooks__balance_sheet`, `converted_amount` changes from -349998 to -255762 (and 145 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "055",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `id` is the number 0, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "056",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `id`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "057",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "value": "52",
+      "status": "changed",
+      "explanation": "If `id` repeats the value of another row (52), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "058",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `account_number` is the number 0, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "059",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `account_number`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "060",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `account_number` repeats the value of another row (''), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "061",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `account_type`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "062",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "value": "Expense",
+      "status": "changed",
+      "explanation": "If `account_type` repeats the value of another row ('Expense'), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "063",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "value": "Expense | EXPENSE",
+      "status": "changed",
+      "explanation": "If two `account_data` rows of the same group have `account_type` = 'Expense' and 'EXPENSE', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "064",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `active`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "065",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "value": "TRUE",
+      "status": "changed",
+      "explanation": "If `active` repeats the value of another row ('TRUE'), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "066",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "value": "TRUE | true",
+      "status": "changed",
+      "explanation": "If two `account_data` rows of the same group have `active` = 'TRUE' and 'true', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "067",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `created_at`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "068",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "value": "2020-06-18 14:09:07",
+      "status": "changed",
+      "explanation": "If `created_at` repeats the value of another row ('2020-06-18 14:09:07'), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "069",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "value": "2020-06-18 14:08:47 | 2020-06-18 14:08:47",
+      "status": "changed",
+      "explanation": "If two `account_data` rows of the same group have `created_at` = '2020-06-18 14:08:47' and '2020-06-18 14:08:47', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "070",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `currency_id`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "071",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "value": "USD",
+      "status": "changed",
+      "explanation": "If `currency_id` repeats the value of another row ('USD'), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "072",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "value": "USD | usd",
+      "status": "changed",
+      "explanation": "If two `account_data` rows of the same group have `currency_id` = 'USD' and 'usd', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "073",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `parent_account_id` is the number 0, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "074",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `parent_account_id`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "075",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "value": "51",
+      "status": "changed",
+      "explanation": "If `parent_account_id` repeats the value of another row (51), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "076",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `sub_account`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "value": "TRUE",
+      "status": "changed",
+      "explanation": "If `sub_account` repeats the value of another row ('TRUE'), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "078",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "value": "FALSE | false",
+      "status": "changed",
+      "explanation": "If two `account_data` rows of the same group have `sub_account` = 'FALSE' and 'false', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "079",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `account_data` row has an empty `updated_at`, in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "080",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "value": "2020-06-18 14:09:07",
+      "status": "changed",
+      "explanation": "If `updated_at` repeats the value of another row ('2020-06-18 14:09:07'), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "081",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "value": "2020-06-18 14:09:07 | 2020-06-18 14:09:07",
+      "status": "changed",
+      "explanation": "If two `account_data` rows of the same group have `updated_at` = '2020-06-18 14:09:07' and '2020-06-18 14:09:07', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "082",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `id` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "083",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `account_number` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "084",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `account_type` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "085",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `active` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "086",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `created_at` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "087",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.currency_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `currency_id` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "088",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `parent_account_id` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "089",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `sub_account` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "090",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `updated_at` in `account_data` is empty (NULL), in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "091",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_data.active",
+      "family": null,
+      "value": "false",
+      "status": "changed",
+      "explanation": "If an `account_data` row has `active` set to 'false', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "092",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "account_data.created_at",
+      "family": null,
+      "value": "2020-06-18 00:00:00",
+      "status": "changed",
+      "explanation": "If an `account_data` row has `created_at` = '2020-06-18 00:00:00', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "093",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "value": "true",
+      "status": "changed",
+      "explanation": "If an `account_data` row has `sub_account` set to 'true', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "094",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "account_data.updated_at",
+      "family": null,
+      "value": "2020-06-18 00:00:00",
+      "status": "changed",
+      "explanation": "If an `account_data` row has `updated_at` = '2020-06-18 00:00:00', in `quickbooks__general_ledger`, `running_converted_balance` for '0f0cc8ee8484569bf24060e15f43d4a5' changes from -516033 to -421797 (and 29 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__general_ledger: row 2, running_converted_balance: '-516033' -> '-421797'",
+        "quickbooks__general_ledger: row 3, running_converted_balance: '-519533' -> '-425297'",
+        "quickbooks__general_ledger: row 4, running_converted_balance: '-519666' -> '-425430'",
+        "quickbooks__general_ledger: row 5, running_converted_balance: '-519633' -> '-425397'",
+        "quickbooks__general_ledger: row 9, running_converted_balance: '-517558' -> '-423322'",
+        "quickbooks__general_ledger_by_period: row 2303, period_net_converted_change: '-47118' -> '47118'"
+      ]
+    },
+    {
+      "id": "095",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `exchange_rate` is the number 0, in `quickbooks__balance_sheet`, `converted_amount` changes from -349998 to -255762 (and 145 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `vendor_credit_data` row has an empty `exchange_rate`, in `quickbooks__balance_sheet`, `converted_amount` changes from -349998 to -255762 (and 145 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "097",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.exchange_rate",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `exchange_rate` repeats the value of another row (''), in `quickbooks__balance_sheet`, `converted_amount` changes from -349998 to -255762 (and 145 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "098",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `total_amount` is the number 0, in `quickbooks__balance_sheet`, `converted_amount` changes from -349998 to -255762 (and 145 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    },
+    {
+      "id": "099",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `vendor_credit_data` row has an empty `total_amount`, in `quickbooks__balance_sheet`, `converted_amount` changes from -349998 to -255762 (and 145 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 183, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 184, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 191, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 192, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__balance_sheet: row 199, converted_amount: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 183, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_ending_period: '-349998' -> '-255762'",
+        "quickbooks__cash_flow_statement: row 184, cash_converted_net_period: '-84158' -> '10078'",
+        "quickbooks__cash_flow_statement: row 191, cash_converted_ending_period: '-349998' -> '-255762'"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:13:00Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_quickbooks",
+    "base": "dfc8f6836105",
+    "base_commit": "dfc8f6836105e5ef55b4e961455eeee71bf5626c",
+    "path": "/home/runner/work/_temp/clones/dbt_quickbooks/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs quickbooks__balance_sheet,quickbooks__cash_flow_statement,quickbooks__general_ledger,quickbooks__general_ledger_by_period,quickbooks__profit_and_loss {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

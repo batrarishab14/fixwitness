@@ -1,0 +1,48 @@
+{
+  "verdict": "INCONCLUSIVE",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "PASS",
+      "score": 99,
+      "reason": "-",
+      "proof_id": "edde503180fc49ff",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/google_play_source@v0.3.1/out/integration_tests_dbt_project/proof.json"
+    },
+    {
+      "target": ". (dbt project)",
+      "kind": "dbt",
+      "verdict": "NOT CHECKED",
+      "reason": "no sample for the dbt source(s) google_play.financial_stats_subscriptions_country, google_play.stats_crashes_app_version, google_play.stats_crashes_os_version, google_play.stats_crashes_overview, google_play.stats_installs_app_version, google_play.stats_installs_country, google_play.stats_installs_d",
+      "proof": null,
+      "detail": null
+    }
+  ],
+  "not_checked": [
+    {
+      "path": ".buildkite/hooks/pre-command",
+      "why": "CI configuration"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/index.html",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/run_results.json",
+      "why": "not code"
+    }
+  ]
+}

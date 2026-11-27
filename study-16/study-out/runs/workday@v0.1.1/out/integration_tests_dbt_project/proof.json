@@ -1,0 +1,3570 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "6ef5a938b34e6c24219020130d5c75117f87e74cc91b26a7426779d8d059f426",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "7f0441e1ac8e3bb4cddd0ef66d146bf7bab92395",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "62f5d626c0c91eeb49362b8d076d262d68a55e072ecdae2e8863c256881e6f35"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "a324ae116558f858589b38ab9e5cc7013d7579b6d948192bb048fd4860176228"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "b7dbebd86fa6d6d4618efbf9bebb6e699890e6b19cb3524138fdb45cf726d91b"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "cfa65f7879496340e1b5759129d264bdd7510300b8d0611c836833dd157a5dfa"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "6e1cd4283a53bdba4e96928c80e570c46aca79d45faa5db5080aa402ff08e6ee"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "bc4887ad05ba7ad30e13b8dceb61dccfd42ab9569f47ee06c733ef3729e24fa4"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "5821745e638ca3da0a532e9bcb26bc835742c22e806b207313352c06db4be239"
+      },
+      {
+        "path": "models/intermediate/int_workday__worker_details.sql",
+        "status": "M",
+        "sha256": "2e40da25b711370954b544ce4e07bb73f77f8b7283950d9142c14920590c2b45"
+      },
+      {
+        "path": "models/intermediate/int_workday__worker_position_enriched.sql",
+        "status": "M",
+        "sha256": "763f5713e4b2940ac0903830ad1abbdd325a827f34401278501a5136b9a6516c"
+      },
+      {
+        "path": "models/staging/stg_workday__personal_information.sql",
+        "status": "M",
+        "sha256": "ae3589b2096fbbf36429ead64ee2f5f1521b3ffa37cf0e8af045c18b0e3ca065"
+      },
+      {
+        "path": "models/staging/stg_workday__worker.sql",
+        "status": "M",
+        "sha256": "551123184cbe77827a6733c2811a2239e2f41611035b196f0e3c034c55de742a"
+      },
+      {
+        "path": "models/staging/stg_workday__worker_position.sql",
+        "status": "M",
+        "sha256": "292c6627f0295e1c383202cdcf2bfddd9faea9ff5807b64d4f8b03fb9b2e2fa9"
+      },
+      {
+        "path": "models/staging/stg_workday__worker_position_organization.sql",
+        "status": "M",
+        "sha256": "5ff2167d1210b071ecdf8f769bd6f81ab4f0af420abed228d226f2557fb6ad6a"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "stg_workday__personal_information",
+        "stg_workday__worker",
+        "stg_workday__worker_position",
+        "stg_workday__worker_position_organization",
+        "workday__employee_overview"
+      ],
+      "compared": [
+        "workday__employee_overview",
+        "workday__organization_overview"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "workday_military_service_data",
+        "workday_person_contact_email_address_data",
+        "workday_person_name_data",
+        "workday_personal_information_ethnicity_data",
+        "workday_personal_information_history_data",
+        "workday_worker_history_data",
+        "workday_worker_position_history_data",
+        "workday_worker_position_organization_history_data"
+      ]
+    },
+    "tables": {
+      "workday_organization_role_data": {
+        "name": "workday_organization_role_data.csv",
+        "sha256": "5bccfa9934bf2d210b5fa514d59c2e88604e850d40921684e380e297536cd129"
+      },
+      "workday_personal_information_history_data": {
+        "name": "workday_personal_information_history_data.csv",
+        "sha256": "d7b83689285d490310864d526cae73ff40764014c270f1931a82f8f9cad68404"
+      },
+      "workday_organization_data": {
+        "name": "workday_organization_data.csv",
+        "sha256": "5c1dbd121da776f8d6e706415d4fd944e3e2bd368f505d0cd5b25783a8831fa4"
+      },
+      "workday_worker_history_data": {
+        "name": "workday_worker_history_data.csv",
+        "sha256": "fbef079000b473fcde25a306c55d232aaf1041fe206d31da2db491a7e66887bb"
+      },
+      "workday_worker_position_history_data": {
+        "name": "workday_worker_position_history_data.csv",
+        "sha256": "70f3aae69826aa9d6025eebf6f920e681870cc7cf160e3fea548b668a97bf2c3"
+      },
+      "workday_military_service_data": {
+        "name": "workday_military_service_data.csv",
+        "sha256": "869a0fa73645d270680b86b0f838b8cc876df7ddb02ef5f155dd615e078c1cf2"
+      },
+      "workday_person_contact_email_address_data": {
+        "name": "workday_person_contact_email_address_data.csv",
+        "sha256": "4533eda25343361edcdcfcbda1bdab7a155dabadd1ea9acb6174cc465fc61ad8"
+      },
+      "workday_personal_information_ethnicity_data": {
+        "name": "workday_personal_information_ethnicity_data.csv",
+        "sha256": "db919644e68966e41fa8aacfb4256daece43ccce69880de93d528f24a3b3971c"
+      },
+      "workday_person_name_data": {
+        "name": "workday_person_name_data.csv",
+        "sha256": "f126cb3b38cae70bbe3ef873a004b5c98e99f31f56ed1ec7d5fc012ece794caf"
+      },
+      "workday_worker_position_organization_history_data": {
+        "name": "workday_worker_position_organization_history_data.csv",
+        "sha256": "b81ed1aad3323ee8a926e1c85e44b41781d7a5865f457329f5e02ca5f450b4ac"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs workday__employee_overview,workday__organization_overview {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "workday__employee_overview",
+        "workday__organization_overview"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 15 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 285,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 285,
+    "changed": 15,
+    "not_comparable": 0,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 0,
+    "columns_checked": 3
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.additional_nationality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.additional_nationality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.blood_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.blood_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.citizenship_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.citizenship_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.citizenship_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.city_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.city_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.city_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.city_of_birth_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.city_of_birth_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.country_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.country_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.country_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.date_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.date_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.date_of_death",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.date_of_death",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.gender",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.gender",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.gender",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hispanic_or_latino",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hispanic_or_latino",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_locality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_locality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_postal_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_postal_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_subregion",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_subregion",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.last_medical_exam_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.last_medical_exam_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.last_medical_exam_valid_to",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.last_medical_exam_valid_to",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.local_hukou",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.local_hukou",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.marital_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.marital_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.marital_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.marital_status_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.marital_status_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.medical_exam_notes",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.medical_exam_notes",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.native_region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.native_region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.native_region_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.native_region_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.personnel_file_agency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.personnel_file_agency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.political_affiliation",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.political_affiliation",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.primary_nationality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.primary_nationality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.primary_nationality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.region_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.region_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.region_of_birth_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.region_of_birth_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.religion",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.religion",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.social_benefit",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.social_benefit",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.tobacco_use",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.tobacco_use",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.tobacco_use",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.additional_nationality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.blood_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.citizenship_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.city_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.city_of_birth_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.country_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.date_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.date_of_death",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.gender",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hispanic_or_latino",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_locality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_postal_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_subregion",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.hukou_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.last_medical_exam_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.last_medical_exam_valid_to",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.local_hukou",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.marital_status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.marital_status_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.medical_exam_notes",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.native_region",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.native_region_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.personnel_file_agency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.political_affiliation",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.primary_nationality",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.region_of_birth",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.region_of_birth_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.religion",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.social_benefit",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.tobacco_use",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_personal_information_history_data.tobacco_use",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_start",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_end",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.academic_tenure_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.academic_tenure_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.active_status_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.active_status_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.compensation_grade_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.compensation_grade_profile_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.days_unemployed",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.days_unemployed",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.eligible_for_hire",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.eligible_for_rehire_on_latest_termination",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.employee_compensation_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.employee_compensation_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.employee_compensation_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.employee_compensation_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.employee_compensation_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.employee_compensation_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.employee_compensation_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.employee_compensation_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.has_international_assignment",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.hire_reason",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.hire_rescinded",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.hourly_frequency_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.hourly_frequency_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.months_continuous_prior_employment",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.months_continuous_prior_employment",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.not_returning",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.pay_group_frequency_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.pay_group_frequency_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.pay_group_frequency_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.pay_group_frequency_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.pay_group_frequency_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.pay_group_frequency_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.pay_group_frequency_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.primary_termination_category",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.primary_termination_reason",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_history_data.reason_reference_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_history_data.worker_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_start",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_end",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.academic_tenure_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.active_status_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_primary_compensation_basis",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_base_pay",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_currency_summary_total_salary_and_allowances",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data.annual_summary_frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.has_international_assignment",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.hire_rescinded",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.not_returning",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.regrettable_termination",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.rehire",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.retired",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.return_unknown",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.terminated",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data.termination_involuntary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_start",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_end",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.business_site_summary_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.critical_job",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.frequency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.management_level_code",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.regular_paid_equivalent_hours",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.worker_hours_profile_classification",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.working_time_unit",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_start",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_end",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.business_title",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.end_employment_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.international_assignment_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.is_primary_job",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.scheduled_weekly_hours",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.specify_paid_fte",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data.work_shift",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_military_service_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_military_service_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_person_contact_email_address_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_personal_information_ethnicity_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_personal_information_ethnicity_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_person_name_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_person_name_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_start",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data.index",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_end",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_start",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_end",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_start",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_end",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 7f0441e1ac8e (7f0441e1ac8e); fix: your working tree (13 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 46 models; compiled SQL changed in stg_workday__personal_information, stg_workday__worker, stg_workday__worker_position, stg_workday__worker_position_organization, workday__employee_overview; comparing workday__employee_overview, workday__organization_overview (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (10 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): workday_worker_position_organization_history_data.organization_id -> workday_organization_data.id"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "136",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_start",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `workday_worker_history_data` row has an empty `_fivetran_start`, in `workday__employee_overview`, the output has 1 row instead of 0; a new row for '7687e33f1595019b167eba8cd456b424' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "workday__employee_overview: row count: 2 -> 3",
+        "workday__employee_overview: row 2, worker_id: '7687e33f159501c831d2f28cd4560225' -> '7687e33f1595019b167eba8cd456b424'",
+        "workday__employee_overview: row 2, worker_code: '10018' -> '10017'",
+        "workday__employee_overview: row 2, user_id: 'egomes' -> 'sflores'",
+        "workday__employee_overview: row 2, hire_date: '2018-10-09' -> '2017-10-08'"
+      ]
+    },
+    {
+      "id": "139",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_end",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `workday_worker_history_data` row has an empty `_fivetran_end`, in `workday__employee_overview`, the output has 1 row instead of 0; a new row for '7687e33f1595019b167eba8cd456b424' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "workday__employee_overview: row count: 2 -> 3",
+        "workday__employee_overview: row 2, worker_id: '7687e33f159501c831d2f28cd4560225' -> '7687e33f1595019b167eba8cd456b424'",
+        "workday__employee_overview: row 2, worker_code: '10018' -> '10017'",
+        "workday__employee_overview: row 2, user_id: 'egomes' -> 'sflores'",
+        "workday__employee_overview: row 2, hire_date: '2018-10-09' -> '2017-10-08'"
+      ]
+    },
+    {
+      "id": "219",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_start",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `_fivetran_start` in `workday_worker_history_data` is empty (NULL), in `workday__employee_overview`, the output has 1 row instead of 0; a new row for '7687e33f159501c831d2f28cd4560225' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "workday__employee_overview: row count: 0 -> 3"
+      ]
+    },
+    {
+      "id": "220",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_end",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `_fivetran_end` in `workday_worker_history_data` is empty (NULL), in `workday__employee_overview`, the output has 1 row instead of 0; a new row for '7687e33f159501c831d2f28cd4560225' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "workday__employee_overview: row count: 0 -> 3"
+      ]
+    },
+    {
+      "id": "232",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_history_data._fivetran_active",
+      "family": null,
+      "value": "false",
+      "status": "changed",
+      "explanation": "If a `workday_worker_history_data` row has `_fivetran_active` set to 'false', in `workday__employee_overview`, the output has 0 rows instead of 1; the row for '7687e33f1595019b167eba8cd456b424' is missing.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "workday__employee_overview: row count: 3 -> 2",
+        "workday__employee_overview: row 2, worker_id: '7687e33f1595019b167eba8cd456b424' -> '7687e33f159501c831d2f28cd4560225'",
+        "workday__employee_overview: row 2, worker_code: '10017' -> '10018'",
+        "workday__employee_overview: row 2, user_id: 'sflores' -> 'egomes'",
+        "workday__employee_overview: row 2, hire_date: '2017-10-08' -> '2018-10-09'"
+      ]
+    },
+    {
+      "id": "249",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_start",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `workday_worker_position_history_data` row has an empty `_fivetran_start`, in `workday__employee_overview`, `position_id` for '7687e33f1595019b167eba8cd456b424' changes from empty to 'b6704e966cc4013c8be899b8a553f6bb' (and 11 more cells).",
+      "impact": "values",
+      "shrunk": true,
+      "details": [
+        "workday__employee_overview: row 3, position_id: '' -> 'b6704e966cc4013c8be899b8a553f6bb'",
+        "workday__employee_overview: row 3, business_title: '' -> 'true'",
+        "workday__employee_overview: row 3, job_profile_id: '' -> '6_Manager'",
+        "workday__employee_overview: row 3, most_recent_position_type: '' -> '2020-10-15'",
+        "workday__employee_overview: row 3, most_recent_location: '' -> 'Local_Office'"
+      ]
+    },
+    {
+      "id": "252",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_end",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `workday_worker_position_history_data` row has an empty `_fivetran_end`, in `workday__employee_overview`, `position_id` for '7687e33f1595019b167eba8cd456b424' changes from empty to 'b6704e966cc4013c8be899b8a553f6bb' (and 11 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "workday__employee_overview: row 3, position_id: '' -> 'b6704e966cc4013c8be899b8a553f6bb'",
+        "workday__employee_overview: row 3, business_title: '' -> 'true'",
+        "workday__employee_overview: row 3, job_profile_id: '' -> '6_Manager'",
+        "workday__employee_overview: row 3, most_recent_position_type: '' -> '2020-10-15'",
+        "workday__employee_overview: row 3, most_recent_location: '' -> 'Local_Office'"
+      ]
+    },
+    {
+      "id": "263",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_start",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `_fivetran_start` in `workday_worker_position_history_data` is empty (NULL), in `workday__employee_overview`, `position_id` for '7687e33f1595017a1330268bd456a822' changes from empty to 'd0e0ae2f7be848cb8f19178750a21564' (and 33 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "workday__employee_overview: row 2, position_id: '' -> 'd0e0ae2f7be848cb8f19178750a21564'",
+        "workday__employee_overview: row 2, business_title: '' -> 'true'",
+        "workday__employee_overview: row 2, job_profile_id: '' -> '8_Individual_Contributor'",
+        "workday__employee_overview: row 2, most_recent_position_type: '' -> '2010-08-20'",
+        "workday__employee_overview: row 2, most_recent_location: '' -> 'Local_Office'"
+      ]
+    },
+    {
+      "id": "264",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_end",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `_fivetran_end` in `workday_worker_position_history_data` is empty (NULL), in `workday__employee_overview`, `position_id` for '7687e33f1595017a1330268bd456a822' changes from empty to 'd0e0ae2f7be848cb8f19178750a21564' (and 33 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "workday__employee_overview: row 2, position_id: '' -> 'd0e0ae2f7be848cb8f19178750a21564'",
+        "workday__employee_overview: row 2, business_title: '' -> 'true'",
+        "workday__employee_overview: row 2, job_profile_id: '' -> '8_Individual_Contributor'",
+        "workday__employee_overview: row 2, most_recent_position_type: '' -> '2010-08-20'",
+        "workday__employee_overview: row 2, most_recent_location: '' -> 'Local_Office'"
+      ]
+    },
+    {
+      "id": "265",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_history_data._fivetran_active",
+      "family": null,
+      "value": "false",
+      "status": "changed",
+      "explanation": "If a `workday_worker_position_history_data` row has `_fivetran_active` set to 'false', in `workday__employee_overview`, `position_id` for '7687e33f1595019b167eba8cd456b424' changes from 'b6704e966cc4013c8be899b8a553f6bb' to empty (and 11 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "workday__employee_overview: row 3, position_id: 'b6704e966cc4013c8be899b8a553f6bb' -> ''",
+        "workday__employee_overview: row 3, business_title: 'true' -> ''",
+        "workday__employee_overview: row 3, job_profile_id: '6_Manager' -> ''",
+        "workday__employee_overview: row 3, most_recent_position_type: '2020-10-15' -> ''",
+        "workday__employee_overview: row 3, most_recent_location: 'Local_Office' -> ''"
+      ]
+    },
+    {
+      "id": "283",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_start",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `workday_worker_position_organization_history_data` row has an empty `_fivetran_start`, in `workday__organization_overview`, the output has 6 rows instead of 5; a new row for 'f62f2721e8194dfc9c6feb74cd8eb271' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "workday__organization_overview: row count: 5 -> 6",
+        "workday__organization_overview: row 4, organization_id: '98aba7979690012a84c95af32b057201' -> '9378b36dabd94cc391ef5392166aa00e'",
+        "workday__organization_overview: row 4, organization_role_id: '98aba7979690012a84c95af32b057201' -> '9378b36dabd94cc391ef5392166aa00e'",
+        "workday__organization_overview: row 4, worker_id: '' -> '7687e33f1595017a1330268bd456a822'",
+        "workday__organization_overview: row 4, position_id: '' -> 'd0e0ae2f7be848cb8f19178750a21564'"
+      ]
+    },
+    {
+      "id": "290",
+      "category": "empty",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_end",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `workday_worker_position_organization_history_data` row has an empty `_fivetran_end`, in `workday__organization_overview`, the output has 6 rows instead of 5; a new row for 'f62f2721e8194dfc9c6feb74cd8eb271' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "workday__organization_overview: row count: 5 -> 6",
+        "workday__organization_overview: row 4, organization_id: '98aba7979690012a84c95af32b057201' -> '9378b36dabd94cc391ef5392166aa00e'",
+        "workday__organization_overview: row 4, organization_role_id: '98aba7979690012a84c95af32b057201' -> '9378b36dabd94cc391ef5392166aa00e'",
+        "workday__organization_overview: row 4, worker_id: '' -> '7687e33f1595017a1330268bd456a822'",
+        "workday__organization_overview: row 4, position_id: '' -> 'd0e0ae2f7be848cb8f19178750a21564'"
+      ]
+    },
+    {
+      "id": "293",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_start",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `_fivetran_start` in `workday_worker_position_organization_history_data` is empty (NULL), in `workday__organization_overview`, the output has 6 rows instead of 5; a new row for 'f62f2721e8194dfc9c6feb74cd8eb271' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "workday__organization_overview: row count: 5 -> 6",
+        "workday__organization_overview: row 2, worker_id: '' -> '7687e33f1595017a1330268bd456a822'",
+        "workday__organization_overview: row 2, position_id: '' -> 'd0e0ae2f7be848cb8f19178750a21564'",
+        "workday__organization_overview: row 3, worker_id: '' -> '7687e33f1595017a1330268bd456a822'",
+        "workday__organization_overview: row 3, position_id: '' -> 'd0e0ae2f7be848cb8f19178750a21564'"
+      ]
+    },
+    {
+      "id": "295",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_end",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `_fivetran_end` in `workday_worker_position_organization_history_data` is empty (NULL), in `workday__organization_overview`, the output has 6 rows instead of 5; a new row for 'f62f2721e8194dfc9c6feb74cd8eb271' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "workday__organization_overview: row count: 5 -> 6",
+        "workday__organization_overview: row 2, worker_id: '' -> '7687e33f1595017a1330268bd456a822'",
+        "workday__organization_overview: row 2, position_id: '' -> 'd0e0ae2f7be848cb8f19178750a21564'",
+        "workday__organization_overview: row 3, worker_id: '' -> '7687e33f1595017a1330268bd456a822'",
+        "workday__organization_overview: row 3, position_id: '' -> 'd0e0ae2f7be848cb8f19178750a21564'"
+      ]
+    },
+    {
+      "id": "297",
+      "category": "flip",
+      "kind": "valid",
+      "column": "workday_worker_position_organization_history_data._fivetran_active",
+      "family": null,
+      "value": "false",
+      "status": "changed",
+      "explanation": "If a `workday_worker_position_organization_history_data` row has `_fivetran_active` set to 'false', in `workday__organization_overview`, the output has 5 rows instead of 6; the row for 'f62f2721e8194dfc9c6feb74cd8eb271' is missing.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "workday__organization_overview: row count: 6 -> 5",
+        "workday__organization_overview: row 4, organization_id: '9378b36dabd94cc391ef5392166aa00e' -> '98aba7979690012a84c95af32b057201'",
+        "workday__organization_overview: row 4, organization_role_id: '9378b36dabd94cc391ef5392166aa00e' -> '98aba7979690012a84c95af32b057201'",
+        "workday__organization_overview: row 4, worker_id: '7687e33f1595017a1330268bd456a822' -> ''",
+        "workday__organization_overview: row 4, position_id: 'd0e0ae2f7be848cb8f19178750a21564' -> ''"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:17:57Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_workday",
+    "base": "7f0441e1ac8e",
+    "base_commit": "7f0441e1ac8e3bb4cddd0ef66d146bf7bab92395",
+    "path": "/home/runner/work/_temp/clones/dbt_workday/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs workday__employee_overview,workday__organization_overview {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

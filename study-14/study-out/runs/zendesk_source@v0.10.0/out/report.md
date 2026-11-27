@@ -1,0 +1,24 @@
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | not exercisable with this data: no input reaches what the change touched (column alias, column authenticity_token, column details and 15 more), so identical output proves nothing about it; add rows that have it |
+
+Not checked: `.github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md` (documentation); `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code); `integration_tests/.gitignore` (not code); `integration_tests/requirements.txt` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `a7722d84545a` (original) vs working tree (fix); changed: `.github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md`, `CHANGELOG.md`, `README.md`, `dbt_project.yml`, `docs/catalog.json` and 25 more. dbt project: changed `stg_zendesk__brand_tmp`, `stg_zendesk__daylight_time_tmp`, `stg_zendesk__domain_name_tmp`, `stg_zendesk__group_tmp`, `stg_zendesk__organization_tag_tmp`, `stg_zendesk__organization_tmp`, `stg_zendesk__schedule_holiday_tmp`, `stg_zendesk__schedule_tmp`, `stg_zendesk__ticket_comment_tmp`, `stg_zendesk__ticket_field_history_tmp`, `stg_zendesk__ticket_form_history_tmp`, `stg_zendesk__ticket_schedule_tmp`, `stg_zendesk__ticket_tag_tmp`, `stg_zendesk__ticket_tmp`, `stg_zendesk__time_zone_tmp`, `stg_zendesk__user_tag_tmp`, `stg_zendesk__user_tmp`; compared `stg_zendesk__brand`, `stg_zendesk__daylight_time`, `stg_zendesk__domain_name`, `stg_zendesk__group`, `stg_zendesk__organization`, `stg_zendesk__organization_tag`, `stg_zendesk__schedule`, `stg_zendesk__schedule_holiday`, `stg_zendesk__ticket`, `stg_zendesk__ticket_comment`, `stg_zendesk__ticket_field_history`, `stg_zendesk__ticket_form_history`, `stg_zendesk__ticket_schedule`, `stg_zendesk__ticket_tag`, `stg_zendesk__time_zone`, `stg_zendesk__user`, `stg_zendesk__user_tag`; SQL on warehouse; tables `time_zone_data` (time_zone_data.csv), `ticket_schedule_data` (ticket_schedule_data.csv), `organization_tag_data` (organization_tag_data.csv), `domain_name_data` (domain_name_data.csv), `ticket_comment_data` (ticket_comment_data.csv), `organization_data` (organization_data.csv), `user_tag_data` (user_tag_data.csv), `schedule_data` (schedule_data.csv), `daylight_time_data` (daylight_time_data.csv), `ticket_data` (ticket_data.csv), `ticket_field_history_data` (ticket_field_history_data.csv), `ticket_tag_data` (ticket_tag_data.csv), `brand_data_postgres` (brand_data_postgres.csv), `group_data` (group_data.csv), `ticket_form_history_data` (ticket_form_history_data.csv), `schedule_holiday_data` (schedule_holiday_data.csv), `user_data` (user_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | PASS: 268 of 268 comparable valid inputs give the same output |
+| Needs review | 0 of 32 inputs in review categories (inputs that break your dbt tests (stg_zendesk__daylight_time: unique_combination_of_columns(time_zone, year); stg_zendesk__domain_name: not_null(organization_id); stg_zendesk__organization: not_null(organization_id); stg_zendesk__organization: unique(organization_id))) differ |
+
+**Why:** not exercisable with this data: no input reaches what the change touched (column alias, column authenticity_token, column details and 15 more), so identical output proves nothing about it; add rows that have it.
+
+Proof ID `010a8594f794c968` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/zendesk_source@v0.10.0/out/integration_tests_dbt_project/proof.json`

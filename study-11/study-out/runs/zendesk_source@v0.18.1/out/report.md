@@ -1,0 +1,36 @@
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If a `ticket_chat_event_data` row has an empty `actor_id`, in `stg_zendesk__ticket_chat_event`, the output has 1 row instead of 0; a new row for 'test.fw_compiled' appears. |
+
+Not checked: `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/manifest.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `b603a3b4994d` (original) vs working tree (fix); changed: `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/manifest.json`, `integration_tests/dbt_project.yml` and 3 more. dbt project: changed `stg_zendesk__ticket_chat_event`; compared `stg_zendesk__ticket_chat_event`; SQL on warehouse; tables `ticket_chat_event_data` (ticket_chat_event_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 245 of 247 comparable valid inputs give the same output |
+| Not comparable | 55 valid inputs made the original fail too |
+
+**Why:** the fix changes output on 2 valid inputs.
+
+- Note: 55 valid inputs could not be compared because the original failed on them
+
+**What could go wrong:**
+
+- **Rows added or lost.** If a `ticket_chat_event_data` row has an empty `actor_id`, in `stg_zendesk__ticket_chat_event`, the output has 1 row instead of 0; a new row for 'test.fw_compiled' appears.
+  - case 105: `empty` input '' in `ticket_chat_event_data.actor_id` (changed); input shrunk to the rows that show it
+  - stg_zendesk__ticket_chat_event: row count: 2 -> 3
+  - stg_zendesk__ticket_chat_event: row 1, actor_id: '403969141094' -> ''
+- **Rows added or lost.** If every `actor_id` in `ticket_chat_event_data` is empty (NULL), in `stg_zendesk__ticket_chat_event`, the output has 1 row instead of 0; a new row for 'test.fw_compiled' appears.
+  - case 257: `null-column` input '<all NULL>' in `ticket_chat_event_data.actor_id` (changed); input shrunk to the rows that show it
+  - stg_zendesk__ticket_chat_event: row count: 0 -> 3
+
+Proof ID `8d52e0b5d5d55510` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/zendesk_source@v0.18.1/out/integration_tests_dbt_project/proof.json`

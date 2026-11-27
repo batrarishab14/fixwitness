@@ -1,0 +1,9 @@
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | not checked | no dbt model's compiled SQL changed between the two versions |
+
+Not checked: `.buildkite/hooks/pre-command` (CI configuration); `.buildkite/scripts/run_models.sh` (CI configuration); `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code); `integration_tests/requirements.txt` (not code)
+
+To see what is missing and the command that fixes it: `fixwitness doctor`.

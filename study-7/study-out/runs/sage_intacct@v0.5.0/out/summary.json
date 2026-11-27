@@ -1,0 +1,36 @@
+{
+  "verdict": "FAIL",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "FAIL",
+      "score": 0,
+      "reason": "If `recordno` is the number 0, in `sage_intacct__general_ledger_by_period`, the output has 60 rows instead of 2; a new row for 20000 appears.",
+      "proof_id": "22680b5ffccbcf3d",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/sage_intacct@v0.5.0/out/integration_tests_dbt_project/proof.json"
+    }
+  ],
+  "not_checked": [
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "README.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/run_results.json",
+      "why": "not code"
+    }
+  ]
+}

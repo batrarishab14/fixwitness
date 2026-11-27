@@ -1,0 +1,60 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/salesforce@v1.1.1/out/report.html
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If a `sf_opportunity_data` row has an empty `_fivetran_synced`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears. |
+
+Not checked: `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `bd8821490201` (original) vs working tree (fix); changed: `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/manifest.json`, `docs/run_results.json` and 2 more. dbt project: changed `int_salesforce__date_spine`; compared `salesforce__daily_activity`; SQL on warehouse; tables `sf_opportunity_data` (sf_opportunity_data.csv), `sf_lead_data` (sf_lead_data.csv), `sf_task_data` (sf_task_data.csv), `sf_event_data` (sf_event_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 300 comparable valid inputs give the same output |
+
+**Why:** the fix changes output on 300 valid inputs.
+
+**What could go wrong:**
+
+- **Rows added or lost.** If a `sf_opportunity_data` row has an empty `_fivetran_synced`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 000: `empty` input '' in `sf_opportunity_data._fivetran_synced` (changed); input shrunk to the rows that show it
+  - salesforce__daily_activity: row count: 32 -> 2574
+  - salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `_fivetran_synced` repeats the value of another row ('2019-04-04 18:47:01'), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 001: `duplicate` input '2019-04-04 18:47:01' in `sf_opportunity_data._fivetran_synced` (changed); input shrunk to the rows that show it
+  - salesforce__daily_activity: row count: 32 -> 2574
+  - salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If two `sf_opportunity_data` rows of the same group have `_fivetran_synced` = '2019-04-04 18:47:01' and '2019-04-04 18:47:01', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 002: `pairs` input '2019-04-04 18:47:01 | 2019-04-04 18:47:01' in `sf_opportunity_data._fivetran_synced` (changed); input shrunk to the rows that show it
+  - salesforce__daily_activity: row count: 32 -> 2574
+  - salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If a `sf_opportunity_data` row has an empty `account_id`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 003: `empty` input '' in `sf_opportunity_data.account_id` (changed); input shrunk to the rows that show it
+  - salesforce__daily_activity: row count: 32 -> 2574
+  - salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `account_id` repeats the value of another row ('9CcfAt8qtZvCTwFvwOFLcg=='), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 004: `duplicate` input '9CcfAt8qtZvCTwFvwOFLcg==' in `sf_opportunity_data.account_id` (changed); input shrunk to the rows that show it
+  - salesforce__daily_activity: row count: 32 -> 2574
+  - salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If two `sf_opportunity_data` rows of the same group have `account_id` = 'wfQo3+JVfsNIdcz/mUkZkA==' and 'WFQO3+JVFSNIDCZ/MUKZKA==', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 005: `pairs` input 'wfQo3+JVfsNIdcz/mUkZkA== | WFQO3+JVFSNIDCZ/MUKZKA==' in `sf_opportunity_data.account_id` (changed); input shrunk to the rows that show it
+  - salesforce__daily_activity: row count: 32 -> 2574
+  - salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If `amount` is the number 0, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 006: `numeric-format` input '0' in `sf_opportunity_data.amount` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2574
+  - salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'
+- **Rows added or lost.** If a `sf_opportunity_data` row has an empty `amount`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.
+  - case 007: `empty` input '' in `sf_opportunity_data.amount` (changed)
+  - salesforce__daily_activity: row count: 32 -> 2574
+  - salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'
+
+Proof ID `b904395afca10866` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/salesforce@v1.1.1/out/integration_tests_dbt_project/proof.json`
+

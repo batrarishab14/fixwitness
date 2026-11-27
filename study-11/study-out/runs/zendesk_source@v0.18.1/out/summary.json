@@ -1,0 +1,28 @@
+{
+  "verdict": "FAIL",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "FAIL",
+      "score": 0,
+      "reason": "If a `ticket_chat_event_data` row has an empty `actor_id`, in `stg_zendesk__ticket_chat_event`, the output has 1 row instead of 0; a new row for 'test.fw_compiled' appears.",
+      "proof_id": "8d52e0b5d5d55510",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/zendesk_source@v0.18.1/out/integration_tests_dbt_project/proof.json"
+    }
+  ],
+  "not_checked": [
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    }
+  ]
+}

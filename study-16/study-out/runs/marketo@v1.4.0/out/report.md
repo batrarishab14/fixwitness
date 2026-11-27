@@ -1,0 +1,28 @@
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | no valid input could be compared (the original failed on all of them) |
+
+Not checked: `.gitignore` (not code); `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `d1b13dff227f` (original) vs working tree (fix); changed: `.gitignore`, `CHANGELOG.md`, `README.md`, `dbt_project.yml`, `docs/catalog.json` and 43 more. dbt project: changed `marketo__calendar_spine`, `stg_marketo__activity_change_data_value`, `stg_marketo__activity_click_email`, `stg_marketo__activity_delete_lead`, `stg_marketo__activity_email_bounced`, `stg_marketo__activity_email_delivered`, `stg_marketo__activity_merge_leads`, `stg_marketo__activity_open_email`, `stg_marketo__activity_send_email`, `stg_marketo__activity_unsubscribe_email`, `stg_marketo__campaigns`, `stg_marketo__email_template_history`, `stg_marketo__lead`, `stg_marketo__lead_describe`, `stg_marketo__program`; compared `marketo__campaigns`, `marketo__email_sends`, `marketo__email_templates`, `marketo__lead_history`, `marketo__leads`, `marketo__programs`; SQL on warehouse; tables `marketo_lead_data` (marketo_lead_data.csv), `marketo_activity_open_email_data` (marketo_activity_open_email_data.csv), `marketo_activity_email_delivered_data` (marketo_activity_email_delivered_data.csv), `marketo_activity_change_data_value_data` (marketo_activity_change_data_value_data.csv), `marketo_activity_delete_lead_data` (marketo_activity_delete_lead_data.csv), `marketo_activity_merge_leads_data` (marketo_activity_merge_leads_data.csv), `marketo_program_data` (marketo_program_data.csv), `marketo_campaign_data` (marketo_campaign_data.csv), `marketo_email_template_history_data` (marketo_email_template_history_data.csv), `marketo_activity_send_email_data` (marketo_activity_send_email_data.csv), `marketo_activity_click_email_data` (marketo_activity_click_email_data.csv), `marketo_activity_unsubscribe_email_data` (marketo_activity_unsubscribe_email_data.csv), `marketo_activity_email_bounced_data` (marketo_activity_email_bounced_data.csv), `marketo_lead_describe_data` (marketo_lead_describe_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 0 comparable valid inputs give the same output |
+| Not comparable | 286 valid inputs made the original fail too |
+| Needs review | 0 of 14 inputs in review categories (inputs that break your dbt tests (stg_marketo__activity_change_data_value: not_null(activity_id); stg_marketo__activity_click_email: not_null(activity_id); stg_marketo__activity_email_delivered: not_null(activity_id); stg_marketo__activity_open_email: not_null(activity_id))) differ |
+
+**Why:** no valid input could be compared (the original failed on all of them).
+
+- Note: the original failed on the sample itself: fixwitness.sqlrun: query failed: DuplicateColumn: column "email" specified more than once
+- Note: 286 valid inputs could not be compared because the original failed on them
+
+Proof ID `0690d8f0cb227147` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/marketo@v1.4.0/out/integration_tests_dbt_project/proof.json`

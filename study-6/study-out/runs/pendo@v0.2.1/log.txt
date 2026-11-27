@@ -1,0 +1,11 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/pendo@v0.2.1/out/report.html
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | not checked | the sources read the seeds from schema pendo, which no variable sets (in integration_tests/dbt_project.yml or as a package default), so they can't be pointed at a private schema in your warehouse |
+
+Not checked: `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/graph.gpickle` (new file: there is no original to compare); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/partial_parse.msgpack` (new file: there is no original to compare); `docs/run_results.json` (not code)
+
+To see what is missing and the command that fixes it: `fixwitness doctor`.
+

@@ -1,0 +1,7 @@
+id,set,label,package,release,commit,parent,outcome,verdicts,differences,categories,first_finding,seconds,detail,seeds_restored
+fivetran_log@v0.7.1,bug,wrong-data,dbt_fivetran_log,v0.7.1,6e5fbe7e5159,226deff6d4f1,PASS,PASS,0,,,67,-,0
+jira@v0.8.2,bug,wrong-data,dbt_jira,v0.8.2,78c49634ffa8,b383b19120ef,PASS,PASS,0,,,282,-,0
+quickbooks@v1.2.1,bug,wrong-data,dbt_quickbooks,v1.2.1,74ba053a2c70,b8c82849da1b,FAIL,FAIL,1,null-column,"If every `currency_id` in `invoice_data` is empty (NULL), in `quickbooks__balance_sheet`, the output has 190 rows instead of 95; a new row for '2022-12-01' appears.",171,"If every `currency_id` in `invoice_data` is empty (NULL), in `quickbooks__balance_sheet`, the output has 190 rows instead of 95; a new row for '2022-12-01' appears.",0
+salesforce@v1.0.1,bug,crash-on-data,dbt_salesforce,v1.0.1,169028fa4f2c,4d60033e3d2a,not checked,NOT CHECKED,0,,,40,no dbt model's compiled SQL changed between the two versions,0
+zuora@v1.4.0,refactor,refactor,dbt_zuora,v1.4.0,9cb02445c70c,2ea404852812,PASS,PASS,0,,,144,-,0
+zendesk_source@v0.18.2,bug,crash-on-data,dbt_zendesk_source,v0.18.2,c2d0a39c34f1,b603a3b4994d,PASS,PASS,0,,,70,-,0

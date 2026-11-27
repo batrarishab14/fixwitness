@@ -1,0 +1,3279 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "18a6d2b038812c392f70f320501ee70f281b9932e686bfe2bddb01654865abac",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "5cf1a6831ab8a4220781594dc37f95a5b36cb652",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "cfa8b86cb7f8de6feaae7209afd1f3b10e40793596bb89c3a59a1e480581f440"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "b25abf169eba5766c758ea231e1917faef7a9bdf10250d32fcc90a0aaf5fd078"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "39c68e756e49b448ef4c49dd06807d652023aa04073088271b3283c75d486972"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "bb840a55b54e917c417d78fa977700ffbff8fcc5d54d94652e706224a1cf4e0f"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "33b4264ed40710b59f8782a9e6690a7bb50545dc128f9a1ed019edb1e82c7b78"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "8b15132230a794a0dbd6d4f1e5be8ed1fbfaeda83b693c10d824c50c20725e85"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "eeed1e4bec8121c5d2db165c9cf8f8536d10b13282b784b1deafef50487679c9"
+      },
+      {
+        "path": "models/intermediate/int_marketo__lead.sql",
+        "status": "M",
+        "sha256": "bc7a807c642326e3c0739e47b8d22c135b821bb60137bc90d16f122e8f031e34"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_marketo__lead"
+      ],
+      "compared": [
+        "marketo__lead_history",
+        "marketo__leads"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "marketo_activity_delete_lead_data",
+        "marketo_activity_merge_leads_data",
+        "marketo_lead_data"
+      ]
+    },
+    "tables": {
+      "marketo_lead_data": {
+        "name": "marketo_lead_data.csv",
+        "sha256": "183ad2de399ad62d347de286f332e16ed5a4759a651d3ac930c168450335aa50"
+      },
+      "marketo_activity_open_email_data": {
+        "name": "marketo_activity_open_email_data.csv",
+        "sha256": "c5bc559d2e47188e35d0298a3b3ac1db60cbca66930aa94cc05ce0b5d47e32f3"
+      },
+      "marketo_activity_email_delivered_data": {
+        "name": "marketo_activity_email_delivered_data.csv",
+        "sha256": "9a9433858d7ccb253e2d1cf13a1da9421fc8d01ca2bb2ef3c1e12aa794215c96"
+      },
+      "marketo_activity_change_data_value_data": {
+        "name": "marketo_activity_change_data_value_data.csv",
+        "sha256": "76687446cf275fbb11e340abbb6b38beede8a74ede9a8471991595c589aebe57"
+      },
+      "marketo_activity_delete_lead_data": {
+        "name": "marketo_activity_delete_lead_data.csv",
+        "sha256": "ffce5651b4ced36f442e8af63f9defce9965b4b6b628bac1ca4f19846c9e264b"
+      },
+      "marketo_activity_merge_leads_data": {
+        "name": "marketo_activity_merge_leads_data.csv",
+        "sha256": "c15dea96aa66f4225f14e5c1a071d3286ab9f6a926a59d00f278e5c853821613"
+      },
+      "marketo_email_template_history_data": {
+        "name": "marketo_email_template_history_data.csv",
+        "sha256": "712c442181c5e0d4f5818f2468df87070d0fc647985cdc018244aa07dc64d521"
+      },
+      "marketo_activity_send_email_data": {
+        "name": "marketo_activity_send_email_data.csv",
+        "sha256": "27974f39e5966b85cd887995205c7f41808fbe6056838bddcb99d9348c169118"
+      },
+      "marketo_activity_click_email_data": {
+        "name": "marketo_activity_click_email_data.csv",
+        "sha256": "05e96990674bb52c0b9bfaf23940e30590f6a95f0a3b0cbb20e3f115e25aa9c5"
+      },
+      "marketo_activity_unsubscribe_email_data": {
+        "name": "marketo_activity_unsubscribe_email_data.csv",
+        "sha256": "080e5dc997c98504a7b093ae1e80320a57da9d853bb46e6518d5582825ae5191"
+      },
+      "marketo_activity_email_bounced_data": {
+        "name": "marketo_activity_email_bounced_data.csv",
+        "sha256": "9007908e47de5fbc12577b32764ec18b1a8391727f7918847d79b93b5e28b59b"
+      },
+      "marketo_lead_describe_data": {
+        "name": "marketo_lead_describe_data.csv",
+        "sha256": "6d6f1dbab43bff313bf819682839dad796a12a23619ba053516279c811d45411"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs marketo__lead_history,marketo__leads {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_marketo__activity_change_data_value: not_null(activity_id)",
+      "stg_marketo__activity_change_data_value: unique(activity_id)",
+      "stg_marketo__activity_click_email: unique(activity_id)",
+      "stg_marketo__activity_email_bounced: unique(activity_id)",
+      "stg_marketo__activity_email_delivered: not_null(activity_id)",
+      "stg_marketo__activity_email_delivered: unique(activity_id)",
+      "stg_marketo__activity_open_email: not_null(activity_id)",
+      "stg_marketo__activity_open_email: unique(activity_id)",
+      "stg_marketo__activity_send_email: unique(activity_id)",
+      "stg_marketo__activity_unsubscribe_email: unique(activity_id)",
+      "stg_marketo__lead: not_null(lead_id)",
+      "stg_marketo__lead: unique(lead_id)",
+      "stg_marketo__lead_describe: unique(lead_describe_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "marketo__lead_history",
+        "marketo__leads"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 263,
+      "evidence_strength": 0.989,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 263,
+    "identical": 263,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 37,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 0,
+    "columns_checked": 1
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "empty",
+      "kind": "review",
+      "column": "marketo_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "marketo_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_lead_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_lead_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_lead_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_lead_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_lead_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_lead_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_lead_data.website",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_lead_data.website",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_lead_data.website",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "null-column",
+      "kind": "review",
+      "column": "marketo_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_lead_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_lead_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_lead_data.website",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_lead_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "marketo_lead_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "empty",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.is_mobile_device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.is_mobile_device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.is_mobile_device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.platform",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.platform",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.platform",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.user_agent",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.user_agent",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.user_agent",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "null-column",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.is_mobile_device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.platform",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.user_agent",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_activity_open_email_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_activity_open_email_data.is_mobile_device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_email_delivered_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "empty",
+      "kind": "review",
+      "column": "marketo_activity_email_delivered_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "marketo_activity_email_delivered_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_email_delivered_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "null-column",
+      "kind": "review",
+      "column": "marketo_activity_email_delivered_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_delivered_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_activity_email_delivered_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.api_method_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.api_method_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "empty",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.modifying_user",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.modifying_user",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.new_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.new_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data.new_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.old_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.old_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.reason",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.reason",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data.reason",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.request_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.request_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "pairs",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data.source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.api_method_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "null-column",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.modifying_user",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.new_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.old_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.reason",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.request_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_activity_change_data_value_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "marketo_activity_change_data_value_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.campaign",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "marketo_activity_delete_lead_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.master_updated",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.merge_ids",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.merge_source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.merged_in_sales",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.primary_attribute_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.master_updated",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_activity_merge_leads_data.merged_in_sales",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.folder_folder_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.folder_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.folder_value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.from_email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.from_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.operational",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.program_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.publish_to_msi",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.reply_email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.subject",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.template",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.text_only",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.version",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.web_view",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.workspace",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.operational",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.publish_to_msi",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.text_only",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_email_template_history_data.web_view",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.primary_attribute_value_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.step_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_activity_send_email_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "marketo_activity_send_email_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.activity_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.campaign_run_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.choice_number",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.email_template_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_activity_click_email_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_activity_click_email_data.is_mobile_device",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_unsubscribe_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_unsubscribe_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_unsubscribe_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_unsubscribe_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_unsubscribe_email_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_activity_unsubscribe_email_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "marketo_activity_email_bounced_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "marketo_activity_email_bounced_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "empty",
+      "kind": "valid",
+      "column": "marketo_activity_email_bounced_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "marketo_activity_email_bounced_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "marketo_activity_email_bounced_data.lead_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_activity_email_bounced_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "marketo_lead_describe_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_lead_describe_data.restread_only",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "flip",
+      "kind": "valid",
+      "column": "marketo_lead_describe_data.soapread_only",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 5cf1a6831ab8 (5cf1a6831ab8); fix: your working tree (8 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 34 models; compiled SQL changed in int_marketo__lead; comparing marketo__lead_history, marketo__leads (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (12 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (18: marketo_activity_change_data_value_data.id unique, marketo_activity_change_data_value_data.id not_null, marketo_activity_click_email_data.id unique, marketo_activity_click_email_data.id not_null, marketo_activity_email_bounced_data.id unique, marketo_activity_email_bounced_data.id not_null, marketo_activity_email_delivered_data.id unique, marketo_activity_email_delivered_data.id not_null, marketo_activity_open_email_data.id unique, marketo_activity_open_email_data.id not_null, marketo_activity_send_email_data.id unique, marketo_activity_send_email_data.id not_null, ...); 37 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:19:34Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_marketo",
+    "base": "5cf1a6831ab8",
+    "base_commit": "5cf1a6831ab8a4220781594dc37f95a5b36cb652",
+    "path": "/home/runner/work/_temp/clones/dbt_marketo/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs marketo__lead_history,marketo__leads {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

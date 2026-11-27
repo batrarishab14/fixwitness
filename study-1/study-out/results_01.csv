@@ -1,0 +1,7 @@
+id,set,label,package,release,commit,parent,outcome,verdicts,differences,categories,first_finding,seconds,detail,seeds_restored
+asana@v1.4.0,refactor,refactor,dbt_asana,v1.4.0,3a3ef622dddd,0a81e917655c,PASS,PASS,0,,,138,-,0
+intercom@v1.1.0,refactor,refactor,dbt_intercom,v1.1.0,c316dee424ae,a9a78d5e16e4,PASS,PASS,0,,,136,-,0
+netsuite@v1.7.0,refactor,refactor,dbt_netsuite,v1.7.0,986fb90aab6e,73b6b18de612,FAIL,FAIL,50,duplicate empty flip null-column numeric-format pairs time-edge,"If `id` is the number 0, in `netsuite2__entity_subsidiary_relationships`, the output has 1 row instead of 1; a new row for 'test.netsuite2' appears.",312,"If `id` is the number 0, in `netsuite2__entity_subsidiary_relationships`, the output has 1 row instead of 1; a new row for 'test.netsuite2' appears.",0
+quickbooks@v0.9.1,bug,wrong-data,dbt_quickbooks,v0.9.1,a492423f9aa8,9cc37dfc6050,not checked,INCONCLUSIVE,0,,,193,"not exercisable with this data: no input reaches what the change touched (column total_amount), so identical output proves nothing about it; add rows that have it",0
+zendesk@v1.0.1,bug,wrong-data,dbt_zendesk,v1.0.1,f3e117fc1bf0,2b9703c9d12e,PASS,PASS,0,,,225,-,0
+linkedin_source@v0.8.2,bug,wrong-data,dbt_linkedin_source,v0.8.2,d6f11d2870a8,ff08b957c662,PASS,PASS,0,,,78,-,0

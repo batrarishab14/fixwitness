@@ -1,0 +1,3511 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "327d20a3fdd2210519d4c1e2ed40e8f702be27c70597898e2d43bc4d77532e29",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "1a57d7f4533cf141352f74b2cdad637e0f0f48ae",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md",
+        "status": "M",
+        "sha256": "8c673aea49d6810624b857f3200a4f7cb1c93b529be8a1bfa2265068fe3fa76a"
+      },
+      {
+        "path": ".github/workflows/auto-release.yml",
+        "status": "M",
+        "sha256": "52bb445aa13698578c43357855c2809eb816e233be2d56e3bb0a1a5942114537"
+      },
+      {
+        "path": ".github/workflows/generate-docs.yml",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": ".gitignore",
+        "status": "M",
+        "sha256": "6a8b3d9feac40fd05cd364bede8610fa3eec1662c4127cccf28c0ac00f90c00a"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "573bd216947718e12de74590efcac8f6e5ebfa5d3d0c876771c037fef4d4afd7"
+      },
+      {
+        "path": "README.md",
+        "status": "M",
+        "sha256": "6f9f11b5e6bcb7169b46b7977b60b33764700bb5a6325ddab246299e658145be"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "d189012e582e2957838e7bc725785c48aa8327aae2253bafe22fa7328e1a1014"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "e7e8bbd31dac4a2e8145f6f08c7e43354e508bfff0a694377f806029e90a8840"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "41a15fd5495fb29ef33e93ca3d055d27b6e6d4d962c1560ba18f7a168a953fca"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "d083b8a72171b3c65bb8142a36eb7b32f75e37c52147715c3948cf5523066af7"
+      },
+      {
+        "path": "models/agent_work_time/int_zendesk__ticket_work_time_business.sql",
+        "status": "M",
+        "sha256": "8f4342c927918177732383b4db5d55d13627426fc8d8ea5923da7556a7b2f3bf"
+      },
+      {
+        "path": "models/reply_times/int_zendesk__ticket_first_reply_time_business.sql",
+        "status": "M",
+        "sha256": "d83af2ae372a1a8fc574526203408b03456f42f1a241d2ea7cfb8cea0e20ce07"
+      },
+      {
+        "path": "models/resolution_times/int_zendesk__ticket_first_resolution_time_business.sql",
+        "status": "M",
+        "sha256": "f0d9202f43438724fad7dc1a5846b1af0bf4404e38776208cf054ae586193cbe"
+      },
+      {
+        "path": "models/resolution_times/int_zendesk__ticket_full_resolution_time_business.sql",
+        "status": "M",
+        "sha256": "20700f7f20497839e99cadc5ca73d172a42868f198939a04941192988b86decc"
+      },
+      {
+        "path": "models/sla_policy/agent_work_time/int_zendesk__agent_work_time_business_hours.sql",
+        "status": "M",
+        "sha256": "623c779e6bf93f8babbbc6dd107e0558594a69ff44944ffc5d06dd64ad870802"
+      },
+      {
+        "path": "models/sla_policy/reply_time/int_zendesk__reply_time_business_hours.sql",
+        "status": "M",
+        "sha256": "bff3bbb93dbacb379cdbe5aaed288362207dbbe781de1f4a2d3d436440a58f3a"
+      },
+      {
+        "path": "models/sla_policy/requester_wait_time/int_zendesk__requester_wait_time_business_hours.sql",
+        "status": "M",
+        "sha256": "8012a1e28080d1f050c1d6d9e02fd86aa556083fa78d57926acdec0e058630ee"
+      },
+      {
+        "path": "models/zendesk__sla_policies.sql",
+        "status": "M",
+        "sha256": "8c8dc875611938ee4233581717d62b24663aeabc47ad17e170cd4d28ee484435"
+      },
+      {
+        "path": "models/zendesk__ticket_metrics.sql",
+        "status": "M",
+        "sha256": "4244df1c6f3429f6ee8d4db71d63469dc5918a10fe481ad0be0414cb2c22a0ff"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_zendesk__agent_work_time_business_hours",
+        "int_zendesk__reply_time_business_hours",
+        "int_zendesk__requester_wait_time_business_hours",
+        "zendesk__sla_policies",
+        "zendesk__ticket_metrics"
+      ],
+      "compared": [
+        "zendesk__sla_policies",
+        "zendesk__ticket_metrics",
+        "zendesk__ticket_summary"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "brand_data_postgres",
+        "daylight_time_data",
+        "domain_name_data",
+        "group_data",
+        "organization_data",
+        "organization_tag_data",
+        "schedule_data",
+        "schedule_holiday_data",
+        "ticket_comment_data",
+        "ticket_data",
+        "ticket_field_history_data",
+        "ticket_form_history_data",
+        "ticket_schedule_data",
+        "ticket_tag_data",
+        "time_zone_data",
+        "user_data",
+        "user_tag_data"
+      ]
+    },
+    "tables": {
+      "time_zone_data": {
+        "name": "time_zone_data.csv",
+        "sha256": "6cefa7e0130fc020e647290881b889956e4c928efe05eae2b5014ac12ced4c4d"
+      },
+      "ticket_schedule_data": {
+        "name": "ticket_schedule_data.csv",
+        "sha256": "9d689196418e0ecfb021986f1b20d69075518c28126bbbcba65e5070d3d198ad"
+      },
+      "organization_tag_data": {
+        "name": "organization_tag_data.csv",
+        "sha256": "7ae5a449ceb5f7c1e4e26745865d1cf69db0327ca92faed334092e048592088a"
+      },
+      "domain_name_data": {
+        "name": "domain_name_data.csv",
+        "sha256": "a83d97a6a121352f790e4febe22ffa13f25b97d0b49d507a0b65b033966b138d"
+      },
+      "ticket_comment_data": {
+        "name": "ticket_comment_data.csv",
+        "sha256": "8b0691998bc1fd22e239c24f4ca8bb1db666132d6ab4518e4ceba486920c6672"
+      },
+      "organization_data": {
+        "name": "organization_data.csv",
+        "sha256": "7afa26574414da4627aef3176733472c262a70ef1aed00db43ea97c4797efe4f"
+      },
+      "user_tag_data": {
+        "name": "user_tag_data.csv",
+        "sha256": "190b86f18984aa0e01d2f5fcaae4d018bdedb5f253851d9c5283d803c31bf39a"
+      },
+      "schedule_data": {
+        "name": "schedule_data.csv",
+        "sha256": "2518ff860d2e4311425def05faf9b1bbfa6eacfbfb1ee4a1dba5b8942760bc6d"
+      },
+      "daylight_time_data": {
+        "name": "daylight_time_data.csv",
+        "sha256": "60429f6c6a7ed4c2180206b592bd5b4b73d3921be7601a33f0851382506dbbcc"
+      },
+      "ticket_data": {
+        "name": "ticket_data.csv",
+        "sha256": "b1f0b94c4597873062bbd5dfb438db33f8e8a7ea8a75e0784ae11172758f7b7d"
+      },
+      "ticket_field_history_data": {
+        "name": "ticket_field_history_data.csv",
+        "sha256": "814a4c707d0d35836bf7e08721211a5aa501be1edc8c31caf126a7d53bad97aa"
+      },
+      "ticket_tag_data": {
+        "name": "ticket_tag_data.csv",
+        "sha256": "7ce5092589c615c3334f0f2c9a8ad8939c5d0240a57fa38ff325fd969ad42a65"
+      },
+      "brand_data_postgres": {
+        "name": "brand_data_postgres.csv",
+        "sha256": "82614596224e3270893b886441eb4238e59d5c93ef9a4961ee972041805c8c45"
+      },
+      "group_data": {
+        "name": "group_data.csv",
+        "sha256": "558bf72c486cc7bd9ac2abc473eb9cd6b3efe1c9f6ccc765c12c31149fe65acb"
+      },
+      "ticket_form_history_data": {
+        "name": "ticket_form_history_data.csv",
+        "sha256": "b8cf148d1cebb172c4a2ad91a5a83f1a735d0f2fe01db45deed55b8b85a0f746"
+      },
+      "schedule_holiday_data": {
+        "name": "schedule_holiday_data.csv",
+        "sha256": "18cfccedffc810b383f41290588ea0b2731deed4839f3e13613298b3f221490f"
+      },
+      "user_data": {
+        "name": "user_data.csv",
+        "sha256": "097ad8b6522c46de4154f602866d192dbbc2225965c851e94a060ce31d5597ac"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs zendesk__sla_policies,zendesk__ticket_metrics,zendesk__ticket_summary {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [
+      "zendesk__ticket_metrics.assignee_last_login_age_minutes",
+      "zendesk__ticket_metrics.requester_last_login_age_minutes"
+    ],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "zendesk__sla_policies",
+        "zendesk__ticket_metrics",
+        "zendesk__ticket_summary"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "INCONCLUSIVE",
+  "reasons": [
+    "not exercisable with this data: no input reaches what the change touched ('next_reply_time', 'not set'), so identical output proves nothing about it; add rows that have it"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 302,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 304,
+    "identical": 302,
+    "changed": 0,
+    "not_comparable": 2,
+    "review_inputs": 8,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": false,
+    "findings": [
+      {
+        "kind": "guard-absent",
+        "name": "next_reply_time",
+        "detail": "the change sits under a filter that keeps only rows equal to 'next_reply_time', but no cell of any of the 313 inputs contains it",
+        "value": "next_reply_time",
+        "columns": [
+          "field_name",
+          "metric"
+        ]
+      },
+      {
+        "kind": "guard-absent",
+        "name": "not set",
+        "detail": "the change sits under a filter that keeps only rows equal to 'not set', but no cell of any of the 313 inputs contains it",
+        "value": "not set",
+        "columns": [
+          "role"
+        ]
+      }
+    ],
+    "literals_checked": 11,
+    "columns_checked": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "empty",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "time_zone_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_schedule_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_schedule_data.schedule_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "organization_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "empty",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "domain_name_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "empty",
+      "kind": "review",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "null-column",
+      "kind": "review",
+      "column": "ticket_comment_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_comment_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_comment_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_comment_data.created",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "flip",
+      "kind": "valid",
+      "column": "ticket_comment_data.public",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "empty",
+      "kind": "review",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "empty",
+      "kind": "valid",
+      "column": "organization_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "organization_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "organization_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "null-column",
+      "kind": "review",
+      "column": "organization_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "organization_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "organization_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "organization_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "organization_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "organization_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "organization_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "user_tag_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user_tag_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user_tag_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "user_tag_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "user_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user_tag_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "user_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "schedule_data.end_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "empty",
+      "kind": "valid",
+      "column": "schedule_data.end_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_data.end_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_data.end_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "schedule_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "empty",
+      "kind": "valid",
+      "column": "schedule_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "schedule_data.start_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "empty",
+      "kind": "valid",
+      "column": "schedule_data.start_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_data.start_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_data.start_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "empty",
+      "kind": "valid",
+      "column": "schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "schedule_data.end_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "empty",
+      "kind": "valid",
+      "column": "schedule_data.end_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_data.end_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_data.end_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "schedule_data.start_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "empty",
+      "kind": "valid",
+      "column": "schedule_data.start_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_data.start_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_data.start_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "empty",
+      "kind": "valid",
+      "column": "schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "schedule_data.end_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "schedule_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "schedule_data.start_time",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "schedule_data.end_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "schedule_data.start_time_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "schedule_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "schedule_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "empty",
+      "kind": "valid",
+      "column": "daylight_time_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "daylight_time_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "daylight_time_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "empty",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_end_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_end_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_end_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "empty",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_start_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_start_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_start_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "daylight_time_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_end_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_start_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "daylight_time_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_end_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "daylight_time_data.daylight_start_utc",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "empty",
+      "kind": "review",
+      "column": "ticket_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_data.assignee_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_data.assignee_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_data.assignee_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_data.assignee_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_data.is_public",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_data.is_public",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_data.is_public",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_data.priority",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_data.priority",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "null-column",
+      "kind": "review",
+      "column": "ticket_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_data.assignee_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_data.is_public",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_data.priority",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_data.created_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "flip",
+      "kind": "valid",
+      "column": "ticket_data.is_public",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_data.updated_at",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_field_history_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_field_history_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_field_history_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_field_history_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_field_history_data.updated",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_field_history_data.updated",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_field_history_data.updated",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_field_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_field_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_field_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_field_history_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_field_history_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_field_history_data.value",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_field_history_data.value",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_field_history_data.value",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_field_history_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_field_history_data.updated",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_field_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_field_history_data.user_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_field_history_data.value",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_field_history_data.updated",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_field_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_tag_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_tag_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_tag_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_tag_data.ticket_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_tag_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "brand_data_postgres.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "empty",
+      "kind": "valid",
+      "column": "brand_data_postgres.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "brand_data_postgres.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "empty",
+      "kind": "valid",
+      "column": "brand_data_postgres._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "brand_data_postgres._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "empty",
+      "kind": "valid",
+      "column": "brand_data_postgres.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "brand_data_postgres.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "brand_data_postgres.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "brand_data_postgres._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "brand_data_postgres.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "brand_data_postgres._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "flip",
+      "kind": "valid",
+      "column": "brand_data_postgres.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "group_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "empty",
+      "kind": "valid",
+      "column": "group_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "group_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "group_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "empty",
+      "kind": "valid",
+      "column": "group_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "group_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "group_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "empty",
+      "kind": "valid",
+      "column": "group_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "group_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "group_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "empty",
+      "kind": "valid",
+      "column": "group_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "group_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "group_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "group_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "group_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "group_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "group_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "group_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "group_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "group_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "ticket_form_history_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_form_history_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_form_history_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_form_history_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_form_history_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_form_history_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_form_history_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_form_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_form_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_form_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_form_history_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_form_history_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_form_history_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "empty",
+      "kind": "valid",
+      "column": "ticket_form_history_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "ticket_form_history_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "ticket_form_history_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_form_history_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_form_history_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_form_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_form_history_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "ticket_form_history_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_form_history_data.updated_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_form_history_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "flip",
+      "kind": "valid",
+      "column": "ticket_form_history_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "ticket_form_history_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "schedule_holiday_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "empty",
+      "kind": "review",
+      "column": "schedule_holiday_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_holiday_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_holiday_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "schedule_holiday_data.schedule_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_holiday_data.schedule_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_holiday_data.schedule_id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_holiday_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "schedule_holiday_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "schedule_holiday_data.end_date",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "null-column",
+      "kind": "review",
+      "column": "schedule_holiday_data.id",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "schedule_holiday_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "user_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "user_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "user_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "user_data._fivetran_synced",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "flip",
+      "kind": "valid",
+      "column": "user_data.active",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "user_data.created_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "user_data.last_login_at",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "300",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "301",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "302",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "303",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_field_history_data.field_name",
+      "family": null,
+      "status": "not-comparable",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "304",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "305",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "306",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "307",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_data.status",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "308",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_field_history_data.value",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "309",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_field_history_data.value",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "310",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "311",
+      "category": "precondition",
+      "kind": "valid",
+      "column": "ticket_comment_data.body",
+      "family": null,
+      "status": "same-data",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 1a57d7f4533c (1a57d7f4533c); fix: your working tree (19 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 67 models; compiled SQL changed in int_zendesk__agent_work_time_business_hours, int_zendesk__reply_time_business_hours, int_zendesk__requester_wait_time_business_hours, zendesk__sla_policies, zendesk__ticket_metrics; comparing zendesk__sla_policies, zendesk__ticket_metrics, zendesk__ticket_summary (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (17 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): ticket_schedule_data.ticket_id -> ticket_data.id, ticket_schedule_data.schedule_id -> schedule_data.id, organization_tag_data.organization_id -> organization_data.id, domain_name_data.organization_id -> organization_data.id, ticket_comment_data.user_id -> user_data.id, user_tag_data.user_id -> user_data.id, ticket_data.group_id -> group_data.id, ticket_data.organization_id -> organization_data.id, user_data.organization_id -> organization_data.id",
+    "the project's dbt tests are used as rules on the input tables (7: ticket_data.id not_null, domain_name_data.organization_id not_null, organization_data.id not_null, ticket_comment_data.id not_null, user_data.id not_null, time_zone_data.time_zone not_null, schedule_holiday_data.id not_null); 8 inputs break one and are reviewed, not failed",
+    "the project's dbt tests are used as rules on the input tables (7: ticket_data.id not_null, domain_name_data.organization_id not_null, organization_data.id not_null, ticket_comment_data.id not_null, user_data.id not_null, time_zone_data.time_zone not_null, schedule_holiday_data.id not_null); no generated input breaks them",
+    "no input had the value(s) the change tests, so 12 cases give it to the column it is compared with: first_reply_time, new"
+  ],
+  "warnings": [
+    "ignored column(s) zendesk__ticket_metrics.assignee_last_login_age_minutes, zendesk__ticket_metrics.requester_last_login_age_minutes: they change between two runs of the original on the same input",
+    "2 valid inputs could not be compared because the original failed on them"
+  ],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "precondition": "precondition",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:17:10Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_zendesk",
+    "base": "1a57d7f4533c",
+    "base_commit": "1a57d7f4533cf141352f74b2cdad637e0f0f48ae",
+    "path": "/home/runner/work/_temp/clones/dbt_zendesk/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs zendesk__sla_policies,zendesk__ticket_metrics,zendesk__ticket_summary {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

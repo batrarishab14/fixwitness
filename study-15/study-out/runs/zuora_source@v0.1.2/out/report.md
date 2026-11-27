@@ -1,0 +1,58 @@
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If the file is tables as given, in `stg_zuora__account`, the output has 5 rows instead of 4; a new row for '2c92c0f86763fb0a0167834d6c5e086b' appears. |
+
+Not checked: `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code); `models/docs.md` (documentation)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `7a215f2b4b4f` (original) vs working tree (fix); changed: `CHANGELOG.md`, `README.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/index.html` and 43 more. dbt project: changed `stg_zuora__account`, `stg_zuora__amendment`, `stg_zuora__contact`, `stg_zuora__credit_balance_adjustment`, `stg_zuora__invoice`, `stg_zuora__invoice_item`, `stg_zuora__invoice_payment`, `stg_zuora__order`, `stg_zuora__payment`, `stg_zuora__payment_method`, `stg_zuora__product`, `stg_zuora__product_rate_plan`, `stg_zuora__product_rate_plan_charge`, `stg_zuora__rate_plan`, `stg_zuora__rate_plan_charge`, `stg_zuora__refund`, `stg_zuora__refund_invoice_payment`, `stg_zuora__subscription`, `stg_zuora__taxation_item`; compared `stg_zuora__account`, `stg_zuora__amendment`, `stg_zuora__contact`, `stg_zuora__credit_balance_adjustment`, `stg_zuora__invoice`, `stg_zuora__invoice_item`, `stg_zuora__invoice_payment`, `stg_zuora__order`, `stg_zuora__payment`, `stg_zuora__payment_method`, `stg_zuora__product`, `stg_zuora__product_rate_plan`, `stg_zuora__product_rate_plan_charge`, `stg_zuora__rate_plan`, `stg_zuora__rate_plan_charge`, `stg_zuora__refund`, `stg_zuora__refund_invoice_payment`, `stg_zuora__subscription`, `stg_zuora__taxation_item`; SQL on warehouse; tables `zuora_taxation_item_data` (zuora_taxation_item_data.csv), `zuora_credit_balance_adjustment_data` (zuora_credit_balance_adjustment_data.csv), `zuora_rate_plan_data` (zuora_rate_plan_data.csv), `zuora_subscription_data` (zuora_subscription_data.csv), `zuora_product_rate_plan_data` (zuora_product_rate_plan_data.csv), `zuora_invoice_data` (zuora_invoice_data.csv), `zuora_order_data` (zuora_order_data.csv), `zuora_payment_method_data` (zuora_payment_method_data.csv), `zuora_amendment_data` (zuora_amendment_data.csv), `zuora_invoice_payment_data` (zuora_invoice_payment_data.csv), `zuora_rate_plan_charge_data` (zuora_rate_plan_charge_data.csv), `zuora_payment_data` (zuora_payment_data.csv), `zuora_invoice_item_data` (zuora_invoice_item_data.csv), `zuora_contact_data` (zuora_contact_data.csv), `zuora_product_rate_plan_charge_data` (zuora_product_rate_plan_charge_data.csv), `zuora_refund_data` (zuora_refund_data.csv), `zuora_account_data` (zuora_account_data.csv), `zuora_product_data` (zuora_product_data.csv), `zuora_refund_invoice_payment_data` (zuora_refund_invoice_payment_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 300 comparable valid inputs give the same output |
+
+**Why:** the fix changes output on 300 valid inputs.
+
+**What could go wrong:**
+
+- **Rows added or lost.** If the file is tables as given, in `stg_zuora__account`, the output has 5 rows instead of 4; a new row for '2c92c0f86763fb0a0167834d6c5e086b' appears.
+  - case 000: `file-structure` input '<tables as given>' in `None` (changed)
+  - stg_zuora__account: row count: 4 -> 5
+  - stg_zuora__account: row 1, account_id: '2c92c0f967640caa0167836a3e396a3b' -> '2c92c0f86763fb0a0167834d6c5e086b'
+- **Rows added or lost.** If a `zuora_taxation_item_data` row has an empty `id`, in `stg_zuora__taxation_item`, the output has 2 rows instead of 1; a new row for 'dff38ac095012f19007b8a0942416110' appears.
+  - case 001: `empty` input '' in `zuora_taxation_item_data.id` (changed); input shrunk to the rows that show it
+  - stg_zuora__account: row count: 4 -> 5
+  - stg_zuora__account: row 1, account_id: '2c92c0f967640caa0167836a3e396a3b' -> '2c92c0f86763fb0a0167834d6c5e086b'
+- **Rows added or lost.** If `id` repeats the value of another row ('dff38ac095012f19007b8a0942416110'), in `stg_zuora__taxation_item`, the output has 2 rows instead of 1; a new row for 'dff38ac095012f19007b8a0942416110' appears.
+  - case 002: `duplicate` input 'dff38ac095012f19007b8a0942416110' in `zuora_taxation_item_data.id` (changed); input shrunk to the rows that show it
+  - stg_zuora__account: row count: 4 -> 5
+  - stg_zuora__account: row 1, account_id: '2c92c0f967640caa0167836a3e396a3b' -> '2c92c0f86763fb0a0167834d6c5e086b'
+- **Rows added or lost.** If two `zuora_taxation_item_data` rows of the same group have `id` = 'dff38ac03b24a6efd976ad1221ebd5cc' and 'DFF38AC03B24A6EFD976AD1221EBD5CC', in `stg_zuora__taxation_item`, the output has 1 row instead of 0; a new row for 'dff38ac095012f19007b8a0942416110' appears.
+  - case 003: `pairs` input 'dff38ac03b24a6efd976ad1221ebd5cc | DFF38AC03B24A6EFD976AD1221EBD5CC' in `zuora_taxation_item_data.id` (changed); input shrunk to the rows that show it
+  - stg_zuora__account: row count: 4 -> 5
+  - stg_zuora__account: row 1, account_id: '2c92c0f967640caa0167836a3e396a3b' -> '2c92c0f86763fb0a0167834d6c5e086b'
+- **Rows added or lost.** If a `zuora_taxation_item_data` row has an empty `_fivetran_deleted`, in `stg_zuora__taxation_item`, the output has 2 rows instead of 1; a new row for 'dff38ac095012f19007b8a0942416110' appears.
+  - case 004: `empty` input '' in `zuora_taxation_item_data._fivetran_deleted` (changed); input shrunk to the rows that show it
+  - stg_zuora__account: row count: 4 -> 5
+  - stg_zuora__account: row 1, account_id: '2c92c0f967640caa0167836a3e396a3b' -> '2c92c0f86763fb0a0167834d6c5e086b'
+- **Rows added or lost.** If `_fivetran_deleted` repeats the value of another row ('TRUE'), in `stg_zuora__subscription`, the output has 5 rows instead of 3; a new row for 'dff38ac055b680bfe2570136a1f356c1' appears.
+  - case 005: `duplicate` input 'TRUE' in `zuora_taxation_item_data._fivetran_deleted` (changed); input shrunk to the rows that show it
+  - stg_zuora__account: row count: 4 -> 5
+  - stg_zuora__account: row 1, account_id: '2c92c0f967640caa0167836a3e396a3b' -> '2c92c0f86763fb0a0167834d6c5e086b'
+- **Rows added or lost.** If two `zuora_taxation_item_data` rows of the same group have `_fivetran_deleted` = 'FALSE' and 'false', in `stg_zuora__account`, the output has 5 rows instead of 4; a new row for '2c92c0f86763fb0a0167834d6c5e086b' appears.
+  - case 006: `pairs` input 'FALSE | false' in `zuora_taxation_item_data._fivetran_deleted` (changed)
+  - stg_zuora__account: row count: 4 -> 5
+  - stg_zuora__account: row 1, account_id: '2c92c0f967640caa0167836a3e396a3b' -> '2c92c0f86763fb0a0167834d6c5e086b'
+- **Rows added or lost.** If a `zuora_taxation_item_data` row has an empty `_fivetran_synced`, in `stg_zuora__account`, the output has 5 rows instead of 4; a new row for '2c92c0f86763fb0a0167834d6c5e086b' appears.
+  - case 007: `empty` input '' in `zuora_taxation_item_data._fivetran_synced` (changed)
+  - stg_zuora__account: row count: 4 -> 5
+  - stg_zuora__account: row 1, account_id: '2c92c0f967640caa0167836a3e396a3b' -> '2c92c0f86763fb0a0167834d6c5e086b'
+
+Proof ID `e0bc7f3d6457f748` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/zuora_source@v0.1.2/out/integration_tests_dbt_project/proof.json`

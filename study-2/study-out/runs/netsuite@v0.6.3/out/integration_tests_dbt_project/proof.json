@@ -1,0 +1,3362 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "1b5dfd2dd0ecad57ebd81dd2096c110a2eca93c6c184de6b1c3ca131069bb794",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "d96c0a8c5d1ff21359d376d1ec175cb3bd183a2c",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".buildkite/hooks/pre-command",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": ".buildkite/pipeline.yml",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": ".buildkite/scripts/run_models.sh",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": ".circleci/config.yml",
+        "status": "A",
+        "sha256": "d82632d6a2ff0cfdc9fafc1e0d3f58dcf02af539fa91b65bc968e94038efce61"
+      },
+      {
+        "path": ".github/pull_request_template.md",
+        "status": "M",
+        "sha256": "2437ccbe5254d07c220b026ed44f375fd81db9b042415974d9227ade285fdbdf"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "902c02476c7e3363097d8549845206ab4929ade22ccc6b0625884f5781434ab4"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "4c53e4cbee409cdbea3276ca16ae023c707f90d5973901457068ef751f673984"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "94901b1639c8158c59bd10f135a4579b3ca2e305880b2ee0a58e0bde592088f2"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "00e86e1f02f3403bafdb26774e2d18ba0b300901a5429bae91ae0bd91d9b4859"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "c53ae870b793f005ebe176225d5ad50a1bcfc9a007e5b00a7804ae9a190301b0"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "0397efae29e53fa1d8c99ce5bf69b42e3b81811029ec96582d58e33154fa7319"
+      },
+      {
+        "path": "integration_tests/ci/sample.profiles.yml",
+        "status": "M",
+        "sha256": "b19232973c50bbf45b165d1da8d5e957f1f7277a29ae3e3128b99a9576ba4f0c"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "1221ff458c7abdb0d59726b4f5699f956432d52dd4e9524594487fd4ddf8be71"
+      },
+      {
+        "path": "integration_tests/requirements.txt",
+        "status": "M",
+        "sha256": "df76352cfad2506e81a053eabf0bfb755d6385c333be2c402de32660b417259b"
+      },
+      {
+        "path": "models/netsuite2/intermediate/int_netsuite2__tran_lines_w_accounting_period.sql",
+        "status": "M",
+        "sha256": "dc24bcfe1f2939f9d1ce1856157fa722879f8e0615d327647de3e441ca185fad"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_netsuite2__tran_lines_w_accounting_period"
+      ],
+      "compared": [
+        "netsuite2__balance_sheet",
+        "netsuite2__income_statement",
+        "netsuite2__transaction_details"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "netsuite2_tran_acct_line_data",
+        "netsuite2_transaction_data",
+        "netsuite2_transaction_line_data"
+      ]
+    },
+    "tables": {
+      "netsuite2_consolidated_exchange_rate_data": {
+        "name": "netsuite2_consolidated_exchange_rate_data.csv",
+        "sha256": "5856b796ef293d3bf86547356d679ec5ed168b33074576aa76c29e9ab581b5cd"
+      },
+      "netsuite2_item_data": {
+        "name": "netsuite2_item_data.csv",
+        "sha256": "b2537a29ea0b0620a3d0899d5aa18bd8ef41a787d76ac992fd6ca21829dc245d"
+      },
+      "netsuite2_subsidiary_data": {
+        "name": "netsuite2_subsidiary_data.csv",
+        "sha256": "ee585a6f5007474988ca7771fa4450f3b348375d8688867ea81d001450e04d6d"
+      },
+      "netsuite2_account_type_data": {
+        "name": "netsuite2_account_type_data.csv",
+        "sha256": "921cc8e886f23c6ddf04902253d2e8e72eca647f72efbdd9249619ae54e000ce"
+      },
+      "netsuite2_entity_address_data": {
+        "name": "netsuite2_entity_address_data.csv",
+        "sha256": "c501807e1c291e92c500804d25b988752e3ab1b74a16d936324a6ea9fa2e252c"
+      },
+      "netsuite2_accounting_book_sub_data": {
+        "name": "netsuite2_accounting_book_sub_data.csv",
+        "sha256": "ff00904ec3cf664844e8db56ab69821156a56c52f516d9bb87fc67d9b0498cc2"
+      },
+      "netsuite2_vendor_data": {
+        "name": "netsuite2_vendor_data.csv",
+        "sha256": "bd7cb00f9be8a137d7398b596eb34a9b5257070eb4d0fae7ef074d1ae03eec6b"
+      },
+      "netsuite2_classification_data": {
+        "name": "netsuite2_classification_data.csv",
+        "sha256": "00e17ab20d4c118dd65b59887622fcacdf315236411eefb17f7282d984304a81"
+      },
+      "netsuite2_transaction_data": {
+        "name": "netsuite2_transaction_data.csv",
+        "sha256": "16a0dd55dc8baa5b957cf7d336292fe88ca32112b182a656a94730761ba73cc6"
+      },
+      "netsuite2_currency_data": {
+        "name": "netsuite2_currency_data.csv",
+        "sha256": "79148decd11606519ea230a53780d620e1ba1a1f0149bf38b2d71740ef156094"
+      },
+      "netsuite2_account_data": {
+        "name": "netsuite2_account_data.csv",
+        "sha256": "61605840fea71a6b29516a650544fb1ae18437846e3559fd6af4ec05eb875ce5"
+      },
+      "netsuite2_tran_acct_line_data": {
+        "name": "netsuite2_tran_acct_line_data.csv",
+        "sha256": "55083379cbbf26b6c701ca17b38e9f609ef5f619e885d2e7bf9c3ae04d2b988d"
+      },
+      "netsuite2_accounting_period_fiscal_cal_data": {
+        "name": "netsuite2_accounting_period_fiscal_cal_data.csv",
+        "sha256": "eb9ffdca1af66e441472f466b98252966a59c8f092b0949a5da1937ccbdb6d0b"
+      },
+      "netsuite2_department_data": {
+        "name": "netsuite2_department_data.csv",
+        "sha256": "c8c5d57f5a095c7af718abb478e4e763c9d5fa4a74bc37437ad050b3e7dd4621"
+      },
+      "netsuite2_entities_data": {
+        "name": "netsuite2_entities_data.csv",
+        "sha256": "f33f39fe95c31f8aa733e61ea1c45225a8f509d10c517c2cea2823cdefab60dd"
+      },
+      "netsuite2_location_main_address_data": {
+        "name": "netsuite2_location_main_address_data.csv",
+        "sha256": "63591aac0922f59bbe99a90a4ba922437d388a402e8320f49a5a64bfce838e93"
+      },
+      "netsuite2_customer_data": {
+        "name": "netsuite2_customer_data.csv",
+        "sha256": "9781cfad29d883c237cc84b49d638aeae9e4682a8a2f4db1085c246c771a8a33"
+      },
+      "netsuite2_accounting_period_data": {
+        "name": "netsuite2_accounting_period_data.csv",
+        "sha256": "e3d68892d393c11faf8b79b7b6c21e8a2423e869bbcade8a76a29ff99409a1d8"
+      },
+      "netsuite2_location_data": {
+        "name": "netsuite2_location_data.csv",
+        "sha256": "801ab5f6f680b05627efa5f6d0bfc1cd558a66857462413e617090f777947675"
+      },
+      "netsuite2_accounting_book_data": {
+        "name": "netsuite2_accounting_book_data.csv",
+        "sha256": "4498b6bb6ed2c3cb7f44734422733f9a057a4b835f460ce88c99986628809a7d"
+      },
+      "netsuite2_vendor_category_data": {
+        "name": "netsuite2_vendor_category_data.csv",
+        "sha256": "1f55cd4a001d1552d4e81f69604b055cf31e79ff3ff2c2229a8dbb13c1cb6bb2"
+      },
+      "netsuite2_transaction_line_data": {
+        "name": "netsuite2_transaction_line_data.csv",
+        "sha256": "c251855baab6e63060ff3b0e57daf19420d5aafcc44a18662a223142d4831817"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs netsuite2__balance_sheet,netsuite2__income_statement,netsuite2__transaction_details {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_netsuite2__account_types: unique(account_type_id)",
+      "stg_netsuite2__accounts: unique(account_id)",
+      "stg_netsuite2__classes: unique(class_id)",
+      "stg_netsuite2__departments: unique(department_id)",
+      "stg_netsuite2__entities: unique(entity_id)",
+      "stg_netsuite2__transaction_accounting_lines: not_null(transaction_id)",
+      "stg_netsuite2__transaction_accounting_lines: not_null(transaction_line_id)",
+      "stg_netsuite2__transaction_accounting_lines: unique_combination_of_columns(transaction_id, transaction_line_id)",
+      "stg_netsuite2__transaction_lines: not_null(transaction_id)",
+      "stg_netsuite2__transaction_lines: not_null(transaction_line_id)",
+      "stg_netsuite2__transaction_lines: unique_combination_of_columns(transaction_id, transaction_line_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "netsuite2__balance_sheet",
+        "netsuite2__income_statement",
+        "netsuite2__transaction_details"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 273,
+      "evidence_strength": 0.989,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 273,
+    "identical": 273,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 27,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 0,
+    "columns_checked": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.averagerate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.averagerate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.averagerate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.currentrate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.currentrate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.currentrate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.date_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.date_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.externalid",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.externalid",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.fromcurrency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.fromcurrency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.fromcurrency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.fromsubsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.fromsubsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.fromsubsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.historicalrate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.historicalrate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.historicalrate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.tocurrency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.tocurrency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.tocurrency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.tosubsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.tosubsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.tosubsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.averagerate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.currentrate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.date_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.externalid",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.fromcurrency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.fromsubsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.historicalrate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.tocurrency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data.tosubsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_consolidated_exchange_rate_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_item_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_item_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.fullname",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.fullname",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_item_data.fullname",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.itemtype",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.itemtype",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_item_data.itemtype",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_item_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.department",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.department",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_item_data.class",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.class",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.class",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.location",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.location",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_item_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.assetaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.assetaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.expenseaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.expenseaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.gainlossaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.gainlossaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_item_data.incomeaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.incomeaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.incomeaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.deferralaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.deferralaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_item_data.parent",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_item_data.parent",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.fullname",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.itemtype",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.department",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.class",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.location",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.assetaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.expenseaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.gainlossaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.incomeaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.deferralaccount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_item_data.parent",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_item_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_item_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.country",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.country",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.country",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.date_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.date_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.dropdownstate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.dropdownstate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.edition",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.fiscalcalendar",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.fullname",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.iselimination",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.isinactive",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.languagelocale",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.mainaddress",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.parent",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.showsubsidiaryname",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.state",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.country",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.date_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_subsidiary_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_account_type_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data.balancesheet",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data.defaultcashflowratetype",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data.defaultgeneralratetype",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data.eliminationalgo",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data.includeinrevaldefault",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_account_type_data.internalid",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data.left",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data.longname",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_account_type_data.seqnum",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "pairs",
+      "kind": "review",
+      "column": "netsuite2_account_type_data.usercanchangerevaloption",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "netsuite2_account_type_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_account_type_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_account_type_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data.nkey",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data.addrphone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data.addrtext",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data.country",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data.recordowner",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_entity_address_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_accounting_book_sub_data.accountingbook",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_accounting_book_sub_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_accounting_book_sub_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_accounting_book_sub_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_accounting_book_sub_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.balance",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.balanceprimary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.category",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.currency",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.globalsubscriptionstatus",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.unbilledorders",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.unbilledordersprimary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.datecreated",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_vendor_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_classification_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "netsuite2_classification_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_classification_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_classification_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_classification_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "long",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.postingperiod",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "case",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.trandate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.createddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.duedate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_transaction_data.closedate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_currency_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_currency_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_currency_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_currency_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "netsuite2_account_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_account_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_account_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_account_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "empty",
+      "kind": "review",
+      "column": "netsuite2_tran_acct_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "netsuite2_tran_acct_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.transactionline",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.transactionline",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "empty",
+      "kind": "review",
+      "column": "netsuite2_tran_acct_line_data.transactionline",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.transactionline",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.account",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.account",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "empty",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "null-column",
+      "kind": "review",
+      "column": "netsuite2_tran_acct_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "null-column",
+      "kind": "review",
+      "column": "netsuite2_tran_acct_line_data.transactionline",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.account",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "netsuite2_tran_acct_line_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_tran_acct_line_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_accounting_period_fiscal_cal_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_accounting_period_fiscal_cal_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_accounting_period_fiscal_cal_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "netsuite2_department_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_department_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_department_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_department_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "netsuite2_entities_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_entities_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_entities_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_entities_data.datecreated",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_entities_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_location_main_address_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_location_main_address_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_location_main_address_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_location_main_address_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_customer_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_customer_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_customer_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_customer_data.datecreated",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_customer_data.firstvisit",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "netsuite2_customer_data.lastmodifieddate",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_accounting_period_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_accounting_period_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_location_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_location_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_accounting_book_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_accounting_book_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "netsuite2_vendor_category_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_vendor_category_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "empty",
+      "kind": "review",
+      "column": "netsuite2_transaction_line_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "empty",
+      "kind": "review",
+      "column": "netsuite2_transaction_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "netsuite2_transaction_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "null-column",
+      "kind": "review",
+      "column": "netsuite2_transaction_line_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "null-column",
+      "kind": "review",
+      "column": "netsuite2_transaction_line_data.transaction",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data.subsidiary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "netsuite2_transaction_line_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "flip",
+      "kind": "valid",
+      "column": "netsuite2_transaction_line_data._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: d96c0a8c5d1f (d96c0a8c5d1f); fix: your working tree (15 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 100 models; compiled SQL changed in int_netsuite2__tran_lines_w_accounting_period; comparing netsuite2__balance_sheet, netsuite2__income_statement, netsuite2__transaction_details (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (22 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (27: netsuite2_account_type_data.id unique, netsuite2_account_type_data.id not_null, netsuite2_account_data.id unique, netsuite2_account_data.id not_null, netsuite2_classification_data.id unique, netsuite2_classification_data.id not_null, netsuite2_department_data.id unique, netsuite2_department_data.id not_null, netsuite2_entities_data.id unique, netsuite2_entities_data.id not_null, netsuite2_job_data.id unique, netsuite2_job_data.id not_null, ...); 27 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:11:33Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_netsuite",
+    "base": "d96c0a8c5d1f",
+    "base_commit": "d96c0a8c5d1ff21359d376d1ec175cb3bd183a2c",
+    "path": "/home/runner/work/_temp/clones/dbt_netsuite/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs netsuite2__balance_sheet,netsuite2__income_statement,netsuite2__transaction_details {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

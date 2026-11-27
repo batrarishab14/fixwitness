@@ -1,0 +1,4175 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "b904395afca108668953de6459b9eadec1621001eea2ea69d9d171b29721d0cd",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "bd882149020173c9680cb42c0a40fa51c16dac48",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "e2aed5951376cbceb3cf0926e5b887c9d810ff24eb27242a92575881fe48e47a"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "346be59ba3224f489a52495d3ef716af34dfef57a75e2fe48ab09f4d6581454d"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "2002d28bf532d5ae09dbad0af7c1c4de920f1663dfde4cdd65d0bde245d4e737"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "8aada5314c0bf161507c66c50a8f13508f436ac33e27a925721dae056b37fc0a"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "798fb2f48dfadb5c7300e95bae63c89029f0981724a33bfd1bdbe2717cab950f"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "9ecd10c0fb1e738504675dff989be512623c5ff93470f2878815cab84755b5a6"
+      },
+      {
+        "path": "models/salesforce/intermediate/int_salesforce__date_spine.sql",
+        "status": "M",
+        "sha256": "523937fa6f553c52b433218f4bd4c350fcf2ba6cef6ea320ab54b1085cd0b985"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_salesforce__date_spine"
+      ],
+      "compared": [
+        "salesforce__daily_activity"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "sf_lead_data"
+      ]
+    },
+    "tables": {
+      "sf_opportunity_data": {
+        "name": "sf_opportunity_data.csv",
+        "sha256": "f91f20237b65b3ab17915a7b69f29145f90ab8f44320998c84a80d661ace572d"
+      },
+      "sf_lead_data": {
+        "name": "sf_lead_data.csv",
+        "sha256": "26220509f03dc288a3ec351adacbf2bd00f28b79569b5e56e50ea73dc333fabf"
+      },
+      "sf_task_data": {
+        "name": "sf_task_data.csv",
+        "sha256": "77042c4efd7fb75a06de1d1f0adcb4168c77306b2f3cd9fa3be717516cced34d"
+      },
+      "sf_event_data": {
+        "name": "sf_event_data.csv",
+        "sha256": "f784f5960db5e30cc753a413aaa7602c7ecf2e048d7394bc3e554e6ea9935d5d"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs salesforce__daily_activity {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "salesforce__daily_activity"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 300 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 0,
+    "changed": 300,
+    "not_comparable": 0,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 0,
+    "columns_checked": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.description",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.description",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.expected_revenue",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.expected_revenue",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_excluded_from_territory_2_filter",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_excluded_from_territory_2_filter",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_activity_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_activity_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_referenced_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_referenced_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_viewed_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_viewed_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.lead_source",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.lead_source",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.lead_source",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.next_step",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.next_step",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.pricebook_2_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.pricebook_2_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.record_type_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.record_type_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.record_type_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.stage_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.stage_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.stage_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.synced_quote_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.synced_quote_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.territory_2_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.territory_2_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.campaign_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.description",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.expected_revenue",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_excluded_from_territory_2_filter",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_activity_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_referenced_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_viewed_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.lead_source",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.next_step",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.pricebook_2_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.record_type_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.stage_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.synced_quote_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.territory_2_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sf_opportunity_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_activity_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_referenced_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_viewed_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_by_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_by_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.system_modstamp",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.geocode_accuracy",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_contact_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.photo_url",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.longitude",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.phone",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.lead_source_detail_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.created_by_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.is_converted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.is_unread_by_owner",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_clearbit_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_opportunity_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.is_deleted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.street",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.company",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.last_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_clearbit_ready_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.annual_revenue",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.volume_in_millions_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.lead_number_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.demo_scheduled_by_calenderly_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.email_quality_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_created_by_clearbit_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.lean_data_search_index_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.do_not_route_lead_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.contact_stage_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.marketing_prospect_routing_rules_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.email_opt_in_implicit_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.mkto_si_urgency_value_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.cloudingo_agent_as_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.cloudingo_agent_les_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.behavioral_score_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.email_bounced_reason",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.email_bounced_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.owner_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.secondary_email_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.lead_source",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.master_record_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_by_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.system_modstamp",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sf_lead_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.email_bounced_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.system_modstamp",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.last_referenced_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.last_activity_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.is_converted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.is_unread_by_owner",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.last_viewed_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.is_deleted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.active_in_sequence_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_clearbit_ready_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.has_opted_out_of_email",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.demo_scheduled_by_calenderly_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.to_delete_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_quality_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_bounced_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_created_by_clearbit_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.competitor_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.lean_data_reporting_timestamp_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.do_not_route_lead_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.marketing_prospect_routing_rules_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_opt_in_explicit_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_opt_in_implicit_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.gdpr_opt_in_explicit_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.user_gems_is_a_user_gem_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.mkto_si_last_interesting_moment_date_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.do_not_sync_marketo_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.is_emea_event_routing_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_date_time_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.lead_created_date_time_reporting_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.attended_event_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.lean_data_manual_route_trigger_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.enrichment_request_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.meta_data_create_date_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.sales_email_opt_out_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.user_gems_ug_created_by_ug_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.verified_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.pbf_startup_certify_eligibility_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_opt_in_double_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.referral_account_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.who_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.call_disposition",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_day_of_month",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_end_date_only",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.description",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.last_modified_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_time_zone_sid_key",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.is_recurrence",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_task_data.what_count",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.what_count",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_task_data.who_count",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_task_data.sales_loft_1_sales_loft_view_count_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_task_data.sales_loft_1_sales_loft_replies_count_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sf_task_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_end_date_only",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.last_modified_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_recurrence",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_deleted",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.system_modstamp",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.reminder_date_time",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_high_priority",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_closed",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_reminder_set",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.activity_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_start_date_only",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.no_show_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.completed_date_time",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.vidyard_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.execute_collections_plan_activity_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.collections_hold_c",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_archived",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data._fivetran_active",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_event_data.duration_in_minutes",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_event_data.group_event_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_event_data.what_count",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_event_data.who_count",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sf_event_data",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.activity_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.activity_date_time",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.end_date_time",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.last_modified_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.recurrence_end_date_only",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.recurrence_start_date_time",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.reminder_date_time",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.start_date_time",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.system_modstamp",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.recurrence_2_pattern_start_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.end_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: bd8821490201 (bd8821490201); fix: your working tree (7 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 20 models; compiled SQL changed in int_salesforce__date_spine; comparing salesforce__daily_activity (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (4 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `_fivetran_synced`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "value": "2019-04-04 18:47:01",
+      "status": "changed",
+      "explanation": "If `_fivetran_synced` repeats the value of another row ('2019-04-04 18:47:01'), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "value": "2019-04-04 18:47:01 | 2019-04-04 18:47:01",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `_fivetran_synced` = '2019-04-04 18:47:01' and '2019-04-04 18:47:01', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `account_id`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "value": "9CcfAt8qtZvCTwFvwOFLcg==",
+      "status": "changed",
+      "explanation": "If `account_id` repeats the value of another row ('9CcfAt8qtZvCTwFvwOFLcg=='), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "value": "wfQo3+JVfsNIdcz/mUkZkA== | WFQO3+JVFSNIDCZ/MUKZKA==",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `account_id` = 'wfQo3+JVfsNIdcz/mUkZkA==' and 'WFQO3+JVFSNIDCZ/MUKZKA==', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `amount` is the number 0, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `amount`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "value": "24120000",
+      "status": "changed",
+      "explanation": "If `amount` repeats the value of another row (24120000), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "value": "0.005 | 0.005",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `amount` = 0.005 and 0.005, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.campaign_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `campaign_id`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.campaign_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `campaign_id` repeats the value of another row (''), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `close_date`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "value": "2018-12-19 00:00:00",
+      "status": "changed",
+      "explanation": "If `close_date` repeats the value of another row ('2018-12-19 00:00:00'), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "value": "2018-12-18 00:00:00 | 2018-12-18 00:00:00",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `close_date` = '2018-12-18 00:00:00' and '2018-12-18 00:00:00', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `created_date`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "value": "2018-12-19 19:51:13",
+      "status": "changed",
+      "explanation": "If `created_date` repeats the value of another row ('2018-12-19 19:51:13'), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "value": "2018-12-18 21:21:17 | 2018-12-18 21:21:17",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `created_date` = '2018-12-18 21:21:17' and '2018-12-18 21:21:17', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "018",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.description",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `description`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.description",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `description` repeats the value of another row (''), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.expected_revenue",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `expected_revenue`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.expected_revenue",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `expected_revenue` repeats the value of another row (''), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `fiscal`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "value": "JxJ3Au0JjyhOOUE/UvIeOw==",
+      "status": "changed",
+      "explanation": "If `fiscal` repeats the value of another row ('JxJ3Au0JjyhOOUE/UvIeOw=='), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "value": "JxJ3Au0JjyhOOUE/UvIeOw== | JXJ3AU0JJYHOOUE/UVIEOW==",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `fiscal` = 'JxJ3Au0JjyhOOUE/UvIeOw==' and 'JXJ3AU0JJYHOOUE/UVIEOW==', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "025",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `fiscal_quarter` is the number 0, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `fiscal_quarter`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "value": "4",
+      "status": "changed",
+      "explanation": "If `fiscal_quarter` repeats the value of another row (4), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `fiscal_year` is the number 0, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `fiscal_year`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "030",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "value": "2018",
+      "status": "changed",
+      "explanation": "If `fiscal_year` repeats the value of another row (2018), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `forecast_category`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "value": "A/SkeDD5c3ejUyEFFoUHHg==",
+      "status": "changed",
+      "explanation": "If `forecast_category` repeats the value of another row ('A/SkeDD5c3ejUyEFFoUHHg=='), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "value": "A/SkeDD5c3ejUyEFFoUHHg== | A/SKEDD5C3EJUYEFFOUHHG==",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `forecast_category` = 'A/SkeDD5c3ejUyEFFoUHHg==' and 'A/SKEDD5C3EJUYEFFOUHHG==', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "034",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `forecast_category_name`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "value": "A/SkeDD5c3ejUyEFFoUHHg==",
+      "status": "changed",
+      "explanation": "If `forecast_category_name` repeats the value of another row ('A/SkeDD5c3ejUyEFFoUHHg=='), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "value": "A/SkeDD5c3ejUyEFFoUHHg== | A/SKEDD5C3EJUYEFFOUHHG==",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `forecast_category_name` = 'A/SkeDD5c3ejUyEFFoUHHg==' and 'A/SKEDD5C3EJUYEFFOUHHG==', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `has_open_activity`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "038",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "value": "false",
+      "status": "changed",
+      "explanation": "If `has_open_activity` repeats the value of another row ('false'), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "value": "false | FALSE",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `has_open_activity` = 'false' and 'FALSE', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `has_opportunity_line_item`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "value": "true",
+      "status": "changed",
+      "explanation": "If `has_opportunity_line_item` repeats the value of another row ('true'), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "value": "false | FALSE",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `has_opportunity_line_item` = 'false' and 'FALSE', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `has_overdue_task`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "value": "false",
+      "status": "changed",
+      "explanation": "If `has_overdue_task` repeats the value of another row ('false'), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "value": "false | FALSE",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `has_overdue_task` = 'false' and 'FALSE', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `id`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "047",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "value": "006q000000HddohAAB",
+      "status": "changed",
+      "explanation": "If `id` repeats the value of another row ('006q000000HddohAAB'), in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "048",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "value": "006q000000HdPzpAAF | 006Q000000HDPZPAAF",
+      "status": "changed",
+      "explanation": "If two `sf_opportunity_data` rows of the same group have `id` = '006q000000HdPzpAAF' and '006Q000000HDPZPAAF', in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sf_opportunity_data` row has an empty `is_closed`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "salesforce__daily_activity: row count: 32 -> 2574",
+        "salesforce__daily_activity: row 1, date_day: '2026-10-27T00:00:00' -> '2019-11-11T00:00:00'",
+        "salesforce__daily_activity: row 1, leads_created: '' -> '1'",
+        "salesforce__daily_activity: row 1, leads_converted: '' -> '1'",
+        "salesforce__daily_activity: row 1, tasks_completed: '' -> '10'"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:28:28Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_salesforce",
+    "base": "bd8821490201",
+    "base_commit": "bd882149020173c9680cb42c0a40fa51c16dac48",
+    "path": "/home/runner/work/_temp/clones/dbt_salesforce/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs salesforce__daily_activity {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

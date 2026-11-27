@@ -1,0 +1,32 @@
+{
+  "verdict": "FAIL",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "FAIL",
+      "score": 0,
+      "reason": "If a `sf_opportunity_data` row has an empty `_fivetran_synced`, in `salesforce__daily_activity`, the output has 2574 rows instead of 32; a new row for '2019-11-11T00:00:00' appears.",
+      "proof_id": "b904395afca10866",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/salesforce@v1.1.1/out/integration_tests_dbt_project/proof.json"
+    }
+  ],
+  "not_checked": [
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/run_results.json",
+      "why": "not code"
+    }
+  ]
+}

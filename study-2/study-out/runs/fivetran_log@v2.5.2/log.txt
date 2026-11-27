@@ -1,0 +1,29 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/fivetran_log@v2.5.2/out/report.html
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | not exercisable with this data: no input reaches what the change touched (column country, column phone), so identical output proves nothing about it; add rows that have it |
+
+Not checked: `.gitignore` (not code); `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/manifest.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `e3d5d3aafc0f` (original) vs working tree (fix); changed: `.gitignore`, `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/manifest.json` and 25 more. dbt project: changed `stg_fivetran_platform__account`, `stg_fivetran_platform__credits_used`, `stg_fivetran_platform__destination`, `stg_fivetran_platform__destination_membership`, `stg_fivetran_platform__transformation_runs`, `stg_fivetran_platform__usage_cost`, `stg_fivetran_platform__user`; compared `fivetran_platform__audit_table`, `fivetran_platform__audit_user_activity`, `fivetran_platform__connection_daily_events`, `fivetran_platform__connection_status`, `fivetran_platform__mar_table_history`, `fivetran_platform__schema_changelog`, `fivetran_platform__usage_history`, `stg_fivetran_platform__account`; SQL on warehouse; tables `connection` (connection.csv), `transformation_runs` (transformation_runs.csv), `usage_cost` (usage_cost.csv), `account` (account.csv), `incremental_mar` (incremental_mar.csv), `credits_used` (credits_used.csv), `destination` (destination.csv), `destination_membership` (destination_membership.csv), `user` (user.csv), `log` (log.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | PASS: 264 of 264 comparable valid inputs give the same output |
+| Not comparable | 12 valid inputs made the original fail too |
+| Needs review | 0 of 24 inputs in review categories (inputs that break your dbt tests (stg_fivetran_platform__account: not_null(account_id); stg_fivetran_platform__account: unique(account_id); stg_fivetran_platform__destination: not_null(destination_id); stg_fivetran_platform__destination: unique(destination_id))) differ |
+
+**Why:** not exercisable with this data: no input reaches what the change touched (column country, column phone), so identical output proves nothing about it; add rows that have it.
+
+- Note: 12 valid inputs could not be compared because the original failed on them
+
+Proof ID `9c7d99d6d285e035` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/fivetran_log@v2.5.2/out/integration_tests_dbt_project/proof.json`
+

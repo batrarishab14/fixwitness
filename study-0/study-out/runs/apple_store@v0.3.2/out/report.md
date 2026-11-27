@@ -1,0 +1,59 @@
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If `name` is 'a; "b"', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells). |
+
+Not checked: `.github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md` (documentation); `.gitignore` (not code); `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `955784a174ea` (original) vs working tree (fix); changed: `.github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md`, `.github/workflows/auto-release.yml`, `.gitignore`, `CHANGELOG.md`, `dbt_project.yml` and 7 more. dbt project: changed `apple_store__subscription_report`; compared `apple_store__subscription_report`; SQL on warehouse; tables `app` (app.csv), `sales_account` (sales_account.csv), `sales_subscription_events` (sales_subscription_events.csv), `sales_subscription_summary` (sales_subscription_summary.csv), `apple_store_country_codes` (apple_store_country_codes.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 289 comparable valid inputs give the same output |
+| Needs review | 11 of 11 inputs in review categories (inputs that break your dbt tests (stg_apple_store__app: unique(app_id); stg_apple_store__sales_account: unique(account_id))) differ |
+
+**Why:** the fix changes output on 289 valid inputs.
+
+**What could go wrong:**
+
+- **Numbers change.** If `name` is 'a; "b"', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).
+  - case 000: `delimiter-mix` input 'a; "b"' in `app.name` (changed)
+  - apple_store__subscription_report: row 1, event_renew: '1' -> '0'
+  - apple_store__subscription_report: row 6, event_renew: '1' -> '0'
+- **Numbers change.** If `id` is the number 0, in `apple_store__subscription_report`, `active_standard_price_subscriptions` for '2021-07-12' changes from 2 to 0.
+  - case 001: `numeric-format` input '0' in `app.id` (changed); input shrunk to the rows that show it
+  - apple_store__subscription_report: row 1, event_renew: '1' -> '0'
+  - apple_store__subscription_report: row 6, event_renew: '1' -> '0'
+- **Numbers change.** If `id` has extra spaces (' 42 '), in `apple_store__subscription_report`, `active_standard_price_subscriptions` for '2021-07-12' changes from 2 to 0.
+  - case 002: `whitespace` input ' 42 ' in `app.id` (changed); input shrunk to the rows that show it
+  - apple_store__subscription_report: row 1, event_renew: '1' -> '0'
+  - apple_store__subscription_report: row 6, event_renew: '1' -> '0'
+- **Numbers change.** If an `app` row has an empty `id`, in `apple_store__subscription_report`, `active_standard_price_subscriptions` for '2021-07-12' changes from 2 to 0.
+  - case 003: `empty` input '' in `app.id` (changed); input shrunk to the rows that show it
+  - apple_store__subscription_report: row 1, event_renew: '1' -> '0'
+  - apple_store__subscription_report: row 6, event_renew: '1' -> '0'
+- **Numbers change.** If an `app` row has an empty `is_enabled`, in `apple_store__subscription_report`, `active_standard_price_subscriptions` for '2021-07-12' changes from 2 to 0.
+  - case 004: `empty` input '' in `app.is_enabled` (changed); input shrunk to the rows that show it
+  - apple_store__subscription_report: row 1, event_renew: '1' -> '0'
+  - apple_store__subscription_report: row 6, event_renew: '1' -> '0'
+- **Numbers change.** If an `app` row has an empty `name`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).
+  - case 006: `empty` input '' in `app.name` (changed)
+  - apple_store__subscription_report: row 1, event_renew: '1' -> '0'
+  - apple_store__subscription_report: row 6, event_renew: '1' -> '0'
+- **Numbers change.** If `name` is 'Ünïcødé', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).
+  - case 007: `unicode` input 'Ünïcødé' in `app.name` (changed)
+  - apple_store__subscription_report: row 1, event_renew: '1' -> '0'
+  - apple_store__subscription_report: row 6, event_renew: '1' -> '0'
+- **Numbers change.** If `name` is 'north-east', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).
+  - case 008: `punctuation` input 'north-east' in `app.name` (changed)
+  - apple_store__subscription_report: row 1, event_renew: '1' -> '0'
+  - apple_store__subscription_report: row 6, event_renew: '1' -> '0'
+
+Proof ID `1c745a6aaf44f5fc` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/apple_store@v0.3.2/out/integration_tests_dbt_project/proof.json`

@@ -1,0 +1,4181 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "1c745a6aaf44f5fc86b3ba8830fb1941c0af1f105db652e8db9889c976c4316a",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "955784a174eaf5c289b9e5c358893d41caffd771",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md",
+        "status": "M",
+        "sha256": "5b8e5b0fb61492f79d08cfe81ef286f363d2694fa70e4d55789c161252eec812"
+      },
+      {
+        "path": ".github/workflows/auto-release.yml",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": ".gitignore",
+        "status": "M",
+        "sha256": "d63240c974b32776149b49f1de2ef051213846340c5f769de85f0ef3c51bb732"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "baf72802cc62fff737b6df79cd1467b27312e9e3e3164f25141c6329b67e8c18"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "10a36efdb30ffcd2d9e57f3552fa90703d9485cbbfe9a331f82bdb628d856baa"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "68e61c5ea711f0f54dd44fecec5a5bb3ce58b42d58873b3ef073101da7aad20a"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "de08ab04b5de2fa1e46f59478782f42e99a9d2328c7039fc10407cc78f131d29"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "9eca033b64feab7f5069a04e9122cc77a288a5d72e10a2bc91639f76a2252a80"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "47ba33b64621eca97271cdb83d0a0be7bda123e895bf131257718f639b5284bc"
+      },
+      {
+        "path": "integration_tests/ci/sample.profiles.yml",
+        "status": "M",
+        "sha256": "9007b15c26e0621b705c64e2c17bc354c374a09770bea0f662629e89899cb499"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "be01970b7c2d961bd3a4291ca6d388086b3208faa9bbf9dd0c7d6f10f99f8c7b"
+      },
+      {
+        "path": "models/apple_store__subscription_report.sql",
+        "status": "M",
+        "sha256": "61cfe7b6efa67c30d404c5bb48bfc2e3c885110c14dd1178aa12a33cdc744bd0"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "apple_store__subscription_report"
+      ],
+      "compared": [
+        "apple_store__subscription_report"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "app",
+        "apple_store_country_codes",
+        "sales_account",
+        "sales_subscription_events",
+        "sales_subscription_summary"
+      ]
+    },
+    "tables": {
+      "app": {
+        "name": "app.csv",
+        "sha256": "7c127fe1a3eef27fc38a41632059ef1ca791b3d48469a25531c7f094586681c5"
+      },
+      "sales_account": {
+        "name": "sales_account.csv",
+        "sha256": "b0beb05040309720fd22ec4cd11c9b4abd9914e48f47b8f6b0cc3e08a57c8a85"
+      },
+      "sales_subscription_events": {
+        "name": "sales_subscription_events.csv",
+        "sha256": "d46a129a8b675980ccba3fed1fc21d3008ceeb83f8214e4861fd6dd1885d1214"
+      },
+      "sales_subscription_summary": {
+        "name": "sales_subscription_summary.csv",
+        "sha256": "5c1fafefb341698730bd919cc24bf1a7d26be6f56db4272ef85f89af64ce46e2"
+      },
+      "apple_store_country_codes": {
+        "name": "apple_store_country_codes.csv",
+        "sha256": "f803e1c75d7fdb8b35e2362bd63a0ea5b45a6effdd5d75854cf00d32b65ca23a"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs apple_store__subscription_report {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_apple_store__app: unique(app_id)",
+      "stg_apple_store__sales_account: unique(account_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "apple_store__subscription_report"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 289 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 289,
+    "identical": 0,
+    "changed": 289,
+    "not_comparable": 0,
+    "review_inputs": 11,
+    "review_differences": 11,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 0,
+    "columns_checked": 1
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "app.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "app.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.is_enabled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.is_enabled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "long",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.asset_token",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.asset_token",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.pre_order_info",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.icon_url",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.icon_url",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "app.app_opt_in_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.app_opt_in_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.ios",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.ios",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.tvos",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.tvos",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.is_bundle",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.is_enabled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.asset_token",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.pre_order_info",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.icon_url",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.app_opt_in_rate",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.ios",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.tvos",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "app",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "case",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "flip",
+      "kind": "valid",
+      "column": "app.is_enabled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "flip",
+      "kind": "valid",
+      "column": "app.ios",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "flip",
+      "kind": "valid",
+      "column": "app.tvos",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "flip",
+      "kind": "valid",
+      "column": "app.is_bundle",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "app._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_account.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_account.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_account.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "pairs",
+      "kind": "review",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_account.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "sales_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sales_account._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events._filename",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_events.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_events.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_events.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_events.vendor_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.vendor_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_events._index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events._index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "date-format",
+      "kind": "valid",
+      "column": "sales_subscription_events.event_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_events.event_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.event_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.days_canceled",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_events.consecutive_paid_periods",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.consecutive_paid_periods",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.previous_subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.cancellation_reason",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.proceeds_reason",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_apple_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_events.days_before_canceling",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_events.quantity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_events.quantity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_events.quantity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.quantity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_group_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_events.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_events.event_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_events.quantity",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sales_subscription_events",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_events.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_events.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_events.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_events.event",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_events.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sales_subscription_events._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_summary.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_standard_price_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_standard_price_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_standard_price_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_standard_price_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_up_front_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_up_front_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_up_front_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_up_front_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_as_you_go_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_as_you_go_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_as_you_go_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_as_you_go_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "long",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_free_trial_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_free_trial_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_free_trial_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_free_trial_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_standard_price_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_up_front_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.state",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_pay_as_you_go_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_subscription_summary.active_free_trial_introductory_offer_subscriptions",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sales_subscription_summary",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.app_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.subscription_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "case",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_subscription_summary.country",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sales_subscription_summary._fivetran_synced",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "empty",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "long",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "empty",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "case",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "long",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "empty",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "long",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "empty",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "long",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "empty",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "long",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "apple_store_country_codes.alternative_country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "apple_store_country_codes",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "case",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "case",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "apple_store_country_codes.country_code_alpha_2",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "case",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "apple_store_country_codes.region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "case",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "apple_store_country_codes.sub_region",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 955784a174ea (955784a174ea); fix: your working tree (12 changed files)",
+    "dbt: switched on apple_store__using_subscriptions (the variables that enable the models the change edited; they are off by default, so the change would compile to nothing)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 39 models; compiled SQL changed in apple_store__subscription_report; comparing apple_store__subscription_report (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (5 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the project's dbt tests are used as rules on the input tables (14: app.id unique, app_store_source_type_device.date+app_id+source_type+device unique, app_store_platform_version_source_type.date+app_id+source_type+platform_version unique, app_store_territory_source_type.date+app_id+source_type+territory unique, crashes_app_version.date+app_id+device+app_version unique, crashes_platform_version.date+app_id+device+platform_version unique, downloads_source_type_device.date+app_id+source_type+device unique, downloads_platform_version_source_type.date+app_id+source_type+platform_version unique, downloads_territory_source_type.date+app_id+source_type+territory unique, sales_account.id unique, usage_app_version_source_type.date+app_id+source_type+app_version unique, usage_source_type_device.date+app_id+source_type+device unique, ...); 11 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `name` is 'a; \"b\"', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "app.id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `id` is the number 0, in `apple_store__subscription_report`, `active_standard_price_subscriptions` for '2021-07-12' changes from 2 to 0.",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "app.id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `id` has extra spaces (' 42 '), in `apple_store__subscription_report`, `active_standard_price_subscriptions` for '2021-07-12' changes from 2 to 0.",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `id`, in `apple_store__subscription_report`, `active_standard_price_subscriptions` for '2021-07-12' changes from 2 to 0.",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.is_enabled",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `is_enabled`, in `apple_store__subscription_report`, `active_standard_price_subscriptions` for '2021-07-12' changes from 2 to 0.",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.is_enabled",
+      "family": null,
+      "value": "True | TRUE",
+      "status": "changed",
+      "explanation": "If two `app` rows of the same group have `is_enabled` = 'True' and 'TRUE', in `apple_store__subscription_report`, `active_standard_price_subscriptions` changes from 4 to 0 (and 1 more cell).",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "apple_store__subscription_report: row count: 26 -> 24",
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 2, territory_short: 'GB' -> 'US'",
+        "apple_store__subscription_report: row 2, state: '' -> 'CA'",
+        "apple_store__subscription_report: row 2, event_cancel: '0' -> '2'"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `name`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "Ünïcødé",
+      "status": "changed",
+      "explanation": "If `name` is 'Ünïcødé', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "north-east",
+      "status": "changed",
+      "explanation": "If `name` is 'north-east', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "long",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+      "status": "changed",
+      "explanation": "If `name` is 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "comma, inside",
+      "status": "changed",
+      "explanation": "If `name` is 'comma, inside', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "O'Brien",
+      "status": "changed",
+      "explanation": "If `name` is 'O'Brien', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "*",
+      "status": "changed",
+      "explanation": "If `name` is '*', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.name",
+      "family": null,
+      "value": "Super Cool Name | SUPER COOL NAME",
+      "status": "changed",
+      "explanation": "If two `app` rows of the same group have `name` = 'Super Cool Name' and 'SUPER COOL NAME', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "014",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.asset_token",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `asset_token`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.asset_token",
+      "family": null,
+      "value": "Random Asset Token | RANDOM ASSET TOKEN",
+      "status": "changed",
+      "explanation": "If two `app` rows of the same group have `asset_token` = 'Random Asset Token' and 'RANDOM ASSET TOKEN', in `apple_store__subscription_report`, the output has 24 rows instead of 26; the row for '2021-07-12' is missing.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row count: 26 -> 24",
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 2, territory_short: 'GB' -> 'US'",
+        "apple_store__subscription_report: row 2, state: '' -> 'CA'",
+        "apple_store__subscription_report: row 2, event_cancel: '0' -> '2'"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.pre_order_info",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `pre_order_info`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.icon_url",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `icon_url`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "018",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.icon_url",
+      "family": null,
+      "value": "Random Icon URL | RANDOM ICON URL",
+      "status": "changed",
+      "explanation": "If two `app` rows of the same group have `icon_url` = 'Random Icon URL' and 'RANDOM ICON URL', in `apple_store__subscription_report`, the output has 24 rows instead of 26; the row for '2021-07-12' is missing.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row count: 26 -> 24",
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 2, territory_short: 'GB' -> 'US'",
+        "apple_store__subscription_report: row 2, state: '' -> 'CA'",
+        "apple_store__subscription_report: row 2, event_cancel: '0' -> '2'"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "app.app_opt_in_rate",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `app_opt_in_rate` is the number 0, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.app_opt_in_rate",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `app_opt_in_rate`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.ios",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `ios`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "022",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.ios",
+      "family": null,
+      "value": "True | TRUE",
+      "status": "changed",
+      "explanation": "If two `app` rows of the same group have `ios` = 'True' and 'TRUE', in `apple_store__subscription_report`, the output has 24 rows instead of 26; the row for '2021-07-12' is missing.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row count: 26 -> 24",
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 2, territory_short: 'GB' -> 'US'",
+        "apple_store__subscription_report: row 2, state: '' -> 'CA'",
+        "apple_store__subscription_report: row 2, event_cancel: '0' -> '2'"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "empty",
+      "kind": "valid",
+      "column": "app.tvos",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If an `app` row has an empty `tvos`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.tvos",
+      "family": null,
+      "value": "False | FALSE",
+      "status": "changed",
+      "explanation": "If two `app` rows of the same group have `tvos` = 'False' and 'FALSE', in `apple_store__subscription_report`, the output has 24 rows instead of 26; the row for '2021-07-12' is missing.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row count: 26 -> 24",
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 2, territory_short: 'GB' -> 'US'",
+        "apple_store__subscription_report: row 2, state: '' -> 'CA'",
+        "apple_store__subscription_report: row 2, event_cancel: '0' -> '2'"
+      ]
+    },
+    {
+      "id": "025",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app.is_bundle",
+      "family": null,
+      "value": "False | FALSE",
+      "status": "changed",
+      "explanation": "If two `app` rows of the same group have `is_bundle` = 'False' and 'FALSE', in `apple_store__subscription_report`, the output has 24 rows instead of 26; the row for '2021-07-12' is missing.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row count: 26 -> 24",
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 2, territory_short: 'GB' -> 'US'",
+        "apple_store__subscription_report: row 2, state: '' -> 'CA'",
+        "apple_store__subscription_report: row 2, event_cancel: '0' -> '2'"
+      ]
+    },
+    {
+      "id": "026",
+      "category": "pairs",
+      "kind": "review",
+      "column": "app._fivetran_synced",
+      "family": null,
+      "value": "2022-01-02 12:34:56.789000+00:00 | 2022-01-02 12:34:56.789000+00:00",
+      "status": "changed",
+      "explanation": "If two `app` rows of the same group have `_fivetran_synced` = '2022-01-02 12:34:56.789000+00:00' and '2022-01-02 12:34:56.789000+00:00', in `apple_store__subscription_report`, the output has 24 rows instead of 26; the row for '2021-07-12' is missing.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row count: 26 -> 24",
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 2, territory_short: 'GB' -> 'US'",
+        "apple_store__subscription_report: row 2, state: '' -> 'CA'",
+        "apple_store__subscription_report: row 2, event_cancel: '0' -> '2'"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `id` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.is_enabled",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `is_enabled` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `name` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "030",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.asset_token",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `asset_token` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.pre_order_info",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `pre_order_info` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.icon_url",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `icon_url` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.app_opt_in_rate",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `app_opt_in_rate` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "034",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.ios",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `ios` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "app.tvos",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `tvos` in `app` is empty (NULL), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "app",
+      "family": null,
+      "value": "<first row repeated>",
+      "status": "changed",
+      "explanation": "If an `app` row appears twice, in `apple_store__subscription_report`, the output has 24 rows instead of 26; the row for '2021-07-12' is missing.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row count: 26 -> 24",
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 2, territory_short: 'GB' -> 'US'",
+        "apple_store__subscription_report: row 2, state: '' -> 'CA'",
+        "apple_store__subscription_report: row 2, event_cancel: '0' -> '2'"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "case",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": "SUPER COOL NAME",
+      "status": "changed",
+      "explanation": "If `name` is written in another case ('SUPER COOL NAME'), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "038",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "app.name",
+      "family": null,
+      "value": " Super Cool Name",
+      "status": "changed",
+      "explanation": "If `name` has extra spaces (' Super Cool Name'), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "flip",
+      "kind": "valid",
+      "column": "app.is_enabled",
+      "family": null,
+      "value": "false",
+      "status": "changed",
+      "explanation": "If an `app` row has `is_enabled` set to 'false', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "flip",
+      "kind": "valid",
+      "column": "app.ios",
+      "family": null,
+      "value": "false",
+      "status": "changed",
+      "explanation": "If an `app` row has `ios` set to 'false', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "flip",
+      "kind": "valid",
+      "column": "app.tvos",
+      "family": null,
+      "value": "true",
+      "status": "changed",
+      "explanation": "If an `app` row has `tvos` set to 'true', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "flip",
+      "kind": "valid",
+      "column": "app.is_bundle",
+      "family": null,
+      "value": "true",
+      "status": "changed",
+      "explanation": "If an `app` row has `is_bundle` set to 'true', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "app._fivetran_synced",
+      "family": null,
+      "value": "2022-01-02 00:00:00",
+      "status": "changed",
+      "explanation": "If an `app` row has `_fivetran_synced` = '2022-01-02 00:00:00', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "044",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "value": "a; \"b\"",
+      "status": "changed",
+      "explanation": "If `name` is 'a; \"b\"', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_account.id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `id` is the number 0, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "046",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sales_account.id",
+      "family": null,
+      "value": " 42 ",
+      "status": "changed",
+      "explanation": "If `id` has extra spaces (' 42 '), in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "047",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_account.id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sales_account` row has an empty `id`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "048",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `sales_account` row has an empty `name`, in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    },
+    {
+      "id": "049",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sales_account.name",
+      "family": null,
+      "value": "Ünïcødé",
+      "status": "changed",
+      "explanation": "If `name` is 'Ünïcødé', in `apple_store__subscription_report`, `event_renew` changes from 1 to 0 (and 3 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "apple_store__subscription_report: row 1, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 6, event_renew: '1' -> '0'",
+        "apple_store__subscription_report: row 14, active_standard_price_subscriptions: '2' -> '0'",
+        "apple_store__subscription_report: row 15, active_standard_price_subscriptions: '30' -> '0'"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "date-format": "valid dates, leap days and unpadded months/days",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:08:03Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_apple_store",
+    "base": "955784a174ea",
+    "base_commit": "955784a174eaf5c289b9e5c358893d41caffd771",
+    "path": "/home/runner/work/_temp/clones/dbt_apple_store/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs apple_store__subscription_report {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

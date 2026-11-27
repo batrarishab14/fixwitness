@@ -1,0 +1,60 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/zuora@v0.2.1/out/report.html
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If the file is tables as given, in `zuora__subscription_overview`, the output has 3 rows instead of 3; a new row for '4f3950cb66b9ecc2de9715925dfcac03' appears. |
+
+Not checked: `.gitignore` (not code); `CHANGELOG.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `cf97061d5d73` (original) vs working tree (fix); changed: `.gitignore`, `CHANGELOG.md`, `dbt_project.yml`, `docs/catalog.json`, `docs/index.html` and 9 more. dbt project: changed `zuora__line_item_history`, `zuora__subscription_overview`; compared `zuora__line_item_history`, `zuora__monthly_recurring_revenue`, `zuora__subscription_overview`; SQL on warehouse; tables `zuora_taxation_item_data` (zuora_taxation_item_data.csv), `zuora_credit_balance_adjustment_data` (zuora_credit_balance_adjustment_data.csv), `zuora_subscription_data` (zuora_subscription_data.csv), `zuora_product_rate_plan_data` (zuora_product_rate_plan_data.csv), `zuora_invoice_data` (zuora_invoice_data.csv), `zuora_payment_method_data` (zuora_payment_method_data.csv), `zuora_amendment_data` (zuora_amendment_data.csv), `zuora_invoice_payment_data` (zuora_invoice_payment_data.csv), `zuora_rate_plan_charge_data` (zuora_rate_plan_charge_data.csv), `zuora_payment_data` (zuora_payment_data.csv), `zuora_invoice_item_data` (zuora_invoice_item_data.csv), `zuora_contact_data` (zuora_contact_data.csv), `zuora_product_rate_plan_charge_data` (zuora_product_rate_plan_charge_data.csv), `zuora_account_data` (zuora_account_data.csv), `zuora_product_data` (zuora_product_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 300 comparable valid inputs give the same output |
+
+**Why:** the fix changes output on 300 valid inputs.
+
+**What could go wrong:**
+
+- **Rows added or lost.** If the file is tables as given, in `zuora__subscription_overview`, the output has 3 rows instead of 3; a new row for '4f3950cb66b9ecc2de9715925dfcac03' appears.
+  - case 000: `file-structure` input '<tables as given>' in `None` (changed)
+  - zuora__subscription_overview: row 1, subscription_key: '10c8f32c66f8a5ab46b6ae2a88e457dc' -> '4f3950cb66b9ecc2de9715925dfcac03'
+  - zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'
+- **Rows added or lost.** If a `zuora_taxation_item_data` row has an empty `id`, in `zuora__subscription_overview`, the output has 1 row instead of 1; a new row for 'abbf61d1c34fedf7855f7fc029f551b3' appears.
+  - case 001: `empty` input '' in `zuora_taxation_item_data.id` (changed); input shrunk to the rows that show it
+  - zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'
+  - zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'
+- **Rows added or lost.** If `id` repeats the value of another row ('dff38ac095012f19007b8a0942416110'), in `zuora__subscription_overview`, the output has 1 row instead of 1; a new row for 'abbf61d1c34fedf7855f7fc029f551b3' appears.
+  - case 002: `duplicate` input 'dff38ac095012f19007b8a0942416110' in `zuora_taxation_item_data.id` (changed); input shrunk to the rows that show it
+  - zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'
+  - zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'
+- **Rows added or lost.** If two `zuora_taxation_item_data` rows of the same group have `id` = 'dff38ac03b24a6efd976ad1221ebd5cc' and 'DFF38AC03B24A6EFD976AD1221EBD5CC', in `zuora__subscription_overview`, the output has 1 row instead of 1; a new row for 'abbf61d1c34fedf7855f7fc029f551b3' appears.
+  - case 003: `pairs` input 'dff38ac03b24a6efd976ad1221ebd5cc | DFF38AC03B24A6EFD976AD1221EBD5CC' in `zuora_taxation_item_data.id` (changed); input shrunk to the rows that show it
+  - zuora__line_item_history: row count: 6 -> 7
+  - zuora__line_item_history: row 4, invoice_item_id: 'dff38ac0abba719061f1e5b1eb7fbf9d' -> 'dff38ac08c7c5cec11c8c6c0d7022671'
+- **Rows added or lost.** If a `zuora_taxation_item_data` row has an empty `account_id`, in `zuora__subscription_overview`, the output has 1 row instead of 1; a new row for 'abbf61d1c34fedf7855f7fc029f551b3' appears.
+  - case 004: `empty` input '' in `zuora_taxation_item_data.account_id` (changed); input shrunk to the rows that show it
+  - zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'
+  - zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'
+- **Values change.** If `account_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).
+  - case 005: `duplicate` input '' in `zuora_taxation_item_data.account_id` (changed)
+  - zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'
+  - zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'
+- **Values change.** If two `zuora_taxation_item_data` rows of the same group have `account_id` = '2c92c0f967640caa0167836a3e396a3b' and '2C92C0F967640CAA0167836A3E396A3B', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).
+  - case 006: `pairs` input '2c92c0f967640caa0167836a3e396a3b | 2C92C0F967640CAA0167836A3E396A3B' in `zuora_taxation_item_data.account_id` (changed)
+  - zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'
+  - zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'
+- **Values change.** If a `zuora_taxation_item_data` row has an empty `amendment_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).
+  - case 007: `empty` input '' in `zuora_taxation_item_data.amendment_id` (changed)
+  - zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'
+  - zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'
+
+Proof ID `15eb8062744a6a5d` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/zuora@v0.2.1/out/integration_tests_dbt_project/proof.json`
+

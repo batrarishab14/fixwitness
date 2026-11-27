@@ -1,0 +1,24 @@
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | not exercisable with this data: no input reaches what the change touched (column receipt, column rules), so identical output proves nothing about it; add rows that have it |
+
+Not checked: `.buildkite/scripts/run_models.sh` (CI configuration); `.github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md` (documentation); `CHANGELOG.md` (documentation); `LICENSE` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `ced17044a244` (original) vs working tree (fix); changed: `.buildkite/scripts/run_models.sh`, `.github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md`, `CHANGELOG.md`, `LICENSE`, `dbt_project.yml` and 6 more. dbt project: changed `stg_shopify__collection`, `stg_shopify__order`, `stg_shopify__shop`, `stg_shopify__transaction`; compared `stg_shopify__collection`, `stg_shopify__order`, `stg_shopify__shop`, `stg_shopify__transaction`; SQL on warehouse; tables `shopify_shop_data` (shopify_shop_data.csv), `shopify_collection_data` (shopify_collection_data.csv), `shopify_order_data` (shopify_order_data.csv), `shopify_transaction_data` (shopify_transaction_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | PASS: 296 of 296 comparable valid inputs give the same output |
+| Needs review | 0 of 4 inputs in review categories (inputs that break your dbt tests (stg_shopify__collection: not_null(collection_id); stg_shopify__shop: not_null(shop_id))) differ |
+
+**Why:** not exercisable with this data: no input reaches what the change touched (column receipt, column rules), so identical output proves nothing about it; add rows that have it.
+
+Proof ID `19b9397e89e1fb06` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/shopify_source@v0.18.1/out/integration_tests_dbt_project/proof.json`

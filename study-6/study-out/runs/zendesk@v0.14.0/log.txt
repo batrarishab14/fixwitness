@@ -1,0 +1,26 @@
+Report: /home/runner/work/fixwitness/fixwitness/study-out/runs/zendesk@v0.14.0/out/report.html
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | not exercisable with this data: no input reaches what the change touched (column phone), so identical output proves nothing about it; add rows that have it |
+
+Not checked: `CHANGELOG.md` (documentation); `DECISIONLOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/manifest.json` (not code); `docs/run_results.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `9d995b00ee40` (original) vs working tree (fix); changed: `CHANGELOG.md`, `DECISIONLOG.md`, `README.md`, `dbt_project.yml`, `docs/catalog.json` and 10 more. dbt project: changed `int_zendesk__reply_time_business_hours`, `int_zendesk__reply_time_combined`, `stg_zendesk__ticket`, `stg_zendesk__ticket_comment`, `stg_zendesk__ticket_field_history`, `stg_zendesk__ticket_form_history`, `stg_zendesk__ticket_schedule`, `stg_zendesk__user`, `zendesk__sla_policies`; compared `zendesk__sla_policies`, `zendesk__ticket_backlog`, `zendesk__ticket_enriched`, `zendesk__ticket_field_history`, `zendesk__ticket_metrics`, `zendesk__ticket_summary`; SQL on warehouse; tables `time_zone_data` (time_zone_data.csv), `ticket_schedule_data` (ticket_schedule_data.csv), `organization_tag_data` (organization_tag_data.csv), `domain_name_data` (domain_name_data.csv), `ticket_comment_data` (ticket_comment_data.csv), `organization_data` (organization_data.csv), `user_tag_data` (user_tag_data.csv), `schedule_data` (schedule_data.csv), `daylight_time_data` (daylight_time_data.csv), `ticket_data` (ticket_data.csv), `ticket_field_history_data` (ticket_field_history_data.csv), `ticket_tag_data` (ticket_tag_data.csv), `brand_data_postgres` (brand_data_postgres.csv), `group_data` (group_data.csv), `ticket_form_history_data` (ticket_form_history_data.csv), `schedule_holiday_data` (schedule_holiday_data.csv), `user_data` (user_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | PASS: 274 of 274 comparable valid inputs give the same output |
+| Needs review | 0 of 38 inputs in review categories () differ |
+
+**Why:** not exercisable with this data: no input reaches what the change touched (column phone), so identical output proves nothing about it; add rows that have it.
+
+Proof ID `1725c94ff0b9c2bf` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/zendesk@v0.14.0/out/integration_tests_dbt_project/proof.json`
+

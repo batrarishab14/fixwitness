@@ -1,0 +1,36 @@
+{
+  "verdict": "FAIL",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "FAIL",
+      "score": 0,
+      "reason": "If the file is sample as given, in `fivetran_platform__audit_table`, the output has 12 rows instead of 16; the row for 'this_connection' is missing.",
+      "proof_id": "38d62a5cc265feb0",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/fivetran_log@v2.4.0-a1/out/integration_tests_dbt_project/proof.json"
+    }
+  ],
+  "not_checked": [
+    {
+      "path": ".buildkite/scripts/run_models.sh",
+      "why": "CI configuration"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "README.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    }
+  ]
+}

@@ -1,0 +1,3245 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "34d27fcb03707ddff07b35813394dee9babeccd97237b5c1527591c83f380c8e",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "614880a579af74e2c38d4b9401513c4f272b28b2",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".github/PULL_REQUEST_TEMPLATE/maintainer_pull_request_template.md",
+        "status": "M",
+        "sha256": "5b8e5b0fb61492f79d08cfe81ef286f363d2694fa70e4d55789c161252eec812"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "0115d9d471378d7c7851cd87bdc4b147fdc2dfc042d6e95bcf86644db6807531"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "2b6260ed48238e64460aeeb1678c0c2be81cdfadca24a1fd7b50050a8ad8064a"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "6c2ddc0198000540b15bc4082093ae9be27e313f0fc7750eff86604a2b51d88c"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "cfa65f7879496340e1b5759129d264bdd7510300b8d0611c836833dd157a5dfa"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "39869e738812269975a858767501f29fcb6d6ee4fd8e772b16490850726500ac"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "cf3229b36e55831fa0ac8de86508750a946cd923cd7e504ab716bdbf960fc1d5"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "2e9e6697e52588319625c3a2c69ec51d91c658ba0cec6fdc96d175d6a46dfad7"
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_daily_activity.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "integration_tests/tests/consistency/consistency_daily_activity_count.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "integration_tests/tests/integrity/integrity_daily_activity.sql",
+        "status": "D",
+        "sha256": null
+      },
+      {
+        "path": "models/salesforce/intermediate/int_salesforce__date_spine.sql",
+        "status": "M",
+        "sha256": "37a18b88673067c28e7bb7691de7f94fd6a18cdef563125bac8a84b9e7fc9474"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_salesforce__date_spine"
+      ],
+      "compared": [
+        "salesforce__daily_activity"
+      ],
+      "adapter": "postgres",
+      "changed_tables": []
+    },
+    "tables": {
+      "sf_opportunity_data": {
+        "name": "sf_opportunity_data.csv",
+        "sha256": "f91f20237b65b3ab17915a7b69f29145f90ab8f44320998c84a80d661ace572d"
+      },
+      "sf_lead_data": {
+        "name": "sf_lead_data.csv",
+        "sha256": "26220509f03dc288a3ec351adacbf2bd00f28b79569b5e56e50ea73dc333fabf"
+      },
+      "sf_task_data": {
+        "name": "sf_task_data.csv",
+        "sha256": "77042c4efd7fb75a06de1d1f0adcb4168c77306b2f3cd9fa3be717516cced34d"
+      },
+      "sf_event_data": {
+        "name": "sf_event_data.csv",
+        "sha256": "f784f5960db5e30cc753a413aaa7602c7ecf2e048d7394bc3e554e6ea9935d5d"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs salesforce__daily_activity {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "salesforce__daily_activity"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 300,
+      "evidence_strength": 0.99,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 300,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 0,
+    "columns_checked": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.expected_revenue",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.expected_revenue",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_excluded_from_territory_2_filter",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_excluded_from_territory_2_filter",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_referenced_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_referenced_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_viewed_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_viewed_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.lead_source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.lead_source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.lead_source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.next_step",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.next_step",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.owner_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.owner_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.owner_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.pricebook_2_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.pricebook_2_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.record_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.record_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.record_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.stage_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.stage_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.stage_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.synced_quote_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.synced_quote_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.territory_2_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.territory_2_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.amount",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.campaign_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.expected_revenue",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_quarter",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.fiscal_year",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.forecast_category_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_excluded_from_territory_2_filter",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_referenced_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_viewed_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.lead_source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.next_step",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.owner_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.pricebook_2_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.probability",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.record_type_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.stage_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.synced_quote_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.territory_2_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data.type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sf_opportunity_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.close_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_open_activity",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_opportunity_line_item",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.has_overdue_task",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_closed",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data.is_won",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_referenced_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_opportunity_data.last_viewed_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_opportunity_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.owner_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_by_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_by_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.system_modstamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.geocode_accuracy",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_contact_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.photo_url",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.longitude",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.phone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.lead_source_detail_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.created_by_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.is_converted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.is_unread_by_owner",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_clearbit_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_opportunity_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.is_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sf_lead_data.street",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.company",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.last_name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_clearbit_ready_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_account_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.annual_revenue",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.volume_in_millions_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.lead_number_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.demo_scheduled_by_calenderly_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.email_quality_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_created_by_clearbit_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.lean_data_search_index_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.do_not_route_lead_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.contact_stage_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.marketing_prospect_routing_rules_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "sf_lead_data.email_opt_in_implicit_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.mkto_si_urgency_value_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.cloudingo_agent_as_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.cloudingo_agent_les_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_lead_data.behavioral_score_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.country",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.email_bounced_reason",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.email_bounced_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.owner_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.secondary_email_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.lead_source",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.master_record_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_by_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sf_lead_data.system_modstamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sf_lead_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.email_bounced_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.last_modified_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.system_modstamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.last_referenced_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.last_activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.is_converted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.is_unread_by_owner",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.last_viewed_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.is_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.active_in_sequence_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_clearbit_ready_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.has_opted_out_of_email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.demo_scheduled_by_calenderly_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.to_delete_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_quality_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_bounced_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.cbit_created_by_clearbit_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.competitor_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.lean_data_reporting_timestamp_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.do_not_route_lead_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.marketing_prospect_routing_rules_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_opt_in_explicit_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_opt_in_implicit_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.gdpr_opt_in_explicit_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.user_gems_is_a_user_gem_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.mkto_si_last_interesting_moment_date_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.do_not_sync_marketo_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.is_emea_event_routing_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.converted_date_time_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.lead_created_date_time_reporting_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.attended_event_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.lean_data_manual_route_trigger_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.enrichment_request_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_lead_data.meta_data_create_date_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.sales_email_opt_out_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.user_gems_ug_created_by_ug_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.verified_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.pbf_startup_certify_eligibility_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data.email_opt_in_double_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_lead_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.referral_account_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.who_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.call_disposition",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_day_of_month",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_end_date_only",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.description",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.last_modified_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_time_zone_sid_key",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.is_recurrence",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_task_data.what_count",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data.what_count",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sf_task_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_task_data.who_count",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_task_data.sales_loft_1_sales_loft_view_count_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_task_data.sales_loft_1_sales_loft_replies_count_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sf_task_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_end_date_only",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.last_modified_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_recurrence",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.system_modstamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.reminder_date_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_high_priority",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_closed",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_reminder_set",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.recurrence_start_date_only",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.no_show_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_task_data.completed_date_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.vidyard_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.execute_collections_plan_activity_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.collections_hold_c",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data.is_archived",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "flip",
+      "kind": "valid",
+      "column": "sf_task_data._fivetran_active",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_event_data.duration_in_minutes",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_event_data.group_event_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_event_data.what_count",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sf_event_data.who_count",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "sf_event_data",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.activity_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.activity_date_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.created_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.end_date_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.last_modified_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.recurrence_end_date_only",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.recurrence_start_date_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.reminder_date_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.start_date_time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.system_modstamp",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.recurrence_2_pattern_start_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sf_event_data.end_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 614880a579af (614880a579af); fix: your working tree (12 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 20 models; compiled SQL changed in int_salesforce__date_spine; comparing salesforce__daily_activity (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (4 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:20:46Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_salesforce",
+    "base": "614880a579af",
+    "base_commit": "614880a579af74e2c38d4b9401513c4f272b28b2",
+    "path": "/home/runner/work/_temp/clones/dbt_salesforce/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs salesforce__daily_activity {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

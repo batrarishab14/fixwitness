@@ -1,0 +1,4285 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "15eb8062744a6a5d87ac80a7b8cd7c2a8458a867ef70d19c2e3ac672135c152c",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "cf97061d5d73e7d9d0c63727e08ba2d03c26641b",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": ".gitignore",
+        "status": "M",
+        "sha256": "a05b6aaa68cf5ecdce394eb97d2824fb25e0788dcdc1b510e4e9b8ea7f958091"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "8a4d8d59577387da7e5f2101a7f43aff29e91c430519f2fc549db3cf8547d746"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "99508a93bb2d1cbff6df92f1334f6c2bafa3bd7111f96dcf8259b1f83b591ecd"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "52a126aee790ccb2c7598c44dcee20494e58246a8eb1fd908b609ed101e957fd"
+      },
+      {
+        "path": "docs/index.html",
+        "status": "M",
+        "sha256": "e5be2a4605881148ea8ed92dcbb2c99d2122248051cb4218fc9e76d4dd09000f"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "5fed6978e9da69758d546630b0ac328216c32b628d36f5ae7d56ae557663085c"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "dc7e372cf03ebcca1cc2c3af75a50378d4dedebd6472a2cd6ebcae0ad2bc99dd"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "12fb3a6db3b37300757970b3dcd8e0550f0f83e5414190a6c9a3142f2ee22108"
+      },
+      {
+        "path": "integration_tests/seeds/zuora_amendment_data.csv",
+        "status": "M",
+        "sha256": "86f864bc9ab9d7bf1256e65ee101e37f8298a5242336bbfcaaf015230efac568"
+      },
+      {
+        "path": "integration_tests/seeds/zuora_taxation_item_data.csv",
+        "status": "M",
+        "sha256": "b56e7b08d8bf24ec3576c7a8b52d2a62890f02b5d6eded85ca3e1dcad9195abb"
+      },
+      {
+        "path": "models/zuora.yml",
+        "status": "M",
+        "sha256": "8817ff551b30343ce4888bd8f66397f11ee0ab2954d8219a7967d9f4dacc62e6"
+      },
+      {
+        "path": "models/zuora__line_item_history.sql",
+        "status": "M",
+        "sha256": "4ff4b190d7a45c4d6bdf2bc7e69b50bab1b23940b17dee32245f2a395d092fda"
+      },
+      {
+        "path": "models/zuora__subscription_overview.sql",
+        "status": "M",
+        "sha256": "1255808287e834aa633e0f83c39587f68ce48384f57cd438eb9b93d13cee75c5"
+      },
+      {
+        "path": "packages.yml",
+        "status": "M",
+        "sha256": "ebfc4ea1678580ba96794feef84ae3c18428126fab3167292d267e01a3e04468"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "zuora__line_item_history",
+        "zuora__subscription_overview"
+      ],
+      "compared": [
+        "zuora__line_item_history",
+        "zuora__monthly_recurring_revenue",
+        "zuora__subscription_overview"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "zuora_account_data",
+        "zuora_amendment_data",
+        "zuora_contact_data",
+        "zuora_credit_balance_adjustment_data",
+        "zuora_invoice_data",
+        "zuora_invoice_item_data",
+        "zuora_invoice_payment_data",
+        "zuora_payment_data",
+        "zuora_payment_method_data",
+        "zuora_product_data",
+        "zuora_product_rate_plan_charge_data",
+        "zuora_product_rate_plan_data",
+        "zuora_rate_plan_charge_data",
+        "zuora_subscription_data",
+        "zuora_taxation_item_data"
+      ]
+    },
+    "tables": {
+      "zuora_taxation_item_data": {
+        "name": "zuora_taxation_item_data.csv",
+        "sha256": "bf970fe97d13bcfb5ef96f8653a28222abd97c3847e03c81332d831d2265e76d"
+      },
+      "zuora_credit_balance_adjustment_data": {
+        "name": "zuora_credit_balance_adjustment_data.csv",
+        "sha256": "bfd1f33773298447193391c062855b434b1a6ca60181eb547b406e3ff54cde01"
+      },
+      "zuora_subscription_data": {
+        "name": "zuora_subscription_data.csv",
+        "sha256": "23a9e2977314e04dfa5073c1fddacc7e39cda742f48700384b36c9fc3ec866a4"
+      },
+      "zuora_product_rate_plan_data": {
+        "name": "zuora_product_rate_plan_data.csv",
+        "sha256": "4c4f7a4f5a235f93905396f5363e1ae032624ad2540c1c13573f3b8ef6359612"
+      },
+      "zuora_invoice_data": {
+        "name": "zuora_invoice_data.csv",
+        "sha256": "028f012a48589dd368ae71adf6db0d468c032480cea8b5a11ed6224402bdc879"
+      },
+      "zuora_payment_method_data": {
+        "name": "zuora_payment_method_data.csv",
+        "sha256": "e626e8fcb887d79577366c90d0bae2c6931e0040f7f29a9ff7d11b35d6485ff3"
+      },
+      "zuora_amendment_data": {
+        "name": "zuora_amendment_data.csv",
+        "sha256": "5022a3189611272846a286f454c30a916fc7696b18c7a93559367f5605e67519"
+      },
+      "zuora_invoice_payment_data": {
+        "name": "zuora_invoice_payment_data.csv",
+        "sha256": "33dc863058eeeae2dc19ac85af383b697b6182d35c744066a650b44cb00ed83a"
+      },
+      "zuora_rate_plan_charge_data": {
+        "name": "zuora_rate_plan_charge_data.csv",
+        "sha256": "60f3149e95ec72324a0474c4ed269b98d8a3a7de18bcf714884baa405542979e"
+      },
+      "zuora_payment_data": {
+        "name": "zuora_payment_data.csv",
+        "sha256": "cb0af54bc32a6c822d01f29c12684fceaa3aefea34df3b7b5e17b3df57f89563"
+      },
+      "zuora_invoice_item_data": {
+        "name": "zuora_invoice_item_data.csv",
+        "sha256": "990b464a9475d3214983c72d9b2b7766bdceace6257fff10115f0f101ded8ee0"
+      },
+      "zuora_contact_data": {
+        "name": "zuora_contact_data.csv",
+        "sha256": "573ed4a2ff5e2f0cd7a9039132afbd35371f1aba5560c3202ce8e189fca559af"
+      },
+      "zuora_product_rate_plan_charge_data": {
+        "name": "zuora_product_rate_plan_charge_data.csv",
+        "sha256": "995a63ec6a75e5b61e17bab62d83bb52c6330ae00da6c4e752322aa1a91abade"
+      },
+      "zuora_account_data": {
+        "name": "zuora_account_data.csv",
+        "sha256": "07984879b06113e06f62c613b1ebe747de26093c1fa474882cade6ea706e1b09"
+      },
+      "zuora_product_data": {
+        "name": "zuora_product_data.csv",
+        "sha256": "adc03441ecc4d8f9ed27d0306d25df402a05abb69d10e0ea42dd572ada1a33e7"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs zuora__line_item_history,zuora__monthly_recurring_revenue,zuora__subscription_overview {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": null,
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "zuora__line_item_history",
+        "zuora__monthly_recurring_revenue",
+        "zuora__subscription_overview"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 300 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 300,
+    "identical": 0,
+    "changed": 300,
+    "not_comparable": 0,
+    "review_inputs": 0,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": false,
+    "findings": [
+      {
+        "kind": "column-empty",
+        "name": "tax_amount_home_currency",
+        "detail": "the change uses column 'tax_amount_home_currency', but it is empty in every one of the 301 inputs"
+      }
+    ],
+    "literals_checked": 0,
+    "columns_checked": 3
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.exchange_rate_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.exchange_rate_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.exchange_rate_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount_home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount_home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.transaction_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.transaction_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.transaction_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.exchange_rate_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount_home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.transaction_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.cancelled_on",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.cancelled_on",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.exchange_rate_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.exchange_rate_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.transaction_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.cancelled_on",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.exchange_rate_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.home_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.status",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.cancelled_on",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_credit_balance_adjustment_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_subscription_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_subscription_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.auto_renew",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.contract_acceptance_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.contract_effective_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_subscription_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_subscription_data.current_term",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_subscription_data.initial_term",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_subscription_data.renewal_term",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_subscription_data.version",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_subscription_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_subscription_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "flip",
+      "kind": "valid",
+      "column": "zuora_subscription_data.auto_renew",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.cancelled_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.contract_acceptance_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.contract_effective_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.original_created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.service_activation_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.subscription_end_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.subscription_start_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.term_end_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.term_start_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_subscription_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "flip",
+      "kind": "valid",
+      "column": "zuora_subscription_data.is_latest_version",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_data.invoice_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_data.invoice_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_data.tax_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_data.invoice_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_data.last_email_sent_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_data.posted_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.last_failed_sale_transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.last_transaction_date_time",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_method_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_amendment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_amendment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_amendment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_amendment_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_amendment_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_amendment_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_amendment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_amendment_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_amendment_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_amendment_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_payment_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.mrr",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.mrrhome_currency",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.segment",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.version",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_rate_plan_charge_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_payment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_payment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_payment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_payment_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_data.cancelled_on",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_data.settled_on",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_data.submitted_on",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_payment_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.charge_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.processing_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.processing_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.processing_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.tax_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.unit_price",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.amendment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.processing_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.rate_plan_charge_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.subscription_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.charge_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_invoice_item_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_contact_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_contact_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_contact_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_contact_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_contact_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_contact_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_contact_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_contact_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_contact_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_contact_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_charge_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_charge_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_charge_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_charge_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_charge_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_product_rate_plan_charge_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_account_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_account_data.mrr",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_account_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_account_data.last_invoice_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_account_data.tax_exempt_effective_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_account_data.tax_exempt_expiration_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_account_data.updated_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_product_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_product_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_product_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "zuora_product_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "zuora_product_data.created_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: cf97061d5d73 (cf97061d5d73); fix: your working tree (14 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 52 models; compiled SQL changed in zuora__line_item_history, zuora__subscription_overview; comparing zuora__line_item_history, zuora__monthly_recurring_revenue, zuora__subscription_overview (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (15 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): zuora_taxation_item_data.account_id -> zuora_account_data.id, zuora_taxation_item_data.invoice_id -> zuora_invoice_data.id, zuora_taxation_item_data.invoice_item_id -> zuora_invoice_item_data.id, zuora_taxation_item_data.product_rate_plan_charge_id -> zuora_product_rate_plan_charge_data.id, zuora_taxation_item_data.product_rate_plan_id -> zuora_product_rate_plan_data.id, zuora_taxation_item_data.rate_plan_charge_id -> zuora_rate_plan_charge_data.id, zuora_taxation_item_data.subscription_id -> zuora_subscription_data.id, zuora_invoice_data.account_id -> zuora_account_data.id, zuora_amendment_data.subscription_id -> zuora_subscription_data.id, zuora_invoice_payment_data.invoice_id -> zuora_invoice_data.id, zuora_rate_plan_charge_data.amendment_id -> zuora_amendment_data.id, zuora_rate_plan_charge_data.subscription_id -> zuora_subscription_data.id, zuora_payment_data.account_id -> zuora_account_data.id, zuora_invoice_item_data.amendment_id -> zuora_amendment_data.id, zuora_invoice_item_data.product_rate_plan_charge_id -> zuora_product_rate_plan_charge_data.id, zuora_invoice_item_data.product_rate_plan_id -> zuora_product_rate_plan_data.id, zuora_invoice_item_data.rate_plan_charge_id -> zuora_rate_plan_charge_data.id, zuora_invoice_item_data.subscription_id -> zuora_subscription_data.id"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "value": "<tables as given>",
+      "status": "changed",
+      "explanation": "If the file is tables as given, in `zuora__subscription_overview`, the output has 3 rows instead of 3; a new row for '4f3950cb66b9ecc2de9715925dfcac03' appears.",
+      "impact": "rows",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '10c8f32c66f8a5ab46b6ae2a88e457dc' -> '4f3950cb66b9ecc2de9715925dfcac03'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'",
+        "zuora__subscription_overview: row 1, initial_term: '36' -> ''"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `id`, in `zuora__subscription_overview`, the output has 1 row instead of 1; a new row for 'abbf61d1c34fedf7855f7fc029f551b3' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.id",
+      "family": null,
+      "value": "dff38ac095012f19007b8a0942416110",
+      "status": "changed",
+      "explanation": "If `id` repeats the value of another row ('dff38ac095012f19007b8a0942416110'), in `zuora__subscription_overview`, the output has 1 row instead of 1; a new row for 'abbf61d1c34fedf7855f7fc029f551b3' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.id",
+      "family": null,
+      "value": "dff38ac03b24a6efd976ad1221ebd5cc | DFF38AC03B24A6EFD976AD1221EBD5CC",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `id` = 'dff38ac03b24a6efd976ad1221ebd5cc' and 'DFF38AC03B24A6EFD976AD1221EBD5CC', in `zuora__subscription_overview`, the output has 1 row instead of 1; a new row for 'abbf61d1c34fedf7855f7fc029f551b3' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "zuora__line_item_history: row count: 6 -> 7",
+        "zuora__line_item_history: row 4, invoice_item_id: 'dff38ac0abba719061f1e5b1eb7fbf9d' -> 'dff38ac08c7c5cec11c8c6c0d7022671'",
+        "zuora__line_item_history: row 4, balance: '570860.0' -> '646000.0'",
+        "zuora__line_item_history: row 4, charge_amount: '570860.0' -> '646000.0'",
+        "zuora__line_item_history: row 4, charge_date: '2016-01-15T23:23:00' -> '2016-01-15T23:24:00'",
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `account_id`, in `zuora__subscription_overview`, the output has 1 row instead of 1; a new row for 'abbf61d1c34fedf7855f7fc029f551b3' appears.",
+      "impact": "rows",
+      "shrunk": true,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `account_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.account_id",
+      "family": null,
+      "value": "2c92c0f967640caa0167836a3e396a3b | 2C92C0F967640CAA0167836A3E396A3B",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `account_id` = '2c92c0f967640caa0167836a3e396a3b' and '2C92C0F967640CAA0167836A3E396A3B', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.amendment_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `amendment_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.amendment_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `amendment_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `balance` is the number 0, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `balance`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "value": "10150",
+      "status": "changed",
+      "explanation": "If `balance` repeats the value of another row (10150), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.balance",
+      "family": null,
+      "value": "0.005 | 0.005",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `balance` = 0.005 and 0.005, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `created_date`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "014",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "value": "2016-01-15 16:42:00.000000",
+      "status": "changed",
+      "explanation": "If `created_date` repeats the value of another row ('2016-01-15 16:42:00.000000'), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.created_date",
+      "family": null,
+      "value": "2016-01-15 23:03:00.000000 | 2016-01-15 23:03:00.000000",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `created_date` = '2016-01-15 23:03:00.000000' and '2016-01-15 23:03:00.000000', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.exchange_rate_date",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `exchange_rate_date`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.exchange_rate_date",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `exchange_rate_date` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "018",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.exchange_rate_date",
+      "family": null,
+      "value": "2015-03-01 00:00:00.000000 | 2015-03-01 00:00:00.000000",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `exchange_rate_date` = '2015-03-01 00:00:00.000000' and '2015-03-01 00:00:00.000000', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.home_currency",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `home_currency`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.home_currency",
+      "family": null,
+      "value": "USD",
+      "status": "changed",
+      "explanation": "If `home_currency` repeats the value of another row ('USD'), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.home_currency",
+      "family": null,
+      "value": "USD | usd",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `home_currency` = 'USD' and 'usd', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `invoice_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `invoice_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_id",
+      "family": null,
+      "value": "dff38ac0dfa53a25cf026658c1631e92 | DFF38AC0DFA53A25CF026658C1631E92",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `invoice_id` = 'dff38ac0dfa53a25cf026658c1631e92' and 'DFF38AC0DFA53A25CF026658C1631E92', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "025",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `invoice_item_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "026",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `invoice_item_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.invoice_item_id",
+      "family": null,
+      "value": "dff38ac08c7c5cec11c8c6c0d7022671 | DFF38AC08C7C5CEC11C8C6C0D7022671",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `invoice_item_id` = 'dff38ac08c7c5cec11c8c6c0d7022671' and 'DFF38AC08C7C5CEC11C8C6C0D7022671', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `name`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.name",
+      "family": null,
+      "value": "VAT",
+      "status": "changed",
+      "explanation": "If `name` repeats the value of another row ('VAT'), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "030",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `product_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `product_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_id",
+      "family": null,
+      "value": "dff38ac02ade9f01dbc96060cfab6cf9 | DFF38AC02ADE9F01DBC96060CFAB6CF9",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `product_id` = 'dff38ac02ade9f01dbc96060cfab6cf9' and 'DFF38AC02ADE9F01DBC96060CFAB6CF9', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_charge_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `product_rate_plan_charge_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "034",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_charge_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `product_rate_plan_charge_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_charge_id",
+      "family": null,
+      "value": "dff38ac043fe748ce5fe293b7038179e | DFF38AC043FE748CE5FE293B7038179E",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `product_rate_plan_charge_id` = 'dff38ac043fe748ce5fe293b7038179e' and 'DFF38AC043FE748CE5FE293B7038179E', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `product_rate_plan_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `product_rate_plan_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "038",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.product_rate_plan_id",
+      "family": null,
+      "value": "dff38ac0f453ace2d627ce4d61eba8f4 | DFF38AC0F453ACE2D627CE4D61EBA8F4",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `product_rate_plan_id` = 'dff38ac0f453ace2d627ce4d61eba8f4' and 'DFF38AC0F453ACE2D627CE4D61EBA8F4', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.rate_plan_charge_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `rate_plan_charge_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.rate_plan_charge_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `rate_plan_charge_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.rate_plan_charge_id",
+      "family": null,
+      "value": "8ad0877b8292a2da0182a62fed8b2f97 | 8AD0877B8292A2DA0182A62FED8B2F97",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `rate_plan_charge_id` = '8ad0877b8292a2da0182a62fed8b2f97' and '8AD0877B8292A2DA0182A62FED8B2F97', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `subscription_id`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `subscription_id` repeats the value of another row (''), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "044",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.subscription_id",
+      "family": null,
+      "value": "dff38ac0a04b7bdd977a34ba9ce9bb77 | DFF38AC0A04B7BDD977A34BA9CE9BB77",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `subscription_id` = 'dff38ac0a04b7bdd977a34ba9ce9bb77' and 'DFF38AC0A04B7BDD977A34BA9CE9BB77', in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `tax_amount` is the number 0, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "046",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `tax_amount`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "047",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "value": "10150",
+      "status": "changed",
+      "explanation": "If `tax_amount` repeats the value of another row (10150), in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "048",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount",
+      "family": null,
+      "value": "0.005 | 0.005",
+      "status": "changed",
+      "explanation": "If two `zuora_taxation_item_data` rows of the same group have `tax_amount` = 0.005 and 0.005, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    },
+    {
+      "id": "049",
+      "category": "empty",
+      "kind": "valid",
+      "column": "zuora_taxation_item_data.tax_amount_home_currency",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `zuora_taxation_item_data` row has an empty `tax_amount_home_currency`, in `zuora__subscription_overview`, `subscription_key` changes from '02fb334b20228a6b8e37c2f4114c116f' to '2deb1aef67fa6e90a2dc80e94db4bbc1' (and 198 more cells).",
+      "impact": "values",
+      "shrunk": false,
+      "details": [
+        "zuora__subscription_overview: row 1, subscription_key: '02fb334b20228a6b8e37c2f4114c116f' -> '2deb1aef67fa6e90a2dc80e94db4bbc1'",
+        "zuora__subscription_overview: row 1, subscription_id: '8ad0877b8262bc1e018263418ba12451' -> 'dff38ac0a04b7bdd977a34ba9ce9bb77'",
+        "zuora__subscription_overview: row 1, account_id: '8ad088718262bc1701826340a8720972' -> 'dff38ac00240057303623f9ba5542afa'",
+        "zuora__subscription_overview: row 1, account_name: 'Test Name 2' -> ''",
+        "zuora__subscription_overview: row 1, auto_renew: 'true' -> 'false'"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:21:07Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_zuora",
+    "base": "cf97061d5d73",
+    "base_commit": "cf97061d5d73e7d9d0c63727e08ba2d03c26641b",
+    "path": "/home/runner/work/_temp/clones/dbt_zuora/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs zuora__line_item_history,zuora__monthly_recurring_revenue,zuora__subscription_overview {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

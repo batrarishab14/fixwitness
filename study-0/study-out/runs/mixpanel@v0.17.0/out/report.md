@@ -1,0 +1,23 @@
+## fixwitness: INCONCLUSIVE (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | INCONCLUSIVE | not exercisable with this data: no input reaches what the change touched (column ae_session_length, column app_build_number, column app_release and 37 more), so identical output proves nothing about it; add rows that have it |
+
+Not checked: `.gitignore` (not code); `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/index.html` (not code); `docs/manifest.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `d60e230df2af` (original) vs working tree (fix); changed: `.gitignore`, `CHANGELOG.md`, `README.md`, `dbt_project.yml`, `docs/catalog.json` and 15 more. dbt project: changed `mixpanel__daily_events`, `mixpanel__event`, `mixpanel__monthly_events`, `mixpanel__sessions`, `stg_mixpanel__event_tmp`, `stg_mixpanel__user_first_event`; compared `mixpanel__daily_events`, `mixpanel__event`, `mixpanel__monthly_events`, `mixpanel__sessions`; SQL on warehouse; tables `event` (event.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | PASS: 300 of 300 comparable valid inputs give the same output |
+
+**Why:** not exercisable with this data: no input reaches what the change touched (column ae_session_length, column app_build_number, column app_release and 37 more), so identical output proves nothing about it; add rows that have it.
+
+Proof ID `d30c0d28275182da` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/mixpanel@v0.17.0/out/integration_tests_dbt_project/proof.json`

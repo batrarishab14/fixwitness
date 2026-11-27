@@ -1,0 +1,3295 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "10151f3c3785277920c5b7a8e998724d132ba9dab6060342c2a10929c243bffa",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "78c49634ffa891b376eb2b1c2675d6a3ba3867ce",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "b607ce3944d910b8312a9bc7648ec77d9ed6c6515b9288257adc2e91f33d815a"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "7141ebc7c9c4424d0284449bca0ad5782073ec6b041b0d99bcde42538e9cdc8d"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "e4786ba3415b45467a6ef76fedc96df96a8c7926c2381959dcc0985c803d4c45"
+      },
+      {
+        "path": "models/intermediate/field_history/int_jira__daily_field_history.sql",
+        "status": "M",
+        "sha256": "d126224e37828d6c8d026c08a81aa180630aeab972ad8c7218f07f71799a3e9e"
+      },
+      {
+        "path": "models/intermediate/field_history/int_jira__pivot_daily_field_history.sql",
+        "status": "M",
+        "sha256": "52c822ff6b3811851338a01637bae57fb1a91643305b3fb5e2fda189e945da9d"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_jira__daily_field_history",
+        "int_jira__pivot_daily_field_history"
+      ],
+      "compared": [
+        "jira__daily_issue_field_history",
+        "jira__issue_enhanced",
+        "jira__project_enhanced",
+        "jira__user_enhanced"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "field_option",
+        "issue_field_history",
+        "issue_multiselect_history"
+      ]
+    },
+    "tables": {
+      "user": {
+        "name": "user.csv",
+        "sha256": "09b765c18fcde1e10c80196dc6b38d635fa6ce1361ba31aa2b2da75f447951ab"
+      },
+      "version": {
+        "name": "version.csv",
+        "sha256": "bf33e0bb428925e76d6c321ab89507798cd959a1eac7969d91f5e4f0836bee99"
+      },
+      "field_option": {
+        "name": "field_option.csv",
+        "sha256": "7098765ca05d57eb72a62dbf8a73dec47359a14fe74d4438a5f8ac0b43b84fb5"
+      },
+      "sprint": {
+        "name": "sprint.csv",
+        "sha256": "919fd64d33b7c2a55fdcd3bb30eb19030dff6825b7c651867ad17512407df873"
+      },
+      "status_category": {
+        "name": "status_category.csv",
+        "sha256": "b70923cd595a54c3e64fe588783062ca1115e9055dbe63329c203fcb3c14b1c3"
+      },
+      "comment": {
+        "name": "comment.csv",
+        "sha256": "07921b112441c56a56c9004edbd03abb0f02b0079ade0c6a4013b4d8e214dcc5"
+      },
+      "priority": {
+        "name": "priority.csv",
+        "sha256": "c64e8f0963669242bf6355d5658bef9bacea31c4ee9378d970965b4cef06c691"
+      },
+      "issue": {
+        "name": "issue.csv",
+        "sha256": "7f8874a82b66f10175b81a6ea0543830d0ba78c48ceb454f1a08d62a33eb7ed1"
+      },
+      "issue_type": {
+        "name": "issue_type.csv",
+        "sha256": "79281a86f92794b477aa2b1c9578ba012fedc4415592051972b35fc0f173a01b"
+      },
+      "project": {
+        "name": "project.csv",
+        "sha256": "3cbd9353eaa57b4d58e96b4ae1410c07b0391b824915bd39267e06f3a6dc44d3"
+      },
+      "status": {
+        "name": "status.csv",
+        "sha256": "68fd8fb8d2fc2f94fc46d532909cd28d22af86d5eb6f261214b7ef376c58b805"
+      },
+      "resolution": {
+        "name": "resolution.csv",
+        "sha256": "531ee2fe6400e78041d7573ccf989aa9b9e3e43aad8cd701b7c3e25fd653cc90"
+      },
+      "component": {
+        "name": "component.csv",
+        "sha256": "4488ce1f19d7cba2e11b81d79de180b955e52ec4028dd5e3061f6d8866919a2a"
+      },
+      "issue_field_history": {
+        "name": "issue_field_history.csv",
+        "sha256": "3cbf9808964cb92833f78327f878bd6fc174784bcdb1630d8a56959fdf7e1f9c"
+      },
+      "issue_multiselect_history": {
+        "name": "issue_multiselect_history.csv",
+        "sha256": "266af0ef486fec0a6db9679d2dd4d15ecba43bff757867eb5de674c8e6257b81"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs jira__daily_issue_field_history,jira__issue_enhanced,jira__project_enhanced,jira__user_enhanced {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_jira__comment: unique(comment_id)",
+      "stg_jira__component: unique(component_id)",
+      "stg_jira__field: not_null(field_id)",
+      "stg_jira__field: unique(field_id)",
+      "stg_jira__issue_field_history: unique_combination_of_columns(field_id, issue_id, updated_at)",
+      "stg_jira__issue_multiselect_history: unique_combination_of_columns(_fivetran_id, updated_at)",
+      "stg_jira__issue_type: unique(issue_type_id)",
+      "stg_jira__priority: unique(priority_id)",
+      "stg_jira__project: unique(project_id)",
+      "stg_jira__resolution: unique(resolution_id)",
+      "stg_jira__sprint: unique(sprint_id)",
+      "stg_jira__status: unique(status_id)",
+      "stg_jira__status_category: unique(status_category_id)",
+      "stg_jira__user: not_null(user_id)",
+      "stg_jira__user: unique(user_id)",
+      "stg_jira__version: not_null(version_id)",
+      "stg_jira__version: unique(version_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "jira__daily_issue_field_history",
+        "jira__issue_enhanced",
+        "jira__project_enhanced",
+        "jira__user_enhanced"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "PASS",
+  "reasons": [],
+  "confidence": {
+    "score": 99,
+    "level": "HIGH",
+    "components": {
+      "valid_inputs_identical": 257,
+      "evidence_strength": 0.988,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 257,
+    "identical": 257,
+    "changed": 0,
+    "not_comparable": 0,
+    "review_inputs": 43,
+    "review_differences": 0,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": true,
+    "findings": [],
+    "literals_checked": 2,
+    "columns_checked": 0
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "empty",
+      "kind": "review",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.locale",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.locale",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.locale",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "long",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.time_zone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.time_zone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "pairs",
+      "kind": "review",
+      "column": "user.time_zone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "empty",
+      "kind": "valid",
+      "column": "user.username",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "user.username",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "null-column",
+      "kind": "review",
+      "column": "user.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.email",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.locale",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.time_zone",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "user.username",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "user",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "case",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "user.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "user._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "version.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "empty",
+      "kind": "review",
+      "column": "version.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "version.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "empty",
+      "kind": "valid",
+      "column": "version._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "version._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "pairs",
+      "kind": "review",
+      "column": "version._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "empty",
+      "kind": "valid",
+      "column": "version.archived",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "version.archived",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "pairs",
+      "kind": "review",
+      "column": "version.archived",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "empty",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "long",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "pairs",
+      "kind": "review",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "pairs",
+      "kind": "review",
+      "column": "version.overdue",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "version.project_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "pairs",
+      "kind": "review",
+      "column": "version.released",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "null-column",
+      "kind": "review",
+      "column": "version.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "version._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "version",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "case",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "version.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "version._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "flip",
+      "kind": "valid",
+      "column": "version.archived",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "flip",
+      "kind": "valid",
+      "column": "version.overdue",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "flip",
+      "kind": "valid",
+      "column": "version.released",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "field_option.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "field_option.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "empty",
+      "kind": "review",
+      "column": "field_option.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "field_option.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "field_option.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "empty",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "long",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "pairs",
+      "kind": "review",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "null-column",
+      "kind": "review",
+      "column": "field_option.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "field_option",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "case",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "field_option.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "field_option._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sprint.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sprint.board_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "long",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "pairs",
+      "kind": "review",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "sprint",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "case",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "sprint.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sprint._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sprint.complete_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sprint.end_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "sprint.start_date",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "status_category.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "empty",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "long",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "pairs",
+      "kind": "review",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "status_category",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "case",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "status_category.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "status_category._fivetran_synced",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "comment.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "comment.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "comment",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "flip",
+      "kind": "valid",
+      "column": "comment.is_public",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "priority.id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "empty",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "long",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "pairs",
+      "kind": "review",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "priority",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "case",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "priority.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "issue.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "long",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue.status",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "duplicate-row",
+      "kind": "valid",
+      "column": "issue",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "case",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue.summary",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "flip",
+      "kind": "valid",
+      "column": "issue._fivetran_deleted",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "long",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "pairs",
+      "kind": "review",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "duplicate-row",
+      "kind": "review",
+      "column": "issue_type",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "case",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue_type.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "flip",
+      "kind": "valid",
+      "column": "issue_type.subtask",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "empty",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "long",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "pairs",
+      "kind": "review",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "case",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "project.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "empty",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "long",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "pairs",
+      "kind": "review",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "case",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "status.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "empty",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "long",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "pairs",
+      "kind": "review",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "case",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "resolution.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "empty",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "long",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "pairs",
+      "kind": "review",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "case",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "component.name",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "long",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "duplicate",
+      "kind": "review",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "issue_field_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue_field_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_field_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue_field_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "issue_field_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_field_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue_field_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "pairs",
+      "kind": "review",
+      "column": "issue_field_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "case",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "long",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "pairs",
+      "kind": "review",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "null-column",
+      "kind": "review",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue_field_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue_field_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "case",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue_field_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue_field_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "issue_field_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "delimiter-mix",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_multiselect_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue_multiselect_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "pairs",
+      "kind": "review",
+      "column": "issue_multiselect_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "unicode",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "punctuation",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "long",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "csv-structure",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "quotes",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "pairs",
+      "kind": "review",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "issue_multiselect_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue_multiselect_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_multiselect_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue_multiselect_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "pairs",
+      "kind": "review",
+      "column": "issue_multiselect_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "issue_multiselect_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "empty",
+      "kind": "valid",
+      "column": "issue_multiselect_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "long",
+      "kind": "valid",
+      "column": "issue_multiselect_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "issue_multiselect_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "shell-metachar",
+      "kind": "valid",
+      "column": "issue_multiselect_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "pairs",
+      "kind": "review",
+      "column": "issue_multiselect_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue_multiselect_history.time",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue_multiselect_history.issue_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "issue_multiselect_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "case",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue_multiselect_history.field_id",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "whitespace",
+      "kind": "valid",
+      "column": "issue_multiselect_history.value",
+      "family": null,
+      "status": "identical",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: 78c49634ffa8 (78c49634ffa8); fix: your working tree (5 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 46 models; compiled SQL changed in int_jira__daily_field_history, int_jira__pivot_daily_field_history; comparing jira__daily_issue_field_history, jira__issue_enhanced, jira__project_enhanced, jira__user_enhanced (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (15 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): comment.issue_id -> issue.id, issue_field_history.issue_id -> issue.id, issue_multiselect_history.field_id -> issue_field_history.field_id, issue_multiselect_history.issue_id -> issue.id",
+    "the project's dbt tests are used as rules on the input tables (26: comment.id unique, comment.id not_null, component.id unique, component.id not_null, field_option.id unique, field_option.id not_null, issue_field_history.field_id+issue_id+time unique, issue_multiselect_history._fivetran_id+time unique, issue_type.id unique, issue_type.id not_null, priority.id unique, priority.id not_null, ...); 43 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [],
+  "expected_changes": null,
+  "categories": {
+    "case": "upper, lower and mixed case",
+    "csv-structure": "a comma inside a quoted CSV field",
+    "delimiter-mix": "values that combine another delimiter character (; tab |) with quotes, written quoted and unquoted; reviewed instead of failed when shell-metachar or quotes is under review",
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "duplicate-row": "a whole row repeated",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "long": "a very long value",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "punctuation": "ordinary punctuation inside values",
+    "quotes": "single and double quotes inside values",
+    "shell-metachar": "glob, expansion and separator characters (* ? [ ] $ ~ \\ # ;)",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change",
+    "unicode": "accented, non-Latin and emoji text",
+    "whitespace": "leading, trailing, repeated and tab whitespace"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:16:00Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_jira",
+    "base": "78c49634ffa8",
+    "base_commit": "78c49634ffa891b376eb2b1c2675d6a3ba3867ce",
+    "path": "/home/runner/work/_temp/clones/dbt_jira/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs jira__daily_issue_field_history,jira__issue_enhanced,jira__project_enhanced,jira__user_enhanced {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

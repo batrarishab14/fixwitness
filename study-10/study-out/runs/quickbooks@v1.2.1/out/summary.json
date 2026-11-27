@@ -1,0 +1,32 @@
+{
+  "verdict": "FAIL",
+  "checks": [
+    {
+      "target": "integration_tests (dbt project)",
+      "kind": "dbt",
+      "verdict": "FAIL",
+      "score": 0,
+      "reason": "If every `currency_id` in `invoice_data` is empty (NULL), in `quickbooks__balance_sheet`, the output has 190 rows instead of 95; a new row for '2022-12-01' appears.",
+      "proof_id": "c5e583b1a8a54db7",
+      "proof": "/home/runner/work/fixwitness/fixwitness/study-out/runs/quickbooks@v1.2.1/out/integration_tests_dbt_project/proof.json"
+    }
+  ],
+  "not_checked": [
+    {
+      "path": "CHANGELOG.md",
+      "why": "documentation"
+    },
+    {
+      "path": "docs/catalog.json",
+      "why": "not code"
+    },
+    {
+      "path": "docs/manifest.json",
+      "why": "not code"
+    },
+    {
+      "path": "integration_tests/requirements.txt",
+      "why": "not code"
+    }
+  ]
+}

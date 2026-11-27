@@ -1,0 +1,4574 @@
+{
+  "$schema": "https://raw.githubusercontent.com/batrarishab14/fixwitness/main/docs/proof.schema.json",
+  "proof_id": "86ece8b5fb3c750edc7de710532938acc03fc2567f7033f042228bf2bc9d0b15",
+  "tool": {
+    "name": "fixwitness",
+    "version": "0.6.0.dev0"
+  },
+  "inputs": {
+    "mode": "git",
+    "base_commit": "db94c2542b8ee41bf3c8cc857670cad914db615f",
+    "target": "integration_tests",
+    "changed": [
+      {
+        "path": "CHANGELOG.md",
+        "status": "M",
+        "sha256": "34170cedd232e6ba7366e2147ec69e13fa213ec0314423568decb69b6cd1d3e3"
+      },
+      {
+        "path": "dbt_project.yml",
+        "status": "M",
+        "sha256": "23410015fe1e3bc03e13b0c1cea79a76201b4e880e3e94004d76f24497e4b921"
+      },
+      {
+        "path": "docs/catalog.json",
+        "status": "M",
+        "sha256": "33b5555da8c38e0d6ab718cda5a098ce8f1d6c4a55e43bf186521998e35353ea"
+      },
+      {
+        "path": "docs/manifest.json",
+        "status": "M",
+        "sha256": "052766d9afa3be9c2bc7aee734347675177d63f8a363ceeeb3ef8b98fcef11fb"
+      },
+      {
+        "path": "docs/run_results.json",
+        "status": "M",
+        "sha256": "cff527119087098633dd12ce6afc6a14490c1c48aa5edfc59e2260537cd05d79"
+      },
+      {
+        "path": "integration_tests/dbt_project.yml",
+        "status": "M",
+        "sha256": "2b64783eb3cc030b11fb1edee2460a416a1a113c6ee404c8fe7241a49c904954"
+      },
+      {
+        "path": "models/intermediate/int_quickbooks__general_ledger_balances.sql",
+        "status": "M",
+        "sha256": "23b725ae7388455419b95572539a4ceb3b7fdaf0d7ee77154d11acedae1f118c"
+      },
+      {
+        "path": "models/quickbooks__general_ledger.sql",
+        "status": "M",
+        "sha256": "b1c31176369acc7045e2d328f3603cbe99c014621e59c82d7f281a4521310e6c"
+      }
+    ],
+    "dbt": {
+      "changed_models": [
+        "int_quickbooks__general_ledger_balances",
+        "quickbooks__general_ledger"
+      ],
+      "compared": [
+        "quickbooks__balance_sheet",
+        "quickbooks__cash_flow_statement",
+        "quickbooks__general_ledger",
+        "quickbooks__general_ledger_by_period",
+        "quickbooks__profit_and_loss"
+      ],
+      "adapter": "postgres",
+      "changed_tables": [
+        "account_data",
+        "bill_data",
+        "bill_line_data",
+        "bill_payment_data",
+        "bill_payment_line_data",
+        "bundle_data",
+        "bundle_item_data",
+        "credit_memo_data",
+        "credit_memo_line_data",
+        "deposit_data",
+        "deposit_line_data",
+        "invoice_data",
+        "invoice_line_bundle_data",
+        "invoice_line_data",
+        "item_data",
+        "journal_entry_data",
+        "journal_entry_line_data",
+        "payment_data",
+        "payment_line_data",
+        "purchase_data",
+        "purchase_line_data",
+        "refund_receipt_data",
+        "refund_receipt_line_data",
+        "sales_receipt_data",
+        "sales_receipt_line_data",
+        "transfer_data",
+        "vendor_credit_data",
+        "vendor_credit_line_data"
+      ]
+    },
+    "tables": {
+      "bill_payment_data": {
+        "name": "bill_payment_data.csv",
+        "sha256": "304f9c7442f872e0af65563a83246f1dbb2a40732ac2e5ef86101d530934be27"
+      },
+      "credit_memo_line_data": {
+        "name": "credit_memo_line_data.csv",
+        "sha256": "d6097eed731fafd9509fe7be14eafa19812be9b041006765972ac796db6a232d"
+      },
+      "account_data": {
+        "name": "account_data.csv",
+        "sha256": "c0cc8e04386b3f1e9424d9840d7fdade078fd3684c0106352d32e1d77da11479"
+      },
+      "vendor_credit_data": {
+        "name": "vendor_credit_data.csv",
+        "sha256": "258cc105ad5c48952247eef162add31fc713f5c4f67349a53cacb62d796ff5b8"
+      },
+      "sales_receipt_line_data": {
+        "name": "sales_receipt_line_data.csv",
+        "sha256": "2cfa6956e1d7643839e4129c21b48b8c0f166fe14be6dec0add6e0e86538c62e"
+      },
+      "deposit_data": {
+        "name": "deposit_data.csv",
+        "sha256": "44d1d6cd0f4b5ebdb04b8af7572328c58c41617f63206185ca62594c62555efc"
+      },
+      "payment_data": {
+        "name": "payment_data.csv",
+        "sha256": "6ca3f5ecd416f54859a23ae2ed856d7bab0dff2d2112f1597ded68eea6f63c03"
+      },
+      "payment_line_data": {
+        "name": "payment_line_data.csv",
+        "sha256": "7bab77d122b48d2cb84520c02c260d7ee18c548fbb5114f03eb7a3886a5d64f1"
+      },
+      "refund_receipt_data": {
+        "name": "refund_receipt_data.csv",
+        "sha256": "301d117fbcdab3f37908848db69b2ba5ce8cdc2ff839b54629c55f17838fc742"
+      },
+      "bill_data": {
+        "name": "bill_data.csv",
+        "sha256": "3c1d79d8ef40ed22b8d4b6c46476bfbc236684c15e426569ff0842f0127b88dd"
+      },
+      "invoice_line_bundle_data": {
+        "name": "invoice_line_bundle_data.csv",
+        "sha256": "aaccd6e51401d8b5e55cbf0645518b1e4c8dad6350cf723b14ad59c778747b2d"
+      },
+      "invoice_line_data": {
+        "name": "invoice_line_data.csv",
+        "sha256": "c13aab5c56c2996e8255c2cd076cd651a829a68a5f6fada3b8adf1cb7c69ad09"
+      },
+      "bundle_item_data": {
+        "name": "bundle_item_data.csv",
+        "sha256": "30d31caee803165f8dbab84b6e6afa3b6ec9c673473390804783e5fa5e042eac"
+      },
+      "purchase_line_data": {
+        "name": "purchase_line_data.csv",
+        "sha256": "dc1e663fdfcf16435b4c5a37aeacd271eeb608e7d7f2263a5a30eeac078009fe"
+      },
+      "deposit_line_data": {
+        "name": "deposit_line_data.csv",
+        "sha256": "1668cad4eb78fff2297913e89c0f09e6909548e2be8dd51cd8f25c5ad6bc072e"
+      },
+      "invoice_data": {
+        "name": "invoice_data.csv",
+        "sha256": "44d0181ad9ade5d2f9ccebdeb06a93edb2a04eb8c423efecbb31196a588804c9"
+      },
+      "bill_payment_line_data": {
+        "name": "bill_payment_line_data.csv",
+        "sha256": "739ff65a7345f068b924794f02d342ae8f1a98e711fcdceb2be0c79bb2f8f17d"
+      },
+      "refund_receipt_line_data": {
+        "name": "refund_receipt_line_data.csv",
+        "sha256": "37517df5e37325041f04d75b8726472bcf30f1fa1d429732d9777d8d548ee9b1"
+      },
+      "journal_entry_line_data": {
+        "name": "journal_entry_line_data.csv",
+        "sha256": "834d54faf4c7cac1843841e55203d7750aca8e8cbb8a791772eb877ccffefc08"
+      },
+      "bill_line_data": {
+        "name": "bill_line_data.csv",
+        "sha256": "230a390ff155ed3577b95691730c162dc4a74dd40c9dd88c5fc3347c286250db"
+      },
+      "purchase_data": {
+        "name": "purchase_data.csv",
+        "sha256": "c85471ada576e352a2e4ccc3aad2d0b31f8912f1a2f1c714c8562e04ff70b424"
+      },
+      "bundle_data": {
+        "name": "bundle_data.csv",
+        "sha256": "38e9cff4e60bba0017b14cde4bd7b3b24da33ed669022877d92e23cc2fbbd614"
+      },
+      "sales_receipt_data": {
+        "name": "sales_receipt_data.csv",
+        "sha256": "a45771f1500a5bfb7e4f1ec32830afe4672d392bbb065f262b662e3cfeb680ec"
+      },
+      "journal_entry_data": {
+        "name": "journal_entry_data.csv",
+        "sha256": "f5f1bfc423d339930dd2704db74e57754e74bf95cbccdad030ed730d1a0b50e8"
+      },
+      "credit_memo_data": {
+        "name": "credit_memo_data.csv",
+        "sha256": "f3770a883f1ba74dbe2d3ae572defe3f0ac396f0b7310e31ea7764969065e0e0"
+      },
+      "item_data": {
+        "name": "item_data.csv",
+        "sha256": "f17b345a106ed819ffb892ff55d750bd95c1903dd99bf3d06739b6dcc9517595"
+      },
+      "vendor_credit_line_data": {
+        "name": "vendor_credit_line_data.csv",
+        "sha256": "0a410e94a3d9b2cc6b522c1f3beabc4388355da207eccf6b2af43ffb8c91489c"
+      },
+      "transfer_data": {
+        "name": "transfer_data.csv",
+        "sha256": "f5b38bc59ece5b97dc2c7cf1ccea180ca0a86414086cd98170bcc53f3144e65f"
+      }
+    },
+    "engine": "warehouse"
+  },
+  "config": {
+    "mode": "git",
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs quickbooks__balance_sheet,quickbooks__cash_flow_statement,quickbooks__general_ledger,quickbooks__general_ledger_by_period,quickbooks__profit_and_loss {script} {input} {output}",
+    "run_after": null,
+    "columns": null,
+    "output": "csv",
+    "review": [],
+    "accepted": null,
+    "attacks": false,
+    "ignore_columns": [],
+    "expect_change": null,
+    "contracts": [
+      "stg_quickbooks__account: not_null(account_id)",
+      "stg_quickbooks__credit_memo_line: not_null(credit_memo_id)",
+      "stg_quickbooks__sales_receipt_line: not_null(sales_receipt_id)"
+    ],
+    "auto_ignored_columns": [],
+    "ignore_patterns": [],
+    "tolerance": 1e-09,
+    "unordered": false,
+    "sql": {
+      "engine": "warehouse",
+      "dbt": "auto",
+      "ordered": false,
+      "dialect": null,
+      "outputs": [
+        "quickbooks__balance_sheet",
+        "quickbooks__cash_flow_statement",
+        "quickbooks__general_ledger",
+        "quickbooks__general_ledger_by_period",
+        "quickbooks__profit_and_loss"
+      ]
+    },
+    "frame": null,
+    "max_cases": 300,
+    "rows": 3,
+    "seed": 1337,
+    "exercise_check": true
+  },
+  "verdict": "FAIL",
+  "reasons": [
+    "the fix changes output on 294 valid inputs"
+  ],
+  "confidence": {
+    "score": 0,
+    "level": "NONE",
+    "components": {
+      "valid_inputs_identical": 0,
+      "evidence_strength": 0.0,
+      "reproduction_factor": 1.0,
+      "original_exploit_reproduced": true
+    },
+    "method": "score = 100 x (1 - 3/n) x r, where n is the number of valid inputs that gave identical output (rule of three) and r is 1.0 if every claim was demonstrated on the original (the exploit worked on it, the incident input broke it), else 0.7. 0 if any valid input changed, the fix is still exploitable or it still fails on the incident input. A heuristic, not a probability."
+  },
+  "incident": null,
+  "security": {
+    "checked": false,
+    "payloads": 0,
+    "original_exploited": 0,
+    "fix_exploited": 0,
+    "finding_reproduced": false,
+    "families_reproduced": [],
+    "hole_closed": true
+  },
+  "behavior": {
+    "valid_inputs": 294,
+    "identical": 0,
+    "changed": 294,
+    "not_comparable": 0,
+    "review_inputs": 6,
+    "review_differences": 6,
+    "expected_change": 0,
+    "unstable": 0
+  },
+  "exercise": {
+    "assessed": true,
+    "exercisable": false,
+    "findings": [
+      {
+        "kind": "column-empty",
+        "name": "class_id",
+        "detail": "the change uses column 'class_id', but it is empty in every one of the 301 inputs"
+      }
+    ],
+    "literals_checked": 0,
+    "columns_checked": 1
+  },
+  "cases": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "001",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "002",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "003",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "004",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "005",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "006",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "009",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "010",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "011",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "012",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "013",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "014",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "015",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "017",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "018",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "019",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "020",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "021",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "022",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "023",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "024",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "025",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "026",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "027",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "028",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "029",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "030",
+      "category": "empty",
+      "kind": "review",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "031",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "032",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "033",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "034",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "035",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "037",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.bundle_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "039",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.bundle_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "040",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "042",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "043",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "044",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "045",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "046",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "047",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "048",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "049",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "050",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "051",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "052",
+      "category": "null-column",
+      "kind": "review",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "053",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "054",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "055",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.bundle_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "056",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "057",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "058",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "059",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "060",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "061",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "062",
+      "category": "empty",
+      "kind": "review",
+      "column": "account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "063",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "064",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "065",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "066",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "067",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "068",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "069",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "070",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "071",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "072",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "073",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "074",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "075",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "076",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.classification",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "077",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.classification",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "078",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "079",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "080",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "081",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "082",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "083",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "084",
+      "category": "empty",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "085",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "086",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "087",
+      "category": "null-column",
+      "kind": "review",
+      "column": "account_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "088",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "089",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_sub_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "090",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.account_type",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "091",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "092",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.classification",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "093",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "094",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.parent_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "095",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "096",
+      "category": "flip",
+      "kind": "valid",
+      "column": "account_data.sub_account",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "097",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "098",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "099",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "100",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "101",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "102",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "103",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "104",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "105",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "106",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "107",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "108",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "109",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "110",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "111",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "112",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "vendor_credit_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "113",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "114",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "115",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "116",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "117",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "118",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "119",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "120",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "121",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "122",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "123",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "124",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "125",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_receipt_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "126",
+      "category": "empty",
+      "kind": "review",
+      "column": "sales_receipt_line_data.sales_receipt_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "127",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_receipt_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "128",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "129",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "130",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "131",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.bundle_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "132",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.bundle_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "133",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "134",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.sales_item_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "135",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "136",
+      "category": "null-column",
+      "kind": "review",
+      "column": "sales_receipt_line_data.sales_receipt_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "137",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "138",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_line_data.bundle_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "139",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "140",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "141",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "142",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "143",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "144",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "145",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "146",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "147",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "148",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "149",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "150",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "151",
+      "category": "empty",
+      "kind": "valid",
+      "column": "payment_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "152",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "payment_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "153",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "154",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "155",
+      "category": "empty",
+      "kind": "valid",
+      "column": "payment_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "156",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "payment_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "157",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "158",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "payment_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "159",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "payment_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "160",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "payment_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "161",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "162",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.payment_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "163",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "164",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "payment_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "165",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "payment_line_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "166",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "refund_receipt_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "167",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "168",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "169",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "170",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "171",
+      "category": "empty",
+      "kind": "valid",
+      "column": "refund_receipt_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "172",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "refund_receipt_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "173",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "174",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "175",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "refund_receipt_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "176",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "177",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "178",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "179",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "180",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "181",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.total_amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "182",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "183",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "184",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_data.vendor_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "185",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.payable_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "186",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "187",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "188",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "189",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "190",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "191",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "192",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "193",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "194",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "195",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "196",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "197",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "198",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_line_bundle_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "199",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "200",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.invoice_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "201",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "202",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "invoice_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "203",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.bundle_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "204",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.sales_item_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "205",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_line_data.sales_item_item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "206",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_line_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "207",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_line_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "208",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_line_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "209",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bundle_item_data.bundle_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "210",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bundle_item_data.item_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "211",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "purchase_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "212",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "purchase_line_data.purchase_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "213",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "purchase_line_data.account_expense_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "214",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "purchase_line_data.account_expense_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "215",
+      "category": "empty",
+      "kind": "valid",
+      "column": "purchase_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "216",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "purchase_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "217",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "purchase_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "218",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "purchase_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "219",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "220",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_line_data.index",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "221",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "222",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "223",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "224",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "225",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "226",
+      "category": "empty",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "227",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "228",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "229",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "230",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "deposit_line_data.deposit_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "231",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_data.id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "232",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_data.balance",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "233",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_data.billing_address_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "234",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "235",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "236",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_data.customer_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "237",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "238",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "239",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "invoice_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "240",
+      "category": "empty",
+      "kind": "valid",
+      "column": "invoice_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "241",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "invoice_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "242",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "243",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "244",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "invoice_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "245",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "invoice_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "246",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "journal_entry_line_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "247",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_line_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "248",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_line_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "249",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "journal_entry_line_data.amount",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "250",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_line_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "251",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_line_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "252",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_line_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "253",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_line_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "254",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "255",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "256",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "257",
+      "category": "empty",
+      "kind": "valid",
+      "column": "purchase_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "258",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "purchase_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "259",
+      "category": "empty",
+      "kind": "valid",
+      "column": "purchase_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "260",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "purchase_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "261",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "purchase_data.account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "262",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "purchase_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "263",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "purchase_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "264",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "bundle_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "265",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "266",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "267",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "268",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "269",
+      "category": "empty",
+      "kind": "valid",
+      "column": "sales_receipt_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "270",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "sales_receipt_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "271",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "272",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_data.deposit_to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "273",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "sales_receipt_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "274",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "journal_entry_data.doc_number",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "275",
+      "category": "empty",
+      "kind": "valid",
+      "column": "journal_entry_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "276",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "journal_entry_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "277",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "journal_entry_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "278",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "279",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "280",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "281",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "282",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "credit_memo_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "283",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_data.class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "284",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "credit_memo_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "285",
+      "category": "time-edge",
+      "kind": "valid",
+      "column": "credit_memo_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "286",
+      "category": "pairs",
+      "kind": "valid",
+      "column": "item_data.name",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "287",
+      "category": "empty",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "288",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "289",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "vendor_credit_line_data.account_expense_class_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "290",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "transfer_data.from_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "291",
+      "category": "empty",
+      "kind": "valid",
+      "column": "transfer_data.from_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "292",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "transfer_data.from_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "293",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "transfer_data.to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "294",
+      "category": "empty",
+      "kind": "valid",
+      "column": "transfer_data.to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "295",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "transfer_data.to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "296",
+      "category": "empty",
+      "kind": "valid",
+      "column": "transfer_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "297",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "transfer_data.transaction_date",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "298",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "transfer_data.from_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    },
+    {
+      "id": "299",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "transfer_data.to_account_id",
+      "family": null,
+      "status": "changed",
+      "before_exploited": false,
+      "after_exploited": false
+    }
+  ],
+  "notes": [
+    "original: db94c2542b8e (db94c2542b8e); fix: your working tree (8 changed files)",
+    "dbt: both versions built on the seeds and compiled by dbt (dbt-postgres adapter, in a private schema of your warehouse, dropped afterwards), so macros and packages are rendered by dbt (through the test project integration_tests/)",
+    "dbt: 109 models; compiled SQL changed in int_quickbooks__general_ledger_balances, quickbooks__general_ledger; comparing quickbooks__balance_sheet, quickbooks__cash_flow_statement, quickbooks__general_ledger, quickbooks__general_ledger_by_period, quickbooks__profit_and_loss (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)",
+    "dbt: seeds loaded with the column types dbt gave them (28 tables)",
+    "SQL runs in your postgres warehouse (postgres://ci@localhost:5432/test): each run gets its own schema, dropped after it; the SQL runs as written",
+    "the sample's tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): credit_memo_line_data.credit_memo_id -> credit_memo_data.id, payment_line_data.invoice_id -> invoice_data.id, invoice_line_bundle_data.account_id -> account_data.id, invoice_line_data.invoice_id -> invoice_data.id, invoice_line_data.bundle_id -> bundle_data.id, bundle_item_data.item_id -> item_data.id",
+    "the project's dbt tests are used as rules on the input tables (23: account_data.id not_null, account_data.classification accepted_values, address_data.id not_null, bill_line_data.bill_id not_null, bill_linked_txn_data.bill_id not_null, bill_payment_line_data.bill_payment_id not_null, bundle_item_data.bundle_id not_null, bundle_data.id not_null, credit_memo_line_data.credit_memo_id not_null, customer_data.id not_null, deposit_line_data.deposit_id not_null, estimate_line_data.estimate_id not_null, ...); 6 inputs break one and are reviewed, not failed"
+  ],
+  "warnings": [],
+  "incident_details": null,
+  "differences": [
+    {
+      "id": "000",
+      "category": "file-structure",
+      "kind": "valid",
+      "column": null,
+      "family": null,
+      "value": "<tables as given>",
+      "status": "changed",
+      "explanation": "If the file is tables as given, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "001",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `id` is the number 0, in `quickbooks__general_ledger_by_period`, `period_net_change` changes from -25 to 0 (and 1 more cell).",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "002",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `bill_payment_data` row has an empty `id`, in `quickbooks__general_ledger_by_period`, `period_net_change` changes from -25 to 0 (and 1 more cell).",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "003",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "value": "23",
+      "status": "changed",
+      "explanation": "If `id` repeats the value of another row (23), in `quickbooks__general_ledger_by_period`, `period_net_change` changes from -25 to 0 (and 1 more cell).",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "004",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `check_bank_account_id` is the number 0, in `quickbooks__general_ledger_by_period`, `period_net_change` changes from -25 to 0 (and 1 more cell).",
+      "impact": "numbers",
+      "shrunk": true,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "005",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `bill_payment_data` row has an empty `check_bank_account_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "006",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "value": "28",
+      "status": "changed",
+      "explanation": "If `check_bank_account_id` repeats the value of another row (28), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "007",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `bill_payment_data` row has an empty `credit_card_account_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "008",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `credit_card_account_id` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "009",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `bill_payment_data` row has an empty `doc_number`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "010",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `doc_number` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "011",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `bill_payment_data` row has an empty `payable_account_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "012",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `payable_account_id` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "013",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `total_amount` is the number 0, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "014",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `bill_payment_data` row has an empty `total_amount`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "015",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `total_amount` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "016",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `bill_payment_data` row has an empty `transaction_date`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "017",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `transaction_date` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "018",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `vendor_id` is the number 0, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "019",
+      "category": "empty",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `bill_payment_data` row has an empty `vendor_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "020",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `vendor_id` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "021",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `id` in `bill_payment_data` is empty (NULL), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "022",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.check_bank_account_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `check_bank_account_id` in `bill_payment_data` is empty (NULL), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "023",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.credit_card_account_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `credit_card_account_id` in `bill_payment_data` is empty (NULL), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "024",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.doc_number",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `doc_number` in `bill_payment_data` is empty (NULL), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "025",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.payable_account_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `payable_account_id` in `bill_payment_data` is empty (NULL), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "026",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.total_amount",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `total_amount` in `bill_payment_data` is empty (NULL), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "027",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.transaction_date",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `transaction_date` in `bill_payment_data` is empty (NULL), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "028",
+      "category": "null-column",
+      "kind": "valid",
+      "column": "bill_payment_data.vendor_id",
+      "family": null,
+      "value": "<all NULL>",
+      "status": "changed",
+      "explanation": "If every `vendor_id` in `bill_payment_data` is empty (NULL), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "029",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `credit_memo_id` is the number 0, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "030",
+      "category": "empty",
+      "kind": "review",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `credit_memo_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "031",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.credit_memo_id",
+      "family": null,
+      "value": "2702",
+      "status": "changed",
+      "explanation": "If `credit_memo_id` repeats the value of another row (2702), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "032",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `index` is the number 0, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "033",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `index`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "034",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.index",
+      "family": null,
+      "value": "2",
+      "status": "changed",
+      "explanation": "If `index` repeats the value of another row (2), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "035",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `amount` is the number 0, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "036",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `amount`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "037",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.amount",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `amount` repeats the value of another row (0), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "038",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.bundle_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `bundle_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "039",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.bundle_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `bundle_id` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "040",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `discount_account_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "041",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `discount_account_id` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "042",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_class_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `discount_class_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "043",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.discount_class_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `discount_class_id` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "044",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `sales_item_account_id` is the number 0, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "045",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `sales_item_account_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "046",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_account_id",
+      "family": null,
+      "value": "210",
+      "status": "changed",
+      "explanation": "If `sales_item_account_id` repeats the value of another row (210), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "047",
+      "category": "empty",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_class_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If a `credit_memo_line_data` row has an empty `sales_item_class_id`, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "048",
+      "category": "duplicate",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_class_id",
+      "family": null,
+      "value": "",
+      "status": "changed",
+      "explanation": "If `sales_item_class_id` repeats the value of another row (''), in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    },
+    {
+      "id": "049",
+      "category": "numeric-format",
+      "kind": "valid",
+      "column": "credit_memo_line_data.sales_item_item_id",
+      "family": null,
+      "value": "0",
+      "status": "changed",
+      "explanation": "If `sales_item_item_id` is the number 0, in `quickbooks__balance_sheet`, `amount` changes from 57682 to 0 (and 476 more cells).",
+      "impact": "numbers",
+      "shrunk": false,
+      "details": [
+        "quickbooks__balance_sheet: row 3, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 9, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 15, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 21, amount: '57682' -> '0'",
+        "quickbooks__balance_sheet: row 27, amount: '70535' -> '0'",
+        "quickbooks__cash_flow_statement: row 3, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 9, cash_beginning_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_ending_period: '57682' -> '0'",
+        "quickbooks__cash_flow_statement: row 15, cash_beginning_period: '57682' -> '0'"
+      ]
+    }
+  ],
+  "expected_changes": null,
+  "categories": {
+    "duplicate": "a value copied from another row (duplicate keys)",
+    "empty": "an empty cell",
+    "file-structure": "the sample itself, a header-only file, and CRLF line endings",
+    "flip": "a true/false value set to the other value (or set where the sample has none)",
+    "null-column": "every value in one column empty (NULL once loaded into SQL)",
+    "numeric-format": "integers, decimals, signs, exponents, underscores, leading zeros, rounding edges",
+    "pairs": "two rows of the same group, each with an unusual value (sub-cent amounts, precision edges, another case), so the two values are combined",
+    "time-edge": "times at the start and end of a day, the next midnight, a leap day, a year's last second, the Unix epoch, and a time that does not exist (or exists twice) where clocks change"
+  },
+  "limitations": [
+    "Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.",
+    "This is differential testing, not a formal proof of equivalence.",
+    "Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.",
+    "Scripts ran on this machine in temporary directories (process isolation, not a sandbox)."
+  ],
+  "created_utc": "2026-11-27T08:15:08Z",
+  "replay": {
+    "mode": "git",
+    "repo": "/home/runner/work/_temp/clones/dbt_quickbooks",
+    "base": "db94c2542b8e",
+    "base_commit": "db94c2542b8ee41bf3c8cc857670cad914db615f",
+    "path": "/home/runner/work/_temp/clones/dbt_quickbooks/integration_tests",
+    "command": null,
+    "run": "/opt/hostedtoolcache/Python/3.12.16/x64/bin/python -m fixwitness.sqlrun --engine warehouse --dbt off --dialect postgres --outputs quickbooks__balance_sheet,quickbooks__cash_flow_statement,quickbooks__general_ledger,quickbooks__general_ledger_by_period,quickbooks__profit_and_loss {script} {input} {output}",
+    "dbt_project": true,
+    "dbt_tables": null,
+    "settings": {
+      "columns": null,
+      "review": [],
+      "output": null,
+      "max_cases": 300,
+      "accept": null,
+      "attacks": false,
+      "rows": 3,
+      "seed": 1337,
+      "ignore_columns": [],
+      "expect_change": [],
+      "ignore_patterns": [],
+      "tolerance": 1e-09,
+      "unordered": false,
+      "auto_ignore_unstable": true,
+      "exercise_check": true,
+      "timeout": 10.0,
+      "pass_env": [],
+      "allow_any_command": false,
+      "no_network": false,
+      "engine": "auto",
+      "dbt": "auto",
+      "sql_ordered": false,
+      "warehouse": "postgres://ci@localhost:5432/test",
+      "dialect": null,
+      "sql_outputs": null,
+      "function": null,
+      "library": "auto"
+    }
+  }
+}

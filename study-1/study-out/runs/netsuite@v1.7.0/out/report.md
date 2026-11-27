@@ -1,0 +1,59 @@
+## fixwitness: FAIL (1 check)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `integration_tests (dbt project)` | dbt | **FAIL** | If `id` is the number 0, in `netsuite2__entity_subsidiary_relationships`, the output has 1 row instead of 1; a new row for 'test.netsuite2' appears. |
+
+Not checked: `.gitignore` (not code); `CHANGELOG.md` (documentation); `README.md` (documentation); `docs/catalog.json` (not code); `docs/manifest.json` (not code)
+
+---
+
+### `integration_tests (dbt project)`
+
+
+`integration_tests`: commit `73b6b18de612` (original) vs working tree (fix); changed: `.gitignore`, `CHANGELOG.md`, `README.md`, `dbt_project.yml`, `docs/catalog.json` and 67 more. dbt project: changed `stg_netsuite2__account_types`, `stg_netsuite2__accounting_book_subsidiaries`, `stg_netsuite2__accounting_books`, `stg_netsuite2__accounting_period_fiscal_cal`, `stg_netsuite2__accounting_periods`, `stg_netsuite2__accounts`, `stg_netsuite2__classes`, `stg_netsuite2__consolidated_exchange_rates`, `stg_netsuite2__currencies`, `stg_netsuite2__customer_subsidiary_relationships`, `stg_netsuite2__customers`, `stg_netsuite2__departments`, `stg_netsuite2__employees`, `stg_netsuite2__entities`, `stg_netsuite2__entity_address`, `stg_netsuite2__items`, `stg_netsuite2__jobs`, `stg_netsuite2__location_main_address`, `stg_netsuite2__locations`, `stg_netsuite2__nexuses`, `stg_netsuite2__subsidiaries`, `stg_netsuite2__transaction_accounting_lines`, `stg_netsuite2__transaction_lines`, `stg_netsuite2__transactions`, `stg_netsuite2__vendor_categories`, `stg_netsuite2__vendor_subsidiary_relationships`, `stg_netsuite2__vendors`; compared `netsuite2__balance_sheet`, `netsuite2__entity_subsidiary_relationships`, `netsuite2__income_statement`, `netsuite2__transaction_details`, `stg_netsuite2__accounting_book_subsidiaries`, `stg_netsuite2__accounting_books`, `stg_netsuite2__employees`, `stg_netsuite2__entities`, `stg_netsuite2__jobs`; SQL on warehouse; tables `netsuite2_consolidated_exchange_rate_data` (netsuite2_consolidated_exchange_rate_data.csv), `netsuite2_item_data` (netsuite2_item_data.csv), `netsuite2_subsidiary_data` (netsuite2_subsidiary_data.csv), `netsuite2_account_type_data` (netsuite2_account_type_data.csv), `netsuite2_entity_address_data` (netsuite2_entity_address_data.csv), `netsuite2_employee_data` (netsuite2_employee_data.csv), `netsuite2_accounting_book_sub_data` (netsuite2_accounting_book_sub_data.csv), `netsuite2_vendor_data` (netsuite2_vendor_data.csv), `netsuite2_classification_data` (netsuite2_classification_data.csv), `netsuite2_transaction_data` (netsuite2_transaction_data.csv), `netsuite2_customer_subsidiary_relationship_data` (netsuite2_customer_subsidiary_relationship_data.csv), `netsuite2_vendor_subsidiary_relationship_data` (netsuite2_vendor_subsidiary_relationship_data.csv), `netsuite2_currency_data` (netsuite2_currency_data.csv), `netsuite2_account_data` (netsuite2_account_data.csv), `netsuite2_tran_acct_line_data` (netsuite2_tran_acct_line_data.csv), `netsuite2_accounting_period_fiscal_cal_data` (netsuite2_accounting_period_fiscal_cal_data.csv), `netsuite2_department_data` (netsuite2_department_data.csv), `netsuite2_entities_data` (netsuite2_entities_data.csv), `netsuite2_location_main_address_data` (netsuite2_location_main_address_data.csv), `netsuite2_customer_data` (netsuite2_customer_data.csv), `netsuite2_accounting_period_data` (netsuite2_accounting_period_data.csv), `netsuite2_location_data` (netsuite2_location_data.csv), `netsuite2_accounting_book_data` (netsuite2_accounting_book_data.csv), `netsuite2_nexus_data` (netsuite2_nexus_data.csv), `netsuite2_vendor_category_data` (netsuite2_vendor_category_data.csv), `netsuite2_transaction_line_data` (netsuite2_transaction_line_data.csv), `netsuite2_job_data` (netsuite2_job_data.csv)
+
+| Check | Result |
+|---|---|
+| Security | not checked (attack payloads turned off) |
+| Data unchanged | FAIL: 0 of 288 comparable valid inputs give the same output |
+| Needs review | 12 of 12 inputs in review categories (inputs that break your dbt tests (stg_netsuite2__account_types: not_null(account_type_id); stg_netsuite2__classes: not_null(class_id); stg_netsuite2__transaction_accounting_lines: not_null(transaction_id); stg_netsuite2__transaction_accounting_lines: not_null(transaction_line_id))) differ |
+
+**Why:** the fix changes output on 288 valid inputs.
+
+**What could go wrong:**
+
+- **Rows added or lost.** If `id` is the number 0, in `netsuite2__entity_subsidiary_relationships`, the output has 1 row instead of 1; a new row for 'test.netsuite2' appears.
+  - case 000: `numeric-format` input '0' in `netsuite2_consolidated_exchange_rate_data.id` (changed); input shrunk to the rows that show it
+  - netsuite2__entity_subsidiary_relationships: row 1, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+  - netsuite2__entity_subsidiary_relationships: row 2, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+- **Rows added or lost.** If a `netsuite2_consolidated_exchange_rate_data` row has an empty `id`, in `netsuite2__entity_subsidiary_relationships`, the output has 1 row instead of 1; a new row for 'test.netsuite2' appears.
+  - case 001: `empty` input '' in `netsuite2_consolidated_exchange_rate_data.id` (changed); input shrunk to the rows that show it
+  - netsuite2__entity_subsidiary_relationships: row 1, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+  - netsuite2__entity_subsidiary_relationships: row 2, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+- **Rows added or lost.** If `id` repeats the value of another row (1979), in `netsuite2__entity_subsidiary_relationships`, the output has 1 row instead of 1; a new row for 'test.netsuite2' appears.
+  - case 002: `duplicate` input '1979' in `netsuite2_consolidated_exchange_rate_data.id` (changed); input shrunk to the rows that show it
+  - netsuite2__entity_subsidiary_relationships: row 1, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+  - netsuite2__entity_subsidiary_relationships: row 2, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+- **Values change.** If two `netsuite2_consolidated_exchange_rate_data` rows of the same group have `_fivetran_deleted` = 'FALSE' and 'false', in `netsuite2__entity_subsidiary_relationships`, `source_relation` changes from 'test.fw_compiled' to 'test.netsuite2' (and 4 more cells).
+  - case 003: `pairs` input 'FALSE | false' in `netsuite2_consolidated_exchange_rate_data._fivetran_deleted` (changed); input shrunk to the rows that show it
+  - netsuite2__entity_subsidiary_relationships: row 1, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+  - netsuite2__entity_subsidiary_relationships: row 2, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+- **Values change.** If two `netsuite2_consolidated_exchange_rate_data` rows of the same group have `_fivetran_synced` = '2022-07-10 22:16:59' and '2022-07-10 22:16:59', in `netsuite2__entity_subsidiary_relationships`, `source_relation` changes from 'test.fw_compiled' to 'test.netsuite2' (and 19 more cells).
+  - case 004: `pairs` input '2022-07-10 22:16:59 | 2022-07-10 22:16:59' in `netsuite2_consolidated_exchange_rate_data._fivetran_synced` (changed)
+  - netsuite2__entity_subsidiary_relationships: row 1, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+  - netsuite2__entity_subsidiary_relationships: row 2, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+- **Values change.** If `averagerate` is the number 0, in `netsuite2__entity_subsidiary_relationships`, `source_relation` changes from 'test.fw_compiled' to 'test.netsuite2' (and 19 more cells).
+  - case 005: `numeric-format` input '0' in `netsuite2_consolidated_exchange_rate_data.averagerate` (changed)
+  - netsuite2__entity_subsidiary_relationships: row 1, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+  - netsuite2__entity_subsidiary_relationships: row 2, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+- **Values change.** If `currentrate` is the number 0, in `netsuite2__entity_subsidiary_relationships`, `source_relation` changes from 'test.fw_compiled' to 'test.netsuite2' (and 19 more cells).
+  - case 006: `numeric-format` input '0' in `netsuite2_consolidated_exchange_rate_data.currentrate` (changed)
+  - netsuite2__entity_subsidiary_relationships: row 1, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+  - netsuite2__entity_subsidiary_relationships: row 2, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+- **Values change.** If `fromcurrency` is the number 0, in `netsuite2__entity_subsidiary_relationships`, `source_relation` changes from 'test.fw_compiled' to 'test.netsuite2' (and 19 more cells).
+  - case 007: `numeric-format` input '0' in `netsuite2_consolidated_exchange_rate_data.fromcurrency` (changed)
+  - netsuite2__entity_subsidiary_relationships: row 1, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+  - netsuite2__entity_subsidiary_relationships: row 2, source_relation: 'test.fw_compiled' -> 'test.netsuite2'
+
+Proof ID `edeed320e291bba1` · re-check with `fixwitness replay /home/runner/work/fixwitness/fixwitness/study-out/runs/netsuite@v1.7.0/out/integration_tests_dbt_project/proof.json`
