@@ -20,6 +20,8 @@ Honest state: ZERO outside users, one ready-but-unsubmitted outside fix (Zendesk
 - The user is near a weekly usage limit (warning, not blocked; resets Thu 3 Dec 20:00 UTC). Prefer cheap steps; do not poll CI.
 
 ## 3. Repo and branch state (VERIFIED 27 Nov)
+- **UPDATE 27 Nov 20:50 UTC: PR #2 was MERGED into main by the user's instruction ("merge it if it adds value"); main HEAD is now e33db04.** All checks were green on its last commit (a582481). CI on main after the merge was not yet checked at this point. Wherever this file says PR #2 is a draft or unmerged, that is out of date. The branch `claude/fixwitness-memory-leak-8ej3fi` was restarted from the new main for further docs work.
+- exercise-check, exercise-synthesis and mutation-bench are still unmerged; each may now need `main` merged into it (study/DEVLOG_v0.6.md will conflict with exercise-synthesis).
 - `main` HEAD b5945cb, CI green. Contains fixwitness 0.6 (PR #1 merged) and the Claude Skill at `.claude/skills/fixwitness-check/SKILL.md`.
 - `claude/fixwitness-memory-leak-8ej3fi` = DRAFT PR #2 into main (head 4e77fb3, docs-only on top of ddeec08). Memory-runaway fix. See section 4.
   CI: last fully green commit 723ae81 (tests + data, push + PR). Checks on ddeec08 were still running at hand-off (`data` takes ~90 min). Check them first.
