@@ -88,3 +88,12 @@ skipped locally for lack of libraries). The committed benchmark result files are
 
 ## 9. Open question the user has not answered
 Whether to start with step 4 (find still-open bugs in popular non-dbt products) or step 3 (fix the rolling-window limit). My recommendation: step 3 first (small, makes finance/time-series results trustworthy), then step 4.
+
+## 10. OpenBB bug search, 27 Nov evening (VERIFIED by reading; nothing sent to OpenBB)
+- OpenBB's recent history has almost no clean refactor/fix pairs (large "[Feature]" merge commits), so a before/after sweep is not practical there.
+- Read and checked against published definitions: Parkinson, Garman-Klass, Rogers-Satchell, Hodges-Tompkins, standard deviation, Yang-Zhang (already fixed upstream),
+  Clenow momentum, cones, Sharpe, Sortino, Omega, skew, kurtosis, Fibonacci direction logic: no bug found.
+- ONE minor lead: `calculate_fib_levels` (openbb_technical/helpers.py:587) uses `[0, 0.235, 0.382, 0.5, 0.618, 0.65, 1]`. The standard Fibonacci retracement ratio is 0.236
+  (0.2360679...), and 0.65 is not a standard level (0.786 is). Effect: the 23.5% level is off by 0.1% of the price range. It has been in the code since OpenBB Platform v4 (2023).
+  Also hard-coded in the charting plugin and a test constant. Low impact; whether upstream already knows is UNVERIFIED (issues not searchable from the sandbox). Do not open anything without the user's approval.
+- Conclusion: reading well-reviewed formulas finds little. Better yield needs either tools on code nobody has reviewed, or contributing where maintainers already want fixes.
