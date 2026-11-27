@@ -1,0 +1,86 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>fixwitness report</title><style>
+:root{--bg:#f4f6f9;--surface:#fff;--ink:#18212f;--muted:#5a6678;--rule:#d9dfe7;--soft:#eef1f5;
+--pass:#1d7a4e;--pass-bg:#e5f3ec;--fail:#b3261e;--fail-bg:#fbe9e7;--review:#8a5a00;--review-bg:#fbf1dc;
+--accent:#2c58b5;--mark:#fff1a8;--mark-ink:#18212f;--serif:"Iowan Old Style","Charter","Palatino Linotype",
+"Book Antiqua",Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0d131b;--surface:#141c27;--ink:#e3e8ef;
+--muted:#97a3b4;--rule:#273344;--soft:#1a2431;--pass:#55c690;--pass-bg:#12291f;--fail:#f07a72;--fail-bg:#2e1715;
+--review:#e2b54a;--review-bg:#2b2310;--accent:#86a9f3;--mark:#5a4b10;--mark-ink:#fff6cf}}
+:root[data-theme=dark]{--bg:#0d131b;--surface:#141c27;--ink:#e3e8ef;--muted:#97a3b4;--rule:#273344;--soft:#1a2431;
+--pass:#55c690;--pass-bg:#12291f;--fail:#f07a72;--fail-bg:#2e1715;--review:#e2b54a;--review-bg:#2b2310;
+--accent:#86a9f3;--mark:#5a4b10;--mark-ink:#fff6cf}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans)}
+a{color:var(--accent)}code,pre,.mono{font-family:var(--mono);font-size:.86em}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 64px}
+.top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.top b{color:var(--ink);font-weight:600}
+.decision{margin:18px 0 26px;padding:26px 28px;border-radius:14px;background:var(--surface);border:1px solid var(--rule);
+border-left:8px solid var(--tone)}
+.decision h1{font:600 clamp(26px,4.2vw,40px)/1.12 var(--serif);margin:0 0 8px;letter-spacing:-.01em}
+.decision p{margin:0;color:var(--muted);max-width:72ch}
+.tone-pass{--tone:var(--pass)}.tone-fail{--tone:var(--fail)}.tone-review{--tone:var(--review)}
+h2{font:600 20px/1.3 var(--sans);margin:34px 0 10px}h3{font:600 16px/1.35 var(--sans);margin:22px 0 8px}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-weight:600;font-size:12.5px;white-space:nowrap}
+.pill.PASS{background:var(--pass-bg);color:var(--pass)}.pill.FAIL{background:var(--fail-bg);color:var(--fail)}
+.pill.INCONCLUSIVE,.pill.NOT{background:var(--review-bg);color:var(--review)}
+table{border-collapse:collapse;width:100%}
+.ledger{background:var(--surface);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.ledger th,.ledger td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+.ledger tr:last-child td{border-bottom:0}.ledger th{font-size:12.5px;color:var(--muted);font-weight:600;background:var(--soft)}
+.ledger td.kind{color:var(--muted);white-space:nowrap}
+@media (max-width:640px){.ledger tr:first-child{display:none}.ledger tr{display:grid;grid-template-columns:1fr auto;
+border-bottom:1px solid var(--rule)}.ledger tr:last-child{border-bottom:0}.ledger td{border-bottom:0;padding:8px 14px}
+.ledger td.kind{display:none}.ledger td:last-child{grid-column:1/-1;padding-top:0;color:var(--muted)}
+.wrap{padding:20px 16px 48px}.decision{padding:20px 18px}}
+.change{margin-top:30px;padding-top:6px;border-top:2px solid var(--rule)}
+.change>header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.change>header h2{margin:22px 0 4px}.sub{color:var(--muted);margin:0 0 8px;max-width:80ch}
+.finding{background:var(--surface);border:1px solid var(--rule);border-radius:12px;margin:12px 0;padding:16px 18px}
+.finding .what{font-size:16.5px;line-height:1.5;margin:6px 0 2px;max-width:78ch}
+.impact{font-size:12.5px;font-weight:600;color:var(--fail)}
+.impact.values,.impact.numbers{color:var(--review)}
+details{margin-top:10px}summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:13.5px}
+summary:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.evidence{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;margin-top:12px}
+@media (max-width:760px){.evidence{grid-template-columns:1fr}}
+.panel h4{margin:0 0 6px;font-size:12.5px;color:var(--muted);font-weight:600}
+.grid{overflow-x:auto;border:1px solid var(--rule);border-radius:8px}
+.grid table{font-family:var(--mono);font-size:12.5px}
+.grid th,.grid td{padding:5px 9px;border-bottom:1px solid var(--rule);text-align:left;white-space:nowrap}
+.grid th{background:var(--soft);font-weight:600}.grid tr:last-child td{border-bottom:0}
+td.m{background:var(--mark);color:var(--mark-ink);font-weight:600}
+td.d .was{color:var(--muted);text-decoration:line-through;margin-right:6px}td.d .now{font-weight:700;color:var(--fail)}
+tr.only-original td{color:var(--muted);text-decoration:line-through}tr.only-fix td{color:var(--fail);font-weight:600}
+.empty{color:var(--muted);font-style:italic}
+.rowtag{font-family:var(--sans);font-size:11.5px;color:var(--muted)}
+pre.cmd{background:var(--soft);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;overflow-x:auto;margin:8px 0 0}
+.copy{font:600 12.5px var(--sans);color:var(--accent);background:none;border:1px solid var(--rule);border-radius:6px;
+padding:3px 10px;cursor:pointer;margin-top:8px}
+.bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--soft);gap:2px;margin:8px 0 6px}
+.bar span{display:block;height:100%}.s-ok{background:var(--pass)}.s-ch{background:var(--fail)}.s-nc{background:var(--muted)}.s-ex{background:var(--accent)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 24px;font-size:13.5px;margin-top:10px}
+.facts div{padding:6px 0;border-bottom:1px solid var(--rule)}.facts b{display:block;font-size:12px;color:var(--muted);font-weight:600}
+ul.notes{margin:8px 0;padding-left:20px;color:var(--muted)}
+.skipped{color:var(--muted);font-size:13.5px}
+footer{margin-top:40px;color:var(--muted);font-size:12.5px}
+@media print{.copy,summary{display:none}details{display:block}details>*{display:block}}
+</style></head><body><div class=wrap><div class=top><span><b>fixwitness</b> report</span><span>Original: commit c5f2cfa03a16. Fix: your working tree. Checked 2026-11-24 15:57:58 UTC</span></div><div class='decision tone-pass'><h1>Safe to merge</h1><p>The fix changes only the results it is meant to change, on every input checked.</p></div><h2>Changes</h2><table class=ledger><tr><th>Changed</th><th>Checked as</th><th>Result</th><th>What it found</th></tr><tr><td><a href='#c0'>integration_tests</a></td><td class=kind>dbt</td><td><span class='pill PASS'>PASS</span></td><td>only zendesk__ticket_summary.unreplied_ticket_count, zendesk__ticket_summary.unreplied_unsolved_ticket_count changed, on 272 of 283 inputs</td></tr></table><section class=change id='c0'><header><h2>integration_tests</h2><span class='pill PASS'>PASS</span></header><p class=sub>Only the expected columns (zendesk__ticket_summary.unreplied_ticket_count, zendesk__ticket_summary.unreplied_unsolved_ticket_count) changed, on 272 of 283 generated inputs; everything else gave the same output.</p><h3>What the fix changes</h3><ul class=notes style='color:var(--ink)'><li>When <code>None</code> is &#x27;&lt;tables as given&gt;&#x27; (file-structure): zendesk__ticket_summary: row 1, unreplied_ticket_count: &#x27;0&#x27; -&gt; &#x27;3&#x27;</li><li>When <code>time_zone_data</code> is &#x27;&lt;sample as given&gt;&#x27; (file-structure): zendesk__ticket_summary: row 1, unreplied_ticket_count: &#x27;0&#x27; -&gt; &#x27;3&#x27;</li><li>When <code>time_zone_data</code> is &#x27;&lt;extra column at the end&gt;&#x27; (schema): zendesk__ticket_summary: row 1, unreplied_ticket_count: &#x27;0&#x27; -&gt; &#x27;3&#x27;</li><li>When <code>time_zone_data.time_zone</code> is &#x27;a; &quot;b&quot;&#x27; (delimiter-mix): zendesk__ticket_summary: row 1, unreplied_ticket_count: &#x27;0&#x27; -&gt; &#x27;3&#x27;</li></ul><h3>How it was checked</h3><div class=bar role=img aria-label='283 identical, 0 changed, 10 not comparable'><span class=s-ok style='flex:11' title='11'></span><span class=s-ex style='flex:272' title='272'></span><span class=s-nc style='flex:10' title='10'></span></div><div class=legend><span><i class=s-ok></i>11 gave the same output</span><span><i class=s-ex></i>272 changed only the expected columns</span><span><i class=s-ch></i>0 changed</span><span><i class=s-nc></i>10 not comparable (the original failed too)</span></div><div class=facts><div><b>Checked as</b>dbt project</div><div><b>Generated inputs</b>300 across 19 kinds</div><div><b>Security</b>not checked (attack payloads off)</div><div><b>Confidence</b>99/100 (HIGH)</div><div><b>dbt models changed</b>zendesk__ticket_summary</div><div><b>dbt models compared</b>zendesk__ticket_summary</div></div><details><summary>Kinds of input, notes and limits</summary><p class=sub>whitespace (54), case (43), empty (32), duplicate (32), pairs (28), null-column (24), delimiter-mix (13), numeric-format (9), file-structure (7), time-edge (7), schema (6), unicode (6), punctuation (6), long (6), csv-structure (6), quotes (6), shell-metachar (6), duplicate-row (5), flip (4)</p><ul class=notes><li>original: HEAD (c5f2cfa03a16); fix: your working tree (2 changed files)</li><li>dbt: both versions built on the seeds and compiled by dbt (dbt-duckdb adapter, in a private DuckDB file), so macros and packages are rendered by dbt (through the test project integration_tests/)</li><li>dbt: 76 models; compiled SQL changed in zendesk__ticket_summary; comparing zendesk__ticket_summary (the published models downstream of the change: not staging or intermediate; --sql-outputs all compares every model)</li><li>dbt: seeds loaded with the column types dbt gave them (17 tables)</li><li>SQL engine: duckdb</li><li>the sample&#x27;s tables did not join on these keys, so the cases use matching keys (the tables as given are case 000): organization_tag_data.organization_id -&gt; organization_data.id, domain_name_data.organization_id -&gt; organization_data.id, user_tag_data.user_id -&gt; user_data.id, ticket_data.group_id -&gt; group_data.id, ticket_data.organization_id -&gt; organization_data.id, ticket_tag_data.ticket_id -&gt; ticket_data.id, user_data.organization_id -&gt; organization_data.id</li><li>the project&#x27;s dbt tests are used as rules on the input tables (7: ticket_data.id not_null, domain_name_data.organization_id not_null, organization_data.id not_null, ticket_comment_data.id not_null, user_data.id not_null, time_zone_data.time_zone not_null, schedule_holiday_data.id not_null); 7 inputs break one and are reviewed, not failed</li><li>the expected change (zendesk__ticket_summary.unreplied_ticket_count, zendesk__ticket_summary.unreplied_unsolved_ticket_count) appears on 272 inputs, and nothing else changes on any of the 283 compared inputs</li><li>10 valid inputs could not be compared because the original failed on them</li></ul><ul class=notes><li>Evidence covers only the input categories fixwitness generated; inputs outside them were not tested.</li><li>This is differential testing, not a formal proof of equivalence.</li><li>Attack checks use built-in payloads (command/code injection, path traversal, template injection); other vulnerability classes are not tested.</li><li>Scripts ran on this machine in temporary directories (process isolation, not a sandbox).</li></ul><p class=sub>Proof ID <code>611f2390494e94af</code>, fixwitness 0.6.0.dev0</p></details></section><footer>Generated inputs are your sample data with one thing changed at a time; a difference means the change behaves differently on data your systems can produce. Each proof can be re-checked with <code>fixwitness replay</code>.</footer></div><script>
+document.querySelectorAll('button.copy').forEach(function(b){b.addEventListener('click',function(){
+var t=document.getElementById(b.dataset.for).innerText;
+(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copied';
+setTimeout(function(){b.textContent='Copy commands'},1500)},function(){b.textContent='Select and copy'})})});
+var tok=document.querySelector('meta[name=fw-token]');
+document.querySelectorAll('button.intend').forEach(function(b){b.addEventListener('click',function(){
+if(!tok)return;b.disabled=true;fetch('/api/accept',{method:'POST',headers:{'X-Fixwitness-Token':tok.content,
+'Content-Type':'application/json'},body:JSON.stringify({target:b.dataset.target,category:b.dataset.category,
+column:b.dataset.column})}).then(function(r){return r.json()}).then(function(){b.textContent=
+'Marked as intended in fixwitness.toml. Run the check again to update the verdict.'}).catch(function(){
+b.disabled=false;b.textContent='Could not save; try again'})})});
+var all=document.getElementById('expand');if(all){all.addEventListener('click',function(){
+var open=all.dataset.open!=='1';document.querySelectorAll('details.ev').forEach(function(d){d.open=open});
+all.dataset.open=open?'1':'0';all.textContent=open?'Hide all evidence':'Show all evidence'})}
+</script></body></html>

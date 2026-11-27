@@ -1,0 +1,54 @@
+{
+  "issue": "https://github.com/fivetran/dbt_zendesk/issues/284",
+  "title": "unreplied_ticket_count and unreplied_unsolved_ticket_count are always 0 in zendesk__ticket_summary",
+  "base": "c5f2cfa03a1629a357a3ad2d06c8173f52eeff69",
+  "steps": [
+    {
+      "name": "bug reproduced: main's model fails the new integrity test",
+      "expect": "fail",
+      "exit": 1,
+      "seconds": 27,
+      "ok": true
+    },
+    {
+      "name": "fixed: with the fix, the same build and test pass",
+      "expect": "pass",
+      "exit": 0,
+      "seconds": 27,
+      "ok": true
+    },
+    {
+      "name": "nothing else changes: fixwitness, told that only the two counts should change",
+      "expect": "fixwitness",
+      "exit": 0,
+      "seconds": 273,
+      "verdict": "PASS",
+      "checks": [
+        {
+          "target": "integration_tests (dbt project)",
+          "kind": "dbt",
+          "verdict": "PASS",
+          "reason": "-",
+          "proof": "/home/runner/work/fixwitness/fixwitness/study-out/issues/zendesk-284/fw_fix/integration_tests_dbt_project/proof.json",
+          "cases": 293,
+          "identical": 283,
+          "changed": 0,
+          "expected_change": 272,
+          "expected_examples": [
+            [
+              "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+            ],
+            [
+              "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+            ],
+            [
+              "zendesk__ticket_summary: row 1, unreplied_ticket_count: '0' -> '3'"
+            ]
+          ],
+          "findings": []
+        }
+      ],
+      "ok": true
+    }
+  ]
+}

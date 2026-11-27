@@ -1,0 +1,27 @@
+{
+  "package": "dbt_zendesk",
+  "base": "c5f2cfa03a1629a357a3ad2d06c8173f52eeff69",
+  "issue": "https://github.com/fivetran/dbt_zendesk/issues/284",
+  "title": "unreplied_ticket_count and unreplied_unsolved_ticket_count are always 0 in zendesk__ticket_summary",
+  "fix": "zendesk__ticket_summary counts tickets where total_agent_replies < 0, but zendesk__ticket_metrics sets total_agent_replies to coalesce(count_agent_replies, 0), so it is never negative and both counts are always 0. Count tickets where total_agent_replies = 0 instead, and add an integrity test (enabled with fivetran_validation_tests_enabled) that checks both counts against zendesk__ticket_metrics.",
+  "steps": [
+    {
+      "name": "bug reproduced: main's model fails the new integrity test",
+      "expect": "fail",
+      "expect_log": "ticket_summary_unreplied_count_match",
+      "run": "git apply {patch} && git checkout HEAD -- models/zendesk__ticket_summary.sql && cd integration_tests && dbt deps && dbt seed && dbt run --select +zendesk__ticket_summary && dbt test --select ticket_summary_unreplied_count_match --vars '{fivetran_validation_tests_enabled: true}'"
+    },
+    {
+      "name": "fixed: with the fix, the same build and test pass",
+      "expect": "pass",
+      "run": "git apply {patch} && cd integration_tests && dbt deps && dbt seed && dbt run --select +zendesk__ticket_summary && dbt test --select ticket_summary_unreplied_count_match --vars '{fivetran_validation_tests_enabled: true}'"
+    },
+    {
+      "name": "nothing else changes: fixwitness, told that only the two counts should change",
+      "expect": "fixwitness",
+      "run": "git apply {patch} && python -m fixwitness check --base HEAD --no-attacks --expect-change zendesk__ticket_summary.unreplied_ticket_count,zendesk__ticket_summary.unreplied_unsolved_ticket_count --out-dir {out}/fw_fix"
+    }
+  ],
+  "profile": "integration_tests",
+  "schema": "zendesk_integration_tests"
+}

@@ -1,0 +1,28 @@
+id,reading,basis
+fivetran_log@v1.2.0,matches,finding is the surrogate key the note says was changed
+fivetran_log@v1.4.1,matches,"crash on malformed JSON in message_data, as the note describes"
+github@v0.5.1,matches,"url_link changes, as the note describes"
+google_ads@v0.9.1,same-model,keyword report changes (account_id); note does not name that field
+jira@v0.12.2,matches,note is a revert; the finding is a column renamed by the reverted change
+jira@v1.3.1,not-the-bug,note is about current_sprint in jira__issue_enhanced; finding is columns of jira__daily_issue_field_history
+marketo_source@v0.7.2,matches,"email_send_id changes, as the note describes"
+quickbooks@v0.12.1,matches,"rows lost from balance_sheet, consistent with the inner join dropping transactions"
+quickbooks@v0.13.1,matches,the two fields named in the note are missing
+quickbooks@v0.15.0,matches,"general_ledger row changes when sales_item_account_id is set, the field the note names"
+quickbooks@v0.17.1,matches,"balance_sheet rows for periods missing, as the note describes"
+quickbooks@v0.18.1,unclear,note is about expense filtering; finding is balance_sheet rows when currency_id changes case; link not established
+quickbooks@v0.5.2,matches,"transaction_id missing, as the note describes"
+quickbooks@v0.8.1,matches,balance_sheet amounts change; note names balance_sheet and class_id partitions
+quickbooks@v1.1.0,matches,"is_overdue changes, as the note describes"
+sage_intacct@v0.5.0,matches,rows added to the by-period ledger; note changes the date spine
+salesforce@v1.1.1,unclear,note changes int_salesforce__date_spine; finding is salesforce__daily_activity rows; lineage not checked
+shopify@v0.13.2,not-the-bug,note is customer_tags in shopify__customers; finding is fulfillment count columns of shopify__daily_shop
+shopify_source@v0.8.1,same-model,finding is in the model the note names (column index); field not named in note
+shopify_source@v0.8.3,matches,"metafield_reference casing, as the note describes"
+apple_store@v0.3.2,same-model,"finding is in apple_store__subscription_report, the model the note names; event_renew is not named in the note"
+quickbooks@v1.2.1,matches,"NULL currency_id changes balance_sheet rows, as the currency_id join fan-out in the note"
+stripe@v0.14.1,matches,"division by zero when quantity is 0, as the note describes"
+zuora@v0.2.1,unclear,note changes zuora__line_item_history grain and a surrogate key (text cut off); finding is in zuora__subscription_overview
+zuora@v0.3.2,unclear,note flips the multicurrency logic; finding is rolling_invoice_amount_paid in zuora__account_daily_overview; link not read
+zuora@v0.4.0,matches,"account_id empty for accounts without billing history, as the note describes"
+zuora_source@v0.1.2,matches,"extra row appears when deleted records are not filtered, as the note describes"

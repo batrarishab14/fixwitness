@@ -1,0 +1,116 @@
+name: data
+on:
+  push:
+    branches-ignore: [study, study-results, ci-results, debug]   # the study runs its own workflow
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:   # a newer push to the same branch replaces a run still in progress
+  group: data-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  # SQL on DuckDB, warehouse dialects (sqlglot), pandas, polars, PySpark and Parquet (pyarrow):
+  # the optional libraries the main test job does not install.
+  libraries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write   # only to save the logs to the ci-results branch on pushes
+    services:
+      postgres:   # warehouse mode is tested against a real Postgres server
+        image: postgres:16
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      FIXWITNESS_TEST_POSTGRES: postgres://ci@localhost:5432/test
+      PGPASSWORD: ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install the optional libraries
+        run: |
+          python -m pip install --quiet duckdb sqlglot pyarrow pandas polars pyspark dbt-core dbt-duckdb dbt-postgres "psycopg[binary]"
+          python - <<'EOF' | tee versions.log
+          import importlib, importlib.metadata as md, platform
+          print("python", platform.python_version())
+          for m in ("duckdb", "sqlglot", "pyarrow", "pandas", "polars", "pyspark"):
+              print(m, importlib.import_module(m).__version__)
+          for d in ("dbt-core", "dbt-duckdb", "dbt-postgres"):
+              print(d, md.version(d))
+          EOF
+      - name: Get dbt-labs/jaffle_shop (a public dbt project with seeds and Jinja)
+        run: |
+          git clone --quiet --depth 1 https://github.com/dbt-labs/jaffle_shop.git "$RUNNER_TEMP/jaffle_shop"
+          git -C "$RUNNER_TEMP/jaffle_shop" log -1 --format='jaffle_shop %H' | tee -a versions.log
+          echo "FIXWITNESS_DBT_PROJECT=$RUNNER_TEMP/jaffle_shop" >> "$GITHUB_ENV"
+      - name: Tests (SQL, pipelines, dialects, DataFrames, JSON, Parquet, dbt, whole changes)
+        run: |
+          set -o pipefail
+          python -m unittest -v \
+            tests.test_fixwitness.SqlUnitTests tests.test_fixwitness.SqlModeTests \
+            tests.test_fixwitness.PipelineUnitTests tests.test_fixwitness.PipelineModeTests \
+            tests.test_fixwitness.DialectTests \
+            tests.test_fixwitness.FrameUnitTests tests.test_fixwitness.FrameModeTests \
+            tests.test_fixwitness.JsonUnitTests tests.test_fixwitness.JsonModeTests \
+            tests.test_fixwitness.ParquetTests \
+            tests.test_fixwitness.WholeChangeTests tests.test_fixwitness.DbtManifestTests \
+            tests.test_fixwitness.DbtProjectTests \
+            tests.test_fixwitness.WarehouseTests tests.test_fixwitness.WarehouseUnitTests \
+            tests.test_fixwitness.ReportTests tests.test_fixwitness.TypedColumnTests \
+            tests.test_fixwitness.LinkedKeysTests tests.test_fixwitness.DbtContractTests \
+            tests.test_fixwitness.ExpectChangeTests tests.test_fixwitness.DbtWarehouseUnitTests \
+            tests.test_fixwitness.UnstableOriginalTests 2>&1 | tee tests.log
+      - name: SQL benchmark on DuckDB
+        if: always()
+        run: |
+          set -o pipefail
+          python benchmark/run_sql_bench.py --engine duckdb 2>&1 | tee bench.log
+          cat benchmark/sql/RESULTS_duckdb.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Benchmark for pipelines, dialects, DataFrames, JSON and Parquet
+        if: always()
+        run: |
+          set -o pipefail
+          python benchmark/run_complex_bench.py --engine duckdb 2>&1 | tee complex.log
+          cat benchmark/complex/RESULTS_duckdb.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: data-results
+          path: |
+            versions.log
+            tests.log
+            bench.log
+            complex.log
+            benchmark/sql/RESULTS_duckdb.md
+            benchmark/sql/results_duckdb.csv
+            benchmark/complex/RESULTS_duckdb.md
+            benchmark/complex/results_duckdb.csv
+      - name: Save the logs to the ci-results branch
+        if: always() && github.event_name == 'push'
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/out
+          cp versions.log tests.log bench.log complex.log /tmp/out/ 2>/dev/null || true
+          cp benchmark/sql/RESULTS_duckdb.md benchmark/sql/results_duckdb.csv /tmp/out/ 2>/dev/null || true
+          cp benchmark/complex/RESULTS_duckdb.md /tmp/out/COMPLEX_RESULTS_duckdb.md 2>/dev/null || true
+          cp benchmark/complex/results_duckdb.csv /tmp/out/complex_results_duckdb.csv 2>/dev/null || true
+          echo "${GITHUB_SHA} ${GITHUB_REF_NAME} $(date -u +%FT%TZ)" > /tmp/out/commit.txt
+          cd /tmp/out
+          git init -q
+          git checkout -q -b ci-results
+          git add -A
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -q -m "Data CI logs for ${GITHUB_SHA}"
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" ci-results

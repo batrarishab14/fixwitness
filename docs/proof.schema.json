@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/batrarishab14/fixwitness/blob/main/docs/proof.schema.json",
+  "title": "fixwitness proof record",
+  "description": "What fixwitness compared, on which inputs, and what it found. proof_id is the SHA-256 of the evidence (tool, inputs, config, verdict, confidence, security, behavior, cases); the other keys explain it. Tools that read proofs should ignore keys they don't know: new versions add keys, they don't rename or remove them.",
+  "type": "object",
+  "required": ["proof_id", "tool", "inputs", "config", "verdict", "reasons", "confidence", "security", "behavior",
+               "cases", "differences", "limitations", "created_utc", "replay"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "proof_id": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "tool": {
+      "type": "object", "required": ["name", "version"],
+      "properties": {"name": {"const": "fixwitness"}, "version": {"type": "string"}}
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Hashes of everything compared: the two versions (files, folders or a git commit and the working tree) and the sample data.",
+      "required": ["mode"],
+      "properties": {
+        "mode": {"enum": ["git", "files"]},
+        "base_commit": {"type": "string"},
+        "target": {"type": ["string", "null"]},
+        "changed": {"type": "array", "items": {"type": "object", "required": ["path", "status"]}},
+        "sample": {"type": "object", "required": ["name", "sha256"]},
+        "tables": {"type": "object", "additionalProperties": {"type": "object", "required": ["name", "sha256"]}},
+        "engine": {"type": "string"},
+        "dbt": {"type": "object"}
+      }
+    },
+    "config": {
+      "type": "object",
+      "required": ["mode", "run", "output", "attacks", "max_cases", "seed"],
+      "properties": {
+        "run": {"type": "string", "description": "How each side was run; {script}, {input}, {output} are filled in per case."},
+        "output": {"enum": ["csv", "json", "text"]},
+        "review": {"type": "array", "items": {"type": "string"}},
+        "accepted": {"type": ["array", "null"], "description": "Differences marked as intended ([[accept]] in fixwitness.toml)."},
+        "contracts": {"type": ["array", "null"], "items": {"type": "string"},
+                      "description": "dbt tests (unique, not_null, accepted_values) used as rules on the input tables: inputs that break them are reviewed, not failed."},
+        "expect_change": {"type": ["array", "null"], "items": {"type": "string"},
+                          "description": "For a bug fix: the output columns it is meant to change. Inputs on which only these differ have status expected-change."},
+        "attacks": {"type": "boolean"},
+        "sql": {"type": ["object", "null"]},
+        "frame": {"type": ["object", "null"]},
+        "max_cases": {"type": "integer"},
+        "seed": {"type": "integer"}
+      }
+    },
+    "verdict": {"enum": ["PASS", "FAIL", "INCONCLUSIVE"]},
+    "reasons": {"type": "array", "items": {"type": "string"}},
+    "confidence": {
+      "type": "object", "required": ["score", "level", "components", "method"],
+      "properties": {
+        "score": {"type": "integer", "minimum": 0, "maximum": 100},
+        "level": {"enum": ["NONE", "LOW", "MEDIUM", "HIGH"]}
+      }
+    },
+    "incident": {"type": ["object", "null"]},
+    "security": {
+      "type": "object", "required": ["checked"],
+      "properties": {"checked": {"type": "boolean"}, "hole_closed": {"type": ["boolean", "null"]}}
+    },
+    "behavior": {
+      "type": "object",
+      "required": ["valid_inputs", "identical", "changed", "not_comparable", "review_inputs", "review_differences"],
+      "properties": {
+        "valid_inputs": {"type": "integer", "minimum": 0},
+        "identical": {"type": "integer", "minimum": 0},
+        "changed": {"type": "integer", "minimum": 0},
+        "not_comparable": {"type": "integer", "minimum": 0}
+      }
+    },
+    "cases": {
+      "type": "array",
+      "description": "Every generated input: its category, the column it changes and what happened.",
+      "items": {
+        "type": "object", "required": ["id", "category", "kind", "status"],
+        "properties": {
+          "kind": {"enum": ["valid", "review", "attack"]},
+          "status": {"enum": ["identical", "same-data", "changed", "expected-change", "unstable", "after-failed",
+                              "not-comparable", "blocked", "not-triggered", "still-exploitable"]}
+        }
+      }
+    },
+    "differences": {
+      "type": "array",
+      "description": "The cases that differ (at most 50), each explained.",
+      "items": {
+        "type": "object", "required": ["id", "category", "kind", "status", "details"],
+        "properties": {
+          "explanation": {"type": ["string", "null"], "description": "The difference in one plain-English sentence."},
+          "impact": {"type": ["string", "null"], "enum": ["fails", "rows", "numbers", "values", "security", null]},
+          "shrunk": {"type": "boolean", "description": "The reproduction's input was reduced to the rows that still show the difference."},
+          "details": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "expected_changes": {"type": ["array", "null"], "description": "Up to 10 inputs on which only the expected columns changed, with the cells that changed."},
+    "categories": {"type": "object", "additionalProperties": {"type": "string"}},
+    "notes": {"type": "array", "items": {"type": "string"}},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "created_utc": {"type": "string"},
+    "replay": {"type": "object", "description": "What `fixwitness replay` needs to run the check again."}
+  }
+}

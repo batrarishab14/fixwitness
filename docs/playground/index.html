@@ -1,0 +1,306 @@
+<title>fixwitness Playground</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<style>
+/* Layout: inputs on the left (tables, original query, changed query), the verdict and findings on the right; stacked on phones. */
+:root{
+  --bg:#f3f5f8;--surface:#ffffff;--ink:#17202c;--muted:#566275;--rule:#d7dde6;--soft:#ebeff4;
+  --accent:#2a56b0;--accent-ink:#ffffff;--pass:#1c784c;--pass-bg:#e3f2ea;--fail:#b2271f;--fail-bg:#fae8e6;
+  --warn:#8a5a00;--mark:#ffef9e;--mark-ink:#17202c;
+  --display:"Source Serif 4","Iowan Old Style",Georgia,serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --code:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c121a;--surface:#131b26;--ink:#e2e7ee;--muted:#98a4b5;--rule:#263142;--soft:#18222f;
+  --accent:#88aaf2;--accent-ink:#0c121a;--pass:#56c48f;--pass-bg:#11281d;--fail:#ef7b72;--fail-bg:#2c1614;
+  --warn:#e0b450;--mark:#5b4b12;--mark-ink:#fff5cc;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c121a;--surface:#131b26;--ink:#e2e7ee;--muted:#98a4b5;--rule:#263142;--soft:#18222f;
+  --accent:#88aaf2;--accent-ink:#0c121a;--pass:#56c48f;--pass-bg:#11281d;--fail:#ef7b72;--fail-bg:#2c1614;
+  --warn:#e0b450;--mark:#5b4b12;--mark-ink:#fff5cc;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{display:grid;gap:6px;margin-bottom:18px}
+header.top .brand{font-weight:600;color:var(--muted);font-size:13.5px}
+header.top h1{font:600 clamp(28px,4.6vw,44px)/1.1 var(--display);margin:0;text-wrap:balance;max-width:24ch}
+header.top p{margin:0;color:var(--muted);max-width:68ch}
+.zoo{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px}
+.zoo button{font:500 13.5px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:6px 14px;cursor:pointer}
+.zoo button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.zoo .label{align-self:center;color:var(--muted);font-size:13.5px;margin-right:4px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:start}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;min-width:0}
+.panel h2{font:600 15px/1.3 var(--body);margin:0 0 8px}
+.story{color:var(--muted);margin:0 0 12px;font-size:14px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.tabs button{font:500 13px var(--code);background:var(--soft);color:var(--ink);border:1px solid var(--rule);border-radius:7px;padding:4px 10px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--surface);border-color:var(--accent);color:var(--accent)}
+label.f{display:block;font-weight:600;font-size:13px;margin:14px 0 6px}
+textarea{width:100%;min-height:96px;resize:vertical;font:13px/1.5 var(--code);color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:9px;padding:10px 12px}
+textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.run{display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.primary{font:600 15px var(--body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:9px;padding:10px 18px;cursor:pointer}
+.primary:disabled{opacity:.55;cursor:default}
+.hint{color:var(--muted);font-size:13px}
+.verdict{border-left:7px solid var(--tone,var(--rule));padding:18px 20px;border-radius:14px;background:var(--surface);border-top:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.verdict h2{font:600 clamp(24px,3.4vw,32px)/1.15 var(--display);margin:0 0 6px}
+.verdict p{margin:0;color:var(--muted)}
+.tone-pass{--tone:var(--pass)}.tone-fail{--tone:var(--fail)}.tone-warn{--tone:var(--warn)}
+.finding{border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin-top:12px;background:var(--surface)}
+.impact{font-weight:600;font-size:12.5px;color:var(--fail)}
+.impact.numbers,.impact.values{color:var(--warn)}
+.what{font-size:15.5px;margin:4px 0 10px}
+.ev{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:560px){.ev{grid-template-columns:1fr}}
+.ev h3{font:600 12.5px var(--body);color:var(--muted);margin:0 0 5px}
+.grid{overflow-x:auto;border:1px solid var(--rule);border-radius:8px}
+.grid table{border-collapse:collapse;font:12.5px var(--code);width:100%;font-variant-numeric:tabular-nums}
+.grid th,.grid td{padding:4px 8px;border-bottom:1px solid var(--rule);text-align:left;white-space:nowrap}
+.grid th{background:var(--soft);font-weight:600}.grid tr:last-child td{border-bottom:0}
+td.m{background:var(--mark);color:var(--mark-ink);font-weight:600}
+td.d .was{color:var(--muted);text-decoration:line-through;margin-right:6px}td.d .now{color:var(--fail);font-weight:600}
+tr.gone td{color:var(--muted);text-decoration:line-through}tr.new td{color:var(--fail);font-weight:600}
+.null{color:var(--muted);font-style:italic}
+.err{font:12.5px var(--code);color:var(--fail);white-space:pre-wrap;margin:0}
+.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--soft);gap:2px;margin:12px 0 6px}
+.bar span{display:block;height:100%}.s-ok{background:var(--pass)}.s-ch{background:var(--fail)}.s-nc{background:var(--muted)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+.how{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.how h3{font:600 14.5px var(--body);margin:0 0 4px}.how p{margin:0;color:var(--muted);font-size:14px}
+pre.cli{font:13px/1.6 var(--code);background:var(--surface);border:1px solid var(--rule);border-radius:9px;padding:10px 12px;overflow-x:auto;margin:6px 0 0}
+.loading{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">fixwitness playground</div>
+    <h1>Does your SQL change give the same answer on data you don't have yet?</h1>
+    <p>Paste a query and the version an AI agent (or you) changed. fixwitness runs both on your tables and on variations of them: an empty value, a whole column of NULLs, a repeated row, another case, two rows of the same group. It shows every input where the answers differ.</p>
+  </header>
+
+  <div class="zoo" role="group" aria-label="Bug zoo">
+    <span class="label">Bug zoo:</span>
+  </div>
+
+  <div class="cols">
+    <section class="panel" aria-label="Your query and tables">
+      <h2 id="caseTitle">Your change</h2>
+      <p class="story" id="story"></p>
+      <label class="f" for="csv">Tables (CSV with a header row)</label>
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <textarea id="csv" spellcheck="false" aria-label="Table contents as CSV"></textarea>
+      <label class="f" for="q0">Original query</label>
+      <textarea id="q0" spellcheck="false"></textarea>
+      <label class="f" for="q1">Changed query</label>
+      <textarea id="q1" spellcheck="false"></textarea>
+      <div class="run"><button class="primary" id="go">Check the change</button><span class="hint" id="hint">Runs in your browser on SQLite. Nothing is sent anywhere.</span></div>
+    </section>
+
+    <section aria-label="Result" id="result">
+      <div class="verdict" id="verdict"><h2 class="loading">Loading SQLite</h2><p>About 1 MB, once.</p></div>
+      <div id="findings"></div>
+    </section>
+  </div>
+
+  <div class="how">
+    <div><h3>What it varies</h3><p>One table at a time, starting from its first rows: an empty value and a whole column of NULLs, a value copied from another row, a repeated row, the text in another case or with spaces, edge numbers and dates, and two rows of the same group with sub-cent or precision-edge amounts.</p></div>
+    <div><h3>What a difference means</h3><p>Both queries ran on the same tables and gave different results, or the changed one failed. The input shown is shrunk to the fewest rows that still show the difference.</p></div>
+    <div><h3>Use it on your repository</h3><p>The command-line tool checks dbt projects, warehouse SQL, pandas and polars code and scripts, on DuckDB, with a report and a reproduction for every finding.</p>
+      <pre class="cli">pip install "git+https://github.com/batrarishab14/fixwitness"
+fixwitness check</pre></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/sql-asm.js"></script>
+<script>
+"use strict";
+const ORDERS = "order_id,customer_id,amount,status\n1,10,12.50,paid\n2,10,300.75,paid\n3,11,99.99,refunded\n4,12,5.25,paid\n";
+const CUSTOMERS = "customer_id,name,region\n10,Acme Ltd,east\n11,Globex,west\n12,Initech,east\n";
+const ZOO = [
+  {name:"count(*) to count(col)", story:"The agent tidied up a revenue query and counted amounts instead of rows.",
+   q0:"select c.region, sum(o.amount) as revenue, count(*) as orders\nfrom orders o join customers c on c.customer_id = o.customer_id\nwhere o.status = 'paid'\ngroup by c.region",
+   q1:"select c.region, sum(o.amount) as revenue, count(o.amount) as orders\nfrom orders o join customers c on c.customer_id = o.customer_id\nwhere o.status = 'paid'\ngroup by c.region"},
+  {name:"NOT EXISTS to NOT IN", story:"Customers without a paid order, rewritten with NOT IN.",
+   q0:"select name from customers c\nwhere not exists (select 1 from orders o where o.customer_id = c.customer_id and o.status = 'paid')",
+   q1:"select name from customers\nwhere customer_id not in (select customer_id from orders where status = 'paid')"},
+  {name:"inner join to left join", story:"A join was made a left join \"to be safe\".",
+   q0:"select c.region, sum(o.amount) as revenue\nfrom orders o join customers c on c.customer_id = o.customer_id\ngroup by c.region",
+   q1:"select c.region, sum(o.amount) as revenue\nfrom orders o left join customers c on c.customer_id = o.customer_id\ngroup by c.region"},
+  {name:"case-insensitive filter", story:"The status filter was made case-insensitive.",
+   q0:"select count(*) as paid_orders, sum(amount) as paid_total from orders where status = 'paid'",
+   q1:"select count(*) as paid_orders, sum(amount) as paid_total from orders where lower(status) = 'paid'"},
+  {name:"UNION ALL to UNION", story:"Two order lists are combined; UNION ALL became UNION.",
+   q0:"select sum(amount) as total from (\n  select amount from orders where status = 'paid'\n  union all\n  select amount from orders where status = 'refunded')",
+   q1:"select sum(amount) as total from (\n  select amount from orders where status = 'paid'\n  union\n  select amount from orders where status = 'refunded')"},
+  {name:"NULL treated as 0", story:"An average now treats a missing amount as 0.",
+   q0:"select customer_id, avg(amount) as avg_amount from orders group by customer_id",
+   q1:"select customer_id, avg(coalesce(amount, 0)) as avg_amount from orders group by customer_id"},
+  {name:"rounding each row", story:"Rounding moved from the total to each order.",
+   q0:"select c.region, round(sum(o.amount), 2) as revenue\nfrom orders o join customers c on c.customer_id = o.customer_id\ngroup by c.region",
+   q1:"select c.region, sum(round(o.amount, 2)) as revenue\nfrom orders o join customers c on c.customer_id = o.customer_id\ngroup by c.region"},
+  {name:"DISTINCT added", story:"Rows are de-duplicated before summing.",
+   q0:"select c.region, sum(o.amount) as revenue\nfrom orders o join customers c on c.customer_id = o.customer_id\ngroup by c.region",
+   q1:"select c.region, sum(o.amount) as revenue\nfrom (select distinct * from orders) o join customers c on c.customer_id = o.customer_id\ngroup by c.region"},
+  {name:"a correct refactor", story:"The same revenue query rewritten with a CTE. It should pass.",
+   q0:"select c.region, sum(o.amount) as revenue, count(*) as orders\nfrom orders o join customers c on c.customer_id = o.customer_id\nwhere o.status = 'paid'\ngroup by c.region",
+   q1:"with paid as (select customer_id, amount from orders where status = 'paid')\nselect c.region, sum(p.amount) as revenue, count(*) as orders\nfrom paid p inner join customers c using (customer_id)\ngroup by 1"}
+];
+
+// ---------------------------------------------------------------- CSV and types
+function parseCSV(text){
+  const rows=[];let row=[],f="",q=false;
+  for(let i=0;i<text.length;i++){const ch=text[i];
+    if(q){if(ch==='"'){if(text[i+1]==='"'){f+='"';i++}else q=false}else f+=ch}
+    else if(ch==='"')q=true;else if(ch===','){row.push(f);f=""}
+    else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&text[i+1]==='\n')i++;row.push(f);rows.push(row);row=[];f=""}
+    else f+=ch}
+  if(f!==""||row.length){row.push(f);rows.push(row)}
+  return rows.filter(r=>!(r.length===1&&r[0]===""));
+}
+const INT=/^\s*[+-]?\d+\s*$/,NUM=/^\s*[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?\s*$/,DATE=/^\d{4}-\d{2}-\d{2}$/;
+function kindOf(vals){const v=vals.filter(x=>x!=="");if(!v.length)return"text";
+  if(v.every(x=>INT.test(x)))return"integer";if(v.every(x=>NUM.test(x)))return"number";
+  if(v.every(x=>DATE.test(x)))return"date";return"text"}
+function fits(v,k){return v===""||(k==="integer"?INT.test(v):k==="number"?NUM.test(v):k==="date"?DATE.test(v):true)}
+function value(v,k){if(v==="")return null;if(k==="integer")return parseInt(v,10);if(k==="number")return parseFloat(v);return v}
+
+// ---------------------------------------------------------------- cases
+const NUMBERS=["0","-7","1000000","0.5","-0.01","123456.789"],INTS=["0","-7","1000000","2147483648"];
+const DATES=["2024-02-29","1999-12-31","2000-01-01"];
+const PAIRS=[["0.005","0.005"],["2.675","1.005"],["0.1","0.2"],["-0.5","0.5"]];
+function cases(tables){
+  const out=[];
+  for(const t of Object.keys(tables)){const {header,rows,kinds}=tables[t];const base=rows.slice(0,3).map(r=>r.slice());
+    if(!base.length)continue;const tr=Math.min(1,base.length-1);
+    const add=(category,column,val,body)=>out.push({table:t,category,column,value:val,body});
+    const setCell=(ci,v)=>{const b=base.map(r=>r.slice());b[tr][ci]=v;return b};
+    add("empty table",null,"no rows",[]);
+    add("duplicate-row",null,"the first row twice",[base[0].slice()].concat(base.map(r=>r.slice())));
+    header.forEach((col,ci)=>{const k=kinds[col],cur=base[tr][ci];
+      add("empty",col,"",setCell(ci,""));
+      add("null-column",col,"all NULL",base.map(r=>{const c=r.slice();c[ci]="";return c}));
+      if(base.length>1)add("duplicate",col,base[0][ci],setCell(ci,base[0][ci]));
+      if(k==="text"){const vs=[cur.toUpperCase(),cur.toLowerCase(),cur.charAt(0).toUpperCase()+cur.slice(1).toLowerCase()," "+cur,cur+" ","café","日本"];
+        for(const v of new Set(vs))if(v!==cur&&cur.trim())add(/^\s|\s$/.test(v)?"whitespace":(v.toLowerCase()===cur.toLowerCase()?"case":"unicode"),col,v,setCell(ci,v))}
+      if(k==="integer")INTS.forEach(v=>add("numbers",col,v,setCell(ci,v)));
+      if(k==="number")NUMBERS.forEach(v=>add("numbers",col,v,setCell(ci,v)));
+      if(k==="date")DATES.forEach(v=>add("dates",col,v,setCell(ci,v)));
+      const pairs=k==="number"?PAIRS:k==="text"&&cur.trim()?[[cur,cur.toUpperCase()===cur?cur.toLowerCase():cur.toUpperCase()],[cur,cur+" "]]:[];
+      for(const [a,b] of pairs){const bb=base.map(r=>r.slice());bb[tr][ci]=a;const tw=bb[tr].slice();tw[ci]=b;bb.splice(tr+1,0,tw);add("pairs",col,a+" | "+b,bb)}
+    });
+  }
+  return out.filter(c=>c.body.every(r=>tables[c.table].header.every((h,i)=>fits(r[i]??"",tables[c.table].kinds[h]))));
+}
+
+// ---------------------------------------------------------------- running
+let SQL=null;
+function run(query,tables,override){
+  const db=new SQL.Database();
+  try{
+    for(const t of Object.keys(tables)){const {header,kinds}=tables[t];const rows=override&&override.table===t?override.body:tables[t].rows;
+      const sqlType=k=>k==="integer"?"INTEGER":k==="number"?"REAL":"TEXT";
+      db.run(`CREATE TABLE "${t}" (${header.map(h=>`"${h.replace(/"/g,'""')}" ${sqlType(kinds[h])}`).join(",")})`);
+      const st=db.prepare(`INSERT INTO "${t}" VALUES (${header.map(()=>"?").join(",")})`);
+      for(const r of rows)st.run(header.map((h,i)=>value(r[i]??"",kinds[h])));st.free()}
+    const res=db.exec(query);const last=res[res.length-1]||{columns:[],values:[]};
+    const fmt=v=>v===null?null:(typeof v==="number"&&!Number.isInteger(v)?String(Number(v.toPrecision(15))):String(v));
+    const rows=last.values.map(r=>r.map(fmt));
+    rows.sort((a,b)=>JSON.stringify(a)<JSON.stringify(b)?-1:1);
+    return {ok:true,columns:last.columns,rows};
+  }catch(e){return {ok:false,error:String(e.message||e)}}
+  finally{db.close()}
+}
+function same(a,b){if(a===b)return true;if(a===null||b===null)return false;const x=+a,y=+b;
+  return !isNaN(x)&&!isNaN(y)&&Math.abs(x-y)<=1e-9*Math.max(1,Math.abs(x),Math.abs(y))}
+function differs(r0,r1){if(!r1.ok)return true;if(r0.columns.join()!==r1.columns.join()||r0.rows.length!==r1.rows.length)return true;
+  return r0.rows.some((r,i)=>r.some((v,j)=>!same(v,r1.rows[i][j])))}
+function shrink(c,q0,q1,tables){
+  let best=c;const test=body=>{const cc=Object.assign({},c,{body});const a=run(q0,tables,cc),b=run(q1,tables,cc);return a.ok&&differs(a,b)?cc:null};
+  for(let i=best.body.length-1;i>=0&&best.body.length>1;i--){const body=best.body.filter((_,j)=>j!==i);const got=test(body);if(got)best=got}
+  return best}
+
+// ---------------------------------------------------------------- explaining
+const q=s=>{s=String(s);return isNaN(+s)||s.trim()!==s||s===""?`'${s}'`:s};
+function phrase(c){const col=c.column?`${c.table}.${c.column}`:c.table,a=/^[aeiou]/i.test(c.table)?"an":"a";
+  switch(c.category){
+    case"empty":return `${a} ${c.table} row has an empty ${c.column}`;
+    case"null-column":return `every ${c.column} in ${c.table} is NULL`;
+    case"duplicate":return `${c.column} repeats another row's value (${q(c.value)})`;
+    case"duplicate-row":return `${a} ${c.table} row appears twice`;
+    case"empty table":return `${c.table} has no rows`;
+    case"pairs":{const [x,y]=c.value.split(" | ");return `two ${c.table} rows of the same group have ${c.column} = ${q(x)} and ${q(y)}`}
+    case"case":return `${col} is written in another case (${q(c.value)})`;
+    case"whitespace":return `${col} has extra spaces (${q(c.value)})`;
+    default:return `${col} is ${q(c.value)}`}}
+function effect(r0,r1){
+  if(!r1.ok)return ["The query fails",`the changed query fails (${r1.error}) while the original runs`];
+  if(r0.columns.join()!==r1.columns.join())return ["Values change","the result has other columns"];
+  if(r0.rows.length!==r1.rows.length)return ["Rows added or lost",`the result has ${r1.rows.length} row${r1.rows.length===1?"":"s"} instead of ${r0.rows.length}`];
+  for(let i=0;i<r0.rows.length;i++)for(let j=0;j<r0.columns.length;j++){const b=r0.rows[i][j],a=r1.rows[i][j];
+    if(!same(b,a)){const key=j>0?` for ${q(r0.rows[i][0])}`:"";const show=v=>v===null?"NULL":q(v);
+      return [(!isNaN(+b)||!isNaN(+a))?"Numbers change":"Values change",`${r0.columns[j]}${key} changes from ${show(b)} to ${show(a)}`]}}
+  return ["Values change","the result changes"]}
+
+// ---------------------------------------------------------------- rendering
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+function cell(v){return v===null||v===""?'<span class="null">NULL</span>':esc(v)}
+function inputGrid(t,c){const ci=c.column?t.header.indexOf(c.column):-1;
+  return `<div class="grid"><table><tr>${t.header.map(h=>`<th>${esc(h)}</th>`).join("")}</tr>${c.body.map(r=>`<tr>${t.header.map((h,i)=>{
+    const v=r[i]??"";const mark=i===ci&&(c.category==="null-column"||v===c.value||(c.category==="empty"&&v==="")||(c.category==="pairs"&&c.value.split(" | ").includes(v)));
+    return `<td${mark?' class="m"':""}>${cell(v)}</td>`}).join("")}</tr>`).join("")||`<tr><td class="null">no rows</td></tr>`}</table></div>`}
+function outputGrid(r0,r1){
+  if(!r1.ok)return `<div class="grid"><table><tr>${r0.columns.map(h=>`<th>${esc(h)}</th>`).join("")}</tr>${r0.rows.map(r=>`<tr>${r.map(v=>`<td>${cell(v)}</td>`).join("")}</tr>`).join("")}</table></div><p class="err">${esc(r1.error)}</p>`;
+  const n=Math.max(r0.rows.length,r1.rows.length);let body="";
+  for(let i=0;i<n;i++){const b=r0.rows[i],a=r1.rows[i];
+    if(b&&a)body+=`<tr>${b.map((v,j)=>same(v,a[j])?`<td>${cell(v)}</td>`:`<td class="d"><span class="was">${cell(v)}</span><span class="now">${cell(a[j])}</span></td>`).join("")}</tr>`;
+    else if(b)body+=`<tr class="gone">${b.map(v=>`<td>${cell(v)}</td>`).join("")}</tr>`;
+    else body+=`<tr class="new">${a.map(v=>`<td>${cell(v)}</td>`).join("")}</tr>`}
+  return `<div class="grid"><table><tr>${r0.columns.map(h=>`<th>${esc(h)}</th>`).join("")}</tr>${body||'<tr><td class="null">no rows</td></tr>'}</table></div>`}
+
+// ---------------------------------------------------------------- the page
+let state={tables:{orders:ORDERS,customers:CUSTOMERS},current:"orders"};
+function loadTables(){const out={};for(const [name,text] of Object.entries(state.tables)){const rows=parseCSV(text.trim()+"\n");if(!rows.length)continue;
+  const header=rows[0].map(h=>h.trim()),data=rows.slice(1);const kinds={};header.forEach((h,i)=>kinds[h]=kindOf(data.map(r=>r[i]??"")));
+  out[name]={header,rows:data,kinds}}return out}
+function tabs(){$("tabs").innerHTML=Object.keys(state.tables).map(t=>`<button role="tab" aria-selected="${t===state.current}" data-t="${esc(t)}">${esc(t)}</button>`).join("");
+  $("tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{state.tables[state.current]=$("csv").value;state.current=b.dataset.t;$("csv").value=state.tables[state.current];tabs()})}
+function pick(i){const z=ZOO[i];$("q0").value=z.q0;$("q1").value=z.q1;$("caseTitle").textContent=z.name;$("story").textContent=z.story;
+  document.querySelectorAll(".zoo button").forEach((b,j)=>b.setAttribute("aria-pressed",String(j===i)));check()}
+function check(){
+  if(!SQL)return;state.tables[state.current]=$("csv").value;
+  const tables=loadTables(),q0=$("q0").value,q1=$("q1").value;
+  const s0=run(q0,tables),s1=run(q1,tables);
+  if(!s0.ok){verdict("warn","The original query fails",`On your tables: ${s0.error}`);$("findings").innerHTML="";return}
+  const all=cases(tables);let ok=0,nc=0;const found=[];
+  for(const c of all){const r0=run(q0,tables,c);if(!r0.ok){nc++;continue}const r1=run(q1,tables,c);if(differs(r0,r1))found.push(c);else ok++}
+  const sampleSame=s1.ok&&!differs(s0,s1);
+  if(!found.length&&sampleSame){verdict("pass","Same results",`On your tables and on all ${ok} variations of them${nc?` (${nc} more made the original fail, so they were not compared)`:""}.`);$("findings").innerHTML=bar(ok,0,nc);return}
+  verdict("fail","Different results",`${sampleSame?"Your tables give the same answer. ":"Even your tables give a different answer. "}${found.length} of ${found.length+ok} variations give a different answer.`);
+  const seen=new Set(),shown=[];
+  for(const c of found){const key=c.table+c.column+c.category;if(seen.has(key))continue;seen.add(key);shown.push(c);if(shown.length>=6)break}
+  $("findings").innerHTML=bar(ok,found.length,nc)+shown.map(c0=>{const c=shrink(c0,q0,q1,tables);const r0=run(q0,tables,c),r1=run(q1,tables,c);const [impact,eff]=effect(r0,r1);
+    const cls=impact.startsWith("Numbers")?"numbers":impact.startsWith("Values")?"values":"";
+    return `<article class="finding"><div class="impact ${cls}">${esc(impact)}</div><p class="what">If ${esc(phrase(c))}, ${esc(eff)}.</p>
+      <div class="ev"><div><h3>Input: ${esc(c.table)} (fewest rows that show it)</h3>${inputGrid(tables[c.table],c)}</div>
+      <div><h3>Result: original, and the change where it differs</h3>${outputGrid(r0,r1)}</div></div></article>`}).join("")+
+    (found.length>shown.length?`<p class="hint">${found.length-shown.length} more variations differ in the same ways.</p>`:"")}
+function verdict(tone,title,text){$("verdict").className="verdict tone-"+tone;$("verdict").innerHTML=`<h2>${esc(title)}</h2><p>${esc(text)}</p>`}
+function bar(ok,ch,nc){const t=ok+ch+nc||1;return `<div class="bar" role="img" aria-label="${ok} same, ${ch} different, ${nc} not compared">${ok?`<span class="s-ok" style="flex:${ok}"></span>`:""}${ch?`<span class="s-ch" style="flex:${ch}"></span>`:""}${nc?`<span class="s-nc" style="flex:${nc}"></span>`:""}</div>
+  <div class="legend"><span><i class="s-ok"></i>${ok} same</span><span><i class="s-ch"></i>${ch} different</span><span><i class="s-nc"></i>${nc} not compared</span></div>`}
+
+const zoo=document.querySelector(".zoo");
+ZOO.forEach((z,i)=>{const b=document.createElement("button");b.type="button";b.textContent=z.name;b.setAttribute("aria-pressed","false");b.onclick=()=>pick(i);zoo.appendChild(b)});
+$("csv").value=state.tables.orders;tabs();
+$("go").onclick=check;
+$("q0").value=ZOO[0].q0;$("q1").value=ZOO[0].q1;$("caseTitle").textContent=ZOO[0].name;$("story").textContent=ZOO[0].story;
+document.querySelectorAll(".zoo button")[0].setAttribute("aria-pressed","true");
+(window.initSqlJs?initSqlJs():Promise.reject(new Error("SQLite did not load"))).then(s=>{SQL=s;check()})
+ .catch(e=>verdict("warn","SQLite could not load",String(e.message||e)+". Reload the page to try again."));
+</script>

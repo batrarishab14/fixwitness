@@ -27,8 +27,26 @@ def _csv_list(value: str | None) -> list[str] | None:
     return [v.strip() for v in value.split(",") if v.strip()]
 
 
+def _table_map(values: list[str] | None, flag: str) -> dict[str, str] | None:
+    if not values:
+        return None
+    out = {}
+    for item in values:
+        name, sep, path = item.partition("=")
+        if not sep or not name.strip() or not path.strip():
+            raise ConfigError(f"{flag} expects NAME=FILE.csv, got {item!r}")
+        out[name.strip()] = str((Path.cwd() / Path(path.strip()).expanduser()).resolve())
+    return out
+
+
 def _overrides(args: argparse.Namespace) -> dict:
     return {
+        "tables": _table_map(args.table, "--table"),
+        "incident_tables": _table_map(args.incident_table, "--incident-table"),
+        "engine": args.engine, "sql_ordered": True if args.sql_ordered else None,
+        "dialect": args.dialect, "sql_outputs": _csv_list(args.sql_outputs),
+        "function": args.function, "library": args.library,
+        "manifest": args.manifest, "base_manifest": args.base_manifest, "warehouse": args.warehouse,
         "path": args.path, "base": args.base, "command": args.command, "incident": args.incident,
         "incident_expected": args.incident_expected,
         "attacks": False if args.no_attacks else None,
@@ -36,8 +54,10 @@ def _overrides(args: argparse.Namespace) -> dict:
         "run_after": args.run_after,
         "columns": _csv_list(args.columns), "review": _csv_list(args.review), "output": args.output,
         "ignore_columns": _csv_list(args.ignore_columns), "ignore_patterns": args.ignore_pattern or None,
+        "expect_change": _csv_list(getattr(args, "expect_change", None)),
         "tolerance": args.tolerance, "unordered": True if args.unordered else None,
         "auto_ignore_unstable": False if args.no_auto_ignore else None,
+        "shrink": False if getattr(args, "no_shrink", False) else None,
         "max_cases": args.max_cases, "seed": args.seed, "timeout": args.timeout, "workers": args.workers,
         "pass_env": args.pass_env or None, "allow_any_command": True if args.allow_any_command else None,
         "no_network": True if args.no_network else None,
@@ -49,11 +69,91 @@ def _config(args: argparse.Namespace):
     explicit = args.path or args.before or args.command
     if config_path is None and not explicit and Path("fixwitness.toml").is_file():
         config_path = Path("fixwitness.toml")
-    return load_config(config_path, _overrides(args))
+    overrides = _overrides(args)
+    if config_path is None and Path("fixwitness.toml").is_file():  # differences marked as intended still apply
+        import tomllib
+        try:
+            with open("fixwitness.toml", "rb") as fh:
+                overrides["accept"] = tomllib.load(fh).get("accept")
+        except (OSError, tomllib.TOMLDecodeError):
+            pass
+    return load_config(config_path, overrides)
+
+
+def _whole_change(cfg, args: argparse.Namespace) -> int | None:
+    """Several checks for one change (the whole working tree, or a file with several changed
+    functions); None when the change is a single ordinary check."""
+    from fixwitness.changes import plan_items, run_items, summary_markdown
+    whole = not (cfg.path or cfg.command or cfg.before or cfg.after or cfg.manifest)
+    if not whole and not (cfg.path and not cfg.command and not cfg.function
+                          and cfg.resolve(cfg.path).suffix == ".py"):
+        return None
+    try:
+        items, skipped = plan_items(cfg)
+    except Exception as exc:
+        if whole:
+            raise ConfigError(f"nothing to check: {exc}") from exc
+        return None
+    if not whole and len(items) == 1 and items[0].kind == "script":
+        return None
+    if not items:
+        print("fixwitness: nothing to check in this change" + (
+            ": " + "; ".join(f"{p} ({why})" for p, why in skipped) if skipped else ""))
+        return 0 if whole else 1
+    if args.dry_run:
+        for it in items:
+            print(f"  {it.kind:10} {it.target}")
+        for p, why in skipped:
+            print(f"  {'skipped':10} {p}: {why}")
+        return 0
+    out = Path(args.out_dir)
+    result = run_items(cfg, items, out)
+    text = summary_markdown(result, skipped)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "report.md").write_text(text, encoding="utf-8")
+    _open(args, _write_whole_html(result, skipped, out, cfg))
+    clean = {"verdict": result["verdict"], "checks": [{k: v for k, v in r.items() if not k.startswith("_")}
+                                                       for r in result["checks"]],
+             "not_checked": [{"path": p, "why": w} for p, w in skipped]}
+    (out / "summary.json").write_text(json.dumps(clean, indent=2), encoding="utf-8")
+    print(json.dumps(clean, indent=2) if args.json else text)
+    return 0 if result["verdict"] == "PASS" else 1
+
+
+def _open(args: argparse.Namespace, path: Path | None) -> None:
+    if path is not None and getattr(args, "open", False):
+        import webbrowser
+        webbrowser.open(path.resolve().as_uri())
+    elif path is not None and not getattr(args, "json", False):
+        print(f"Report: {path}")
+
+
+def _write_whole_html(result: dict, skipped, out: Path, cfg) -> Path | None:
+    from fixwitness.core import REPRO
+    from fixwitness.htmlreport import render
+    checks = []
+    for r in result["checks"]:
+        proof = r.get("_proof")
+        info = REPRO.get(proof["proof_id"], {}) if proof else {}
+        checks.append({"target": r["target"], "kind": r["kind"], "verdict": r["verdict"], "proof": proof,
+                       "reason": r.get("reason"), "explained": info.get("explained") or {},
+                       "repro_dir": Path(r["proof"]).parent / "repro" if r.get("proof") else None})
+    base = next((r["_proof"]["inputs"].get("base_commit") for r in result["checks"] if r.get("_proof")), None)
+    context = (f"Original: {cfg.base}" + (f" (commit {base[:12]})" if base else "") + ". Fix: your working tree.")
+    try:
+        path = out / "report.html"
+        path.write_text(render(checks, skipped, "fixwitness report", context), encoding="utf-8")
+        return path
+    except Exception as exc:
+        print(f"fixwitness: report.html could not be built: {exc}", file=sys.stderr)
+        return None
 
 
 def cmd_check(args: argparse.Namespace) -> int:
     cfg = _config(args)
+    multi = _whole_change(cfg, args)
+    if multi is not None:
+        return multi
     if args.dry_run:
         summary = dry_run(cfg)
         print(json.dumps(summary, indent=2) if args.json else plan_text(summary))
@@ -61,6 +161,7 @@ def cmd_check(args: argparse.Namespace) -> int:
     proof = run_check(cfg)
     proof_path = write_outputs(proof, Path(args.out_dir))
     print(json.dumps(proof, indent=2, ensure_ascii=False) if args.json else markdown(proof, str(proof_path)))
+    _open(args, proof_path.parent / "report.html")
     if proof["verdict"] != "PASS":
         return 1
     if proof["confidence"]["score"] < args.min_confidence:
@@ -76,7 +177,47 @@ def _toml_value(v) -> str:
         return str(v)
     if isinstance(v, list):
         return "[" + ", ".join(_toml_value(x) for x in v) + "]"
+    if isinstance(v, dict):
+        return "{ " + ", ".join(f"{k} = {_toml_value(x)}" for k, x in v.items()) + " }"
     return json.dumps(str(v))
+
+
+def cmd_accept(args: argparse.Namespace) -> int:
+    from fixwitness.config import append_accept
+    path = Path(args.config or "fixwitness.toml")
+    entry = append_accept(path, args.target, args.category, args.column, args.note)
+    print(f"Recorded in {path}: {entry}. Inputs of this kind are now reported as reviewed, not failed.")
+    return 0
+
+
+def cmd_setup(args: argparse.Namespace) -> int:
+    from fixwitness.plan import repo_root
+    from fixwitness.setup import setup
+    try:
+        root = repo_root(Path.cwd())
+    except Exception:
+        root = Path.cwd()
+    for line in setup(args.target, root, args.instructions):
+        print(line)
+    return 0
+
+
+def cmd_doctor(args: argparse.Namespace) -> int:
+    from fixwitness.doctor import checks, render
+    from fixwitness.plan import repo_root
+    try:
+        root = repo_root(Path.cwd())
+    except Exception:
+        root = Path.cwd()
+    warehouse = args.warehouse or os.environ.get("FIXWITNESS_WAREHOUSE")
+    text, ready = render(checks(root, args.base, warehouse, connect=bool(warehouse) and not args.no_connect))
+    print(text, end="")
+    return 0 if ready else 1
+
+
+def cmd_ui(args: argparse.Namespace) -> int:
+    from fixwitness.ui import serve
+    return serve(port=args.port, open_browser=not args.no_browser)
 
 
 def cmd_init(args: argparse.Namespace) -> int:
@@ -106,20 +247,40 @@ def cmd_init(args: argparse.Namespace) -> int:
         fix["base"] = cfg.base
         if cfg.command:
             fix["command"] = cfg.command
-    fix["sample"] = rel(summary["sample"])
+    if cfg.tables:
+        fix["sample"] = None
+    else:
+        fix["sample"] = rel(summary["sample"])
     if cfg.incident:
         fix["incident"] = rel(str(cfg.resolve(cfg.incident)))
     if cfg.incident_expected:
         fix["incident_expected"] = rel(str(cfg.resolve(cfg.incident_expected)))
-    if not cfg.command:
+    if not cfg.command and not cfg.tables and summary["output"] and "fixwitness.sqlrun" not in summary["run"] \
+            and "fixwitness.pyrun" not in summary["run"]:
         fix["run"] = summary["run"]
     cases = {"attacks": cfg.attacks, "columns": cfg.columns or [], "review": cfg.review,
              "max_cases": cfg.max_cases, "seed": cfg.seed}
     compare = {"output": summary["output"], "ignore_columns": cfg.ignore_columns,
                "ignore_patterns": cfg.ignore_patterns, "tolerance": cfg.tolerance, "unordered": cfg.unordered,
                "timeout_seconds": cfg.timeout}
+    sections = [("fix", fix), ("cases", cases), ("compare", compare)]
+    if "fixwitness.sqlrun" in summary["run"] or "fixwitness.pyrun" in summary["run"]:
+        sql = {"engine": cfg.engine, "sql_ordered": cfg.sql_ordered}
+        if cfg.dialect:
+            sql["dialect"] = cfg.dialect
+        if cfg.function:
+            sql["function"] = cfg.function
+            sql["library"] = cfg.library
+            sql.pop("engine")
+        if cfg.sql_outputs:
+            sql["sql_outputs"] = cfg.sql_outputs
+        if cfg.tables:
+            sql["tables"] = {k: rel(v) for k, v in cfg.tables.items()}
+        if cfg.incident_tables:
+            sql["incident_tables"] = {k: rel(v) for k, v in cfg.incident_tables.items()}
+        sections.append(("sql", sql))
     out = ["# Written by `fixwitness init`. Run `fixwitness check` in this folder.", ""]
-    for name, section in (("fix", fix), ("cases", cases), ("compare", compare)):
+    for name, section in sections:
         out.append(f"[{name}]")
         out += [f"{k} = {_toml_value(v)}" for k, v in section.items() if v is not None]
         out.append("")
@@ -188,8 +349,11 @@ def cmd_demo(args: argparse.Namespace) -> int:
 
 
 def cmd_categories(args: argparse.Namespace) -> int:
+    from fixwitness.formats import JSON_CATEGORY_DESCRIPTIONS
     for name, desc in CATEGORY_DESCRIPTIONS.items():
         print(f"{name:15} {DEFAULT_KIND[name]:7} {desc}")
+    for name, desc in JSON_CATEGORY_DESCRIPTIONS.items():
+        print(f"{name:15} {'valid':7} {desc} (JSON inputs)")
     return 0
 
 
@@ -211,15 +375,43 @@ def _selection_args(p: argparse.ArgumentParser) -> None:
                                       "the fix must process it")
     p.add_argument("--incident-expected", help="optional: the correct output for the incident input")
     p.add_argument("--no-attacks", action="store_true", help="skip attack payloads (repairs and refactors)")
+    p.add_argument("--table", action="append", metavar="NAME=FILE",
+                   help="SQL/dbt: a table the query reads and its sample CSV (repeatable)")
+    p.add_argument("--incident-table", action="append", metavar="NAME=FILE",
+                   help="SQL/dbt: a table's contents when the original broke (repeatable)")
+    p.add_argument("--engine", choices=["auto", "duckdb", "sqlite"],
+                   help="SQL/dbt: query engine (default: DuckDB if installed, else SQLite)")
+    p.add_argument("--sql-ordered", "--ordered", dest="sql_ordered", action="store_true",
+                   help="SQL/dbt and DataFrames: compare result rows in order (default: as a set of rows)")
+    p.add_argument("--warehouse", metavar="URL",
+                   help="SQL/dbt: run both versions in your warehouse (postgres://USER@HOST/DB, "
+                        "snowflake://USER@ACCOUNT/DB?warehouse=WH, bigquery://PROJECT); password from the driver's "
+                        "own setting, never the URL")
+    p.add_argument("--manifest", metavar="FILE", help="dbt: the fix's target/manifest.json (from dbt compile)")
+    p.add_argument("--base-manifest", metavar="FILE", help="dbt: the original's manifest.json")
+    p.add_argument("--function", metavar="NAME",
+                   help="Python DataFrame code: the function to call with the tables (pandas, polars or PySpark)")
+    p.add_argument("--library", choices=["auto", "pandas", "polars", "pyspark"],
+                   help="DataFrame library (default: from the script's imports)")
+    p.add_argument("--dialect", help="SQL/dbt: the warehouse the SQL is written for (snowflake, bigquery, "
+                                     "postgres, tsql, ...); translated with sqlglot to the engine")
+    p.add_argument("--sql-outputs", metavar="MODEL,...",
+                   help="SQL/dbt folder of models: the models to compare (default: the final ones; 'all' for every model)")
     p.add_argument("--run-after", help="run command for the fix when it differs (e.g. a rewrite in another language)")
     p.add_argument("--columns", help="comma-separated columns to probe (default: all)")
     p.add_argument("--review", help="comma-separated categories where differences are expected")
-    p.add_argument("--output", choices=["csv", "text"], help="how to compare outputs (default: detected)")
+    p.add_argument("--output", choices=["csv", "json", "text"],
+                   help="how to compare outputs (default: json for JSON inputs, else csv)")
     p.add_argument("--ignore-columns", help="comma-separated output columns to leave out of the comparison")
+    p.add_argument("--expect-change", metavar="COLUMNS",
+                   help="for a bug fix: the output columns it should change (model.column or column, comma-separated); "
+                        "the check passes when nothing else changes")
     p.add_argument("--ignore-pattern", action="append", help="regex masked out of every compared value (repeatable)")
     p.add_argument("--tolerance", type=float, help="relative tolerance for numeric values, e.g. 1e-9")
     p.add_argument("--unordered", action="store_true", help="ignore row order")
     p.add_argument("--no-auto-ignore", action="store_true", help="don't ignore columns that are not deterministic")
+    p.add_argument("--no-shrink", action="store_true",
+                   help="don't shrink each difference to the smallest input that shows it")
     p.add_argument("--max-cases", type=int)
     p.add_argument("--seed", type=int)
     p.add_argument("--timeout", type=float, help="seconds per run (default 10)")
@@ -238,7 +430,8 @@ def build_parser() -> argparse.ArgumentParser:
     check = sub.add_parser("check", help="compare the original with the fix")
     _selection_args(check)
     check.add_argument("--config", help="TOML config (default: ./fixwitness.toml when no file is given)")
-    check.add_argument("--out-dir", default=".fixwitness", help="where to write proof.json and report.md")
+    check.add_argument("--out-dir", default=".fixwitness", help="where to write proof.json, report.md and report.html")
+    check.add_argument("--open", action="store_true", help="open report.html in your browser when the check ends")
     check.add_argument("--min-confidence", type=int, default=0, help="fail if confidence is below this")
     check.add_argument("--json", action="store_true", help="print JSON instead of the summary")
     check.add_argument("--dry-run", action="store_true", help="show what would be compared, without comparing")
@@ -255,6 +448,27 @@ def build_parser() -> argparse.ArgumentParser:
     rp.add_argument("--allow-any-command", action="store_true")
     rp.set_defaults(func=cmd_replay)
 
+    acc = sub.add_parser("accept", help="mark a difference as intended (recorded in fixwitness.toml)")
+    acc.add_argument("--category", required=True, help="the input category, e.g. case or null-column")
+    acc.add_argument("--column", help="the column it is about, e.g. orders.status (default: any column)")
+    acc.add_argument("--target", help="the changed file it is about, e.g. models/revenue.sql (default: any)")
+    acc.add_argument("--note", help="why the difference is intended")
+    acc.add_argument("--config", help="settings file to write (default: ./fixwitness.toml)")
+    acc.set_defaults(func=cmd_accept)
+    st = sub.add_parser("setup", help="connect fixwitness to Claude Code, Cursor, VS Code, GitHub or pre-commit")
+    st.add_argument("target", choices=["claude", "cursor", "vscode", "github", "pre-commit"])
+    st.add_argument("--instructions", action="store_true",
+                    help="also tell coding agents (CLAUDE.md or AGENTS.md) to call prove_change before finishing")
+    st.set_defaults(func=cmd_setup)
+    dr = sub.add_parser("doctor", help="say whether this repository is ready to check, and what to install")
+    dr.add_argument("--base", help="git revision to compare with (default HEAD)")
+    dr.add_argument("--warehouse", help="also check this warehouse (postgres://USER@HOST/DB, ...)")
+    dr.add_argument("--no-connect", action="store_true", help="don't connect to the warehouse")
+    dr.set_defaults(func=cmd_doctor)
+    ui = sub.add_parser("ui", help="open the local web app: run checks, read reports, mark differences as intended")
+    ui.add_argument("--port", type=int, default=0, help="port on 127.0.0.1 (default: any free port)")
+    ui.add_argument("--no-browser", action="store_true", help="don't open a browser window")
+    ui.set_defaults(func=cmd_ui)
     sub.add_parser("demo", help="run the built-in examples").set_defaults(func=cmd_demo)
     sub.add_parser("categories", help="list the input categories fixwitness generates").set_defaults(func=cmd_categories)
     sub.add_parser("mcp", help="start the MCP server on stdio").set_defaults(func=cmd_mcp)

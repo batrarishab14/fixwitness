@@ -1,0 +1,17 @@
+case,mode,fix,label,pattern,job runs,sample test,fixwitness,verdict,score,cases,seconds,reason,caught_by
+C01-dbt-pipeline,pipeline,cte_mart,correct,the mart rewritten with CTEs,True,True,True,PASS,99,296,11.9,-,-
+C01-dbt-pipeline,pipeline,distinct_staging,wrong,DISTINCT added to a staging model (repeated rows collapse),True,True,False,FAIL,0,296,13.9,the fix changes output on 2 valid inputs,"duplicate-row, pairs"
+C01-dbt-pipeline,pipeline,left_join_mart,wrong,an inner join changed to a left join in the mart,True,True,False,FAIL,0,296,13.2,the fix changes output on 16 valid inputs,"empty, file-structure, null-column, numeric-format, pairs, whitespace"
+C01-dbt-pipeline,pipeline,not_refunded,wrong,a filter rewritten as its negation (other statuses now pass),True,True,False,FAIL,0,296,11.6,the fix changes output on 55 valid inputs,"case, csv-structure, delimiter-mix, long, pairs, punctuation, quotes, shell-metachar, unicode, whitespace"
+C01-dbt-pipeline,pipeline,split_model,correct,a staging model split in two,True,True,True,PASS,99,296,11.8,-,-
+C03-pandas-revenue,pandas,count_amount.py,wrong,size() replaced by count() of a column with missing values,True,True,False,FAIL,0,296,19.8,the fix changes output on 2 valid inputs,"empty, null-column"
+C03-pandas-revenue,pandas,drop_duplicates.py,wrong,drop_duplicates() added (repeated rows collapse),True,True,False,FAIL,0,296,21.1,the fix changes output on 2 valid inputs,"duplicate-row, pairs"
+C03-pandas-revenue,pandas,dropna.py,wrong,dropna() on the whole frame (rows with any missing value are lost),True,True,False,FAIL,0,296,22.0,the fix changes output on 4 valid inputs,"empty, null-column"
+C03-pandas-revenue,pandas,left_merge.py,correct,"a left merge: orders without a customer get no region, and groupby drops missing keys",True,True,True,PASS,99,296,18.6,-,-
+C03-pandas-revenue,pandas,query_merge.py,correct,"filter with query(), merge the other way round, aggregate in two steps",True,True,True,PASS,99,296,18.2,-,-
+C03-pandas-revenue,pandas,str_lower.py,wrong,a case-insensitive status match,True,True,False,FAIL,0,296,21.9,the fix changes output on 3 valid inputs,"case, pairs"
+C05-jsonl-events,json,float_amount.py,wrong,float() around each amount (large integers lose precision),True,True,False,FAIL,0,238,5.8,the fix changes output on 2 valid inputs,"numeric-format, pairs"
+C05-jsonl-events,json,generator.py,correct,a defaultdict and a generator,True,True,True,PASS,99,238,5.6,-,-
+C05-jsonl-events,json,lower_status.py,wrong,a case-insensitive status match,True,True,False,FAIL,0,238,5.9,the fix changes output on 3 valid inputs,"case, pairs"
+C05-jsonl-events,json,round_each.py,wrong,each amount rounded before summing instead of the total,True,True,False,FAIL,0,238,6.2,the fix changes output on 2 valid inputs,pairs
+C05-jsonl-events,json,strict_key.py,wrong,e.get('status') replaced by e['status'] (a record without the key now fails),True,True,False,FAIL,0,238,5.7,the fix changes output on 1 valid inputs,missing-key

@@ -4,14 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fixwitness"
-version = "0.5.0"
+version = "0.6.0.dev0"
 description = "Evidence that an AI fix or self-healing repair fixed the problem without changing your data."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{name = "Rishab Batra"}]
-keywords = ["self-healing", "data-pipelines", "autofix", "security", "differential-testing", "mcp", "etl", "ai-agents"]
+keywords = ["self-healing", "data-pipelines", "autofix", "security", "differential-testing", "mcp", "etl", "ai-agents",
+            "dbt", "sql", "pandas", "polars", "pyspark", "parquet"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -23,6 +24,17 @@ classifiers = [
     "Topic :: Software Development :: Testing",
 ]
 dependencies = []
+
+[project.optional-dependencies]
+# Each is optional: fixwitness runs SQL on SQLite and checks CSV and JSON without any of them.
+duckdb = ["duckdb"]
+dbt = ["dbt-core", "dbt-duckdb"]     # dbt projects compiled by dbt itself
+dialects = ["sqlglot"]               # Snowflake, BigQuery, Postgres, T-SQL ... translated for the check
+pandas = ["pandas"]
+polars = ["polars"]
+pyspark = ["pyspark"]
+parquet = ["pyarrow"]
+all = ["duckdb", "dbt-core", "dbt-duckdb", "sqlglot", "pandas", "polars", "pyarrow"]
 
 [project.urls]
 Homepage = "https://github.com/batrarishab14/fixwitness"

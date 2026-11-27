@@ -1,0 +1,45 @@
+name: fixwitness missed a bug, or flagged a correct change
+description: The most useful report you can send. A miss or a false alarm with the change attached becomes a test.
+labels: ["accuracy"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What happened
+      options:
+        - It passed a change that was wrong (a miss)
+        - It failed a change that was correct (a false alarm)
+    validations:
+      required: true
+  - type: dropdown
+    id: code
+    attributes:
+      label: Kind of code
+      options: [dbt project, SQL query, pandas, polars, PySpark, script on CSV, script on JSON / JSON Lines, script on Parquet, other]
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: The original and the change
+      description: The smallest version you can share, with made-up data if the real data is private.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: An input where they differ (for a miss), or why the difference is fine (for a false alarm)
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: fixwitness output
+      description: The report.md, or the proof ID and the command you ran.
+      render: markdown
+  - type: input
+    id: version
+    attributes:
+      label: fixwitness version
+      placeholder: "fixwitness --version"

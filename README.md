@@ -1,5 +1,7 @@
 # fixwitness
 
+<!-- mcp-name: io.github.batrarishab14/fixwitness -->
+
 **Evidence that an automated fix did what it claims, and nothing else.**
 
 AI agents now patch vulnerabilities and repair broken pipelines on their own. Each of those changes needs a witness before it ships. fixwitness answers two questions about every fix:
@@ -9,11 +11,116 @@ AI agents now patch vulnerabilities and repair broken pipelines on their own. Ea
    - For a self-healing repair: does the input that broke the job now go through?
 2. **Did it change anything else?** fixwitness runs both versions on generated edge-case inputs and compares the output cell by cell.
 
-You get a **verdict** (PASS / FAIL), a **confidence score** (0–100) and a **proof record** anyone can replay. It needs no tests, only a sample input file. It runs from the command line, in CI, or **inside a coding agent over MCP**, so the agent checks its own fix before it ships.
+You get a **verdict** (PASS / FAIL), a **confidence score** (0–100), a **proof record** anyone can replay, and a **runnable reproduction** of every difference. It needs no tests, only the sample data your repository already has. It runs from the command line, in CI (with a comment on the pull request), or **inside a coding agent over MCP**, so the agent checks its own change before it ships.
+
+**Try it in your browser:** the [playground](https://batrarishab14.github.io/fixwitness/playground/standalone.html) runs fixwitness's SQL cases on SQLite in your browser: paste a query and its changed version, or pick one of the eight classic silent bugs in the [bug zoo](docs/BUG_ZOO.md).
+
+## One command for the whole change
 
 ```bash
-fixwitness check etl/clean_amounts.py            # in a git repo: HEAD vs. your working copy
+fixwitness check          # in a git repo: every file you changed, against HEAD (or --base main)
 ```
+
+Each changed file is checked the way that fits it. The sample data is found by name:
+
+| Changed | Checked as |
+|---|---|
+| A file in a **dbt project** | The project built and compiled by dbt itself (with `dbt-duckdb`, or your warehouse's adapter with `--warehouse`), so macros and packages work; seeds are the sample tables, with the column types dbt gave them; a dbt package is built through its `integration_tests/` project; the published models downstream of the change (not staging or intermediate ones) are compared, and your dbt tests are used as rules on the inputs |
+| A **`.sql`** query | Its tables are the data files named after them (`orders.csv` for `orders`) |
+| A **pandas, polars or PySpark** function that changed | Called with the data files named after its parameters; each side uses the library it imports |
+| A **script** that reads CSV, JSON, JSON Lines or Parquet | Run on the sample next to it |
+| Docs, data, config, tests | Listed as not checked, with the reason |
+
+```
+$ fixwitness check --no-attacks
+## fixwitness: FAIL (3 checks)
+
+| Changed | Checked as | Result | Why |
+|---|---|---|---|
+| `etl/revenue.py: revenue()` | dataframe | PASS 99/100 | 282 inputs gave the same output |
+| `jobs/events.py` | script | **FAIL** | If a record has no `status` key, the fix fails (KeyError: 'status') while the original runs. |
+| `models/revenue.sql` | sql | **FAIL** | If an `orders` row has an empty `amount`, `orders` for 'east' changes from 1 to 0. |
+
+Not checked: `README.md` (not code)
+```
+
+Here `jobs/events.py` changed `e.get("status")` to `e["status"]`, and `models/revenue.sql` changed `count(*)` to `count(o.amount)`. Neither shows on today's data.
+
+**Every finding comes with its evidence.** fixwitness shrinks each difference to the fewest rows that still show it, explains it in a sentence, and writes a runnable reproduction (`.fixwitness/<check>/repro/<case>/`: the input, both outputs and the commands to re-run each side). `report.html` puts it together for everyone who decides on the change: the decision first, then what could go wrong, then the evidence and how it was checked. If a difference is intended, mark it (`fixwitness accept`, or the button in `fixwitness ui`) and the next run reports it as reviewed.
+
+One file or a pair of files also works:
+
+```bash
+fixwitness check etl/clean_amounts.py            # one file: HEAD vs. your working copy
+fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv
+fixwitness check --before old.py --after new.py --sample data/sample.csv
+```
+
+## SQL queries and dbt models
+
+AI agents now repair data pipelines: Snowflake's agent goes from a failed pipeline to a pull request in about 16 minutes, and Databricks Genie ZeroOps tests its fixes on a copy of today's data before a person approves them. Neither describes checking the fix on data that isn't there yet ([research notes](docs/RESEARCH.md)).
+
+fixwitness runs the original and the changed query on the same generated tables and compares the results. The tables are built from your sample tables, varied one at a time:
+- an empty table;
+- a NULL in each column, and a whole column of NULLs;
+- a repeated row and a repeated key;
+- values in another case or with padding;
+- boundary and unusual numbers, dates and text;
+- extra columns, including any that are new in the incident data.
+
+```
+$ fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv
+## fixwitness: FAIL
+| Data unchanged | FAIL: 280 of 282 comparable valid inputs give the same output |
+- `empty` input '' in `orders.amount`: changed
+  - row 1, orders: '2' -> '1'
+- `null-column` input '<all NULL>' in `orders.amount`: changed
+  - row 1, orders: '2' -> '0'
+```
+
+That model's refactor swapped `count(*)` for `count(o.amount)`. On today's data the result is identical, so a data diff passes it. A single order with no amount shows the difference.
+
+**On the SQL benchmark** ([`benchmark/sql/`](benchmark/sql/), 17 changes to 6 queries, each wrong change modelling a well-known SQL pitfall):
+
+| Check | Wrong changes caught | Correct changes wrongly rejected |
+|---|---|---|
+| The query runs | 0/11 | 0/6 |
+| Same result on the sample tables (a data diff on today's data) | 0/11 | 0/6 |
+| **fixwitness** | **10/11** | **0/6** |
+| **fixwitness + expected result for the incident** | **11/11** | **0/6** |
+
+These are development results on SQLite: the SQL input classes were refined on this benchmark ([development log](study/DEVLOG_v0.6.md)). The held-out evaluation in [`study/PROTOCOL_v0.6.md`](study/PROTOCOL_v0.6.md) measures them on new tasks.
+
+**How it runs SQL:**
+- **Engine:** DuckDB when it is installed (`pip install duckdb`), otherwise SQLite from Python's standard library. Both versions always run on the same engine, which is recorded in the proof.
+- **Types:** column types come from your sample tables. An empty cell is NULL. A value the column's type can't hold, such as `1,250` in a numeric column, is skipped, just as a warehouse would reject it.
+- **Row order and numbers:** rows are compared as a set unless you pass `--sql-ordered`. Numbers are compared with a relative tolerance of 1e-9, because an equivalent query may add them up in a different order.
+- **dbt models:** with `dbt-core` and `dbt-duckdb` installed, fixwitness runs `dbt seed` and `dbt compile` on both versions of the project in a private DuckDB file, so macros, packages, `var()` and `is_incremental()` are rendered by dbt. Or pass the `manifest.json` files your CI already has (`--manifest`, `--base-manifest`). Without dbt, `{{ ref('x') }}`, `{{ source('s', 'x') }}` and `{{ config(...) }}` are rendered by fixwitness, and other Jinja is refused with a message.
+- **Incidents:** `--incident-table customers=customers_bad.csv` gives a table's contents when the original broke, and `--incident-expected` gives the correct result.
+
+## Pipelines, warehouse SQL, DataFrames, JSON and Parquet
+
+The same check works on the other places an agent changes data code:
+
+| What changed | How fixwitness runs it | Example |
+|---|---|---|
+| **A dbt project or a folder of SQL models** | Every model, in dependency order (from `ref()` and the tables after `FROM`/`JOIN`). The final models, which no other model reads, are compared, so a change to a staging model is judged by what it does to the mart | `fixwitness check models/ --table orders=seeds/orders.csv` |
+| **SQL written for a warehouse** | Translated with [sqlglot](https://github.com/tobymao/sqlglot) to DuckDB or SQLite; `analytics.raw.orders` becomes the loaded table `orders` | `--dialect snowflake` (or `bigquery`, `postgres`, `tsql`, ...) |
+| **A pandas, polars or PySpark function** | Called with DataFrames built from your tables, with the sample's column types. Each side uses the library it imports, so a **pandas → polars migration** is checked too | `fixwitness check etl/revenue.py --function revenue --table orders=orders.csv` |
+| **A script that reads JSON or JSON Lines** | Cases change one value at a path such as `user.country` or `items[].sku`: a missing key, `null`, a number written as a string, number spellings (`1e3`, `-0`, 30 digits), escapes, empty arrays and objects, an extra key, reversed key order | `--sample events.jsonl` |
+| **A script that reads Parquet** | The typed-table cases, written back with the sample's Parquet schema. Parquet and JSON outputs are compared by value | `--sample orders.parquet` |
+
+A polars rewrite of a pandas function, for example, can match it on today's data and still differ when a value is missing: pandas `size()` counts rows, but `pl.col("amount").count()` counts non-null values; and polars `group_by` keeps the group for a null key, which pandas `groupby` drops.
+
+**On the benchmark for these kinds** ([`benchmark/complex/`](benchmark/complex/): a dbt project, a Snowflake query, a pandas function, a pandas → polars migration, a JSON Lines job and a Parquet job; 28 synthetic fixes, each modelling a known pitfall), run in CI on DuckDB with every library installed:
+
+| Check | Wrong fixes caught | Correct fixes wrongly rejected |
+|---|---|---|
+| The job runs | 0/20 | 0/8 |
+| Same output on the sample | 1/20 | 0/8 |
+| **fixwitness** | **20/20** | **0/8** |
+
+`round_each`, which rounds each amount before summing, was missed until paired cases were added (two rows of the same group, each with an unusual value such as 0.005 + 0.005); fixwitness used to change one value at a time. The CI logs are on the [`ci-results`](../../tree/ci-results) branch. These are development results ([development log](study/DEVLOG_v0.6.md)): every fix above was written by us.
 
 ## What it catches
 
@@ -81,6 +188,43 @@ How well 0.5.0 does on fixes it has never seen will be measured on new tasks and
 
 How the answers were captured, the labels and the evidence: [`study/`](study/README.md).
 
+## Tested on real dbt packages
+
+On Fivetran's public dbt packages (candidates frozen before any run, Postgres + dbt-postgres, defaults only; run 5):
+
+- **Real bug fixes** (63 of 71 could be checked): fixwitness reported a difference between the buggy and the fixed
+  version on 31 (49%). I read each against its release note: 22 are the bug the note describes, 3 are in the
+  model the note names, 4 are unclear and 2 are not the bug. So **22 of 63 (35%) are confirmed catches**; 49% is the
+  upper bound. No false alarms among the 22.
+- **Real refactors** (25 of 39 could be checked): 2 reported differences, both real (a release described as a
+  speed-up, and a changed `source_relation`), so no false alarms among those 25.
+- Earlier runs, and what each fix to fixwitness changed, are in
+  [benchmark/realrepo/RESULTS.md](benchmark/realrepo/RESULTS.md). Run 1 (the first, counted run) was 22 of 48;
+  its refactor check had 2 false alarms, since fixed.
+
+### Why 32 of 63 were missed
+
+Hand-diagnosed 10 of the 32 misses, across 4 different Fivetran packages (`dbt_zendesk`, `dbt_quickbooks`,
+`dbt_lever`, `dbt_fivetran_log`, `dbt_netsuite`) and 5 different bug shapes (a duplicated join row, a
+coalesce/fallback reordering, a boolean-sign flip, a window-function correlation, a null exchange rate). All
+10 fail for the identical reason: the package's own official integration-test seed data does not contain the
+specific row combination the real bug's fix depends on -- two linked rows, a non-null foreign key, a second
+active account or policy, a non-empty numeric field -- in either the buggy or the fixed version. No column
+mutation can expose a bug whose precondition has zero matching rows anywhere in the fixture. None of the 10
+is a demonstrated gap in fixwitness's own case-generation logic; each is confirmed directly against the real
+seed CSVs, not inferred. Full detail, case by case: [`study/MISSED_BUGS.md`](study/MISSED_BUGS.md).
+
+## Found a real bug in a live package
+
+Running fixwitness against `fivetran/dbt_zendesk`'s real, current source turned up a genuine, still-open bug:
+[`unreplied_ticket_count` and `unreplied_unsolved_ticket_count` are always 0](https://github.com/fivetran/dbt_zendesk/issues/284)
+in `zendesk__ticket_summary`, because the model counts tickets where `total_agent_replies < 0`, but the
+upstream model that computes `total_agent_replies` never produces a negative number. A fix (count `= 0`
+instead, plus a new integrity test) is written and verified: `fixwitness check --expect-change
+zendesk__ticket_summary.unreplied_ticket_count,zendesk__ticket_summary.unreplied_unsolved_ticket_count`
+confirms only those two columns change, across a 293-input proof. The branch is ready at
+[`batrarishab14/dbt_zendesk@fix-unreplied-ticket-count`](https://github.com/batrarishab14/dbt_zendesk/tree/fix-unreplied-ticket-count).
+
 ## Why this exists
 
 - **Most AI patches aren't clean.** In 1Password's study of 6,080 AI-generated vulnerability patches (Aug 2026):
@@ -108,11 +252,14 @@ More scenarios with ready-to-run commands are in [docs/USE_CASES.md](docs/USE_CA
 ## Install
 
 ```bash
-pip install "git+https://github.com/batrarishab14/fixwitness@v0.5.0"
-fixwitness demo
+pip install "git+https://github.com/batrarishab14/fixwitness"
+fixwitness doctor      # in your repository: what would be checked, and what to install
+fixwitness check       # check your uncommitted change (or --base main for a branch)
 ```
 
-Python 3.11+, no dependencies. git is needed for the one-line mode.
+Python 3.11+, no dependencies. git is needed for the one-line mode. For SQL, DuckDB is used if installed (`pip install duckdb`), otherwise SQLite.
+
+Optional, only for what you check: `dbt-core` and `dbt-duckdb` (dbt projects with macros; `dbt-postgres`, `dbt-snowflake` or `dbt-bigquery` with `--warehouse`), `sqlglot` (warehouse dialects), `pandas`, `polars` or `pyspark` (DataFrame functions), `pyarrow` (Parquet). `pip install "fixwitness[all] @ git+https://github.com/batrarishab14/fixwitness"` installs all but PySpark.
 
 ## Usage
 
@@ -124,7 +271,19 @@ Python 3.11+, no dependencies. git is needed for the one-line mode.
 | The fix is in an imported module or several files | `fixwitness check --command "python3 etl/run.py {input} {output}" --sample data/sample.csv` |
 | No git: two files | `fixwitness check --before old.py --after new.py --sample sample.csv` |
 | A rewrite in another language | `fixwitness check --before legacy.sh --after new.py --no-attacks` (each side's run command is detected) |
+| A SQL query or dbt model (git) | `fixwitness check models/revenue.sql --table orders=seeds/orders.csv --table customers=seeds/customers.csv` |
+| Two SQL files | `fixwitness check --before old.sql --after new.sql --table orders=orders.csv` |
+| A dbt project (git) | `fixwitness check` (compiled by dbt on its seeds; a package through its `integration_tests/` project) |
+| A dbt project on your warehouse's adapter | `fixwitness check --warehouse postgres://ci@db/analytics` |
+| A bug fix that should change one number | `fixwitness check --expect-change zendesk__ticket_summary.unreplied_ticket_count` |
+| Snowflake or BigQuery SQL | add `--dialect snowflake` (needs `pip install sqlglot`) |
+| A pandas / polars / PySpark function | `fixwitness check etl/revenue.py --function revenue --table orders=data/orders.csv` |
+| A job that reads JSON Lines or Parquet | `fixwitness check etl/events.py --sample data/events.jsonl --no-attacks` |
+| The local web app (run, read, mark as intended) | `fixwitness ui` |
+| Mark a difference as intended | `fixwitness accept --category case --column orders.status --target models/revenue.sql` |
+| Connect it to your tools | `fixwitness setup claude` (or `cursor`, `vscode`, `github`, `pre-commit`); `--instructions` also tells coding agents to use it |
 | See what would run | add `--dry-run` |
+| Is this repository ready? What's missing? | `fixwitness doctor` (add `--warehouse URL` to test the connection) |
 | Save the detected settings | `fixwitness init etl/clean.py`, then just `fixwitness check` |
 
 **Detected for you:**
@@ -147,11 +306,22 @@ Python 3.11+, no dependencies. git is needed for the one-line mode.
 | `--columns amount` | Probe only the columns the problem is about |
 | `--review shell-metachar,quotes` | Report differences in these categories without failing |
 | `--ignore-columns run_id` | Leave these output columns out of the comparison |
+| `--expect-change revenue.total` | For a bug fix: the output columns it should change (`model.column` or `column`). PASS means only these changed, and the report shows on which inputs and how |
 | `--ignore-pattern '\d{4}-\d\d-\d\d'` | Mask volatile text such as timestamps |
 | `--tolerance 1e-9` | Allow tiny floating-point differences |
 | `--unordered` | Ignore row order |
 | `--no-network` | Run without network access (Linux user namespaces) |
 | `--min-confidence 90` | Fail below this score |
+| `--table NAME=FILE.csv` | SQL/dbt: a table the query reads and its sample data (repeat for each table) |
+| `--incident-table NAME=FILE.csv` | SQL/dbt: a table's contents when the original broke |
+| `--engine duckdb` | SQL/dbt: the engine (default: DuckDB if installed, else SQLite) |
+| `--sql-ordered` | SQL/dbt and DataFrames: compare result rows in order |
+| `--sql-outputs revenue,churn` | A folder of models: the models to compare (default: the final ones; `all` for every model) |
+| `--dialect snowflake` | SQL/dbt: the warehouse the SQL is written for; translated with sqlglot |
+| `--warehouse postgres://USER@HOST/DB` | SQL/dbt: run both versions in your warehouse, each run in a private schema that is dropped afterwards. A dbt project is also compiled there, with your warehouse's own dbt adapter. No password in the URL: the driver's own settings (`PGPASSWORD`, ...) are used |
+| `--function NAME` | Python: the DataFrame function to call; name the tables after its parameters |
+| `--library polars` | Python: the DataFrame library (default: from the script's imports) |
+| `--output json` | Compare outputs as JSON (the default when the input is JSON) |
 
 Columns that change between two runs of the original on the same input, such as IDs or timestamps, are detected and ignored automatically, and listed in the report.
 
@@ -191,13 +361,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0              # the base commit must be available
-      - uses: batrarishab14/fixwitness@v0.5.0
+      - uses: batrarishab14/fixwitness@v0.6.0
         with:
-          path: etl/clean.py          # compared with the pull request's base commit
-          min-confidence: 90
+          install: duckdb,dbt,pandas    # only what your code needs
+          args: --no-attacks            # data changes, not security fixes
 ```
 
-The report appears in the job summary, and `proof.json` is uploaded as an artifact. To make proofs tamper-evident, add GitHub artifact attestations (`actions/attest-build-provenance`, `subject-path: fixwitness-report/proof.json`).
+With no `path`, the Action checks every file the pull request changed, against its base commit. The report is posted as one comment on the pull request and updated on every push; add `permissions: {contents: read, pull-requests: write}` to the job. It also appears in the job summary, and the proofs and reproductions are uploaded as an artifact. To make proofs tamper-evident, add GitHub artifact attestations (`actions/attest-build-provenance`, `subject-path: fixwitness-report/proof.json`).
 
 ## How it works
 
@@ -266,6 +436,15 @@ fixwitness replay .fixwitness/proof.json
 
 Replay refuses to run if any input changed. Otherwise it re-runs everything and compares the evidence hash.
 
+The format is published as a JSON Schema in [`docs/proof.schema.json`](docs/proof.schema.json), and every `proof.json` links to it, so other tools can read proofs. New versions add keys; they don't rename or remove them.
+
+## Extending it
+
+- **Your warehouse:** `--warehouse postgres://ci@db:5432/analytics` (or `snowflake://`, `bigquery://`) runs both versions in a temporary schema of your warehouse, as written. Passwords come from the driver's own settings, never the URL.
+- **A new kind of code:** an [adapter](docs/ADAPTERS.md) (three members: `name`, `claims`, `settings`) teaches the whole-change check Go jobs, Airflow tasks or your own runner.
+- **Your editor and CI:** `fixwitness setup claude|cursor|vscode|github|pre-commit`.
+- **Contributing:** see [CONTRIBUTING.md](CONTRIBUTING.md). A change fixwitness judged wrongly is the most useful report.
+
 ## Examples
 
 `src/fixwitness/examples/` has three cases. Each includes the original, the obvious fix and a correct fix:
@@ -281,14 +460,16 @@ Replay refuses to run if any input changed. Otherwise it re-runs everything and 
 - **Not a formal proof.** It is differential testing: evidence on the input categories it generates.
 - **Not a scanner and not an agent.** It checks fixes made by Claude Code, Copilot, Snyk, a self-healing system or a person.
 - **Not a sandbox.** Scripts run as your user. Use `--no-network`, a container or CI for untrusted code.
-- **Inputs are CSV** in this version. Any program in any language works, as long as it reads a file or stdin.
+- **Inputs are CSV, JSON, JSON Lines or Parquet** for scripts. Any program in any language works, as long as it reads a file or stdin.
+- **Mostly one value changes at a time.** Pairs of rows of the same group are covered for numbers and text (sub-cent amounts, precision edges, another case), but other combinations of two unusual values can be missed.
+- **SQL runs on DuckDB or SQLite** unless you pass `--warehouse`. Warehouse SQL is translated with sqlglot; a function it can't translate fails to run, and warehouse-specific behaviour (collation, NULL ordering, time zones) is only checked in warehouse mode. Warehouse mode is tested on Postgres; the Snowflake and BigQuery connections follow their documented APIs and are untested.
+- **dbt** projects are compiled by dbt with `dbt-duckdb`, or with your warehouse's adapter when you pass `--warehouse` (or read from your manifests). Without dbt installed, only `ref()`, `source()` and `config()` are rendered. Incremental models are run as full builds. A compile is reused when the same files are compiled again (`FIXWITNESS_CACHE_DIR=off` turns this off).
+- **PySpark is slow:** pandas and polars runs fork from a process that has the library loaded (a pandas check of about 300 cases takes about 13 s in CI), but PySpark starts a local session for every run. Keep `--max-cases` modest for PySpark.
 - **Four attack families** only. SQL injection, deserialization and SSRF are not tested yet.
 
 ## Roadmap
 
-- dbt and SQL models on DuckDB.
-- JSON Lines and Parquet inputs.
-- SQL-injection payloads.
+- Signed proofs and SQL-injection payloads.
 - Reading the finding from SARIF.
 - A container runner.
 - Signed proofs.

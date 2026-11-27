@@ -1,0 +1,221 @@
+$ git apply /home/runner/work/fixwitness/fixwitness/benchmark/realrepo/open_issues/zendesk-284/fix.patch && cd integration_tests && dbt deps && dbt seed && dbt run --select +zendesk__ticket_summary && dbt test --select ticket_summary_unreplied_count_match --vars '{fivetran_validation_tests_enabled: true}'
+
+[0m15:53:00  Running with dbt=1.12.7
+[0m15:53:01  Updating lock file in file path: /home/runner/work/_temp/clones/dbt_zendesk/integration_tests/package-lock.yml
+[0m15:53:01  Installing ../
+[0m15:53:01  Installed from <local @ ../>
+[0m15:53:01  Installing fivetran/fivetran_utils
+[0m15:53:01  Installed from version 0.4.14
+[0m15:53:01  Up to date!
+[0m15:53:01  Installing dbt-labs/spark_utils
+[0m15:53:01  Installed from version 0.3.5
+[0m15:53:01  Up to date!
+[0m15:53:01  Installing dbt-labs/dbt_utils
+[0m15:53:01  Installed from version 1.4.1
+[0m15:53:01  Up to date!
+[0m15:53:03  Running with dbt=1.12.7
+[0m15:53:03  Registered adapter: duckdb=1.11.1
+[0m15:53:03  Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m15:53:08  Found 23 seeds, 88 models, 1 operation, 13 data tests, 20 sources, 807 macros
+[0m15:53:08  
+[0m15:53:08  Concurrency: 1 threads (target='dev')
+[0m15:53:08  
+[0m15:53:08  1 of 1 START hook: zendesk.on-run-start.0 ...................................... [RUN]
+[0m15:53:08  1 of 1 OK hook: zendesk.on-run-start.0 ......................................... [[32mOK[0m in 0.01s]
+[0m15:53:08  
+[0m15:53:08  1 of 23 START seed file zendesk_integration_tests.audit_log_data ............... [RUN]
+[0m15:53:09  1 of 23 OK loaded seed file zendesk_integration_tests.audit_log_data ........... [[32mINSERT 11[0m in 0.10s]
+[0m15:53:09  2 of 23 START seed file zendesk_integration_tests.brand_data ................... [RUN]
+[0m15:53:09  2 of 23 OK loaded seed file zendesk_integration_tests.brand_data ............... [[32mINSERT 1[0m in 0.02s]
+[0m15:53:09  3 of 23 START seed file zendesk_integration_tests.daylight_time_data ........... [RUN]
+[0m15:53:09  3 of 23 OK loaded seed file zendesk_integration_tests.daylight_time_data ....... [[32mINSERT 2[0m in 0.02s]
+[0m15:53:09  4 of 23 START seed file zendesk_integration_tests.domain_name_data ............. [RUN]
+[0m15:53:09  4 of 23 OK loaded seed file zendesk_integration_tests.domain_name_data ......... [[32mINSERT 10[0m in 0.02s]
+[0m15:53:09  5 of 23 START seed file zendesk_integration_tests.group_data ................... [RUN]
+[0m15:53:09  5 of 23 OK loaded seed file zendesk_integration_tests.group_data ............... [[32mINSERT 8[0m in 0.02s]
+[0m15:53:09  6 of 23 START seed file zendesk_integration_tests.organization_data ............ [RUN]
+[0m15:53:09  6 of 23 OK loaded seed file zendesk_integration_tests.organization_data ........ [[32mINSERT 10[0m in 0.02s]
+[0m15:53:09  7 of 23 START seed file zendesk_integration_tests.organization_tag_data ........ [RUN]
+[0m15:53:09  7 of 23 OK loaded seed file zendesk_integration_tests.organization_tag_data .... [[32mINSERT 12[0m in 0.02s]
+[0m15:53:09  8 of 23 START seed file zendesk_integration_tests.schedule_data ................ [RUN]
+[0m15:53:09  8 of 23 OK loaded seed file zendesk_integration_tests.schedule_data ............ [[32mINSERT 10[0m in 0.02s]
+[0m15:53:09  9 of 23 START seed file zendesk_integration_tests.schedule_holiday_data ........ [RUN]
+[0m15:53:09  9 of 23 OK loaded seed file zendesk_integration_tests.schedule_holiday_data .... [[32mINSERT 2[0m in 0.02s]
+[0m15:53:09  10 of 23 START seed file zendesk_integration_tests.sla_policy_metric_history_data  [RUN]
+[0m15:53:09  10 of 23 OK loaded seed file zendesk_integration_tests.sla_policy_metric_history_data  [[32mINSERT 22[0m in 0.02s]
+[0m15:53:09  11 of 23 START seed file zendesk_integration_tests.ticket_chat_data ............ [RUN]
+[0m15:53:09  11 of 23 OK loaded seed file zendesk_integration_tests.ticket_chat_data ........ [[32mINSERT 10[0m in 0.02s]
+[0m15:53:09  12 of 23 START seed file zendesk_integration_tests.ticket_chat_event_data ...... [RUN]
+[0m15:53:09  12 of 23 OK loaded seed file zendesk_integration_tests.ticket_chat_event_data .. [[32mINSERT 12[0m in 0.02s]
+[0m15:53:09  13 of 23 START seed file zendesk_integration_tests.ticket_comment_data ......... [RUN]
+[0m15:53:09  13 of 23 OK loaded seed file zendesk_integration_tests.ticket_comment_data ..... [[32mINSERT 35[0m in 0.02s]
+[0m15:53:09  14 of 23 START seed file zendesk_integration_tests.ticket_custom_field_data .... [RUN]
+[0m15:53:09  14 of 23 OK loaded seed file zendesk_integration_tests.ticket_custom_field_data  [[32mINSERT 8[0m in 0.02s]
+[0m15:53:09  15 of 23 START seed file zendesk_integration_tests.ticket_data ................. [RUN]
+[0m15:53:09  15 of 23 OK loaded seed file zendesk_integration_tests.ticket_data ............. [[32mINSERT 15[0m in 0.03s]
+[0m15:53:09  16 of 23 START seed file zendesk_integration_tests.ticket_field_history_data ... [RUN]
+[0m15:53:09  16 of 23 OK loaded seed file zendesk_integration_tests.ticket_field_history_data  [[32mINSERT 73[0m in 0.02s]
+[0m15:53:09  17 of 23 START seed file zendesk_integration_tests.ticket_form_history_data .... [RUN]
+[0m15:53:09  17 of 23 OK loaded seed file zendesk_integration_tests.ticket_form_history_data  [[32mINSERT 15[0m in 0.02s]
+[0m15:53:09  18 of 23 START seed file zendesk_integration_tests.ticket_schedule_data ........ [RUN]
+[0m15:53:09  18 of 23 OK loaded seed file zendesk_integration_tests.ticket_schedule_data .... [[32mINSERT 11[0m in 0.02s]
+[0m15:53:09  19 of 23 START seed file zendesk_integration_tests.ticket_sla_policy_data ...... [RUN]
+[0m15:53:09  19 of 23 OK loaded seed file zendesk_integration_tests.ticket_sla_policy_data .. [[32mINSERT 10[0m in 0.02s]
+[0m15:53:09  20 of 23 START seed file zendesk_integration_tests.ticket_tag_data ............. [RUN]
+[0m15:53:09  20 of 23 OK loaded seed file zendesk_integration_tests.ticket_tag_data ......... [[32mINSERT 10[0m in 0.02s]
+[0m15:53:09  21 of 23 START seed file zendesk_integration_tests.time_zone_data .............. [RUN]
+[0m15:53:09  21 of 23 OK loaded seed file zendesk_integration_tests.time_zone_data .......... [[32mINSERT 2[0m in 0.03s]
+[0m15:53:09  22 of 23 START seed file zendesk_integration_tests.user_data ................... [RUN]
+[0m15:53:09  22 of 23 OK loaded seed file zendesk_integration_tests.user_data ............... [[32mINSERT 11[0m in 0.03s]
+[0m15:53:09  23 of 23 START seed file zendesk_integration_tests.user_tag_data ............... [RUN]
+[0m15:53:09  23 of 23 OK loaded seed file zendesk_integration_tests.user_tag_data ........... [[32mINSERT 10[0m in 0.02s]
+[0m15:53:09  
+[0m15:53:09  Finished running 1 project hook, 23 seeds in 0 hours 0 minutes and 0.77 seconds (0.77s).
+[0m15:53:09  
+[0m15:53:09  [32mCompleted successfully[0m
+[0m15:53:09  
+[0m15:53:09  Done. PASS=24 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=24
+[0m15:53:11  Running with dbt=1.12.7
+[0m15:53:12  Registered adapter: duckdb=1.11.1
+[0m15:53:13  Found 23 seeds, 88 models, 1 operation, 13 data tests, 20 sources, 807 macros
+[0m15:53:13  
+[0m15:53:13  Concurrency: 1 threads (target='dev')
+[0m15:53:13  
+[0m15:53:13  1 of 1 START hook: zendesk.on-run-start.0 ...................................... [RUN]
+[0m15:53:13  1 of 1 OK hook: zendesk.on-run-start.0 ......................................... [[32mOK[0m in 0.01s]
+[0m15:53:13  
+[0m15:53:13  1 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__brand_tmp  [RUN]
+[0m15:53:13  1 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__brand_tmp  [[32mOK[0m in 0.15s]
+[0m15:53:13  2 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__daylight_time_tmp  [RUN]
+[0m15:53:13  2 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__daylight_time_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  3 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__domain_name_tmp  [RUN]
+[0m15:53:13  3 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__domain_name_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  4 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__group_tmp  [RUN]
+[0m15:53:13  4 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__group_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  5 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__organization_tag_tmp  [RUN]
+[0m15:53:13  5 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__organization_tag_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  6 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__organization_tmp  [RUN]
+[0m15:53:13  6 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__organization_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  7 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__schedule_holiday_tmp  [RUN]
+[0m15:53:13  7 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__schedule_holiday_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  8 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__schedule_tmp  [RUN]
+[0m15:53:13  8 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__schedule_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  9 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_comment_tmp  [RUN]
+[0m15:53:13  9 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_comment_tmp  [[32mOK[0m in 0.12s]
+[0m15:53:13  10 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_field_history_tmp  [RUN]
+[0m15:53:13  10 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_field_history_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  11 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_form_history_tmp  [RUN]
+[0m15:53:13  11 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_form_history_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  12 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_schedule_tmp  [RUN]
+[0m15:53:13  12 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_schedule_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  13 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_tag_tmp  [RUN]
+[0m15:53:13  13 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_tag_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  14 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_tmp  [RUN]
+[0m15:53:13  14 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  15 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__time_zone_tmp  [RUN]
+[0m15:53:13  15 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__time_zone_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:13  16 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__user_tag_tmp  [RUN]
+[0m15:53:14  16 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__user_tag_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:14  17 of 54 START sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__user_tmp  [RUN]
+[0m15:53:14  17 of 54 OK created sql view model zendesk_integration_tests_zendesk_dev.stg_zendesk__user_tmp  [[32mOK[0m in 0.03s]
+[0m15:53:14  18 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__brand  [RUN]
+[0m15:53:14  18 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__brand  [[32mOK[0m in 0.16s]
+[0m15:53:14  19 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__daylight_time  [RUN]
+[0m15:53:14  19 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__daylight_time  [[32mOK[0m in 0.06s]
+[0m15:53:14  20 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__domain_name  [RUN]
+[0m15:53:14  20 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__domain_name  [[32mOK[0m in 0.05s]
+[0m15:53:14  21 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__group  [RUN]
+[0m15:53:14  [[33mWARNING[0m]: In relation "dbt"."zendesk_integration_tests_zendesk_dev"."stg_zendesk__group": The following columns are specified in the schema but are not present in the database: external_id, created_at, updated_at
+[0m15:53:14  21 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__group  [[32mOK[0m in 0.06s]
+[0m15:53:14  22 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__organization_tag  [RUN]
+[0m15:53:14  [[33mWARNING[0m]: In relation "dbt"."zendesk_integration_tests_zendesk_dev"."stg_zendesk__organization_tag": The following columns are specified in the schema but are not present in the database: tag
+[0m15:53:14  22 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__organization_tag  [[32mOK[0m in 0.06s]
+[0m15:53:14  23 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__organization  [RUN]
+[0m15:53:14  23 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__organization  [[32mOK[0m in 0.07s]
+[0m15:53:14  24 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__schedule_holiday  [RUN]
+[0m15:53:14  [[33mWARNING[0m]: In relation "dbt"."zendesk_integration_tests_zendesk_dev"."stg_zendesk__schedule_holiday": The following columns are specified in the schema but are not present in the database: end_date_at, start_date_at
+[0m15:53:14  24 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__schedule_holiday  [[32mOK[0m in 0.07s]
+[0m15:53:14  25 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__schedule  [RUN]
+[0m15:53:14  25 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__schedule  [[32mOK[0m in 0.06s]
+[0m15:53:14  26 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_comment  [RUN]
+[0m15:53:14  26 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_comment  [[32mOK[0m in 0.07s]
+[0m15:53:14  27 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_field_history  [RUN]
+[0m15:53:14  27 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_field_history  [[32mOK[0m in 0.06s]
+[0m15:53:14  28 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_form_history  [RUN]
+[0m15:53:14  28 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_form_history  [[32mOK[0m in 0.06s]
+[0m15:53:14  29 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_schedule  [RUN]
+[0m15:53:14  29 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_schedule  [[32mOK[0m in 0.05s]
+[0m15:53:14  30 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_tag  [RUN]
+[0m15:53:14  30 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket_tag  [[32mOK[0m in 0.06s]
+[0m15:53:14  31 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket  [RUN]
+[0m15:53:15  31 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__ticket  [[32mOK[0m in 0.10s]
+[0m15:53:15  32 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__time_zone  [RUN]
+[0m15:53:15  32 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__time_zone  [[32mOK[0m in 0.06s]
+[0m15:53:15  33 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__user_tag  [RUN]
+[0m15:53:15  33 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__user_tag  [[32mOK[0m in 0.05s]
+[0m15:53:15  34 of 54 START sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__user  [RUN]
+[0m15:53:15  34 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.stg_zendesk__user  [[32mOK[0m in 0.08s]
+[0m15:53:15  35 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__organization_aggregates  [RUN]
+[0m15:53:15  35 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__organization_aggregates  [[32mOK[0m in 0.03s]
+[0m15:53:15  36 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__latest_ticket_form  [RUN]
+[0m15:53:15  36 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__latest_ticket_form  [[32mOK[0m in 0.03s]
+[0m15:53:15  37 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_aggregates  [RUN]
+[0m15:53:15  37 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_aggregates  [[32mOK[0m in 0.03s]
+[0m15:53:15  38 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_schedules  [RUN]
+[0m15:53:15  38 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_schedules  [[32mOK[0m in 0.04s]
+[0m15:53:15  39 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__updates  [RUN]
+[0m15:53:15  39 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__updates  [[32mOK[0m in 0.03s]
+[0m15:53:15  40 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__user_aggregates  [RUN]
+[0m15:53:15  40 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__user_aggregates  [[32mOK[0m in 0.03s]
+[0m15:53:15  41 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__assignee_updates  [RUN]
+[0m15:53:15  41 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__assignee_updates  [[32mOK[0m in 0.03s]
+[0m15:53:15  42 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__requester_updates  [RUN]
+[0m15:53:15  42 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__requester_updates  [[32mOK[0m in 0.03s]
+[0m15:53:15  43 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_historical_assignee  [RUN]
+[0m15:53:15  43 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_historical_assignee  [[32mOK[0m in 0.04s]
+[0m15:53:15  44 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_historical_group  [RUN]
+[0m15:53:15  44 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_historical_group  [[32mOK[0m in 0.02s]
+[0m15:53:15  45 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_historical_satisfaction  [RUN]
+[0m15:53:15  45 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_historical_satisfaction  [[32mOK[0m in 0.03s]
+[0m15:53:15  46 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_historical_status  [RUN]
+[0m15:53:15  46 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_historical_status  [[32mOK[0m in 0.03s]
+[0m15:53:15  47 of 54 START sql table model zendesk_integration_tests_zendesk_dev.zendesk__ticket_enriched  [RUN]
+[0m15:53:15  47 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.zendesk__ticket_enriched  [[32mOK[0m in 0.12s]
+[0m15:53:15  48 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__schedule_spine  [RUN]
+[0m15:53:15  48 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__schedule_spine  [[32mOK[0m in 0.11s]
+[0m15:53:16  49 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__comment_metrics  [RUN]
+[0m15:53:16  49 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__comment_metrics  [[32mOK[0m in 0.07s]
+[0m15:53:16  50 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_resolution_time_business_combined  [RUN]
+[0m15:53:16  50 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_resolution_time_business_combined  [[32mOK[0m in 0.10s]
+[0m15:53:16  51 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_work_time_business  [RUN]
+[0m15:53:16  51 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_work_time_business  [[32mOK[0m in 0.05s]
+[0m15:53:16  52 of 54 START sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_first_reply_time_business  [RUN]
+[0m15:53:16  52 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.int_zendesk__ticket_first_reply_time_business  [[32mOK[0m in 0.08s]
+[0m15:53:16  53 of 54 START sql table model zendesk_integration_tests_zendesk_dev.zendesk__ticket_metrics  [RUN]
+[0m15:53:16  53 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.zendesk__ticket_metrics  [[32mOK[0m in 0.22s]
+[0m15:53:16  54 of 54 START sql table model zendesk_integration_tests_zendesk_dev.zendesk__ticket_summary  [RUN]
+[0m15:53:16  54 of 54 OK created sql table model zendesk_integration_tests_zendesk_dev.zendesk__ticket_summary  [[32mOK[0m in 0.06s]
+[0m15:53:16  
+[0m15:53:16  Finished running 1 project hook, 37 table models, 17 view models in 0 hours 0 minutes and 3.50 seconds (3.50s).
+[0m15:53:16  
+[0m15:53:16  [32mCompleted successfully[0m
+[0m15:53:16  
+[0m15:53:16  Done. PASS=55 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=55
+[0m15:53:18  Running with dbt=1.12.7
+[0m15:53:19  Registered adapter: duckdb=1.11.1
+[0m15:53:19  Unable to do partial parsing because config vars, config profile, or config target have changed
+[0m15:53:24  Found 25 data tests, 23 seeds, 88 models, 1 operation, 20 sources, 807 macros
+[0m15:53:24  
+[0m15:53:24  Concurrency: 1 threads (target='dev')
+[0m15:53:24  
+[0m15:53:24  1 of 1 START hook: zendesk.on-run-start.0 ...................................... [RUN]
+[0m15:53:24  1 of 1 OK hook: zendesk.on-run-start.0 ......................................... [[32mOK[0m in 0.01s]
+[0m15:53:24  
+[0m15:53:24  1 of 1 START test ticket_summary_unreplied_count_match ......................... [RUN]
+[0m15:53:24  1 of 1 PASS ticket_summary_unreplied_count_match ............................... [[32mPASS[0m in 0.05s]
+[0m15:53:24  
+[0m15:53:24  Finished running 1 project hook, 1 test in 0 hours 0 minutes and 0.19 seconds (0.19s).
+[0m15:53:25  
+[0m15:53:25  [32mCompleted successfully[0m
+[0m15:53:25  
+[0m15:53:25  Done. PASS=2 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=2

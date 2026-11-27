@@ -4,6 +4,33 @@ Each use case below says who it's for, what goes wrong today, and the exact comm
 
 ---
 
+## 0. Review an agent's pull request in one step
+
+**Who:** anyone whose AI agent opens pull requests against data code.
+
+**What goes wrong today:** the PR touches a dbt model, a pandas function and a job script; CI runs the existing tests, which don't cover what changed, and the reviewer reads the diff.
+
+**With fixwitness:** one check covers every changed file, each the way that fits it, and comments on the pull request with a row per file.
+
+```bash
+fixwitness check --base main --no-attacks
+```
+
+```yaml
+# .github/workflows/fixwitness.yml
+on: pull_request
+permissions: {contents: read, pull-requests: write}
+jobs:
+  fixwitness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: batrarishab14/fixwitness@v0.6.0
+        with: {install: "duckdb,dbt,pandas", args: "--no-attacks"}
+```
+
+---
+
 ## 1. Gate the repairs of a self-healing pipeline
 
 **Who:** data platform teams running agents that fix failed jobs automatically.
@@ -106,3 +133,52 @@ Whether this satisfies a specific control or regulation is for your auditors to 
 **What goes wrong today:** there's no data on how often the agent's "fixed" is actually right on your kind of code.
 
 **With fixwitness:** run the benchmark prompts through your agent, drop its answers into `benchmark/agents/<agent>/`, and get a table of which fixes pass and why. See [benchmark/README.md](../benchmark/README.md).
+
+---
+
+## 7. Migrate pandas to polars or PySpark, or a warehouse to another
+
+**Who:** teams moving DataFrame code to a faster library, or SQL from one warehouse to another.
+
+**What goes wrong today:** the rewrite is checked on today's data, where it matches. The usual slips are about missing values: pandas `size()` (rows) translated to polars `count()` (non-null values), or a polars `group_by` that keeps the null group pandas `groupby` drops.
+
+**With fixwitness:** each side runs with the library or dialect it is written in, on the same generated tables.
+
+```bash
+# the original imports pandas, the rewrite imports polars: each is called with its own DataFrames
+fixwitness check --before etl/revenue_pandas.py --after etl/revenue_polars.py --function revenue \
+  --table orders=data/orders.csv --table customers=data/customers.csv
+
+# a Snowflake model refactored: translated with sqlglot, run on DuckDB
+fixwitness check models/revenue.sql --dialect snowflake --table orders=seeds/orders.csv
+```
+
+---
+
+## 8. A change anywhere in a dbt project
+
+**Who:** analytics engineers whose agent edits a staging model.
+
+**What goes wrong today:** the staging model's own test passes; nobody compares the marts built on it.
+
+**With fixwitness:** point it at the models folder. Every model runs in dependency order, and the final models (those no other model reads) are compared.
+
+```bash
+fixwitness check models/ --table orders=seeds/orders.csv --table customers=seeds/customers.csv
+fixwitness check models/ --sql-outputs revenue,churn ...   # or name the models to compare
+```
+
+---
+
+## 9. Jobs that read JSON or Parquet
+
+**Who:** teams whose jobs read event streams (JSON Lines), API responses (JSON) or lake files (Parquet).
+
+**What goes wrong today:** a refactor reads `e["status"]` where the original read `e.get("status")`, or wraps a value in `float()`. Today's events all have the key and small numbers, so nothing shows.
+
+**With fixwitness:** cases leave a key out, set it to `null`, write a number as a string or with 30 digits, add keys and reverse key order. JSON and Parquet outputs are compared by value.
+
+```bash
+fixwitness check etl/events.py --sample data/events.jsonl --no-attacks
+fixwitness check etl/orders.py --sample data/orders.parquet --no-attacks   # needs pyarrow
+```
