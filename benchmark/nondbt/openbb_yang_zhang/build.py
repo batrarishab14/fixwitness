@@ -1,4 +1,4 @@
-"""Rebuild the OpenBB Yang-Zhang case from a clone of OpenBB (their code is AGPL, so it is not copied here).
+"""Rebuild the OpenBB Yang-Zhang case from a clone of OpenBB (their code is Apache-2.0; it is rebuilt from their repo rather than copied here).
 
     git clone https://github.com/OpenBB-finance/OpenBB && python build.py OpenBB OUTDIR
     fixwitness check --before OUTDIR/before.py --after OUTDIR/after.py --sample OUTDIR/sample.csv --no-attacks
