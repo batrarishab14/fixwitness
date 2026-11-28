@@ -158,3 +158,14 @@ table (fails), new code under 40 MB (passes).
 Guard: `run_study.py --memory-gb` (default 8) caps each candidate's address space, so a candidate that
 runs out of memory is recorded "not checked: could not run: out of memory" instead of ending the shard.
 Verified against the old code with `--memory-gb 3`: recorded in 13 s, shard continued.
+
+## 27 Nov 2026: self-diagnosing check ("not exercisable with this data")
+- New `src/fixwitness/exercise.py`; a PASS becomes INCONCLUSIVE when the change tests a value no input has, sits under
+  an OR-free WHERE that keeps only such rows, or uses a column empty in every input (scoped to the tables the changed
+  models read). `--no-exercise-check` / `exercise_check = false` turns it off. Proof field `exercise`; replayable.
+- Local: 155 passed, 16 skipped (DuckDB not installed here). Existing tests exposed 3 false alarms (dbt config(), pandas
+  kwarg, shell-to-Python rewrite); fixed, with regression tests.
+- Real-data check (seeds only, raw model SQL, not the full generated cases) on dbt_quickbooks: v0.5.3 flagged for
+  Accounts Payable/Receivable/UndepositedFunds (verified: no such seed rows); v0.9.1 flagged on `credit` (probably
+  a seeds-only artifact); v0.12.2, v0.14.1, v1.6.2, v1.9.2 not flagged; refactor v1.8.1 not flagged. Other packages
+  and the full-case run are NOT yet measured: CI `data` run and a study re-run are the next verification.
