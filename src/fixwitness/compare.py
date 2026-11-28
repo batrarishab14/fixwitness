@@ -42,6 +42,14 @@ def _mask(value: str, patterns: list[re.Pattern]) -> str:
     return value
 
 
+def _both_zero(a: str, b: str) -> bool:
+    """"-0.0" and "0.0" (the sign of a zero) are the same number: not a difference in the data."""
+    try:
+        return float(a) == 0.0 and float(b) == 0.0
+    except ValueError:
+        return False
+
+
 def _num_equal(a: str, b: str, tol: float) -> bool:
     try:
         x, y = float(a), float(b)
@@ -168,7 +176,7 @@ def _csv_details(header: list[str], b: list[list[str]], a: list[list[str]], opts
         for c in range(max(len(rb), len(ra))):
             vb = rb[c] if c < len(rb) else "<missing>"
             va = ra[c] if c < len(ra) else "<missing>"
-            if vb == va or (opts.tolerance and _num_equal(vb, va, opts.tolerance)):
+            if vb == va or _both_zero(vb, va) or (opts.tolerance and _num_equal(vb, va, opts.tolerance)):
                 continue
             name = header[c] if c < len(header) else f"col{c}"
             details.append(f"row {r}, {name}: {_short(vb)!r} -> {_short(va)!r}")

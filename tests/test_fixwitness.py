@@ -2255,6 +2255,49 @@ class DbtProjectTests(TempDirTest):
         self.assertEqual(left, 0)
 
 
+class RobustnessFindingsTests(TempDirTest):
+    """A data change that only crashes on malformed text (" 42 ", 2_500) is a robustness finding, not a failure."""
+    HEAD = """
+        import csv, re, sys
+        rows = list(csv.reader(open(sys.argv[1], newline="")))
+        w = csv.writer(open(sys.argv[2], "w", newline=""))
+        w.writerow(["total"])
+        vals = []
+        for r in rows[1:]:
+            v = r[0]
+    """
+    def run_pair(self, after_parse, **settings):
+        tail = """
+            vals.append(%s)
+        w.writerow([sum(vals)])
+        """
+        write(self.tmp / "before.py", self.HEAD + tail % "float(v)")
+        write(self.tmp / "after.py", self.HEAD + tail % after_parse)
+        write(self.tmp / "sample.csv", "amount\n1\n2\n3\n4\n")
+        os.chdir(self.tmp)
+        return self.check(before="before.py", after="after.py", sample="sample.csv", attacks=False, **settings)
+
+    STRICT_PARSE = "float(v) if re.fullmatch(r'-?[0-9]+([.][0-9]+)?', v) else int('x')"
+
+    def test_a_crash_on_malformed_text_is_reported_but_does_not_fail(self):
+        result = self.run_pair(self.STRICT_PARSE)
+        self.assertEqual(result["verdict"], "PASS")
+        self.assertGreater(result["behavior"]["review_differences"], 0)
+
+    def test_strict_robustness_makes_it_a_failure(self):
+        result = self.run_pair(self.STRICT_PARSE, strict_robustness=True)
+        self.assertEqual(result["verdict"], "FAIL")
+
+    def test_a_changed_value_still_fails(self):
+        result = self.run_pair("float(v) * 1.5")
+        self.assertEqual(result["verdict"], "FAIL")
+
+    def test_the_sign_of_a_zero_is_not_a_difference(self):
+        from fixwitness.compare import CompareOptions, compare
+        self.assertEqual(compare(b"x\n0.0\n", b"x\n-0.0\n", CompareOptions(mode="csv"))[0], "same-data")
+        self.assertEqual(compare(b"x\n0.0\n", b"x\n0.5\n", CompareOptions(mode="csv"))[0], "changed")
+
+
 class RollingWindowRowsTests(TempDirTest):
     """Code that needs N rows writes nothing for fewer, so a 3-row case compared empty with empty."""
     SCRIPT = """

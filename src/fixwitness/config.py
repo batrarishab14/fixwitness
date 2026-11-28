@@ -64,6 +64,9 @@ class Config:
     # A PASS on code no input reached proves nothing: report "not exercisable with this data" instead
     # (INCONCLUSIVE) when the change tests a value no input has, or uses a column that is empty everywhere
     exercise_check: bool = True
+    # A data change (attacks off) that crashes on a malformed-text input the original ran (a number written 2_500,
+    # padded with spaces ...) is reported as a robustness finding, not a failure; a changed VALUE always fails.
+    strict_robustness: bool = False
     # Differences someone marked as intended ([[accept]] in fixwitness.toml): inputs of that category
     # (and column) for that target are reported as "reviewed", not failed.
     accept: list[dict] | None = None

@@ -65,8 +65,13 @@ def _compile_patterns(patterns: list[str]) -> list[re.Pattern]:
     return compiled
 
 
+# Malformed-text inputs: a data change that only crashes on these (the original ran them) is a robustness finding.
+ROBUSTNESS_CRASH_CATEGORIES = frozenset({"numeric-format", "whitespace", "pairs", "delimiter-mix", "shell-metachar",
+                                         "csv-structure", "unicode", "long", "punctuation", "quotes", "date-format"})
+
+
 def _evaluate(case: Case, before: RunResult, after: RunResult, opts: CompareOptions,
-              expected: CompareOptions | None = None) -> tuple[dict, list[str]]:
+              expected: CompareOptions | None = None, robustness_as_review: bool = False) -> tuple[dict, list[str]]:
     entry = {
         "id": case.id, "category": case.category, "kind": case.kind, "column": case.column,
         "family": case.family, "value": _short(case.value),
@@ -84,6 +89,8 @@ def _evaluate(case: Case, before: RunResult, after: RunResult, opts: CompareOpti
         status = "after-failed"
         details.append("the fix failed where the original worked: "
                        + (after.error or ("timed out" if after.timed_out else _tail(after.stderr)) or "no output"))
+        if robustness_as_review and case.kind == "valid" and case.category in ROBUSTNESS_CRASH_CATEGORIES:
+            entry["kind"] = "review"  # reported as a robustness finding; --strict-robustness makes it a failure
     else:
         status, details = compare(before.output, after.output, opts)
         if status == "changed" and expected is not None \
@@ -583,6 +590,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
     if server is not None:
         inv_b, inv_a = server[1](inv_b), server[1](inv_a)
 
+    robustness = not cfg.attacks and not cfg.strict_robustness and plan.output == "csv"
+
     def one(case: Case):
         case_dir = plan.work / "cases" / case.id
         b = run_side(inv_b, plan.before, case_dir, case.content, case.canary, case.oracle, plan.canary_dir)
@@ -602,7 +611,7 @@ def _run(plan: Plan, cfg: Config) -> dict:
             n_in, n_out = _data_rows(case.content), _data_rows(b.output)
             if n_in is not None and n_out is not None:
                 rows = (n_in, n_out)
-        entry, details = _evaluate(case, b, a, opts, expected_opts)
+        entry, details = _evaluate(case, b, a, opts, expected_opts, robustness)
         if again is not None and entry["status"] == "changed" and again.ok and again.output is not None:
             st, det = compare(b.output, again.output, opts)
             if st == "changed":

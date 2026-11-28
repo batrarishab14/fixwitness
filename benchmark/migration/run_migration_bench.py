@@ -154,9 +154,12 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=3)
     ap.add_argument("--only", default="")
     ap.add_argument("--sample-rows", type=int, default=20)
+    ap.add_argument("--work", default="/tmp/fw-migration-work", help="working folder; finished migrations are kept here, "
+                    "so a run that is killed resumes where it stopped")
     args = ap.parse_args()
     only = {x for x in args.only.split(",") if x}
-    root = Path(tempfile.mkdtemp(prefix="fw-migration-"))
+    root = Path(args.work)
+    root.mkdir(parents=True, exist_ok=True)
     big = root / "big.csv"
     big.write_text(make_data(3000, 7))
     sample = root / "sample.csv"
@@ -167,7 +170,7 @@ def main() -> int:
         if only and not any(task.startswith(o) for o in only):
             continue
         d = root / task
-        d.mkdir()
+        d.mkdir(exist_ok=True)
         (d / "original.py").write_text(HEAD_PD + orig_body)
         for name, (correct, models, body) in variants.items():
             (d / f"{name}.py").write_text(HEAD_PL + body)
@@ -189,11 +192,16 @@ def main() -> int:
 
     def check(r):
         a, b = r["dir"] / "original.py", r["dir"] / f"{r['variant']}.py"
+        done = r["dir"] / f"{r['variant']}.result.json"
+        if done.exists():  # finished in an earlier (killed) run
+            return {**r, **json.loads(done.read_text())}
         res = fixwitness(a, b, sample, r["dir"] / f"w_{r['variant']}")
         tuned = fixwitness(a, b, sample, r["dir"] / f"t_{r['variant']}", TUNED_REVIEW)
         tuned2 = fixwitness(a, b, sample, r["dir"] / f"u_{r['variant']}", TUNED2_REVIEW)
-        return {**r, **res, "verdict_tuned": tuned["verdict"], "changed_tuned": tuned["changed"],
-                "verdict_tuned2": tuned2["verdict"], "changed_tuned2": tuned2["changed"]}
+        out = {**res, "verdict_tuned": tuned["verdict"], "changed_tuned": tuned["changed"],
+               "verdict_tuned2": tuned2["verdict"], "changed_tuned2": tuned2["changed"]}
+        done.write_text(json.dumps(out))
+        return {**r, **out}
 
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         results = list(pool.map(check, rows))
