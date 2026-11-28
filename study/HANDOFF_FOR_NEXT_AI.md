@@ -97,3 +97,19 @@ Whether to start with step 4 (find still-open bugs in popular non-dbt products) 
   (0.2360679...), and 0.65 is not a standard level (0.786 is). Effect: the 23.5% level is off by 0.1% of the price range. It has been in the code since OpenBB Platform v4 (2023).
   Also hard-coded in the charting plugin and a test constant. Low impact; whether upstream already knows is UNVERIFIED (issues not searchable from the sandbox). Do not open anything without the user's approval.
 - Conclusion: reading well-reviewed formulas finds little. Better yield needs either tools on code nobody has reviewed, or contributing where maintainers already want fixes.
+
+## 11. UPDATE 28 Nov ~05:30 UTC: where things stand (supersedes anything above that says otherwise)
+- MERGED into main (c3dcd2c, CI green): PR #1, PR #2 (memory fix + rolling-window fix), PR #3 (`exercise-check`). Still UNMERGED: `exercise-synthesis`, `mutation-bench`.
+- Working branch `claude/fixwitness-memory-leak-8ej3fi` (head 69d99f3 or later, ahead of main, NO open PR yet) holds: migration benchmark (benchmark/migration/), CTO review (study/CTO_REVIEW_2026-11-28.md,
+  the 90-day plan E1-E6/A1-A3/R1-R2), and E1 part 1: a data change that only CRASHES on malformed-text input (categories numeric-format, whitespace, pairs, delimiter-mix, shell-metachar, csv-structure,
+  unicode, long, punctuation, quotes, date-format) is a robustness finding (review), not a FAIL; changed values still FAIL; `--strict-robustness` restores the old behaviour; "-0.0" == "0.0".
+- Why not "ignore all malformed-text categories": hand-read study catches: 2 of 22 confirmed catches (fivetran_log@v1.4.1, stripe@v0.14.1) show only such categories in run 5, so a blunt rule could lose them.
+- E1 NOT yet verified: the migration benchmark must show correct pandas->Polars rewrites PASS and wrong ones FAIL, and the study must show no lost catches / no new false alarms.
+- IN-FLIGHT runs (the container restarts now and then and kills background jobs; they are RESUMABLE, finished variants are kept):
+  1. baseline, OLD code (main checkout): `cd /home/user/fixwitness && python benchmark/migration/run_migration_bench.py --workers 4` (work dir /tmp/fw-migration-work, log mig_run4.log in the scratchpad)
+  2. E1, NEW code: `cd <worktree of 69d99f3> && PYTHONPATH=<worktree>/src python benchmark/migration/run_migration_bench.py --workers 2 --work /tmp/fw-migration-work-e1`
+  Each writes benchmark/migration/results.csv and prints three settings (default, tuned, tuned2). Commit the results with a short RESULTS.md (verified numbers only). Run 1 (old code, two settings) is saved as
+  benchmark/migration/results_run1_two_settings.csv: 9/9 wrong migrations caught, 8/8 CORRECT migrations also flagged (false alarms), sample test caught 8/9.
+- Do NOT edit src/ in /home/user/fixwitness while run 1 is going (it executes that tree); develop in a `git worktree` with PYTHONPATH.
+- Next: compare the two runs; if E1 works, run the study refactor + bug candidates on the branch; then E2 (precondition synthesis, merge/re-validate exercise-synthesis), E3 honest confidence, E4 speed, E5 nightly corpus, E6 PR Action.
+- User decisions pending: merge exercise-synthesis / mutation-bench; Zendesk #284 PR; PyPI release; Pages; open issue links for a second upstream fix (I cannot read issues on other repos).
