@@ -40,6 +40,8 @@ HEAD_PL = ("import sys\nimport polars as pl\n"
            "                 null_values=['', 'NA', 'N/A', 'NULL', 'null', 'NaN', 'nan', 'None', 'n/a', '#N/A'])\n")
 # Text-format edge cases (the number 2_500, shell characters ...) that a user migrating to Polars may decide not to care about.
 TUNED_REVIEW = "numeric-format,delimiter-mix,shell-metachar,csv-structure,unicode,long,punctuation,quotes"
+# ... and padded numbers and decimal pairs (pandas accepts " 42 " and 0.005 in an integer column; a pinned Polars schema does not).
+TUNED2_REVIEW = TUNED_REVIEW + ",whitespace,pairs"
 
 # task -> (original pandas body, {variant name: (is_correct, what it models, polars body)})
 TASKS = {
@@ -189,13 +191,16 @@ def main() -> int:
         a, b = r["dir"] / "original.py", r["dir"] / f"{r['variant']}.py"
         res = fixwitness(a, b, sample, r["dir"] / f"w_{r['variant']}")
         tuned = fixwitness(a, b, sample, r["dir"] / f"t_{r['variant']}", TUNED_REVIEW)
-        return {**r, **res, "verdict_tuned": tuned["verdict"], "changed_tuned": tuned["changed"]}
+        tuned2 = fixwitness(a, b, sample, r["dir"] / f"u_{r['variant']}", TUNED2_REVIEW)
+        return {**r, **res, "verdict_tuned": tuned["verdict"], "changed_tuned": tuned["changed"],
+                "verdict_tuned2": tuned2["verdict"], "changed_tuned2": tuned2["changed"]}
 
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         results = list(pool.map(check, rows))
     for r in results:
         r["fixwitness_catches"] = r["verdict"] == "FAIL"
         r["tuned_catches"] = r["verdict_tuned"] == "FAIL"
+        r["tuned2_catches"] = r["verdict_tuned2"] == "FAIL"
         r.pop("dir")
     out = HERE / "results.csv"
     with out.open("w", newline="", encoding="utf-8") as fh:
@@ -204,13 +209,14 @@ def main() -> int:
         w.writerows(results)
     wrong = [r for r in results if r["really_different"]]
     right = [r for r in results if r["correct"]]
-    print(f"{'task':22} {'variant':18} correct really_diff sample_test default tuned")
+    print(f"{'task':22} {'variant':18} correct really_diff sample_test default tuned  tuned2")
     for r in results:
-        print(f"{r['task']:22} {r['variant']:18} {r['correct']!s:7} {r['really_different']!s:11} {r['sample_test_catches']!s:11} {r['verdict']:8} {r['verdict_tuned']}")
+        print(f"{r['task']:22} {r['variant']:18} {r['correct']!s:7} {r['really_different']!s:11} {r['sample_test_catches']!s:11} {r['verdict']:8} {r['verdict_tuned']:8} {r['verdict_tuned2']}")
     print(f"\nreally different migrations: {len(wrong)}; caught by sample test {sum(r['sample_test_catches'] for r in wrong)}, "
-          f"by fixwitness default {sum(r['fixwitness_catches'] for r in wrong)}, tuned {sum(r['tuned_catches'] for r in wrong)}")
+          f"by fixwitness default {sum(r['fixwitness_catches'] for r in wrong)}, tuned {sum(r['tuned_catches'] for r in wrong)}, "
+          f"tuned2 {sum(r['tuned2_catches'] for r in wrong)}")
     print(f"correct migrations: {len(right)}; false alarms: default {sum(r['fixwitness_catches'] for r in right)}, "
-          f"tuned {sum(r['tuned_catches'] for r in right)}; verdicts default {sorted({r['verdict'] for r in right})}, tuned {sorted({r['verdict_tuned'] for r in right})}")
+          f"tuned {sum(r['tuned_catches'] for r in right)}, tuned2 {sum(r['tuned2_catches'] for r in right)}; verdicts default {sorted({r['verdict'] for r in right})}, tuned {sorted({r['verdict_tuned'] for r in right})}, tuned2 {sorted({r['verdict_tuned2'] for r in right})}")
     print(f"sample: {args.sample_rows} rows; NULL cust {sum(1 for l in lines[1:args.sample_rows+1] if l.split(',')[1]=='')}, "
           f"NULL amount {sum(1 for l in lines[1:args.sample_rows+1] if l.split(',')[3]=='')}")
     return 0
