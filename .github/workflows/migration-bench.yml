@@ -1,0 +1,32 @@
+name: migration-bench
+# The pandas -> Polars migration benchmark (benchmark/migration/). Runs when its files change on the working
+# branch, or by hand; saves the results to the migration-results branch.
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/fixwitness-memory-leak-8ej3fi]
+    paths: ["benchmark/migration/**", "src/fixwitness/**", ".github/workflows/migration-bench.yml"]
+permissions:
+  contents: write
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet -e . pandas polars
+      - name: Run the benchmark
+        run: python benchmark/migration/run_migration_bench.py --workers 3 --work "$RUNNER_TEMP/work" 2>&1 | tee migration.log
+      - name: Save to the migration-results branch
+        if: always()
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/out && cp migration.log benchmark/migration/results.csv /tmp/out/ 2>/dev/null || true
+          echo "${GITHUB_SHA} $(date -u +%FT%TZ)" > /tmp/out/commit.txt
+          cd /tmp/out && git init -q && git checkout -q -b migration-results && git add -A
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -q -m "Migration benchmark results for ${GITHUB_SHA}"
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" migration-results
