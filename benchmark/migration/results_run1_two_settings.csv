@@ -1,0 +1,18 @@
+task,variant,correct,models,really_different,sample_test_catches,verdict,changed,identical,seconds,error,verdict_tuned,changed_tuned,fixwitness_catches,tuned_catches
+T1-customer-revenue,correct,True,drops the null customer like groupby does,False,False,FAIL,70,230,134,,FAIL,10,True,True
+T1-customer-revenue,keeps_null_group,False,group_by keeps the NULL customer as a group; groupby dropped it,True,False,FAIL,71,229,133,,FAIL,11,True,True
+T1-customer-revenue,len_not_count,False,"pl.len() counts rows, count() counted non-null amounts",True,True,FAIL,206,94,149,,FAIL,61,True,True
+T2-percentiles,correct,True,quantile with linear interpolation,False,False,FAIL,62,224,132,,FAIL,10,True,True
+T2-percentiles,default_quantile,False,"Polars quantile defaults to nearest, pandas to linear",True,True,FAIL,94,192,136,,FAIL,18,True,True
+T3-top-orders,correct,True,"nulls last, like pandas",False,False,FAIL,70,230,128,,FAIL,11,True,True
+T3-top-orders,nulls_first,False,"Polars sorts NULL first by default, pandas last",True,True,FAIL,262,38,154,,FAIL,76,True,True
+T4-spread,correct,True,sample standard deviation (ddof=1),False,False,FAIL,56,231,128,,FAIL,10,True,True
+T4-spread,population_std,False,ddof=0 (numpy habit) instead of the sample deviation,True,True,FAIL,286,1,171,,FAIL,81,True,True
+T5-ratio,correct,True,true division,False,False,FAIL,46,229,135,,FAIL,10,True,True
+T5-ratio,floor_division,False,// truncates where / did not,True,True,FAIL,274,1,175,,FAIL,81,True,True
+T6-fill-missing,correct,True,fill_null(0) kept,False,False,FAIL,56,231,131,,FAIL,10,True,True
+T6-fill-missing,fill_dropped,False,the fillna step was lost in the migration,True,True,FAIL,248,39,170,,FAIL,73,True,True
+T7-first-per-group,correct,True,"keep the first row of each group, ordered by id",False,False,FAIL,68,232,141,,FAIL,11,True,True
+T7-first-per-group,keeps_last,False,keep='last' instead of the first row,True,True,FAIL,70,230,133,,FAIL,13,True,True
+T8-clean-text,correct,True,strip and lower,False,False,FAIL,68,232,104,,FAIL,10,True,True
+T8-clean-text,strip_dropped,False,the strip was lost in the migration,True,True,FAIL,74,226,86,,FAIL,16,True,True
