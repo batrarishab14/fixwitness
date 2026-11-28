@@ -66,8 +66,10 @@ def _compile_patterns(patterns: list[str]) -> list[re.Pattern]:
 
 
 # Malformed-text inputs: a data change that only crashes on these (the original ran them) is a robustness finding.
-ROBUSTNESS_CRASH_CATEGORIES = frozenset({"numeric-format", "whitespace", "pairs", "delimiter-mix", "shell-metachar",
-                                         "csv-structure", "unicode", "long", "punctuation", "quotes", "date-format"})
+# File-structure categories (delimiter-mix, csv-structure, file-structure, schema, header-names) are NOT here: a change
+# that crashes on those fails, and a self-healing repair is judged on exactly that.
+ROBUSTNESS_CRASH_CATEGORIES = frozenset({"numeric-format", "whitespace", "pairs", "shell-metachar", "unicode", "long",
+                                         "punctuation", "quotes", "date-format"})
 
 
 def _evaluate(case: Case, before: RunResult, after: RunResult, opts: CompareOptions,
@@ -590,7 +592,8 @@ def _run(plan: Plan, cfg: Config) -> dict:
     if server is not None:
         inv_b, inv_a = server[1](inv_b), server[1](inv_a)
 
-    robustness = not cfg.attacks and not cfg.strict_robustness and plan.output == "csv"
+    # Not for a repair (an incident input): there the fix is judged on whether it handles odd input.
+    robustness = not cfg.attacks and not cfg.strict_robustness and plan.output == "csv" and plan.incident is None
 
     def one(case: Case):
         case_dir = plan.work / "cases" / case.id
