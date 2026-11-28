@@ -67,6 +67,9 @@ class Config:
     # A data change (attacks off) that crashes on a malformed-text input the original ran (a number written 2_500,
     # padded with spaces ...) is reported as a robustness finding, not a failure; a changed VALUE always fails.
     strict_robustness: bool = False
+    # Library migrations (pandas -> Polars ...) print the same number differently ("1" / "1.0", "1e+30" / "1e30"):
+    # compare numbers by value (exact decimal equality; a lost digit still differs, "007" stays text).
+    same_numbers: bool = False
     # Differences someone marked as intended ([[accept]] in fixwitness.toml): inputs of that category
     # (and column) for that target are reported as "reviewed", not failed.
     accept: list[dict] | None = None

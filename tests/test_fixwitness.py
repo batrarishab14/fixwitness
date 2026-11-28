@@ -2292,6 +2292,20 @@ class RobustnessFindingsTests(TempDirTest):
         result = self.run_pair("float(v) * 1.5")
         self.assertEqual(result["verdict"], "FAIL")
 
+    def test_the_same_number_written_differently_is_not_a_difference(self):
+        from fixwitness.compare import CompareOptions, compare
+        o = CompareOptions(mode="csv", numeric_forms=True)
+        same = lambda x, y: compare(f"x\n{x}\n".encode(), f"x\n{y}\n".encode(), o)[0] != "changed"
+        self.assertTrue(same("1", "1.0"))
+        self.assertTrue(same("1e+30", "1e30"))
+        self.assertTrue(same("-0.0", "0.0"))
+        # but a lost digit, a different value and a code with leading zeros are still differences
+        self.assertFalse(same("12345678901234567890", "12345678901234567891"))
+        self.assertFalse(same("999999999999999999999999999999", "1e30"))
+        self.assertFalse(same("1", "1.5"))
+        self.assertFalse(same("007", "7"))
+        self.assertEqual(compare(b"x\n1\n", b"x\n1.0\n", CompareOptions(mode="csv"))[0], "changed")  # the default
+
     def test_the_sign_of_a_zero_is_not_a_difference(self):
         from fixwitness.compare import CompareOptions, compare
         self.assertEqual(compare(b"x\n0.0\n", b"x\n-0.0\n", CompareOptions(mode="csv"))[0], "same-data")

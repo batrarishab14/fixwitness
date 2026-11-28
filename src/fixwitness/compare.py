@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import decimal
 import difflib
 import io
 import re
@@ -23,6 +24,8 @@ class CompareOptions:
     tolerance: float = 0.0                  # relative tolerance for numeric cells
     unordered: bool = False                 # compare rows (or lines) as a multiset
     columns_by_name: bool = False           # SQL results: columns are matched by name, not position
+    numeric_forms: bool = False             # opt in: "1" and "1.0", "1e+30" and "1e30" are the same number
+                                            # (default: an integer turning into a decimal is a change)
 
 
 def _short(value: str, limit: int = 80) -> str:
@@ -40,6 +43,22 @@ def _mask(value: str, patterns: list[re.Pattern]) -> str:
     for p in patterns:
         value = p.sub(MASK, value)
     return value
+
+
+_PLAIN_NUMBER = re.compile(r"-?(?:[0-9]+(?:[.][0-9]*)?|[.][0-9]+)(?:[eE][+-]?[0-9]+)?")
+
+
+def _same_number(a: str, b: str) -> bool:
+    """The same number written differently ("1" / "1.0", "1e+30" / "1e30", "-0.0" / "0.0"). Exact decimal
+    equality, so a lost digit still differs; text such as "007" (a code, not a number) is left alone."""
+    if not (_PLAIN_NUMBER.fullmatch(a) and _PLAIN_NUMBER.fullmatch(b)):
+        return False
+    if re.match(r"-?0[0-9]", a) or re.match(r"-?0[0-9]", b):
+        return False
+    try:
+        return decimal.Decimal(a) == decimal.Decimal(b)
+    except decimal.InvalidOperation:
+        return False
 
 
 def _both_zero(a: str, b: str) -> bool:
@@ -176,7 +195,8 @@ def _csv_details(header: list[str], b: list[list[str]], a: list[list[str]], opts
         for c in range(max(len(rb), len(ra))):
             vb = rb[c] if c < len(rb) else "<missing>"
             va = ra[c] if c < len(ra) else "<missing>"
-            if vb == va or _both_zero(vb, va) or (opts.tolerance and _num_equal(vb, va, opts.tolerance)):
+            if vb == va or (opts.numeric_forms and _same_number(vb, va)) or _both_zero(vb, va) \
+                    or (opts.tolerance and _num_equal(vb, va, opts.tolerance)):
                 continue
             name = header[c] if c < len(header) else f"col{c}"
             details.append(f"row {r}, {name}: {_short(vb)!r} -> {_short(va)!r}")
