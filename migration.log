@@ -1,0 +1,22 @@
+task                   variant            correct really_diff sample_test default tuned  tuned2   --same-numbers
+T1-customer-revenue    correct            True    False       False       FAIL     PASS     PASS     FAIL
+T1-customer-revenue    keeps_null_group   False   True        False       FAIL     FAIL     FAIL     FAIL
+T1-customer-revenue    len_not_count      False   True        True        FAIL     FAIL     FAIL     FAIL
+T2-percentiles         correct            True    False       False       FAIL     PASS     PASS     FAIL
+T2-percentiles         default_quantile   False   True        True        FAIL     FAIL     FAIL     FAIL
+T3-top-orders          correct            True    False       False       FAIL     FAIL     FAIL     FAIL
+T3-top-orders          nulls_first        False   True        True        FAIL     FAIL     FAIL     FAIL
+T4-spread              correct            True    False       False       PASS     PASS     PASS     PASS
+T4-spread              population_std     False   True        True        FAIL     FAIL     FAIL     FAIL
+T5-ratio               correct            True    False       False       PASS     PASS     PASS     PASS
+T5-ratio               floor_division     False   True        True        FAIL     FAIL     FAIL     FAIL
+T6-fill-missing        correct            True    False       False       PASS     PASS     PASS     PASS
+T6-fill-missing        fill_dropped       False   True        True        FAIL     FAIL     FAIL     FAIL
+T7-first-per-group     correct            True    False       False       FAIL     FAIL     FAIL     PASS
+T7-first-per-group     keeps_last         False   True        True        FAIL     FAIL     FAIL     FAIL
+T8-clean-text          correct            True    False       False       PASS     PASS     PASS     PASS
+T8-clean-text          strip_dropped      False   True        True        FAIL     FAIL     FAIL     FAIL
+
+really different migrations: 9; caught by sample test 8, by fixwitness default 9, tuned 9, tuned2 9, --same-numbers 9
+correct migrations: 8; false alarms: default 4, tuned 2, tuned2 2, --same-numbers 3; verdicts default ['FAIL', 'PASS'], tuned ['FAIL', 'PASS'], tuned2 ['FAIL', 'PASS']
+sample: 20 rows; NULL cust 0, NULL amount 1

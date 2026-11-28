@@ -1,0 +1,18 @@
+task,variant,correct,models,really_different,sample_test_catches,verdict,changed,identical,seconds,error,verdict_tuned,changed_tuned,verdict_tuned2,changed_tuned2,verdict_migration,changed_migration,fixwitness_catches,tuned_catches,tuned2_catches,migration_catches
+T1-customer-revenue,correct,True,drops the null customer like groupby does,False,False,FAIL,1,232,227,,PASS,0,PASS,0,FAIL,1,True,False,False,True
+T1-customer-revenue,keeps_null_group,False,group_by keeps the NULL customer as a group; groupby dropped it,True,False,FAIL,2,231,230,,FAIL,1,FAIL,1,FAIL,2,True,True,True,True
+T1-customer-revenue,len_not_count,False,"pl.len() counts rows, count() counted non-null amounts",True,True,FAIL,137,96,250,,FAIL,51,FAIL,38,FAIL,137,True,True,True,True
+T2-percentiles,correct,True,quantile with linear interpolation,False,False,FAIL,6,224,217,,PASS,0,PASS,0,FAIL,6,True,False,False,True
+T2-percentiles,default_quantile,False,"Polars quantile defaults to nearest, pandas to linear",True,True,FAIL,38,192,219,,FAIL,8,FAIL,2,FAIL,38,True,True,True,True
+T3-top-orders,correct,True,"nulls last, like pandas",False,False,FAIL,2,230,203,,FAIL,1,FAIL,1,FAIL,1,True,True,True,True
+T3-top-orders,nulls_first,False,"Polars sorts NULL first by default, pandas last",True,True,FAIL,194,38,251,,FAIL,66,FAIL,43,FAIL,194,True,True,True,True
+T4-spread,correct,True,sample standard deviation (ddof=1),False,False,PASS,0,231,210,,PASS,0,PASS,0,PASS,0,False,False,False,False
+T4-spread,population_std,False,ddof=0 (numpy habit) instead of the sample deviation,True,True,FAIL,230,1,286,,FAIL,71,FAIL,43,FAIL,230,True,True,True,True
+T5-ratio,correct,True,true division,False,False,PASS,0,231,217,,PASS,0,PASS,0,PASS,0,False,False,False,False
+T5-ratio,floor_division,False,// truncates where / did not,True,True,FAIL,230,1,266,,FAIL,71,FAIL,43,FAIL,230,True,True,True,True
+T6-fill-missing,correct,True,fill_null(0) kept,False,False,PASS,0,231,200,,PASS,0,PASS,0,PASS,0,False,False,False,False
+T6-fill-missing,fill_dropped,False,the fillna step was lost in the migration,True,True,FAIL,192,39,252,,FAIL,63,FAIL,41,FAIL,192,True,True,True,True
+T7-first-per-group,correct,True,"keep the first row of each group, ordered by id",False,False,FAIL,1,232,227,,FAIL,1,FAIL,1,PASS,0,True,True,True,False
+T7-first-per-group,keeps_last,False,keep='last' instead of the first row,True,True,FAIL,3,230,207,,FAIL,3,FAIL,2,FAIL,2,True,True,True,True
+T8-clean-text,correct,True,strip and lower,False,False,PASS,0,232,181,,PASS,0,PASS,0,PASS,0,False,False,False,False
+T8-clean-text,strip_dropped,False,the strip was lost in the migration,True,True,FAIL,6,226,131,,FAIL,6,FAIL,1,FAIL,6,True,True,True,True
