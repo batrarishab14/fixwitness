@@ -58,6 +58,7 @@ def _overrides(args: argparse.Namespace) -> dict:
         "tolerance": args.tolerance, "unordered": True if args.unordered else None,
         "auto_ignore_unstable": False if args.no_auto_ignore else None,
         "shrink": False if getattr(args, "no_shrink", False) else None,
+        "exercise_check": False if getattr(args, "no_exercise_check", False) else None,
         "max_cases": args.max_cases, "seed": args.seed, "timeout": args.timeout, "workers": args.workers,
         "pass_env": args.pass_env or None, "allow_any_command": True if args.allow_any_command else None,
         "no_network": True if args.no_network else None,
@@ -412,6 +413,8 @@ def _selection_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--no-auto-ignore", action="store_true", help="don't ignore columns that are not deterministic")
     p.add_argument("--no-shrink", action="store_true",
                    help="don't shrink each difference to the smallest input that shows it")
+    p.add_argument("--no-exercise-check", action="store_true",
+                   help="don't turn a PASS into INCONCLUSIVE when no input reaches what the change touched")
     p.add_argument("--max-cases", type=int)
     p.add_argument("--seed", type=int)
     p.add_argument("--timeout", type=float, help="seconds per run (default 10)")

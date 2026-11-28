@@ -61,6 +61,9 @@ class Config:
     unordered: bool = False
     auto_ignore_unstable: bool = True
     shrink: bool = True                     # shrink each difference to the smallest input that shows it
+    # A PASS on code no input reached proves nothing: report "not exercisable with this data" instead
+    # (INCONCLUSIVE) when the change tests a value no input has, or uses a column that is empty everywhere
+    exercise_check: bool = True
     # Differences someone marked as intended ([[accept]] in fixwitness.toml): inputs of that category
     # (and column) for that target are reported as "reviewed", not failed.
     accept: list[dict] | None = None

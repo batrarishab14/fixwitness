@@ -20,6 +20,8 @@ Honest state: ZERO outside users, one ready-but-unsubmitted outside fix (Zendesk
 - The user is near a weekly usage limit (warning, not blocked; resets Thu 3 Dec 20:00 UTC). Prefer cheap steps; do not poll CI.
 
 ## 3. Repo and branch state (VERIFIED 27 Nov)
+- **UPDATE 27 Nov 20:50 UTC: PR #2 was MERGED into main by the user's instruction ("merge it if it adds value"); main HEAD is now e33db04.** All checks were green on its last commit (a582481). CI on main after the merge was not yet checked at this point. Wherever this file says PR #2 is a draft or unmerged, that is out of date. The branch `claude/fixwitness-memory-leak-8ej3fi` was restarted from the new main for further docs work.
+- exercise-check, exercise-synthesis and mutation-bench are still unmerged; each may now need `main` merged into it (study/DEVLOG_v0.6.md will conflict with exercise-synthesis).
 - `main` HEAD b5945cb, CI green. Contains fixwitness 0.6 (PR #1 merged) and the Claude Skill at `.claude/skills/fixwitness-check/SKILL.md`.
 - `claude/fixwitness-memory-leak-8ej3fi` = DRAFT PR #2 into main (head 4e77fb3, docs-only on top of ddeec08). Memory-runaway fix. See section 4.
   CI: last fully green commit 723ae81 (tests + data, push + PR). Checks on ddeec08 were still running at hand-off (`data` takes ~90 min). Check them first.
@@ -86,3 +88,12 @@ skipped locally for lack of libraries). The committed benchmark result files are
 
 ## 9. Open question the user has not answered
 Whether to start with step 4 (find still-open bugs in popular non-dbt products) or step 3 (fix the rolling-window limit). My recommendation: step 3 first (small, makes finance/time-series results trustworthy), then step 4.
+
+## 10. OpenBB bug search, 27 Nov evening (VERIFIED by reading; nothing sent to OpenBB)
+- OpenBB's recent history has almost no clean refactor/fix pairs (large "[Feature]" merge commits), so a before/after sweep is not practical there.
+- Read and checked against published definitions: Parkinson, Garman-Klass, Rogers-Satchell, Hodges-Tompkins, standard deviation, Yang-Zhang (already fixed upstream),
+  Clenow momentum, cones, Sharpe, Sortino, Omega, skew, kurtosis, Fibonacci direction logic: no bug found.
+- ONE minor lead: `calculate_fib_levels` (openbb_technical/helpers.py:587) uses `[0, 0.235, 0.382, 0.5, 0.618, 0.65, 1]`. The standard Fibonacci retracement ratio is 0.236
+  (0.2360679...), and 0.65 is not a standard level (0.786 is). Effect: the 23.5% level is off by 0.1% of the price range. It has been in the code since OpenBB Platform v4 (2023).
+  Also hard-coded in the charting plugin and a test constant. Low impact; whether upstream already knows is UNVERIFIED (issues not searchable from the sandbox). Do not open anything without the user's approval.
+- Conclusion: reading well-reviewed formulas finds little. Better yield needs either tools on code nobody has reviewed, or contributing where maintainers already want fixes.
